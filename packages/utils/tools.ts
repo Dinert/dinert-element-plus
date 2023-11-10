@@ -1,5 +1,4 @@
 
-import type {RewriteAxiosResponse} from '@/service/types'
 // 浏览器的各种存储
 export const storage = (name: 'localStorage' | 'sessionStorage', key: string, value?: any) => {
     if (key === 'remove') {
@@ -117,7 +116,7 @@ export function formatPhone(value: string): string {
 }
 
 // 下载文件
-export const downFile = (response: RewriteAxiosResponse): any => {
+export const downFile = (response: any): any => {
     const content = response.data
     // blob内容是json，不下载
     if (response.headers['content-type'] === 'application/json;charset=UTF-8') {
@@ -176,59 +175,6 @@ export const escapeHTML = (str: any) => {
     })
 }
 
-export const parseHTML = (html: string) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html')
-    console.log(doc.body.innerHTML, 'doc.body.innerHTML')
-    return doc.body.innerHTML
-}
-
-// 转化数组为分行的字符串
-export const formatterWrapArray = (cellValue: any, splitString: string = '<br/>', isHtml: boolean = true) => {
-    if (cellValue instanceof Array) {
-        const joinValue = cellValue.map(item => {
-            return isHtml ? escapeHTML(item) : item
-        }).join(splitString)
-        return joinValue || '-'
-    } else if (cellValue) {
-        return cellValue
-    } else {
-        return '-'
-    }
-}
-
-/**
- *
- * @returns 获取浏览器的名称和版本
- */
-export function getBrowserInfo(): string[] {
-    const agent = navigator.userAgent.toLowerCase()
-
-    const regStr_ie = /msie [\d.]+;/gi
-    const regStr_ff = /firefox\/[\d.]+/gi
-    const regStr_chrome = /chrome\/[\d.]+/gi
-    const regStr_saf = /safari\/[\d.]+/gi
-    // IE
-    if (agent.indexOf('msie') > 0)
-    {
-        return agent.match(regStr_ie) || []
-    }
-
-    // firefox
-    if (agent.indexOf('firefox') > 0)
-    {
-        return agent.match(regStr_ff) || []
-    }
-
-    // Safari
-    if (agent.indexOf('safari') > 0 && !agent.includes('chrome'))
-    {
-        return agent.match(regStr_saf) || []
-    }
-
-    // Chrome
-    if (agent.indexOf('chrome') > 0)
-    {
-        return agent.match(regStr_chrome) || []
-    }
-    return []
+export const columnProp = (prop: string) => {
+    return 'column_' + prop.split('.').join('_')
 }

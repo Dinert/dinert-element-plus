@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, render} from 'vue'
+import {ref} from 'vue'
 
 
 const tablePage = ref({
@@ -36,9 +36,9 @@ const tablePage = ref({
     }
 })
 
-const fn = scope => {
-    console.log(scope)
-}
+// const fn = scope => {
+//     console.log(scope)
+// }
 </script>
 
 <template>
@@ -46,6 +46,9 @@ const fn = scope => {
         <dinert-table :table="tablePage.table">
             <template #header-left>
                 <el-button type="primary">新增</el-button>
+            </template>
+            <template #column_aaa>
+                32132
             </template>
             <!-- <template #default="scope">
                 {{ fn(scope) }}

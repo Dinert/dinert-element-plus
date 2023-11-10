@@ -1,6 +1,6 @@
 import {defineComponent, ref, computed, nextTick, watch} from 'vue'
 import type {RewriteTableColumnCtx, RewriteTableProps, DTableProps, CtxType} from './types/index'
-import {getUuid, convertToFlat} from '@/utils/tools'
+import {getUuid, convertToFlat, columnProp} from '@/utils/tools'
 import {resizeTaleHeight} from './hooks'
 import DinertRecuveTableColumn from './dinert-recuve-table-column'
 
@@ -52,11 +52,12 @@ export default defineComponent({
         },
         tableSlot: {
             type: Boolean,
-            default: true
+            default: false
         },
     },
 
     setup(props, ctx) {
+        const slots = ctx.slots
 
         const tableColumns = computed<RewriteTableColumnCtx[]>(() => {
             return props.table?.tableColumns || []
@@ -87,15 +88,27 @@ export default defineComponent({
                         row-key={props.table?.rowKey}
                         on={props.table?.on}
                     >
+                        {
+                            props.tableSlot
+                                ? <DinertRecuveTableColumn table={props.table}
+                                    table-columns={tableColumns.value}
+                                    only-class={onlyClass.value}
+                                    v-slots={ctx.slots}
+                                    popover-value={popoverValue.value}
+                                >
+                                </DinertRecuveTableColumn>
+                                : <DinertRecuveTableColumn table={props.table}
+                                    table-columns={tableColumns.value}
+                                    only-class={onlyClass.value}
+                                    v-slots={{
+                                        default: (scope: any) => slots[scope.prop && columnProp(scope.prop)]?.(scope)
+                                    }}
+                                    popover-value={popoverValue.value}
+                                >
 
-                        <DinertRecuveTableColumn table={props.table}
-                            table-columns={tableColumns.value}
-                            only-class={onlyClass.value}
-                            v-slots={ctx.slots}
-                            popover-value={popoverValue.value}
-                        >
+                                </DinertRecuveTableColumn>
+                        }
 
-                        </DinertRecuveTableColumn>
                     </el-table>
                 </div>
 

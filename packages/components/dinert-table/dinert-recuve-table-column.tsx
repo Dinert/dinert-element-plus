@@ -168,12 +168,16 @@ export default defineComponent({
                                                 const deepValue = getPropByPath(scope.row, item.prop || '')
                                                 const value = dataTransformRod(deepValue, props.table?.errData)
 
+                                                const slotValue = defaultSlot?.({...scope, prop: item.prop}) as any
+                                                const isSlotValue = slotValue[0] && slotValue[0].children
+
                                                 if (formatter) {
                                                     const htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index)
                                                     const escapeValue = escapeHTML(htmlValue)
+
                                                     return (
                                                         <>
-                                                            {defaultSlot
+                                                            {isSlotValue
                                                                 ? <div class="cell-item">{ defaultSlot?.({...scope, prop: item.prop})}</div>
                                                                 : <div class="cell-item" v-html={escapeValue}></div>}
 
@@ -192,7 +196,7 @@ export default defineComponent({
                                                     return (
                                                         <>
                                                             <div class="cell-item">
-                                                                <div class="cell-item">{ defaultSlot?.({...scope, prop: item.prop}) || value}</div>
+                                                                <div class="cell-item">{ (isSlotValue && slotValue) || value}</div>
                                                             </div>
                                                             <dinert-recuve-table-column table={props.table}
                                                                 key={item.prop}
@@ -209,9 +213,12 @@ export default defineComponent({
                                                 }
                                             },
                                             header: (scope: any) => {
+
+                                                const slotValue = defaultSlot?.({header: 'header_' + item.prop, data: item, ...scope}) as any
+                                                const isSlotValue = slotValue[0] && slotValue[0].children
                                                 if (defaultSlot) {
                                                     return (
-                                                        <>  {defaultSlot?.({header: 'header_' + item.prop, data: item, ...scope}) || <span>{scope.column.label}</span>}
+                                                        <>  {(isSlotValue && slotValue) || <span>{scope.column.label}</span>}
                                                             {item.setting && props.table?.setting !== false && settingRender((props as RecuveTableColumnProps))}
                                                         </>
                                                     )
