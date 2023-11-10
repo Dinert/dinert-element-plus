@@ -1,0 +1,166 @@
+
+.tree-item {
+    width: 100%;
+
+    .el-tooltip__trigger {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.el-popover-classify {
+    li:first-child {
+        border-bottom: 1px solid var(--el-fill-color);
+        line-height: 32px;
+    }
+
+    .el-tree-node {
+        .el-tree-node__expand-icon.is-leaf {
+            display: none;
+        }
+    }
+}
+
+.dinert-table {
+    display: flex;
+    padding: 20px;
+    border-radius: var(--el-bg-radius);
+    background-color: var(--el-bg-color);
+    flex-direction: column;
+    box-sizing: border-box;
+
+    .dinert-table-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        text-align: right;
+
+        .el-popover-classify li .el-checkbox {
+            width: 100%;
+            line-height: 24px;
+            height: 24px;
+        }
+
+        .dinert-table-header-left {
+            text-align: left;
+        }
+
+        .dinert-table-header-right {
+            .el-tree-node__expand-icon.is-leaf {
+                display: none;
+            }
+        }
+    }
+
+    .dinert-table-body {
+        flex: 1;
+        height: 0;
+
+        .el-table {
+            --el-table-header-bg-color: #f4f4f4;
+            --el-border-color-lighter: #e4e4e4;
+
+            &--border {
+                &::after,
+                &::before {
+                    // display: none;
+                }
+            }
+
+            .el-table__border-left-patch {
+                // display: none;
+            }
+
+            .el-popper {
+                max-width: 50%;
+            }
+
+            .el-table__header {
+                // .el-table__cell {
+                //     &:last-child {
+                //         border-right: none;
+                //     }
+
+                //     border-right: none;
+                //     border-bottom: none;
+                // }
+
+                .cell {
+                    color: var(--zp-color-secondary-text-title);
+
+                    .setting-icon {
+                        vertical-align: -1px;
+                        margin-left: 4px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .el-table__body-wrapper {
+                td {
+                    // border-right: none;
+                    color: var(--zp-color-secondary-text-title);
+
+                    .cell {
+                        &.el-tooltip > .cell-item {
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                    }
+                }
+
+                .operations {
+                    .cell {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .el-link {
+                            margin-right: 12px;
+                        }
+
+                        .el-svg-icon {
+                            font-size: 14px;
+                            color: var(--el-color-primary);
+                            cursor: pointer;
+                            flex: 1;
+
+                            &.delete {
+                                color: var(--el-color-danger);
+                            }
+                        }
+
+                        .svg-icon {
+                            width: 16px;
+                            height: 16px;
+                            vertical-align: -2px;
+                            flex: 1;
+                            color: var(--el-color-primary);
+                            cursor: pointer;
+                            fill: var(--el-color-primary);
+
+                            &.f-14 {
+                                width: 14px;
+                                height: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .dinert-table-footer {
+        display: flex;
+        margin-top: 16px;
+
+        .el-pagination {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+}
