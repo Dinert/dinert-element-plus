@@ -44,9 +44,8 @@ export default defineComponent({
             default: false
         },
     },
-
+    emits: ['size-change', 'current-change', 'prev-click', 'next-click'],
     setup(props) {
-
         const resizeTaleHeightFn = () => {
             resizeTaleHeight(
                 tableRef.value,
@@ -122,6 +121,8 @@ export default defineComponent({
         }
     },
     render() {
+        const slots = this.tableSlot ? this.$slots : {default: (scope: any) => this.$slots[scope.prop && columnProp(scope.prop)]?.(scope)}
+
 
         return (
             <section class={'dinert-table'}>
@@ -212,26 +213,13 @@ export default defineComponent({
                         row-key={this.table?.rowKey}
                         on={this.table?.on}
                     >
-                        {
-                            this.tableSlot
-                                ? <DinertRecuveTableColumn table={this.table}
-                                    table-columns={this.tableColumns}
-                                    only-class={onlyClass.value}
-                                    v-slots={this.$slots}
-                                    popover-value={popoverValue.value}
-                                >
-                                </DinertRecuveTableColumn>
-                                : <DinertRecuveTableColumn table={this.table}
-                                    table-columns={this.tableColumns}
-                                    only-class={onlyClass.value}
-                                    v-slots={{
-                                        default: (scope: any) => this.$slots[scope.prop && columnProp(scope.prop)]?.(scope)
-                                    }}
-                                    popover-value={popoverValue.value}
-                                >
-
-                                </DinertRecuveTableColumn>
-                        }
+                        <DinertRecuveTableColumn table={this.table}
+                            table-columns={this.tableColumns}
+                            only-class={onlyClass.value}
+                            v-slots={slots}
+                            popover-value={popoverValue.value}
+                        >
+                        </DinertRecuveTableColumn>
 
                     </el-table>
                 </div>
@@ -245,6 +233,10 @@ export default defineComponent({
                         layout={'total, sizes, prev, pager, next, jumper'}
                         total={100}
                         {...this.table?.pagination}
+                        onSizeChange={(val: number) => this.$emit('size-change', val)}
+                        onCurrentChange={(val: number) => this.$emit('size-change', val)}
+                        onPrevClick={(val: number) => this.$emit('prev-click', val)}
+                        onNextClick={(val: number) => this.$emit('next-click', val)}
                         on={this.table?.on}
                     >
 

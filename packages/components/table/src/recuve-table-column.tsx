@@ -170,7 +170,7 @@ export default defineComponent({
                                                 const value = dataTransformRod(deepValue, props.table?.errData)
 
                                                 const slotValue = defaultSlot?.({...scope, prop: item.prop}) as any
-                                                const isSlotValue = slotValue[0] && slotValue[0].children
+                                                const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
 
                                                 if (formatter) {
                                                     const htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index)
@@ -216,7 +216,7 @@ export default defineComponent({
                                             header: (scope: any) => {
 
                                                 const slotValue = defaultSlot?.({header: 'header_' + item.prop, data: item, ...scope}) as any
-                                                const isSlotValue = slotValue[0] && slotValue[0].children
+                                                const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
                                                 if (defaultSlot) {
                                                     return (
                                                         <>  {(isSlotValue && slotValue) || <span>{scope.column.label}</span>}

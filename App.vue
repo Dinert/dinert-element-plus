@@ -32,14 +32,6 @@ const tablePage = ref({
         ],
         data: [
             {
-                aaa: 'aaaaa',
-                'bbb': {
-                    c: '1231'
-                },
-                aaa1: 'aaaaa1',
-                aaa2: 'aaaaa2'
-            },
-            {
                 aaa: 'aaaaa'
             },
             {
@@ -117,9 +109,9 @@ const tablePage = ref({
 
 const tableRef = ref(null)
 
-// const fn = scope => {
-//     console.log(scope)
-// }
+const fn = scope => {
+    console.log(scope)
+}
 
 // setTimeout(() => {
 //     tablePage.value.table.data = [
@@ -142,18 +134,29 @@ const tableRef = ref(null)
 onMounted(() => {
     console.log(tableRef.value, '1321312312')
 })
+
+const sizeChange = val => {
+    console.log(val, '1321')
+}
 </script>
 
 <template>
     <div class="home">
-        <dinert-table ref="tableRef" :table="tablePage.table">
+        <dinert-table-page ref="tableRef" :table="tablePage.table"
+            @size-change="sizeChange"
+            @current-change="sizeChange"
+            @prev-click="sizeChange"
+            @next-click="sizeChange"
+        >
             <template #header-left>
                 <el-button type="primary">新增</el-button>
+                3213
             </template>
+
             <!-- <template #column_aaa>
                 32132
             </template> -->
-            <!-- <template #default="scope">
+            <template #default="scope">
                 {{ fn(scope) }}
                 <template v-if="scope.header">
                     {{ scope.column.label }}
@@ -161,8 +164,8 @@ onMounted(() => {
                 <template v-else>
                     {{ scope.row[scope.prop] }}
                 </template>
-            </template> -->
-        </dinert-table>
+            </template>
+        </dinert-table-page>
     </div>
 </template>
 
