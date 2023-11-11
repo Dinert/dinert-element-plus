@@ -13,14 +13,14 @@ export const checkTree = (data: Node, checked: boolean, childChecked: boolean) =
     data.checked = childChecked || checked
 }
 
-export const treeNode = (selectTable: any, treeData2: any) => {
+export const treeNode = async (selectTable: any, treeData2: any) => {
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < treeData2.length; i++) {
         if (treeData2[i].checked === undefined) {
             treeData2[i].checked = true
-            selectTable?.setChecked(treeData2[i].prop, true)
+            await selectTable?.setChecked(treeData2[i].prop, true)
         } else if (treeData2[i].checked !== undefined) {
-            selectTable?.setChecked(treeData2[i].prop, treeData2[i].checked)
+            await selectTable?.setChecked(treeData2[i].prop, treeData2[i].checked)
         }
         if (treeData2[i].children && treeData2[i].children.length) {
             treeNode(selectTable, treeData2[i].children)

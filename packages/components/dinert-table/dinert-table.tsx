@@ -1,7 +1,7 @@
 import {defineComponent, ref, computed, nextTick, watch, onMounted} from 'vue'
 import type {RewriteTableColumnCtx, RewriteTableProps} from './types/index'
 import {getUuid, convertToFlat, columnProp, getTreeNode} from '@/utils/tools'
-import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps} from './hooks'
+import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from './hooks'
 
 import DinertRecuveTableColumn from './dinert-recuve-table-column'
 import useWindowResize from '@/hooks/useWindowResize'
@@ -88,6 +88,19 @@ export default defineComponent({
         useWindowResize(() => {
             resizeTaleHeightFn()
         }, 100)
+
+
+        watch(() => props.table?.key, () => {
+            nextTick(async () => {
+                await treeNode(selectTable.value, props.table?.tableColumns)
+
+                setTimeout(() => {
+                    resizeTaleHeightFn()
+                })
+            })
+        }, {
+            immediate: true
+        })
 
         watch(() => tableColumns.value, () => {
             nextTick(() => {

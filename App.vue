@@ -4,8 +4,8 @@ import {onMounted, ref} from 'vue'
 
 const tablePage = ref({
     table: {
+        key: true,
         pagination: {
-            total: 200
         },
         tableColumns: [
             {
@@ -24,6 +24,11 @@ const tablePage = ref({
                 prop: 'bbb.c',
                 // setting: true
             },
+            {
+                label: '操作',
+                prop: 'operations',
+                setting: true
+            }
 
         ],
         data: [
@@ -117,6 +122,24 @@ const tableRef = ref(null)
 //     console.log(scope)
 // }
 
+setTimeout(() => {
+    tablePage.value.table.data = [
+        {
+            aaa: '1321312'
+        },
+        {
+            aaa: '1321312'
+        },
+        {
+            aaa: '1321312'
+        },
+        {
+            aaa: '1321312'
+        }
+    ]
+    tablePage.value.table.key = !tablePage.value.table.key
+}, 3000)
+
 onMounted(() => {
     console.log(tableRef.value, '1321312312')
 })
@@ -146,8 +169,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .home {
-    height: 100%;
-
     .dinert-table {
         display: flex;
         flex-direction: column;
