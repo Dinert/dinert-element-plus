@@ -44,7 +44,7 @@ export default defineComponent({
             default: false
         },
     },
-    emits: ['size-change', 'current-change', 'prev-click', 'next-click'],
+    emits: ['SizeChange', 'CurrentChange'],
     setup(props) {
         const resizeTaleHeightFn = () => {
             resizeTaleHeight(
@@ -233,10 +233,8 @@ export default defineComponent({
                         layout={'total, sizes, prev, pager, next, jumper'}
                         total={100}
                         {...this.table?.pagination}
-                        onSizeChange={(val: number) => this.$emit('size-change', val)}
-                        onCurrentChange={(val: number) => this.$emit('size-change', val)}
-                        onPrevClick={(val: number) => this.$emit('prev-click', val)}
-                        onNextClick={(val: number) => this.$emit('next-click', val)}
+                        onSizeChange={(val: number) => this.$emit('SizeChange', val)}
+                        onCurrentChange={(val: number) => this.$emit('CurrentChange', val)}
                         on={this.table?.on}
                     >
 

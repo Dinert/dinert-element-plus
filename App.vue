@@ -32,6 +32,14 @@ const tablePage = ref({
         ],
         data: [
             {
+                aaa: 'aaaaa',
+                'bbb': {
+                    c: '1231'
+                },
+                aaa1: 'aaaaa1',
+                aaa2: 'aaaaa2'
+            },
+            {
                 aaa: 'aaaaa'
             },
             {
@@ -143,6 +151,7 @@ const sizeChange = val => {
 <template>
     <div class="home">
         <dinert-table-page ref="tableRef" :table="tablePage.table"
+            :table-slot="true"
             @size-change="sizeChange"
             @current-change="sizeChange"
             @prev-click="sizeChange"
@@ -150,13 +159,11 @@ const sizeChange = val => {
         >
             <template #header-left>
                 <el-button type="primary">新增</el-button>
-                3213
             </template>
-
             <!-- <template #column_aaa>
                 32132
             </template> -->
-            <template #default="scope">
+            <!-- <template #default="scope">
                 {{ fn(scope) }}
                 <template v-if="scope.header">
                     {{ scope.column.label }}
@@ -164,17 +171,18 @@ const sizeChange = val => {
                 <template v-else>
                     {{ scope.row[scope.prop] }}
                 </template>
-            </template>
+            </template> -->
         </dinert-table-page>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .home {
+    height: 100%;
+
     .dinert-table {
         display: flex;
         flex-direction: column;
-        height: 100%;
     }
 }
 </style>
