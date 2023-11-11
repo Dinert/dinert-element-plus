@@ -1,6 +1,8 @@
+import {Plugin} from 'vue'
 import * as components from './components/index'
 
 export * from './components/index'
+
 import {App} from 'vue'
 
 export default {
@@ -9,4 +11,4 @@ export default {
             app.use((components as any)[c])
         }
     },
-}
+} as Plugin

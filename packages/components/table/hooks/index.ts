@@ -5,6 +5,7 @@ import type Node from 'element-plus/es/components/tree/src/model/node'
 import type {
     AllowDropType,
 } from 'element-plus/es/components/tree/src/tree.type'
+
 export const allShow = (selectTable: any, tableColumns: RewriteTableColumnCtx[]) => {
     selectTable?.setCheckedNodes(tableColumns)
 }

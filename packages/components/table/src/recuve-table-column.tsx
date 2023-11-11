@@ -1,7 +1,7 @@
 import {defineComponent, watch, ref, nextTick} from 'vue'
 
 import {getPropByPath, dataTransformRod, escapeHTML} from '@/utils/tools'
-import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from './hooks'
+import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@/components/table/hooks'
 import {Setting} from '@element-plus/icons-vue'
 import type {TableColumnCtx} from 'element-plus'
 
@@ -12,7 +12,7 @@ import type {
     RewriteTableProps,
     DTableProps,
     RewriteTableColumnCtx
-} from './types/index'
+} from '@/components/table/types/index'
 
 import type {PropType} from 'vue'
 
@@ -43,66 +43,6 @@ const mapWidth: Record<string, any> = {
     index: 60,
     selection: 40,
     expand: 40
-}
-
-const settingRender = (props: RecuveTableColumnProps) => {
-    return (
-        <el-popover
-            value={props.popoverValue}
-            onBeforeEnter={() => treeBeforeEnter((props as DTableProps))}
-            v-slots={
-                {
-                    default: () => (
-                        <ul class="el-popover-classify">
-                            <li>
-                                <el-link class="allSelect" underline={false}
-                                    type={'primary'} onClick={() => allShow(selectTable.value, props.table?.tableColumns || [])}
-                                >全选</el-link>
-                            </li>
-                            <el-tree
-                                ref={selectTable}
-                                draggable
-                                data={props.table?.tableColumns}
-                                default-expand-all
-                                show-checkbox
-                                node-key={'prop'}
-                                props={treeProps}
-                                allowDrop={allowDrop}
-                                onCheckChange={checkTree}
-                                onNodeDragEnd={(e: Node) => nodeDragEnd(e, (selectTable.value as any))}
-                                v-slots={
-                                    {
-                                        default: ({data}: {data: Node}) => (
-                                            <div class="text-dot tree-item">
-                                                <el-tooltip content={data.label}
-                                                    placement={'top'}
-                                                    disabled={data.label && data.label.length < 8}
-                                                    v-slots={
-                                                        {
-                                                            default: () => (<span>{ data.label }</span>)
-                                                        }
-                                                    }
-                                                >
-                                                </el-tooltip>
-                                            </div>
-                                        )
-                                    }
-                                }
-                            >
-
-                            </el-tree>
-                        </ul>
-                    ),
-                    reference: () => (
-                        <el-icon class="setting-icon">
-                            <Setting/>
-                        </el-icon>
-                    )
-
-                }
-            }
-        >
-        </el-popover>)
 }
 
 
@@ -137,7 +77,68 @@ export default defineComponent({
 
         const defaultSlot = ctx.slots.default
 
-        const dinertRecuveTableColumn = () => {
+        const settingRender = (props: RecuveTableColumnProps) => {
+            return (
+                <el-popover
+                    value={props.popoverValue}
+                    onBeforeEnter={() => treeBeforeEnter((props as DTableProps))}
+                    v-slots={
+                        {
+                            default: () => (
+                                <ul class="el-popover-classify">
+                                    <li>
+                                        <el-link class="allSelect" underline={false}
+                                            type={'primary'} onClick={() => allShow(selectTable.value, props.table?.tableColumns || [])}
+                                        >全选</el-link>
+                                    </li>
+                                    <el-tree
+                                        ref={selectTable}
+                                        draggable
+                                        data={props.table?.tableColumns}
+                                        default-expand-all
+                                        show-checkbox
+                                        node-key={'prop'}
+                                        props={treeProps}
+                                        allowDrop={allowDrop}
+                                        onCheckChange={checkTree}
+                                        onNodeDragEnd={(e: Node) => nodeDragEnd(e, (selectTable.value as any))}
+                                        v-slots={
+                                            {
+                                                default: ({data}: {data: Node}) => (
+                                                    <div class="text-dot tree-item">
+                                                        <el-tooltip content={data.label}
+                                                            placement={'top'}
+                                                            disabled={data.label && data.label.length < 8}
+                                                            v-slots={
+                                                                {
+                                                                    default: () => (<span>{ data.label }</span>)
+                                                                }
+                                                            }
+                                                        >
+                                                        </el-tooltip>
+                                                    </div>
+                                                )
+                                            }
+                                        }
+                                    >
+
+                                    </el-tree>
+                                </ul>
+                            ),
+                            reference: () => (
+                                <el-icon class="setting-icon">
+                                    <Setting/>
+                                </el-icon>
+                            )
+
+                        }
+                    }
+                >
+                </el-popover>)
+        }
+
+
+        return () => {
             return (
                 <>
                     {
@@ -258,7 +259,5 @@ export default defineComponent({
                 </>
             )
         }
-
-        return dinertRecuveTableColumn
     }
 })

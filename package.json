@@ -2,7 +2,6 @@
   "name": "@dinert/element-plus",
   "version": "1.0.0",
   "description": "基于vue3封装的element-plus包",
-  "main": "index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
@@ -12,6 +11,19 @@
     "element-ui",
     "@dinert"
   ],
+  "main": "lib/index.js",
+  "module": "es/packages/index.mjs",
+  "types": "es/components/index.d.ts",
+  "exports": {
+    ".": {
+        "types": "./es/components/index.d.ts",
+        "import": "./es/packages/index.mjs",
+        "require": "./lib/index.js"
+    },
+    "./style": {
+        "import": "./es/style.css"
+    }
+  },
   "author": "dinert",
   "license": "MIT",
   "devDependencies": {
@@ -19,6 +31,7 @@
     "@babel/eslint-parser": "^7.22.15",
     "@babel/eslint-plugin": "^7.22.10",
     "@element-plus/icons-vue": "^2.1.0",
+    "@rollup/plugin-commonjs": "^25.0.7",
     "@types/node": "^20.9.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",

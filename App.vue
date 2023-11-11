@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
 
-
 const tablePage = ref({
     table: {
         key: true,
@@ -122,23 +121,23 @@ const tableRef = ref(null)
 //     console.log(scope)
 // }
 
-setTimeout(() => {
-    tablePage.value.table.data = [
-        {
-            aaa: '1321312'
-        },
-        {
-            aaa: '1321312'
-        },
-        {
-            aaa: '1321312'
-        },
-        {
-            aaa: '1321312'
-        }
-    ]
-    tablePage.value.table.key = !tablePage.value.table.key
-}, 3000)
+// setTimeout(() => {
+//     tablePage.value.table.data = [
+//         {
+//             aaa: '1321312'
+//         },
+//         {
+//             aaa: '1321312'
+//         },
+//         {
+//             aaa: '1321312'
+//         },
+//         {
+//             aaa: '1321312'
+//         }
+//     ]
+//     tablePage.value.table.key = !tablePage.value.table.key
+// }, 3000)
 
 onMounted(() => {
     console.log(tableRef.value, '1321312312')

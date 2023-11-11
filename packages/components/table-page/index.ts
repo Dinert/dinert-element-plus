@@ -1,4 +1,4 @@
-import _DinertTable from './dinert-table'
+import _TablePage from './src'
 
 import type {App, Plugin} from 'vue'
 type SFCWithInstall<T> = T & Plugin
@@ -10,5 +10,5 @@ const withInstall = <T>(comp: T) => {
     }
     return comp as SFCWithInstall<T>
 }
-export const DinertTable = withInstall(_DinertTable)
-export default DinertTable
+export const TablePage = withInstall(_TablePage)
+export default TablePage

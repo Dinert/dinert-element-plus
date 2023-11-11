@@ -1,9 +1,9 @@
 import {defineComponent, ref, computed, nextTick, watch, onMounted} from 'vue'
-import type {RewriteTableColumnCtx, RewriteTableProps} from './types/index'
+import type {RewriteTableColumnCtx, RewriteTableProps} from '@/components/table/types/index'
 import {getUuid, convertToFlat, columnProp, getTreeNode} from '@/utils/tools'
-import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from './hooks'
+import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from '@/components/table/hooks'
 
-import DinertRecuveTableColumn from './dinert-recuve-table-column'
+import DinertRecuveTableColumn from './recuve-table-column'
 import useWindowResize from '@/hooks/useWindowResize'
 import {ArrowDown} from '@element-plus/icons-vue'
 
@@ -12,9 +12,7 @@ import type {ElTable, ElSelect} from 'element-plus'
 import type {PropType} from 'vue'
 import type Node from 'element-plus/es/components/tree/src/model/node'
 
-
 import '@/assets/scss/dinert-table.scss'
-
 
 const popoverValue = ref(false)
 const onlyClass = ref('table_' + getUuid())
@@ -200,9 +198,9 @@ export default defineComponent({
 
                 {
                     this.$slots['header-footer']
-            && <header class={'dinert-table-headerFooter'} ref={headerFooterRef}>
-                {this.$slots['header-footer']?.()}
-            </header>
+        && <header class={'dinert-table-headerFooter'} ref={headerFooterRef}>
+            {this.$slots['header-footer']?.()}
+        </header>
                 }
 
                 <div ref={bodyRef} class="dinert-table-body">
