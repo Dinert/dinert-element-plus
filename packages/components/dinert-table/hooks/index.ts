@@ -1,6 +1,6 @@
 
 
-import type {RewriteTableColumnCtx, SelectTable, RewriteTableProps} from '@/components/common/dinert-table/types/index'
+import type {RewriteTableColumnCtx, SelectTable, RewriteTableProps} from '../types/index'
 import type Node from 'element-plus/es/components/tree/src/model/node'
 import type {
     AllowDropType,

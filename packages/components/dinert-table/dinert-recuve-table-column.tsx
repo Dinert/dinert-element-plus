@@ -69,7 +69,7 @@ const settingRender = (props: RecuveTableColumnProps) => {
                                 props={treeProps}
                                 allowDrop={allowDrop}
                                 onCheckChange={checkTree}
-                                onNodeDragEnd={(e: Node) => nodeDragEnd(e, selectTable.value)}
+                                onNodeDragEnd={(e: Node) => nodeDragEnd(e, (selectTable.value as any))}
                                 v-slots={
                                     {
                                         default: ({data}: {data: Node}) => (

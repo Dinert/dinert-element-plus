@@ -1,15 +1,17 @@
-import {defineComponent, ref, computed, nextTick, watch} from 'vue'
-import type {RewriteTableColumnCtx, RewriteTableProps, DTableProps, CtxType} from './types/index'
-import {getUuid, convertToFlat, columnProp} from '@/utils/tools'
-import {resizeTaleHeight} from './hooks'
+import {defineComponent, ref, computed, nextTick, watch, onMounted} from 'vue'
+import type {RewriteTableColumnCtx, RewriteTableProps} from './types/index'
+import {getUuid, convertToFlat, columnProp, getTreeNode} from '@/utils/tools'
+import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps} from './hooks'
+
 import DinertRecuveTableColumn from './dinert-recuve-table-column'
+import useWindowResize from '@/hooks/useWindowResize'
+import {ArrowDown} from '@element-plus/icons-vue'
 
 
-import type {ElTable} from 'element-plus'
+import type {ElTable, ElSelect} from 'element-plus'
 import type {PropType} from 'vue'
-import type {ElSelect} from 'element-plus'
+import type Node from 'element-plus/es/components/tree/src/model/node'
 
-import renderHeader from './dinert-table-header'
 
 import '@/assets/scss/dinert-table.scss'
 
@@ -23,17 +25,6 @@ const headerRef = ref<HTMLElement | null>(null)
 const bodyRef = ref<HTMLElement | null>(null)
 const footerRef = ref<HTMLElement | null>(null)
 const headerFooterRef = ref<HTMLElement | null>(null)
-
-const resizeTaleHeightFn = (props: DTableProps) => {
-    resizeTaleHeight(
-        tableRef.value,
-        headerRef.value,
-        bodyRef.value,
-        footerRef.value,
-        headerFooterRef.value,
-        props.table
-    )
-}
 
 
 export default defineComponent({
@@ -56,12 +47,47 @@ export default defineComponent({
         },
     },
 
-    setup(props, ctx) {
-        const slots = ctx.slots
+    setup(props) {
+
+        const resizeTaleHeightFn = () => {
+            resizeTaleHeight(
+                tableRef.value,
+                headerRef.value,
+                bodyRef.value,
+                footerRef.value,
+                headerFooterRef.value,
+                (props.table as RewriteTableProps)
+            )
+        }
+
+        onMounted(() => {
+            setTimeout(() => {
+                resizeTaleHeightFn()
+            })
+        })
+
 
         const tableColumns = computed<RewriteTableColumnCtx[]>(() => {
             return props.table?.tableColumns || []
         })
+
+        const getSetting = computed(() => {
+            return getTreeNode(tableColumns.value, 'setting', [true], 'setting').length === 0
+            && props.table?.setting !== false
+        })
+
+        const defaultCheckedKeys = getTreeNode(tableColumns.value, 'checked', [true, undefined], 'prop')
+
+        const checkTree = (data: Node, checked: boolean, childChecked: boolean) => {
+            data.checked = childChecked || checked
+            nextTick(() => {
+                resizeTaleHeightFn()
+            })
+        }
+
+        useWindowResize(() => {
+            resizeTaleHeightFn()
+        }, 100)
 
         watch(() => tableColumns.value, () => {
             nextTick(() => {
@@ -75,33 +101,120 @@ export default defineComponent({
         })
 
 
-        return () => (
+        return {
+            getSetting,
+            tableColumns,
+            checkTree,
+            defaultCheckedKeys,
+            resizeTaleHeightFn,
+            tableRef
+        }
+    },
+    render() {
+
+        return (
             <section class={'dinert-table'}>
-                {renderHeader((props as DTableProps), (ctx as CtxType), {tableColumns, isAllData, resizeTaleHeightFn, selectTable: (selectTable as any)})}
+                {
+                    this.header
+            && <header class={'dinert-table-header'} ref={headerRef}>
+                {
+                    this.$slots['header-left']
+                    && <div class="dinert-table-header-left">
+                        {this.$slots['header-left']?.()}
+                    </div>
+                }
+                {
+                    this.getSetting
+                    && <div class={'dinert-table-header-right'}>
+                        <el-button-group>
+                            <el-button type={isAllData.value ? 'primary' : 'default'}
+                            >全部显示
+                            </el-button>
+                            <el-popover teleported={false}
+                                v-slots={
+                                    {
+                                        default: () => (
+                                            <ul class="el-popover-classify">
+                                                <el-tree
+                                                    ref={selectTable}
+                                                    draggable
+                                                    data={this.tableColumns}
+                                                    default-expand-all
+                                                    default-checked-keys={this.defaultCheckedKeys}
+                                                    show-checkbox
+                                                    node-key={'prop'}
+                                                    props={treeProps}
+                                                    allow-drop={allowDrop}
+                                                    onCheckChange={this.checkTree}
+                                                    nodeDragEnd={(e: Node) => nodeDragEnd(e, (selectTable.value as any))}
+                                                    v-slots={
+                                                        {
+                                                            default: ({data}: {data: Node}) => (
+                                                                <div class="text-dot tree-item">
+                                                                    <el-tooltip content={data.label}
+                                                                        placement={'top'}
+                                                                        disabled={data.label && data.label.length < 8}
+                                                                        v-slots={
+                                                                            {
+                                                                                default: () => (<span>{ data.label }</span>)
+                                                                            }
+                                                                        }
+                                                                    >
+                                                                    </el-tooltip>
+                                                                </div>
+                                                            )
+                                                        }
+                                                    }
+                                                >
+                                                </el-tree>
+                                            </ul>
+                                        ),
+                                        reference: () => (
+                                            <el-button type={!isAllData.value ? 'primary' : ''}>
+                                                分类显示<el-icon><ArrowDown/></el-icon>
+                                            </el-button>
+                                        )
+                                    }
+
+                                }
+                            >
+                            </el-popover>
+                        </el-button-group>
+                    </div>
+                }
+            </header>
+                }
+
+                {
+                    this.$slots['header-footer']
+            && <header class={'dinert-table-headerFooter'} ref={headerFooterRef}>
+                {this.$slots['header-footer']?.()}
+            </header>
+                }
 
                 <div ref={bodyRef} class="dinert-table-body">
                     <el-table
                         height={'100%'}
                         border={true}
-                        {...props.table}
+                        {...this.table}
                         ref={tableRef}
-                        row-key={props.table?.rowKey}
-                        on={props.table?.on}
+                        row-key={this.table?.rowKey}
+                        on={this.table?.on}
                     >
                         {
-                            props.tableSlot
-                                ? <DinertRecuveTableColumn table={props.table}
-                                    table-columns={tableColumns.value}
+                            this.tableSlot
+                                ? <DinertRecuveTableColumn table={this.table}
+                                    table-columns={this.tableColumns}
                                     only-class={onlyClass.value}
-                                    v-slots={ctx.slots}
+                                    v-slots={this.$slots}
                                     popover-value={popoverValue.value}
                                 >
                                 </DinertRecuveTableColumn>
-                                : <DinertRecuveTableColumn table={props.table}
-                                    table-columns={tableColumns.value}
+                                : <DinertRecuveTableColumn table={this.table}
+                                    table-columns={this.tableColumns}
                                     only-class={onlyClass.value}
                                     v-slots={{
-                                        default: (scope: any) => slots[scope.prop && columnProp(scope.prop)]?.(scope)
+                                        default: (scope: any) => this.$slots[scope.prop && columnProp(scope.prop)]?.(scope)
                                     }}
                                     popover-value={popoverValue.value}
                                 >
@@ -112,7 +225,22 @@ export default defineComponent({
                     </el-table>
                 </div>
 
+                <div class="dinert-table-footer" ref={footerRef}>
+                    <el-pagination
+                        model:current-page={1}
+                        model:page-size={15}
+                        pageSizes={[15, 30, 50, 70, 100]}
+                        default-page-size={15}
+                        layout={'total, sizes, prev, pager, next, jumper'}
+                        total={100}
+                        {...this.table?.pagination}
+                        on={this.table?.on}
+                    >
+
+                    </el-pagination>
+                </div>
+
             </section>
         )
-    },
+    }
 })

@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 
 
 const tablePage = ref({
     table: {
+        pagination: {
+            total: 200
+        },
         tableColumns: [
             {
                 label: '哈哈1',
@@ -31,25 +34,103 @@ const tablePage = ref({
                 },
                 aaa1: 'aaaaa1',
                 aaa2: 'aaaaa2'
-            }
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            {
+                aaa: 'aaaaa'
+            },
+            // {
+            //     aaa: 'aaaaa'
+            // },
+            // {
+            //     aaa: 'aaaaa'
+            // },
+            // {
+            //     aaa: 'aaaaa'
+            // },
+            // {
+            //     aaa: 'aaaaa'
+            // },
+            // {
+            //     aaa: 'aaaaa'
+            // },
+            // {
+            //     aaa: 'aaaaa'
+            // },
+            // {
+            //     aaa: 'aaaaa'
+            // }
         ]
     }
 })
 
+const tableRef = ref(null)
+
 // const fn = scope => {
 //     console.log(scope)
 // }
+
+onMounted(() => {
+    console.log(tableRef.value, '1321312312')
+})
 </script>
 
 <template>
     <div class="home">
-        <dinert-table :table="tablePage.table">
+        <dinert-table ref="tableRef" :table="tablePage.table">
             <template #header-left>
                 <el-button type="primary">新增</el-button>
             </template>
-            <template #column_aaa>
+            <!-- <template #column_aaa>
                 32132
-            </template>
+            </template> -->
             <!-- <template #default="scope">
                 {{ fn(scope) }}
                 <template v-if="scope.header">
@@ -65,6 +146,20 @@ const tablePage = ref({
 
 <style lang="scss" scoped>
 .home {
-    height: 200px;
+    height: 100%;
+
+    .dinert-table {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+}
+</style>
+
+<style lang="scss">
+html,
+body,
+#app {
+    height: 100%;
 }
 </style>
