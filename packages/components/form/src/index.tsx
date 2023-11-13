@@ -2,6 +2,8 @@ import {defineComponent, ref, computed, nextTick} from 'vue'
 import CustomInput from './input'
 import CustomInputNumber from './input-number'
 import CustomInputAutocomplete from './input-autocomplete'
+import CustomSelect from './select'
+import CustomSwitch from './switch'
 
 import useWindowResize from '@/hooks/useWindowResize'
 import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot} from '@/components/form/utils'
@@ -159,6 +161,10 @@ export default defineComponent({
                                                                     return (<CustomInputNumber form={this.form} formItem={item}></CustomInputNumber>)
                                                                 } else if (['input-autocomplete'].includes(item.type)) {
                                                                     return (<CustomInputAutocomplete form={this.form} formItem={item}></CustomInputAutocomplete>)
+                                                                } else if (['select'].includes(item.type)) {
+                                                                    return (<CustomSelect form={this.form} formItem={item}></CustomSelect>)
+                                                                } else if (['switch'].includes(item.type)) {
+                                                                    return (<CustomSwitch form={this.form} formItem={item}></CustomSwitch>)
                                                                 }
 
                                                                 return ''

@@ -65,7 +65,8 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any) => {
     }
 }
 
-export const customPlaceholder = (customName: any, name: string = '请输入') => {
+export const customPlaceholder = (customName: any, type: string = 'input', name: string = '请输入') => {
+    name = type === 'select' ? '请选择' : name
     return name + (customName || '')
 }
 

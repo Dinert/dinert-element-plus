@@ -165,6 +165,23 @@ const form = ref({
             type: 'input-autocomplete',
             options: {}
         },
+        name4: {
+            label: '名称2',
+            type: 'select',
+            options: {
+                options: [
+                    {label: '1', value: '1'},
+                    {label: '2', value: '2'},
+                ]
+            }
+        },
+        name5: {
+            label: '名称2',
+            type: 'switch',
+            options: {
+
+            }
+        }
     }
 })
 </script>
