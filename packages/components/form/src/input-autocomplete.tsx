@@ -1,10 +1,9 @@
 import {computed, defineComponent} from 'vue'
+import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
-
 import type {PropType} from 'vue'
-import {InputProps} from 'element-plus'
-import {customPlaceholder} from '../utils'
+import type {InputProps} from 'element-plus'
 
 
 export default defineComponent({
@@ -22,8 +21,7 @@ export default defineComponent({
     setup(props) {
 
         const options = computed(() => {
-            const options = props.formItem.options || {on: {}};
-            (options as any).type = props.formItem.type
+            const options = props.formItem.options || {on: {}}
             return options
         })
 
@@ -34,15 +32,17 @@ export default defineComponent({
     render() {
 
         return (
-            <el-autocomplete
-                v-model={this.form.model[this.formItem.key]}
-                clearable
-                placeholder={customPlaceholder(this.formItem.label)}
-                {...this.options}
-                on={this.options.on}
-                v-slots={this.$slots}
-            >
-            </el-autocomplete>
+            <div>
+                <el-autocomplete
+                    v-model={this.form.model[this.formItem.key]}
+                    clearable
+                    placeholder={customPlaceholder(this.formItem.label)}
+                    {...this.options}
+                    on={this.options.on}
+                    v-slots={this.$slots}
+                >
+                </el-autocomplete>
+            </div>
         )
     }
 })

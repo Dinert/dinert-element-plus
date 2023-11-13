@@ -1,11 +1,9 @@
 import {computed, defineComponent} from 'vue'
-
-import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
-
-import type {PropType} from 'vue'
-import type {ElSelect, SelectOptionProxy} from 'element-plus'
 import {customPlaceholder} from '../utils'
 
+import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
+import type {PropType} from 'vue'
+import type {ElSelect, SelectOptionProxy} from 'element-plus'
 
 export default defineComponent({
     name: 'dinert-select',
@@ -22,8 +20,7 @@ export default defineComponent({
     setup(props) {
 
         const options = computed(() => {
-            const options = props.formItem.options || {on: {}};
-            (options as any).type = props.formItem.type
+            const options = props.formItem.options || {on: {}}
             return options
         })
 
@@ -41,7 +38,7 @@ export default defineComponent({
                 {...this.options}
                 on={this.options.on}
                 v-slots={this.$slots}
-                key={this.options.key}
+                key={this.formItem.key}
             >
                 {
                     options.map((item: SelectOptionProxy) => {

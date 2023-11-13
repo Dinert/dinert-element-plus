@@ -7,7 +7,7 @@ $input-width: 200px;
 
     &.text-wrap {
         .el-table__header .cell {
-            white-space: pre-wrap !important;
+            white-space: pre-wrap;
         }
 
         .el-table__body {
@@ -15,15 +15,15 @@ $input-width: 200px;
                 td > .cell,
                 td > .cell > .cell-item,
                 td .cell.el-tooltip > .cell-item {
-                    white-space: pre-wrap !important;
+                    white-space: pre-wrap;
                 }
 
                 .el-button > span {
-                    text-align: left !important;
+                    text-align: left;
                 }
 
                 span {
-                    white-space: pre-wrap !important;
+                    white-space: pre-wrap;
                     line-height: 23px;
                 }
             }
@@ -70,6 +70,18 @@ $input-width: 200px;
 
                 &.input {
                     .el-input {
+                        width: $input-width;
+                    }
+                }
+
+                &.input-number {
+                    .el-input-number {
+                        width: $input-width;
+                    }
+                }
+
+                &.input-autocomplete {
+                    .el-autocomplete {
                         width: $input-width;
                     }
                 }

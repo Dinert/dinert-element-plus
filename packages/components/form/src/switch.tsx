@@ -1,7 +1,7 @@
 import {computed, defineComponent} from 'vue'
 
-import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
 
+import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
 import type {PropType} from 'vue'
 import type {SwitchProps} from 'element-plus'
 

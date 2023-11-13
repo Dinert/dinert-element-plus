@@ -1,5 +1,5 @@
 
-import type {FormProps, FormItemProps, ColProps, RowProps, InputProps} from 'element-plus'
+import type {FormProps, FormItemProps, ColProps, RowProps} from 'element-plus'
 
 type RewriteColProps = Partial<ColProps>
 
@@ -24,20 +24,19 @@ type TypeName = 'input' |
                 'custom'
 
 
-export interface RewriteFormItemProps<T> extends Partial<FormItemProps>, Partial<InputProps> {
-    [key: string]: any;
+export interface RewriteFormItemProps<O> {
     on?: {[key: string]: (...items: any) => void};
     disabled?: boolean;
-    options?: T;
+    options?: O;
 }
 
-export interface CustomFormItemProps<T = any> extends Partial<FormItemProps> {
+export interface CustomFormItemProps<O = any> extends Partial<FormItemProps> {
     key?: any;
     type: TypeName;
     show?: boolean;
     label: string;
     sort?: number;
-    options?: RewriteFormItemProps<T>;
+    options?: O & RewriteFormItemProps<O>;
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;

@@ -4,17 +4,23 @@ import CustomInputNumber from './input-number'
 import CustomInputAutocomplete from './input-autocomplete'
 import CustomSelect from './select'
 import CustomSwitch from './switch'
+import CustomDate from './date'
+import CustomRadio from './radio'
+import CustomSelectTree from './select-tree'
 
 import useWindowResize from '@/hooks/useWindowResize'
 import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot} from '@/components/form/utils'
 
 import {getUuid} from '@/utils/tools'
-
 import {ElForm} from 'element-plus'
-import type {PropType} from 'vue'
-import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
+
+import {ArrowUp, ArrowDown} from '@element-plus/icons-vue'
+
 
 import '@/assets/scss/dinert-form.scss'
+
+import type {PropType} from 'vue'
+import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
 
 
 const packUp = ref(true)
@@ -43,6 +49,9 @@ const resizeForm = () => {
     }
 }
 
+// 展开还是收起状态
+
+
 export default defineComponent({
     name: 'dinert-form',
     props: {
@@ -56,7 +65,7 @@ export default defineComponent({
         }
     },
     emits: ['UnFold', 'Search', 'Reset'],
-    setup(props) {
+    setup(props, {emit}) {
 
         useWindowResize(() => {
             resizeForm()
@@ -82,8 +91,19 @@ export default defineComponent({
             return result
         })
 
+        const unfold = () => {
+            if (packUp.value) {
+                packUp.value = false
+            } else {
+                packUp.value = true
+            }
+
+            emit('UnFold', packUp.value)
+        }
+
         return {
-            formItemMap
+            formItemMap,
+            unfold
         }
     },
     render() {
@@ -165,6 +185,22 @@ export default defineComponent({
                                                                     return (<CustomSelect form={this.form} formItem={item}></CustomSelect>)
                                                                 } else if (['switch'].includes(item.type)) {
                                                                     return (<CustomSwitch form={this.form} formItem={item}></CustomSwitch>)
+                                                                } else if ([
+                                                                    'datetime',
+                                                                    'date',
+                                                                    'week',
+                                                                    'month',
+                                                                    'year',
+                                                                    'datetimerange',
+                                                                    'daterange',
+                                                                    'monthrange',
+                                                                    'yearrange',
+                                                                ].includes(item.type)) {
+                                                                    return (<CustomDate form={this.form} formItem={item}></CustomDate>)
+                                                                } else if (['radio'].includes(item.type)) {
+                                                                    return (<CustomRadio form={this.form} formItem={item}></CustomRadio>)
+                                                                } else if (['select-tree'].includes(item.type)) {
+                                                                    return (<CustomSelectTree form={this.form} formItem={item}></CustomSelectTree>)
                                                                 }
 
                                                                 return ''
@@ -184,6 +220,29 @@ export default defineComponent({
                     })
                     }
                 </el-row>
+                {
+                    this.search
+                && <el-row class="el-form-right">
+                    <el-button class="el-form-right-operation" text type="primary"
+                        onClick={this.unfold}
+                    >
+                        <el-icon>
+                            {packUp.value ? <ArrowUp/> : <ArrowDown/>}
+                        </el-icon>
+                        {packUp.value ? '收起' : '展开'}
+                    </el-button>
+                    {this.$slots.form_search?.()
+                        || (
+                            <>
+                                <el-button type="primary" onClick={this.$emit('Search', 'search')}>搜索</el-button>
+                                <el-button type="primary" plain
+                                    onClick={this.$emit('Reset', 'reset')}
+                                >重置</el-button>
+                            </>
+                        )
+                    }
+                </el-row>
+                }
             </el-form>
         )
     }

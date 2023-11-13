@@ -181,6 +181,33 @@ const form = ref({
             options: {
 
             }
+        },
+        name6: {
+            label: '名称2',
+            type: 'monthrange',
+            options: {
+
+            }
+        },
+        name7: {
+            label: '名称7',
+            type: 'radio',
+            options: {
+                options: [
+                    {label: '111', value: '111'},
+                    {label: '2222', value: '2222'},
+                ]
+            }
+        },
+        name8: {
+            label: '名称7',
+            type: 'select-tree',
+            options: {
+                options: [
+                    {label: '111', value: '111'},
+                    {label: '2222', value: '2222'},
+                ]
+            }
         }
     }
 })
@@ -189,6 +216,7 @@ const form = ref({
 <template>
     <div class="home">
         <dinert-table-page ref="tableRef" :table="tablePage.table"
+            class="near"
             :form="form"
             :header="false"
             :table-slot="true"

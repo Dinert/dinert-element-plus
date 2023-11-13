@@ -1,10 +1,9 @@
 import {computed, defineComponent} from 'vue'
+import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
-
 import type {PropType} from 'vue'
-import {InputProps} from 'element-plus'
-import {customPlaceholder} from '../utils'
+import type {InputProps} from 'element-plus'
 
 
 export default defineComponent({
@@ -26,7 +25,6 @@ export default defineComponent({
             (options as any).type = props.formItem.type
             return options
         })
-
         return {
             options
         }
