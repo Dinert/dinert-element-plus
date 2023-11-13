@@ -152,11 +152,19 @@ const form = ref({
     formItem: {
         name: {
             label: '名称',
+            type: 'input',
             sort: 1
         },
         name2: {
             label: '名称2',
-        }
+            type: 'input-number',
+            options: {}
+        },
+        name3: {
+            label: '名称2',
+            type: 'input-autocomplete',
+            options: {}
+        },
     }
 })
 </script>
@@ -175,6 +183,10 @@ const form = ref({
             <template #header-left>
                 <el-button type="primary" icon="Plus">新增</el-button>
             </template>
+
+            <!-- <template #formItem_name_append>
+                321312
+            </template> -->
             <!-- <template #column_aaa>
                 32132
             </template> -->

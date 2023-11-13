@@ -78,31 +78,32 @@
         width: 100%;
 
         &.label-wrap {
-            :deep() {
-                .el-form-item__label {
-                    height: auto;
+            .el-form-item__label {
+                height: auto;
 
-                    .label-text {
-                        display: inline;
-                        text-align: left;
-                        white-space: normal;
-                    }
+                .label-text {
+                    display: inline;
+                    text-align: left;
+                    white-space: normal;
                 }
             }
         }
     }
 
-    :deep() {
-        .el-form-item__content {
-            flex: 1;
+    .el-form-item__content {
+        flex: 1;
+        margin-left: 0 !important;
 
-            .el-tooltip__trigger {
-                width: 100%;
-            }
+        .el-tooltip__trigger {
+            width: 100%;
         }
 
         .el-input-number {
             width: 100%;
+
+            .el-input__inner {
+                text-align: center;
+            }
         }
 
         .el-date-editor {
@@ -142,9 +143,5 @@
 
     .el-select {
         width: 100%;
-    }
-
-    .el-form-item__content {
-        margin-left: 0 !important;
     }
 }

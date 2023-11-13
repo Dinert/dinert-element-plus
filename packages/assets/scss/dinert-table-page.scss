@@ -84,10 +84,8 @@ $input-width: 200px;
     }
 
     &.maxWidthAuto {
-        :deep() {
-            .el-form .el-form-item .el-form-item__label {
-                max-width: unset;
-            }
+        .el-form .el-form-item .el-form-item__label {
+            max-width: unset;
         }
     }
 

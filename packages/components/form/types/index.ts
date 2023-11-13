@@ -5,22 +5,39 @@ type RewriteColProps = Partial<ColProps>
 
 type RewriteRowProps = Partial<RowProps>
 
-export interface RewriteFormItemProps extends Partial<FormItemProps>, Partial<InputProps> {
+type TypeName = 'input' |
+                'select' |
+                'textarea' |
+                'input-autocomplete' |
+                'input-number' |
+                'switch' |
+                'time' |
+                'datetime' |
+                'date' |
+                'week' |
+                'month' |
+                'year' |
+                'datetimerange' |
+                'daterange' |
+                'monthrange' |
+                'yearrange' |
+                'custom'
+
+
+export interface RewriteFormItemProps<T> extends Partial<FormItemProps>, Partial<InputProps> {
     [key: string]: any;
     on?: {[key: string]: (...items: any) => void};
     disabled?: boolean;
-    options?: {
-        [key: string]: any;
-    };
+    options?: T;
 }
 
-export interface CustomFormItemProps extends Partial<FormItemProps> {
+export interface CustomFormItemProps<T = any> extends Partial<FormItemProps> {
     key?: any;
-    type?: string;
+    type: TypeName;
     show?: boolean;
     label: string;
     sort?: number;
-    options?: RewriteFormItemProps;
+    options?: RewriteFormItemProps<T>;
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;
@@ -41,9 +58,4 @@ export interface RewriteFormProps extends Partial<FormProps> {
 export interface DinertFormProps{
     form: RewriteFormProps;
     search?: boolean;
-}
-
-export type HTMLElementEvent<T extends HTMLElement> = Event & {
-    target: T;
-    currentTarget: T;
 }

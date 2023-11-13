@@ -1,4 +1,4 @@
-import {defineComponent, ref, computed} from 'vue'
+import {defineComponent} from 'vue'
 
 import type {ElTooltipContentProps} from 'element-plus'
 import type {PropType} from 'vue'
@@ -50,21 +50,26 @@ export default defineComponent({
         }
     },
     emits: ['LabelMouseEnter'],
-    setup(props) {
+    setup() {
 
         return {}
     },
     render() {
+        // const defaultSlot = this.$slots.default
+
+        // const slotValue = defaultSlot?.()
+        // const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
+
         return (
             <el-tooltip
                 content={this.content}
                 disabled={this.disabled}
                 {...this.options}
+                v-slots={this.$slots}
             >
                 <span>
                     <span class="text-tooltip">{ getValue(this.content, this) }</span>
                     <span class="label-text" onMouseenter={(e: MouseEvent) => this.$emit('LabelMouseEnter', e)}>
-                        <slot>{ this.content }</slot>
                     </span>
                 </span>
             </el-tooltip>

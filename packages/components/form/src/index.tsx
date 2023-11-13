@@ -1,35 +1,43 @@
-import {defineComponent, ref, computed} from 'vue'
-
-import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
+import {defineComponent, ref, computed, nextTick} from 'vue'
+import CustomInput from './input'
+import CustomInputNumber from './input-number'
+import CustomInputAutocomplete from './input-autocomplete'
 
 import useWindowResize from '@/hooks/useWindowResize'
+import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot} from '@/components/form/utils'
 
 import {getUuid} from '@/utils/tools'
 
-import {ElForm, ElTreeSelect} from 'element-plus'
+import {ElForm} from 'element-plus'
 import type {PropType} from 'vue'
-
-const packUp = ref(true)
-const isArrow = ref(false)
-const formRef = ref<InstanceType<typeof ElForm>>()
-const formTreeSelectRef = ref<InstanceType<typeof ElTreeSelect>>()
-const formClass = ref('form_' + getUuid())
+import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
 
 import '@/assets/scss/dinert-form.scss'
 
 
-const labelMouseEnter = (e: MouseEvent, item: any) => {
-    const el = (e.target as any).parentElement.parentElement
-    const labelEl = window.getComputedStyle(el, null)
-    const isRequried = item.rules ? 12 : item.beforeWidth || 0
-    const labelWidth
-        = parseInt(labelEl.getPropertyValue('max-width')) - isRequried
-            - parseInt(labelEl.getPropertyValue('padding-right'))
-    const tooltipWidth = (e.target as any).previousElementSibling.offsetWidth
-    if (tooltipWidth >= labelWidth) {
-        item.labelDisabled = false
-    } else {
-        item.labelDisabled = true
+const packUp = ref(true)
+const isArrow = ref(false)
+const formRef = ref<InstanceType<typeof ElForm>>()
+const formClass = ref('form_' + getUuid())
+
+
+const resizeForm = () => {
+    const elFormLeft = document.querySelectorAll(`.${formClass.value} .el-form-left > div`)
+    if (elFormLeft[0]) {
+        nextTick(() => {
+            const firstTop = elFormLeft[0].getBoundingClientRect().top
+            const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
+            const isHeight = firstTop !== lastTop
+            if (isHeight) {
+                isArrow.value = true
+            } else {
+                if (!packUp.value) {
+                    packUp.value = true
+                }
+                isArrow.value = false
+            }
+        })
+
     }
 }
 
@@ -47,6 +55,10 @@ export default defineComponent({
     },
     emits: ['UnFold', 'Search', 'Reset'],
     setup(props) {
+
+        useWindowResize(() => {
+            resizeForm()
+        }, 10, true)
 
         const formItemMap = computed(() => {
             const result: any = []
@@ -73,11 +85,13 @@ export default defineComponent({
         }
     },
     render() {
+
+
         return (
             <el-form inline={true} {...this.form} ref={formRef} class={[formClass.value, packUp.value ? '' : 'packUp', 'dinert-form']}>
                 <el-row {...this.form.row} class="el-form-left">
                     {/* eslint-disable-next-line array-callback-return, consistent-return */}
-                    { this.formItemMap.map((item: CustomFormItemProps, index) => {
+                    { this.formItemMap.map((item: CustomFormItemProps) => {
                         if ([undefined, true].includes(item.show)) {
                             return (
                                 <el-col class={[item.type, item.key]} key={item.key} {
@@ -109,10 +123,53 @@ export default defineComponent({
                                                     >
                                                     </dinert-tooltip>
                                                 )
+                                            },
+                                            default: () => {
+
+                                                return (
+                                                    <dinert-tooltip
+                                                        key={item.key}
+                                                        disabled={item.disabled}
+                                                        content={getTooltipValue(this.form.model[item.key], item)}
+                                                        item={item}
+                                                        onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key])}
+
+                                                        v-slots={{
+                                                            default: () => {
+                                                                if (this.$slots[formItemSlot(item.key)]) {
+                                                                    return (this.$slots[formItemSlot(item.key)]?.())
+                                                                }
+                                                                const slots: any = {}
+
+                                                                if (['input', 'textarea'].includes(item.type)) {
+                                                                    const appendSlot = this.$slots[formItemSlot(item.key + '_append')]?.()
+                                                                    const appendSlotValue = appendSlot && appendSlot[0] && appendSlot[0].children
+
+                                                                    const prependSlot = this.$slots[formItemSlot(item.key + '_prepend')]?.()
+                                                                    const prependSlotValue = prependSlot && prependSlot[0] && prependSlot[0].children
+                                                                    if (appendSlotValue) {
+                                                                        slots.append = () => this.$slots[formItemSlot(item.key + '_append')]?.()
+                                                                    }
+                                                                    if (prependSlotValue) {
+                                                                        slots.prepend = () => this.$slots[formItemSlot(item.key + '_prepend')]?.()
+                                                                    }
+
+                                                                    return (<CustomInput form={this.form} formItem={item} v-slots={slots}></CustomInput>)
+                                                                } else if (['input-number'].includes(item.type)) {
+                                                                    return (<CustomInputNumber form={this.form} formItem={item}></CustomInputNumber>)
+                                                                } else if (['input-autocomplete'].includes(item.type)) {
+                                                                    return (<CustomInputAutocomplete form={this.form} formItem={item}></CustomInputAutocomplete>)
+                                                                }
+
+                                                                return ''
+                                                            }
+                                                        }}
+                                                    >
+                                                    </dinert-tooltip>
+                                                )
                                             }
                                         }}
                                     >
-
                                     </el-form-item>
                                 </el-col>
                             )

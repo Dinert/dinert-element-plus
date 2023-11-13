@@ -56,7 +56,7 @@ export default defineComponent({
 
         return (
             <section class="dinert-table-page" ref={tablePageRef}>
-                <DinertForm search={this.search} form={this.form}></DinertForm>
+                <DinertForm search={this.search} form={this.form} v-slots={this.$slots}></DinertForm>
                 <DinertTable
                     ref={tableRef}
                     table={this.table}
