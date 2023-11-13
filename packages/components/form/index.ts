@@ -1,4 +1,4 @@
-import _Table from './src'
+import _Form from './src'
 
 import type {App, Plugin} from 'vue'
 type SFCWithInstall<T> = T & Plugin
@@ -10,5 +10,5 @@ const withInstall = <T>(comp: T) => {
     }
     return comp as SFCWithInstall<T>
 }
-export const Table = withInstall(_Table)
-export default Table
+export const Form = withInstall(_Form)
+export default Form

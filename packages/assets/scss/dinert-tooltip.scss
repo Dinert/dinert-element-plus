@@ -1,0 +1,19 @@
+
+.el-tooltip__trigger {
+    display: block;
+    height: 100%;
+
+    .text-tooltip {
+        position: absolute;
+        left: -999999999999px;
+    }
+
+    .label-text {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

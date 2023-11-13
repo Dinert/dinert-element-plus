@@ -46,6 +46,7 @@ export default defineComponent({
     },
     emits: ['SizeChange', 'CurrentChange'],
     setup(props) {
+
         const resizeTaleHeightFn = () => {
             resizeTaleHeight(
                 tableRef.value,

@@ -1,0 +1,150 @@
+.el-form {
+    display: flex;
+    overflow: hidden;
+    padding: 0;
+    min-height: 50px;
+    border-radius: 4px;
+    background-color: var(--el-color-white);
+    transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    box-sizing: content-box;
+
+    &.dinert-form.packUp {
+        max-height: 50px;
+    }
+
+    &.near {
+        .el-form-left {
+            flex: unset;
+
+            .el-col {
+                width: auto;
+            }
+        }
+
+        .el-form-right {
+            min-width: auto;
+        }
+    }
+
+    .el-form-left {
+        flex: 1;
+
+        .el-col {
+            &.datetimerange {
+                min-width: 450px;
+            }
+
+            &.date {
+                min-width: 210px;
+            }
+
+            &.year {
+                min-width: 160px;
+            }
+
+            &.month {
+                min-width: 190px;
+            }
+
+            &.select {
+                min-width: 230px;
+            }
+
+            &.input {
+                min-width: 230px;
+            }
+        }
+    }
+
+    .el-form-right {
+        display: flex;
+        margin-left: 24px;
+        min-width: 200px;
+
+        .el-form-right-operation {
+            padding: 0;
+
+            &.el-button.is-text {
+                padding-right: 0;
+                background-color: unset;
+            }
+        }
+    }
+
+    .el-form-item {
+        position: relative;
+        display: flex;
+        margin-bottom: 18px;
+        width: 100%;
+
+        &.label-wrap {
+            :deep() {
+                .el-form-item__label {
+                    height: auto;
+
+                    .label-text {
+                        display: inline;
+                        text-align: left;
+                        white-space: normal;
+                    }
+                }
+            }
+        }
+    }
+
+    :deep() {
+        .el-form-item__content {
+            flex: 1;
+
+            .el-tooltip__trigger {
+                width: 100%;
+            }
+        }
+
+        .el-input-number {
+            width: 100%;
+        }
+
+        .el-date-editor {
+            width: 100%;
+            box-sizing: border-box;
+
+            .el-input__wrapper {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        .el-input__inner {
+            overflow: hidden;
+            text-align: left;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .el-form-item__label {
+            overflow: hidden;
+            width: 80px;
+            max-width: 80px;
+            text-align: right;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            .el-tooltip {
+                display: inline;
+
+                .label-text {
+                    display: inline;
+                }
+            }
+        }
+    }
+
+    .el-select {
+        width: 100%;
+    }
+
+    .el-form-item__content {
+        margin-left: 0 !important;
+    }
+}

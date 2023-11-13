@@ -1,9 +1,15 @@
 import {defineComponent, ref} from 'vue'
 
 import DinertTable from '@/components/table'
+import DinertForm from '@/components/form'
 
 import type {RewriteTableProps} from '@/components/table/types/index'
 import type {PropType} from 'vue'
+import type {RewriteFormProps} from '@/components/form/types'
+
+
+import '@/assets/scss/dinert-table-page.scss'
+
 
 const tablePageRef = ref(null)
 const tableRef = ref(null)
@@ -11,9 +17,10 @@ const tableRef = ref(null)
 export default defineComponent({
     name: 'dinert-table-page',
     props: {
-        // form: {
-        //     type: Object as PropType<>
-        // }
+        form: {
+            type: Object as PropType<RewriteFormProps>,
+            default: () => ({})
+        },
         table: {
             type: Object as PropType<RewriteTableProps>,
             default: () => ({})
@@ -38,7 +45,6 @@ export default defineComponent({
     emits: ['SizeChange', 'CurrentChange', 'search', 'reset'],
     setup() {
 
-
         return {
             tablePageRef,
             tableRef
@@ -50,6 +56,7 @@ export default defineComponent({
 
         return (
             <section class="dinert-table-page" ref={tablePageRef}>
+                <DinertForm search={this.search} form={this.form}></DinertForm>
                 <DinertTable
                     ref={tableRef}
                     table={this.table}

@@ -117,9 +117,9 @@ const tablePage = ref({
 
 const tableRef = ref(null)
 
-const fn = scope => {
-    console.log(scope)
-}
+// const fn = scope => {
+//     console.log(scope)
+// }
 
 // setTimeout(() => {
 //     tablePage.value.table.data = [
@@ -146,11 +146,26 @@ onMounted(() => {
 const sizeChange = val => {
     console.log(val, '1321')
 }
+
+const form = ref({
+    model: {},
+    formItem: {
+        name: {
+            label: '名称',
+            sort: 1
+        },
+        name2: {
+            label: '名称2',
+        }
+    }
+})
 </script>
 
 <template>
     <div class="home">
         <dinert-table-page ref="tableRef" :table="tablePage.table"
+            :form="form"
+            :header="false"
             :table-slot="true"
             @size-change="sizeChange"
             @current-change="sizeChange"
@@ -158,7 +173,7 @@ const sizeChange = val => {
             @next-click="sizeChange"
         >
             <template #header-left>
-                <el-button type="primary">新增</el-button>
+                <el-button type="primary" icon="Plus">新增</el-button>
             </template>
             <!-- <template #column_aaa>
                 32132
