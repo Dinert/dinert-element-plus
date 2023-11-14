@@ -48,7 +48,7 @@ export default defineComponent({
 
         const options = computed(() => {
             const options = props.formItem.options || {on: {}};
-            (options as any).type = props.formItem.type
+            (options).type = props.formItem.type
             return options
         })
 
