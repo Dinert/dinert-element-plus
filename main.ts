@@ -5,7 +5,7 @@ import Dinert from './packages'
 
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import "element-plus/theme-chalk/src/index.scss"
+import 'element-plus/theme-chalk/src/index.scss'
 
 import './packages/assets/scss/normal.scss'
 const app = createApp(App)
