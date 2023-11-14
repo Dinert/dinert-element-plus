@@ -62,9 +62,17 @@ $input-width: 200px;
                     .el-date-editor--datetime {
                         width: 220px;
                     }
+                }
 
+                &.datetimerange {
                     .el-date-editor--datetimerange {
                         width: 400px;
+                    }
+                }
+
+                &.monthrange {
+                    .el-date-editor--monthrange {
+                        width: 260px;
                     }
                 }
 

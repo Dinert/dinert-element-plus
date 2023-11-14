@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "===================>校验commit信息"
+
+npx validate-commit-msg
