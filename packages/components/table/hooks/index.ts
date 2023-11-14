@@ -58,6 +58,7 @@ export const resizeTaleHeight = (table: any, header: any, body: any, footer: any
 
         const headerH = (header && header.offsetHeight) || 0
         const headerMT = (header && parseInt(window.getComputedStyle(header, null).marginTop)) || 0
+        const headerBT = (header && parseInt(window.getComputedStyle(header, null).marginBottom)) || 0
 
         const headerFooter = table && table.headerFooter
         const headerFooterH = (headerFooter && headerFooter.offsetHeight) || 0
@@ -75,7 +76,7 @@ export const resizeTaleHeight = (table: any, header: any, body: any, footer: any
 
         // 当表格头和表格内容大于
         if (body) {
-            if ((tableHeaderH + tableBodyH) > bodyCurrentH || (tableProps.data && tableProps.data.length === 0) || ((tableHeaderH + tableBodyH) - bodyCurrentH === -12)) {
+            if ((tableHeaderH + tableBodyH + headerBT) > bodyCurrentH || (tableProps.data && tableProps.data.length === 0)) {
                 body.style.height = '0px'
                 body.style.flex = '1'
 
