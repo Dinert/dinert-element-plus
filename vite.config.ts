@@ -62,9 +62,9 @@ export default defineConfig({
         vue(),
         vueJsx(),
         dts({
-            entryRoot: './packages/components',
+            entryRoot: './packages',
 
-            outDir: ['./es/components', './lib/components'],
+            outDir: ['./es/src', './lib/src'],
 
             // 指定使用的tsconfig.json为我们整个项目根目录下,如果不配置,你也可以在components下新建tsconfig.json
             tsconfigPath: './tsconfig.json',

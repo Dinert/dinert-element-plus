@@ -1,14 +1,14 @@
-import {Plugin} from 'vue'
+import {Plugin, App} from 'vue'
 import * as components from './components/index'
 
 export * from './components/index'
 
-import {App} from 'vue'
-
-export default {
+const myPlugin: Plugin = {
     install: (app: App) => {
-        for (const c in components) {
-            app.use((components as any)[c])
+        for (const name in components) {
+            app.use((components as any)[name])
         }
     },
-} as Plugin
+}
+
+export default myPlugin

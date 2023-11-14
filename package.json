@@ -14,10 +14,10 @@
   ],
   "main": "lib/index.js",
   "module": "es/packages/index.mjs",
-  "types": "es/components/index.d.ts",
+  "types": "es/src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./es/components/index.d.ts",
+      "types": "./es/src/index.d.ts",
       "import": "./es/packages/index.mjs",
       "require": "./lib/index.js"
     },

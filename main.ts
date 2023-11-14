@@ -9,6 +9,7 @@ import 'element-plus/theme-chalk/src/index.scss'
 
 import './packages/assets/scss/normal.scss'
 const app = createApp(App)
+
 app.use(Dinert)
 
 app.use(ElementPlus, {
