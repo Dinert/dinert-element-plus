@@ -50,8 +50,6 @@ const resizeForm = () => {
 }
 
 // 展开还是收起状态
-
-
 export default defineComponent({
     name: 'dinert-form',
     props: {

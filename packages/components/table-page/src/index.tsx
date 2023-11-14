@@ -7,7 +7,6 @@ import type {RewriteTableProps} from '@/components/table/types/index'
 import type {PropType} from 'vue'
 import type {RewriteFormProps} from '@/components/form/types'
 
-
 import '@/assets/scss/dinert-table-page.scss'
 
 

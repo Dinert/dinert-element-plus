@@ -1,17 +1,7 @@
 import {defineComponent} from 'vue'
 
-import type {ElTooltipContentProps} from 'element-plus'
 import type {PropType} from 'vue'
-
-interface DinertTooltipProps {
-    options?: Partial<ElTooltipContentProps>;
-    item?: {
-        type?: string;
-        options?: {
-            options?: any[];
-        };
-    };
-}
+import type {DinertTooltipProps} from '@/components/tooltip/types'
 
 const getValue = (content?: string, _this?: any) => {
     if (_this.item && _this.item.options) {
