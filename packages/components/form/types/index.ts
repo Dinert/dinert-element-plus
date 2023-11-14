@@ -30,10 +30,11 @@ export interface RewriteFormItemProps<O> {
     options?: O;
 }
 
-export interface CustomFormItemProps<O = any> extends Partial<FormItemProps> {
+export interface CustomFormItemProps<D = any, O = any> extends Partial<FormItemProps> {
     key?: any;
     type: TypeName;
-    show?: boolean;
+    show?: boolean | ((model: D) => boolean);
+    vif?: boolean | ((model: D) => boolean);
     label: string;
     sort?: number;
     options?: O & RewriteFormItemProps<O>;
@@ -45,16 +46,16 @@ export interface CustomFormItemProps<O = any> extends Partial<FormItemProps> {
     on?: {[key: string]: (...items: any) => void};
 }
 
-export interface RewriteFormProps extends Partial<FormProps> {
-    model: any;
+export interface RewriteFormProps<D = any, O = any> extends Partial<FormProps> {
+    model: D & any;
     formItem: {
-        [key: string]: CustomFormItemProps;
+        [key: string]: CustomFormItemProps<D, O>;
     };
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;
 }
 
-export interface DinertFormProps{
-    form: RewriteFormProps;
+export interface DinertFormProps<D = any>{
+    form: RewriteFormProps<D>;
     search?: boolean;
 }

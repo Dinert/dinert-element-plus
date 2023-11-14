@@ -161,12 +161,12 @@ const form = ref({
             options: {}
         },
         name3: {
-            label: '名称2',
+            label: '名称3',
             type: 'input-autocomplete',
             options: {}
         },
         name4: {
-            label: '名称2',
+            label: '名称4',
             type: 'select',
             options: {
                 options: [

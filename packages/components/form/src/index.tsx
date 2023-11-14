@@ -112,9 +112,20 @@ export default defineComponent({
                 <el-row {...this.form.row} class="el-form-left">
                     {/* eslint-disable-next-line array-callback-return, consistent-return */}
                     { this.formItemMap.map((item: CustomFormItemProps) => {
-                        if ([undefined, true].includes(item.show)) {
+                        const style: any = {}
+                        let vif = typeof item.vif === 'function' ? item.vif(this.form.model) : item.vif
+                        vif = vif === undefined ? true : vif
+
+                        let show = typeof item.show === 'function' ? item.show(this.form.model) : item.show
+                        show = show === undefined ? true : show
+
+                        if (!show) {
+                            style.display = 'none'
+                        }
+
+                        if (vif) {
                             return (
-                                <el-col class={[item.type, item.key]} key={item.key} {
+                                <el-col style={style} class={[item.type, item.key]} key={item.key} {
                                     ...{
                                         xl: 3, // ≥1920px
                                         lg: 4, // ≥1200px
