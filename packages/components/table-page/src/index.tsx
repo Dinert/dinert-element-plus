@@ -13,6 +13,13 @@ import '@/assets/scss/dinert-table-page.scss'
 const tablePageRef = ref(null)
 const tableRef = ref(null)
 
+const onUnFold = () => {
+    const timer = setTimeout(() => {
+        (tableRef.value as any).resizeTaleHeightFn()
+        clearTimeout(timer)
+    }, 300)
+}
+
 export default defineComponent({
     name: 'dinert-table-page',
     props: {
@@ -55,7 +62,7 @@ export default defineComponent({
 
         return (
             <section class="dinert-table-page" ref={tablePageRef}>
-                <DinertForm search={this.search} form={this.form} v-slots={this.$slots}></DinertForm>
+                <DinertForm search={this.search} form={this.form} v-slots={this.$slots} onUnFold={onUnFold}></DinertForm>
                 <DinertTable
                     ref={tableRef}
                     table={this.table}
@@ -66,7 +73,6 @@ export default defineComponent({
                     onSizeChange={(val: number) => this.$emit('SizeChange', val)}
                     onCurrentChange={(val: number) => this.$emit('CurrentChange', val)}
                 >
-
                 </DinertTable>
             </section>
         )
