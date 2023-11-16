@@ -8,17 +8,6 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
-.hide {
-    display: none;
-}
-
-ul,
-li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
 html {
     line-height: 1.15; /* 1 */
     text-size-adjust: 100%; /* 2 */
