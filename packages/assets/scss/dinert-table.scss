@@ -12,6 +12,16 @@
 }
 
 .el-popover-classify {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
     li:first-child {
         border-bottom: 1px solid var(--el-fill-color);
         line-height: 32px;
