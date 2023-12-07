@@ -158,6 +158,13 @@ const form = ref < RewriteFormProps > ({
             label: '值',
             type: 'input',
             options: {
+
+            },
+            on: {
+                change: value => {
+                    console.log(value, '3213')
+                    return true
+                }
             }
 
         },

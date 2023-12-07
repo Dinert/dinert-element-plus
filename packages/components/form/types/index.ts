@@ -1,5 +1,9 @@
 
-import type {FormProps, FormItemProps, ColProps, RowProps, InputProps, InputNumberProps, ElSelect} from 'element-plus'
+import type {
+    FormProps, FormItemProps, ColProps, RowProps,
+    InputProps, InputNumberProps, AutocompleteProps, ElSelect, SwitchProps, DatePickerProps,
+    InputEmits, InputNumberEmits
+} from 'element-plus'
 
 type RewriteColProps = Partial<ColProps>
 
@@ -24,32 +28,34 @@ type TypeName = 'input' |
                 'custom' | 'radio' | 'select-tree'
 
 
+export type RewriteFormItemPropsOn = Partial<InputEmits>
 export interface RewriteFormItemProps extends Partial<
 InputProps &
 InputNumberProps &
-InstanceType<typeof ElSelect>
+InstanceType<typeof ElSelect> &
+AutocompleteProps &
+SwitchProps &
+DatePickerProps
 >{
-    on?: {[key: string]: (...items: any) => void};
-    disabled?: boolean;
     options?: any;
 }
 
 
-export interface CustomFormItemProps<D = any> extends Partial<FormItemProps> {
+export interface CustomFormItemProps<D = any, O = any> extends Partial<FormItemProps> {
     key?: any;
     type: TypeName;
     show?: boolean | ((model: D) => boolean);
     vif?: boolean | ((model: D) => boolean);
     label: string;
     sort?: number;
-    options?: RewriteFormItemProps;
+    options?: O | RewriteFormItemProps;
     showLabel?: true;
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;
     disabled?: boolean;
     colLayout?: RewriteColProps;
-    on?: {[key: string]: (...items: any) => void};
+    on?: RewriteFormItemPropsOn;
 }
 
 export interface RewriteFormProps<D = any> extends Partial<FormProps> {
