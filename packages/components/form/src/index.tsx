@@ -125,16 +125,20 @@ export default defineComponent({
 
                         if (vif) {
                             return (
-                                <el-col style={style} class={[item.type, item.key]} key={item.key} {
-                                    ...{
-                                        xl: 3, // ≥1920px
-                                        lg: 4, // ≥1200px
-                                        md: 8, // ≥992px
-                                        sm: 12, // ≥768px
-                                        xs: 24, // <768px
-                                        ...item.colLayout
+                                <el-col
+                                    style={style}
+                                    class={[item.type, item.key]}
+                                    key={item.key}
+                                    {
+                                        ...{
+                                            xl: 3, // ≥1920px
+                                            lg: 4, // ≥1200px
+                                            md: 8, // ≥992px
+                                            sm: 12, // ≥768px
+                                            xs: 24, // <768px
+                                            ...item.colLayout
+                                        }
                                     }
-                                }
                                 >
                                     <el-form-item
                                         key={item.key}
@@ -171,48 +175,49 @@ export default defineComponent({
                                                                     return (this.$slots[formItemSlot(item.key)]?.())
                                                                 }
                                                                 const slots: any = {}
+                                                                if (!item.showLabel && !this.form.showLabel) {
+                                                                    if (['input', 'textarea'].includes(item.type)) {
+                                                                        const appendSlot = this.$slots[formItemSlot(item.key + '_append')]?.()
+                                                                        const appendSlotValue = appendSlot && appendSlot[0] && appendSlot[0].children
 
-                                                                if (['input', 'textarea'].includes(item.type)) {
-                                                                    const appendSlot = this.$slots[formItemSlot(item.key + '_append')]?.()
-                                                                    const appendSlotValue = appendSlot && appendSlot[0] && appendSlot[0].children
+                                                                        const prependSlot = this.$slots[formItemSlot(item.key + '_prepend')]?.()
+                                                                        const prependSlotValue = prependSlot && prependSlot[0] && prependSlot[0].children
+                                                                        if (appendSlotValue) {
+                                                                            slots.append = () => this.$slots[formItemSlot(item.key + '_append')]?.()
+                                                                        }
+                                                                        if (prependSlotValue) {
+                                                                            slots.prepend = () => this.$slots[formItemSlot(item.key + '_prepend')]?.()
+                                                                        }
 
-                                                                    const prependSlot = this.$slots[formItemSlot(item.key + '_prepend')]?.()
-                                                                    const prependSlotValue = prependSlot && prependSlot[0] && prependSlot[0].children
-                                                                    if (appendSlotValue) {
-                                                                        slots.append = () => this.$slots[formItemSlot(item.key + '_append')]?.()
+                                                                        return (<CustomInput form={this.form} formItem={item} v-slots={slots}></CustomInput>)
+                                                                    } else if (['input-number'].includes(item.type)) {
+                                                                        return (<CustomInputNumber form={this.form} formItem={item}></CustomInputNumber>)
+                                                                    } else if (['input-autocomplete'].includes(item.type)) {
+                                                                        return (<CustomInputAutocomplete form={this.form} formItem={item}></CustomInputAutocomplete>)
+                                                                    } else if (['select'].includes(item.type)) {
+                                                                        return (<CustomSelect form={this.form} formItem={item}></CustomSelect>)
+                                                                    } else if (['switch'].includes(item.type)) {
+                                                                        return (<CustomSwitch form={this.form} formItem={item}></CustomSwitch>)
+                                                                    } else if ([
+                                                                        'datetime',
+                                                                        'date',
+                                                                        'week',
+                                                                        'month',
+                                                                        'year',
+                                                                        'datetimerange',
+                                                                        'daterange',
+                                                                        'monthrange',
+                                                                        'yearrange',
+                                                                    ].includes(item.type)) {
+                                                                        return (<CustomDate form={this.form} formItem={item}></CustomDate>)
+                                                                    } else if (['radio'].includes(item.type)) {
+                                                                        return (<CustomRadio form={this.form} formItem={item}></CustomRadio>)
+                                                                    } else if (['select-tree'].includes(item.type)) {
+                                                                        return (<CustomSelectTree form={this.form} formItem={item}></CustomSelectTree>)
                                                                     }
-                                                                    if (prependSlotValue) {
-                                                                        slots.prepend = () => this.$slots[formItemSlot(item.key + '_prepend')]?.()
-                                                                    }
-
-                                                                    return (<CustomInput form={this.form} formItem={item} v-slots={slots}></CustomInput>)
-                                                                } else if (['input-number'].includes(item.type)) {
-                                                                    return (<CustomInputNumber form={this.form} formItem={item}></CustomInputNumber>)
-                                                                } else if (['input-autocomplete'].includes(item.type)) {
-                                                                    return (<CustomInputAutocomplete form={this.form} formItem={item}></CustomInputAutocomplete>)
-                                                                } else if (['select'].includes(item.type)) {
-                                                                    return (<CustomSelect form={this.form} formItem={item}></CustomSelect>)
-                                                                } else if (['switch'].includes(item.type)) {
-                                                                    return (<CustomSwitch form={this.form} formItem={item}></CustomSwitch>)
-                                                                } else if ([
-                                                                    'datetime',
-                                                                    'date',
-                                                                    'week',
-                                                                    'month',
-                                                                    'year',
-                                                                    'datetimerange',
-                                                                    'daterange',
-                                                                    'monthrange',
-                                                                    'yearrange',
-                                                                ].includes(item.type)) {
-                                                                    return (<CustomDate form={this.form} formItem={item}></CustomDate>)
-                                                                } else if (['radio'].includes(item.type)) {
-                                                                    return (<CustomRadio form={this.form} formItem={item}></CustomRadio>)
-                                                                } else if (['select-tree'].includes(item.type)) {
-                                                                    return (<CustomSelectTree form={this.form} formItem={item}></CustomSelectTree>)
                                                                 }
 
-                                                                return ''
+                                                                return this.form.model[item.key]
                                                             }
                                                         }}
                                                     >

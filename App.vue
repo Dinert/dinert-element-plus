@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
 
+import {RewriteFormProps} from './packages/components/form/types'
+
 const tablePage = ref({
     table: {
         key: true,
@@ -147,9 +149,18 @@ const sizeChange = val => {
     console.log(val, '1321')
 }
 
-const form = ref({
-    model: {},
+const form = ref < RewriteFormProps > ({
+    model: {
+        namee: '哈哈'
+    },
     formItem: {
+        namee: {
+            label: '值',
+            type: 'input',
+            options: {
+            }
+
+        },
         name: {
             label: '名称',
             type: 'input',

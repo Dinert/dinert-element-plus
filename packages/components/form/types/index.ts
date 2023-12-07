@@ -1,5 +1,5 @@
 
-import type {FormProps, FormItemProps, ColProps, RowProps} from 'element-plus'
+import type {FormProps, FormItemProps, ColProps, RowProps, InputProps, InputNumberProps, ElSelect} from 'element-plus'
 
 type RewriteColProps = Partial<ColProps>
 
@@ -21,23 +21,29 @@ type TypeName = 'input' |
                 'daterange' |
                 'monthrange' |
                 'yearrange' |
-                'custom'
+                'custom' | 'radio' | 'select-tree'
 
 
-export interface RewriteFormItemProps<O> {
+export interface RewriteFormItemProps extends Partial<
+InputProps &
+InputNumberProps &
+InstanceType<typeof ElSelect>
+>{
     on?: {[key: string]: (...items: any) => void};
     disabled?: boolean;
-    options?: O;
+    options?: any;
 }
 
-export interface CustomFormItemProps<D = any, O = any> extends Partial<FormItemProps> {
+
+export interface CustomFormItemProps<D = any> extends Partial<FormItemProps> {
     key?: any;
     type: TypeName;
     show?: boolean | ((model: D) => boolean);
     vif?: boolean | ((model: D) => boolean);
     label: string;
     sort?: number;
-    options?: O & RewriteFormItemProps<O>;
+    options?: RewriteFormItemProps;
+    showLabel?: true;
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;
@@ -46,13 +52,14 @@ export interface CustomFormItemProps<D = any, O = any> extends Partial<FormItemP
     on?: {[key: string]: (...items: any) => void};
 }
 
-export interface RewriteFormProps<D = any, O = any> extends Partial<FormProps> {
+export interface RewriteFormProps<D = any> extends Partial<FormProps> {
     model: D & any;
     formItem: {
-        [key: string]: CustomFormItemProps<D, O>;
+        [key: string]: CustomFormItemProps;
     };
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;
+    showLabel?: boolean;
 }
 
 export interface DinertFormProps<D = any>{
