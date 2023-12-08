@@ -25,7 +25,7 @@ export default defineComponent({
         })
 
         return {
-            options
+            options,
         }
     },
     render() {
@@ -36,7 +36,7 @@ export default defineComponent({
                 clearable
                 placeholder={customPlaceholder(this.formItem.label, 'select')}
                 {...this.options}
-                on={this.options.on}
+                {...this.options.on}
                 v-slots={this.$slots}
                 key={this.formItem.key}
             >

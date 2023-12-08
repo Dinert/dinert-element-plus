@@ -1,4 +1,4 @@
-import type {TableProps, TableColumnCtx} from 'element-plus'
+import type {TableProps, TableColumnCtx, ElTable, ElPagination} from 'element-plus'
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
     type?: string;
@@ -25,7 +25,7 @@ export interface RecuveTableColumnProps{
 }
 
 export interface RewriteTableProps<T = any> extends TableProps<T> {
-    on?: {[key: string]: any};
+    on?: Partial< InstanceType<typeof ElTable>>;
     tableColumns: RewriteTableColumnCtx[];
     errData?: string;
     tableSlot?: boolean;
@@ -38,7 +38,7 @@ export interface RewriteTableProps<T = any> extends TableProps<T> {
 }
 
 export interface RewritePaginationProps {
-   on?: object;
+   on?: Partial<InstanceType<typeof ElPagination>>;
    pageSize?: number;
    pageSizes?: number[];
    defaultPageSize?: number;
@@ -50,7 +50,7 @@ export interface RewritePaginationProps {
 }
 
 
-export interface DTableProps<T = any>{
+export interface TablePageProps<T = any>{
     header?: boolean;
     table: RewriteTableProps<T>;
     footer?: boolean;

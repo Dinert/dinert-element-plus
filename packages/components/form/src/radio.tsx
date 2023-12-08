@@ -37,7 +37,7 @@ export default defineComponent({
                     (options as any[]).map((item: RadioProps & {value: any}) => {
                         return (<el-radio
                             label={item.value}
-                            on={this.options.on}
+                            {...this.options.on}
                             v-slots={this.$slots}
                         >
                             {item.label}

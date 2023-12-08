@@ -10,7 +10,7 @@ import type Node from 'element-plus/es/components/tree/src/model/node'
 import type {
     RecuveTableColumnProps,
     RewriteTableProps,
-    DTableProps,
+    TablePageProps,
     RewriteTableColumnCtx
 } from '@/components/table/types/index'
 
@@ -32,7 +32,7 @@ const filterColumn = (column: any) => {
     return obj
 }
 
-const treeBeforeEnter = (props: DTableProps) => {
+const treeBeforeEnter = (props: TablePageProps) => {
     popoverIndex.value++
     if (popoverIndex.value === 1 && selectTable.value) {
         treeNode(selectTable.value, props.table.tableColumns)
@@ -81,7 +81,7 @@ export default defineComponent({
             return (
                 <el-popover
                     value={props.popoverValue}
-                    onBeforeEnter={() => treeBeforeEnter((props as DTableProps))}
+                    onBeforeEnter={() => treeBeforeEnter((props as TablePageProps))}
                     v-slots={
                         {
                             default: () => (

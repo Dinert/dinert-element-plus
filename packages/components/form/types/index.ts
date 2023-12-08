@@ -1,8 +1,14 @@
 
-import type {
-    FormProps, FormItemProps, ColProps, RowProps,
-    InputProps, InputNumberProps, AutocompleteProps, ElSelect, SwitchProps, DatePickerProps,
-    InputEmits, InputNumberEmits
+import {
+    type FormProps, type FormItemProps, type ColProps, type RowProps,
+    type InputProps, type InputNumberProps, type AutocompleteProps, type ElSelect, type SwitchProps, type DatePickerProps,
+    type ElInput,
+    type ElInputNumber,
+    type ElAutocomplete,
+    type ElTreeSelect,
+    ElSwitch,
+    ElRadio,
+    ElDatePicker
 } from 'element-plus'
 
 type RewriteColProps = Partial<ColProps>
@@ -28,7 +34,6 @@ type TypeName = 'input' |
                 'custom' | 'radio' | 'select-tree'
 
 
-export type RewriteFormItemPropsOn = Partial<InputEmits>
 export interface RewriteFormItemProps extends Partial<
 InputProps &
 InputNumberProps &
@@ -55,7 +60,16 @@ export interface CustomFormItemProps<D = any, O = any> extends Partial<FormItemP
     valueDisabled?: boolean;
     disabled?: boolean;
     colLayout?: RewriteColProps;
-    on?: RewriteFormItemPropsOn;
+    on?: Partial< InstanceType<
+    typeof ElInput &
+    typeof ElInputNumber &
+    typeof ElSelect &
+    typeof ElAutocomplete &
+    typeof ElTreeSelect &
+    typeof ElSwitch &
+    typeof ElRadio &
+    typeof ElDatePicker
+    >>;
 }
 
 export interface RewriteFormProps<D = any> extends Partial<FormProps> {

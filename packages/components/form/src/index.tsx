@@ -146,6 +146,7 @@ export default defineComponent({
                                         class={[item.labelWrap ? 'label-wrap' : '']}
                                         {...{
                                             ...item,
+                                            rules: item.showLabel || this.form.showLabel ? [] : item.rules
                                         }}
                                         v-slots={{
                                             label: () => {
@@ -174,6 +175,7 @@ export default defineComponent({
                                                                 if (this.$slots[formItemSlot(item.key)]) {
                                                                     return (this.$slots[formItemSlot(item.key)]?.())
                                                                 }
+
                                                                 const slots: any = {}
                                                                 if (!item.showLabel && !this.form.showLabel) {
                                                                     if (['input', 'textarea'].includes(item.type)) {

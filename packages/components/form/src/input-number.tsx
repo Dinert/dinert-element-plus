@@ -27,7 +27,7 @@ export default defineComponent({
         })
 
         return {
-            options
+            options,
         }
     },
     render() {
@@ -38,7 +38,9 @@ export default defineComponent({
                 clearable
                 placeholder={customPlaceholder(this.formItem.label)}
                 {...this.options}
-                on={this.options.on}
+                onChange={this.options.on?.onChange}
+                onFocus={this.options.on?.onFocus}
+                onBlur={this.options.on?.onBlur}
                 v-slots={this.$slots}
             >
             </el-input-number>

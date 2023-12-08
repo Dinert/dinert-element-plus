@@ -2,8 +2,9 @@
 import {onMounted, ref} from 'vue'
 
 import {RewriteFormProps} from './packages/components/form/types'
+import {TablePageProps} from './packages/components/table/types'
 
-const tablePage = ref({
+const tablePage = ref < TablePageProps > ({
     table: {
         key: true,
         pagination: {
@@ -142,7 +143,7 @@ const tableRef = ref(null)
 // }, 3000)
 
 onMounted(() => {
-    console.log(tableRef.value, '1321312312')
+    // console.log(tableRef.value, '1321312312')
 })
 
 const sizeChange = val => {
@@ -158,25 +159,45 @@ const form = ref < RewriteFormProps > ({
             label: '值',
             type: 'input',
             options: {
-
-            },
-            on: {
-                change: value => {
-                    console.log(value, '3213')
-                    return true
+                on: {
+                    onChange: e => {
+                        console.log(e, '3213')
+                    },
                 }
-            }
+            },
 
         },
         name: {
             label: '名称',
-            type: 'input',
-            sort: 1
+            type: 'select',
+            sort: 1,
+            options: {
+                options: [
+                    {label: '1', value: '1'},
+                    {label: '2', value: '2'},
+                ],
+
+
+                on: {
+                    'onVisible-change': value => {
+                        console.log(value, '131321')
+                    },
+                    onChange: value => {
+                        console.log(value, 'valueeeeeeeee')
+                    }
+                }
+            }
         },
         name2: {
             label: '名称2',
             type: 'input-number',
-            options: {}
+            options: {
+                on: {
+                    onChange: e => {
+                        console.log(e, '3213')
+                    },
+                }
+            }
         },
         name3: {
             label: '名称3',
@@ -229,6 +250,7 @@ const form = ref < RewriteFormProps > ({
         }
     }
 })
+
 </script>
 
 <template>

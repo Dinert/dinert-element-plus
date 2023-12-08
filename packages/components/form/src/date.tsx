@@ -70,7 +70,7 @@ export default defineComponent({
                     unlink-panels={true}
                     valueFormat={customValuFormat(this.options)}
                     {...this.options}
-                    on={this.options.on}
+                    {...this.options.on}
                     v-slots={this.$slots}
                 >
                 </el-date-picker>

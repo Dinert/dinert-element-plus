@@ -212,7 +212,7 @@ export default defineComponent({
                         {...this.table}
                         ref={tableRef}
                         row-key={this.table?.rowKey}
-                        on={this.table?.on}
+                        {...this.table?.on}
                     >
                         <DinertRecuveTableColumn table={this.table}
                             table-columns={this.tableColumns}
@@ -236,7 +236,7 @@ export default defineComponent({
                         {...this.table?.pagination}
                         onSizeChange={(val: number) => this.$emit('SizeChange', val)}
                         onCurrentChange={(val: number) => this.$emit('CurrentChange', val)}
-                        on={this.table?.on}
+                        {...this.table?.pagination.on}
                     >
 
                     </el-pagination>

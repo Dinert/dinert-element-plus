@@ -21,8 +21,8 @@ export default defineComponent({
     setup(props) {
 
         const options = computed(() => {
-            const options = props.formItem.options || {on: {}};
-            (options as any).type = props.formItem.type
+            const options = props.formItem.options || {on: {}}
+            options.type = props.formItem.type
             return options
         })
 
@@ -35,7 +35,7 @@ export default defineComponent({
             <el-switch
                 v-model={this.form.model[this.formItem.key]}
                 {...this.options}
-                on={this.options.on}
+                {...this.options.on}
                 v-slots={this.$slots}
                 key={this.options.key}
             >

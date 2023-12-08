@@ -20,8 +20,8 @@ export default defineComponent({
     setup(props) {
 
         const options = computed(() => {
-            const options = props.formItem.options || {on: {}};
-            (options as any).data = options.options
+            const options = props.formItem.options || {on: {}}
+            options.data = options.options
             return options
         })
 
@@ -38,7 +38,7 @@ export default defineComponent({
                 filterable={this.options.filterable === undefined ? true : this.options.filterable}
                 node-key={this.options.nodeKey}
                 {...this.options}
-                on={this.options.on}
+                {...this.options.on}
                 v-slots={this.$slots}
                 key={this.formItem.key}
             >
