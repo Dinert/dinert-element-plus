@@ -21,7 +21,6 @@ type TypeName = 'input' |
                 'input-autocomplete' |
                 'input-number' |
                 'switch' |
-                'time' |
                 'datetime' |
                 'date' |
                 'week' |
@@ -30,7 +29,6 @@ type TypeName = 'input' |
                 'datetimerange' |
                 'daterange' |
                 'monthrange' |
-                'yearrange' |
                 'custom' | 'radio' | 'select-tree'
 
 

@@ -152,44 +152,21 @@ const sizeChange = val => {
 
 const form = ref < RewriteFormProps > ({
     model: {
-        namee: '哈哈'
     },
     formItem: {
-        namee: {
-            label: '值',
+        input: {
+            label: '输入框',
             type: 'input',
             options: {
-                on: {
-                    onChange: e => {
-                        console.log(e, '3213')
-                    },
-                }
+
             },
-
         },
-        name: {
-            label: '名称',
-            type: 'select',
-            sort: 1,
-            options: {
-                options: [
-                    {label: '1', value: '1'},
-                    {label: '2', value: '2'},
-                ],
-
-
-                on: {
-                    'onVisible-change': value => {
-                        console.log(value, '131321')
-                    },
-                    onChange: value => {
-                        console.log(value, 'valueeeeeeeee')
-                    }
-                }
-            }
+        textarea: {
+            label: '文本域',
+            type: 'textarea'
         },
-        name2: {
-            label: '名称2',
+        inputNumber: {
+            label: '数字输入框',
             type: 'input-number',
             options: {
                 on: {
@@ -199,14 +176,38 @@ const form = ref < RewriteFormProps > ({
                 }
             }
         },
-        name3: {
-            label: '名称3',
+        autoInput: {
+            label: '自动补全输入框',
             type: 'input-autocomplete',
-            options: {}
+            options: {
+                on: {
+                    onChange: e => {
+                        console.log(e, '3213')
+                    },
+                }
+            }
         },
-        name4: {
-            label: '名称4',
+        select: {
+            label: '选择框',
             type: 'select',
+            sort: 1,
+            options: {
+                options: [
+                    {label: '1', value: '1'},
+                    {label: '2', value: '2'},
+                ],
+            }
+        },
+        switch: {
+            label: '开关',
+            type: 'switch',
+            options: {
+
+            }
+        },
+        radio: {
+            label: '单选',
+            type: 'radio',
             options: {
                 options: [
                     {label: '1', value: '1'},
@@ -214,38 +215,78 @@ const form = ref < RewriteFormProps > ({
                 ]
             }
         },
-        name5: {
-            label: '名称2',
-            type: 'switch',
-            options: {
-
-            }
-        },
-        name6: {
-            label: '名称2',
-            type: 'monthrange',
-            options: {
-
-            }
-        },
-        name7: {
-            label: '名称7',
-            type: 'radio',
-            options: {
-                options: [
-                    {label: '111', value: '111'},
-                    {label: '2222', value: '2222'},
-                ]
-            }
-        },
-        name8: {
-            label: '名称7',
+        selectTree: {
+            label: '选择树',
             type: 'select-tree',
             options: {
                 options: [
-                    {label: '111', value: '111'},
-                    {label: '2222', value: '2222'},
+                    {
+                        label: '1', value: '1',
+                        children: [
+                            {
+                                label: '1', value: '3',
+
+                            }
+                        ]
+                    },
+                    {label: '2', value: '2'},
                 ]
+            }
+        },
+        datetime: {
+            label: '小时天',
+            type: 'datetime',
+            options: {
+
+            }
+        },
+        date: {
+            label: '天',
+            type: 'date',
+            options: {
+
+            }
+        },
+        week: {
+            label: '周',
+            type: 'week',
+            options: {
+
+            }
+        },
+        month: {
+            label: '月',
+            type: 'month',
+            options: {
+
+            }
+        },
+        year: {
+            label: '年',
+            type: 'year',
+            options: {
+
+            }
+        },
+        datetimerange: {
+            label: '小时天双选',
+            type: 'datetimerange',
+            options: {
+
+            }
+        },
+        daterange: {
+            label: '天双选',
+            type: 'daterange',
+            options: {
+
+            }
+        },
+        monthrange: {
+            label: '月双选',
+            type: 'monthrange',
+            options: {
+
             }
         }
     }
