@@ -7,6 +7,7 @@ import CustomSwitch from './switch'
 import CustomDate from './date'
 import CustomRadio from './radio'
 import CustomSelectTree from './select-tree'
+import CustomRate from './rate'
 
 import useWindowResize from '@/hooks/useWindowResize'
 import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot} from '@/components/form/utils'
@@ -216,6 +217,8 @@ export default defineComponent({
                                                                         return (<CustomRadio form={this.form} formItem={item}></CustomRadio>)
                                                                     } else if (['select-tree'].includes(item.type)) {
                                                                         return (<CustomSelectTree form={this.form} formItem={item}></CustomSelectTree>)
+                                                                    } else if (['rate'].includes(item.type)) {
+                                                                        return (<CustomRate form={this.form} formItem={item}></CustomRate>)
                                                                     }
                                                                 }
 

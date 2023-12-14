@@ -288,6 +288,18 @@ const form = ref < RewriteFormProps > ({
             options: {
 
             }
+        },
+        rate: {
+            label: '评分',
+            type: 'rate',
+            options: {
+                on: {
+                    onChange(a) {
+                        console.log(a)
+                    }
+                }
+
+            }
         }
     }
 })
