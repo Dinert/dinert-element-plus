@@ -66,7 +66,17 @@ export default defineComponent({
 
 
         const tableColumns = computed<RewriteTableColumnCtx[]>(() => {
-            return props.table?.tableColumns || []
+            let tableColumns = props.table?.tableColumns || []
+            tableColumns = tableColumns.map((item, index) => {
+                item.sort = typeof item.sort === 'undefined' ? index : item.sort
+                return item
+            })
+
+            tableColumns.sort((a: any, b: any) => {
+                return a.sort - b.sort
+            })
+
+            return tableColumns
         })
 
         const getSetting = computed(() => {

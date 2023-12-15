@@ -6,6 +6,7 @@ import {TablePageProps} from './packages/components/table/types'
 
 const tablePage = ref < TablePageProps > ({
     table: {
+        setting: false,
         key: true,
         pagination: {
         },
@@ -15,7 +16,7 @@ const tablePage = ref < TablePageProps > ({
                 prop: 'aaa',
                 formatter: scope => {
                     return `<span>${scope.row.aaa}</span>`
-                }
+                },
             },
             {
                 label: '哈哈2',
@@ -24,7 +25,6 @@ const tablePage = ref < TablePageProps > ({
             {
                 label: '哈哈3',
                 prop: 'bbb.c',
-                // setting: true
             },
             {
                 label: '操作',
@@ -327,7 +327,6 @@ watchEffect(() => {
         <dinert-table-page ref="tableRef" :table="tablePage.table"
             class="near"
             :form="form"
-            :header="false"
             :table-slot="true"
             @size-change="sizeChange"
             @current-change="sizeChange"

@@ -5,6 +5,7 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCt
     checked?: boolean;
     show?: boolean;
     setting?: boolean;
+    sort?: number;
     disabled?: boolean;
     key?: any;
     class?: any;
