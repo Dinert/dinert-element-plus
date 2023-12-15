@@ -29,7 +29,6 @@ export default defineComponent({
         }
     },
     render() {
-        console.log(this.options, 'this.options')
         const options = this.options.options || []
         return (
             <el-select

@@ -9,7 +9,8 @@ import {
     ElSwitch,
     ElRadio,
     ElDatePicker,
-    RateProps
+    RateProps,
+    CheckboxGroupProps
 } from 'element-plus'
 
 type RewriteColProps = Partial<ColProps>
@@ -31,7 +32,8 @@ type TypeName = 'input' |
                 'daterange' |
                 'monthrange' |
                 'custom' | 'radio' | 'select-tree' |
-                'rate'
+                'rate' |
+                'checkbox'
 
 
 export interface RewriteFormItemProps extends Partial<
@@ -40,8 +42,9 @@ InputNumberProps &
 InstanceType<typeof ElSelect> &
 AutocompleteProps &
 SwitchProps &
-DatePickerProps
-& RateProps
+DatePickerProps &
+RateProps &
+CheckboxGroupProps
 >{
     options?: any;
 }

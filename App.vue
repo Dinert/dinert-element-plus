@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue'
+import {onMounted, ref, watchEffect} from 'vue'
 
 import {RewriteFormProps} from './packages/components/form/types'
 import {TablePageProps} from './packages/components/table/types'
@@ -152,7 +152,6 @@ const sizeChange = val => {
 
 const form = ref < RewriteFormProps > ({
     model: {
-        select: '1'
     },
     formItem: {
         input: {
@@ -302,10 +301,25 @@ const form = ref < RewriteFormProps > ({
                 }
 
             }
-        }
+        },
+
+        checkbox: {
+            label: '多选框',
+            type: 'checkbox',
+            options: {
+                options: [
+                    {label: '333', value: 'value1'},
+                    {label: '2', value: 'value2'},
+                ]
+            }
+        },
+
     }
 })
 
+watchEffect(() => {
+    console.log(form.value.model.checkbox, 'newVal')
+})
 </script>
 
 <template>
