@@ -152,6 +152,7 @@ const sizeChange = val => {
 
 const form = ref < RewriteFormProps > ({
     model: {
+        select: '1'
     },
     formItem: {
         input: {
@@ -192,9 +193,10 @@ const form = ref < RewriteFormProps > ({
             type: 'select',
             sort: 1,
             options: {
+                value: 'code',
                 options: [
-                    {label: '1', value: '1'},
-                    {label: '2', value: '2'},
+                    {label: 'lael1', code: '1'},
+                    {label: 'label2', code: '2'},
                 ],
             }
         },

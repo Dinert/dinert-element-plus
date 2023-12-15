@@ -29,12 +29,14 @@ export default defineComponent({
         }
     },
     render() {
+        console.log(this.options, 'this.options')
         const options = this.options.options || []
         return (
             <el-select
                 v-model={this.form.model[this.formItem.key]}
                 clearable
                 placeholder={customPlaceholder(this.formItem.label, 'select')}
+
                 {...this.options}
                 {...this.options.on}
                 v-slots={this.$slots}
@@ -44,8 +46,8 @@ export default defineComponent({
                     options.map((item: SelectOptionProxy) => {
                         return (<el-option
                             key={item.value}
-                            label={item.label}
-                            value={item.value}
+                            label={(item as any)[this.options.label] || item.label}
+                            value={(item as any)[this.options.value] || item.value}
                         >
                         </el-option>)
                     })
