@@ -10,7 +10,9 @@ import {
     ElRadio,
     ElDatePicker,
     RateProps,
-    CheckboxGroupProps
+    CheckboxGroupProps,
+    CheckboxProps,
+    SelectOptionProxy
 } from 'element-plus'
 
 type RewriteColProps = Partial<ColProps>
@@ -46,18 +48,28 @@ DatePickerProps &
 RateProps &
 CheckboxGroupProps
 >{
-    options?: any;
+    options?: any | Partial<CheckboxProps[] & SelectOptionProxy[]>;
+    on?: Partial< InstanceType<
+    typeof ElInput &
+    typeof ElInputNumber &
+    typeof ElSelect &
+    typeof ElAutocomplete &
+    typeof ElTreeSelect &
+    typeof ElSwitch &
+    typeof ElRadio &
+    typeof ElDatePicker
+    >>;
 }
 
 
-export interface CustomFormItemProps<D = any, O = any> extends Partial<FormItemProps> {
+export interface CustomFormItemProps<D = any> extends Partial<FormItemProps> {
     key?: any;
     type: TypeName;
     show?: boolean | ((model: D) => boolean);
     vif?: boolean | ((model: D) => boolean);
     label: string;
     sort?: number;
-    options?: O | RewriteFormItemProps;
+    options?: RewriteFormItemProps;
     showLabel?: true;
     labelDisabled?: boolean;
     labelWrap?: boolean;
