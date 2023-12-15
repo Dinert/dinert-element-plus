@@ -46,6 +46,7 @@ export default defineComponent({
                     options.map((item: SelectOptionProxy) => {
                         return (<el-option
                             key={item.value}
+                            {...item}
                             label={(item as any)[this.options.label] || item.label}
                             value={(item as any)[this.options.value] || item.value}
                         >
