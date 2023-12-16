@@ -12,7 +12,8 @@ import {
     RateProps,
     CheckboxGroupProps,
     CheckboxProps,
-    SelectOptionProxy
+    SelectOptionProxy,
+    CascaderProps
 } from 'element-plus'
 import {SelectProps} from 'element-plus/es/components/select-v2/src/defaults'
 
@@ -34,21 +35,25 @@ type TypeName = 'input' |
                 'datetimerange' |
                 'daterange' |
                 'monthrange' |
-                'custom' | 'radio' | 'select-tree' |
+                'custom' | 'radio' | 'tree-select' |
                 'rate' |
-                'checkbox'
+                'checkbox' |
+                'cascader'
 
 
 export interface RewriteFormItemProps<T = any[]> extends Partial<
 InputProps &
 InputNumberProps &
 Omit<typeof SelectProps, 'options'> &
+Omit<typeof ElTreeSelect, 'options' | 'data'> &
 AutocompleteProps &
 SwitchProps &
 DatePickerProps &
 RateProps &
-CheckboxGroupProps
+CheckboxGroupProps &
+CascaderProps
 >{
+    data?: T | Partial<CheckboxProps[] & SelectOptionProxy[]>;
     options?: T | Partial<CheckboxProps[] & SelectOptionProxy[]>;
     on?: Partial< InstanceType<
     typeof ElInput &

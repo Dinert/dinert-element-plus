@@ -3,24 +3,24 @@ import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
 import type {PropType} from 'vue'
-import type {ElSelect} from 'element-plus'
+import type {ElTreeSelect} from 'element-plus'
 
 export default defineComponent({
-    name: 'dinert-select-tree',
+    name: 'dinert-tree-select',
     props: {
         form: {
             type: Object as PropType<RewriteFormProps>,
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<typeof ElSelect>>>,
+            type: Object as PropType<CustomFormItemProps<Partial<typeof ElTreeSelect>>>,
             default: () => ({})
         },
     },
     setup(props) {
 
         const options = computed(() => {
-            const options = props.formItem.options || {on: {}}
+            const options = props.formItem.options || {on: {}, options: [], data: []}
             options.data = options.options
             return options
         })

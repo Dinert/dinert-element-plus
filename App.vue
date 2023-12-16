@@ -220,8 +220,11 @@ const form = ref < RewriteFormProps > ({
         },
         selectTree: {
             label: '选择树',
-            type: 'select-tree',
+            type: 'tree-select',
             options: {
+                data: [
+
+                ],
                 options: [
                     {
                         label: '1', value: '1',
@@ -312,6 +315,18 @@ const form = ref < RewriteFormProps > ({
                 options: [
                     {label: '333', value: 'value1'},
                     {label: '2', value: 'value2'},
+                ]
+            }
+        },
+        cascader: {
+            label: '级联',
+            type: 'cascader',
+            options: {
+                options: [
+                    {
+                        label: '333', value: 'value1',
+                    },
+                    {label: '2', value: 'value2'}
                 ]
             }
         },
