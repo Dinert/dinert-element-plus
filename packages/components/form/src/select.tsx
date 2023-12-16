@@ -13,7 +13,7 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<typeof ElSelect>>>,
+            type: Object as PropType<CustomFormItemProps<Partial<typeof ElSelect>, SelectOptionProxy[]>>,
             default: () => ({})
         },
     },
@@ -29,7 +29,7 @@ export default defineComponent({
         }
     },
     render() {
-        const options = this.options.options || []
+        const options = (this.options.options as SelectOptionProxy[]) || []
         return (
             <el-select
                 v-model={this.form.model[this.formItem.key]}
@@ -46,8 +46,8 @@ export default defineComponent({
                         return (<el-option
                             key={item.value}
                             {...item}
-                            label={(item as any)[this.options.label] || item.label}
-                            value={(item as any)[this.options.value] || item.value}
+                            label={(item as any)[(this.options as any).label] || item.label}
+                            value={(item as any)[(this.options as any).value] || item.value}
                         >
                         </el-option>)
                     })

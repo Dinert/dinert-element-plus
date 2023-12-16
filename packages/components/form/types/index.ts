@@ -14,6 +14,7 @@ import {
     CheckboxProps,
     SelectOptionProxy
 } from 'element-plus'
+import {SelectProps} from 'element-plus/es/components/select-v2/src/defaults'
 
 type RewriteColProps = Partial<ColProps>
 
@@ -38,17 +39,17 @@ type TypeName = 'input' |
                 'checkbox'
 
 
-export interface RewriteFormItemProps extends Partial<
+export interface RewriteFormItemProps<T = any[]> extends Partial<
 InputProps &
 InputNumberProps &
-InstanceType<typeof ElSelect> &
+Omit<typeof SelectProps, 'options'> &
 AutocompleteProps &
 SwitchProps &
 DatePickerProps &
 RateProps &
 CheckboxGroupProps
 >{
-    options?: any | Partial<CheckboxProps[] & SelectOptionProxy[]>;
+    options?: T | Partial<CheckboxProps[] & SelectOptionProxy[]>;
     on?: Partial< InstanceType<
     typeof ElInput &
     typeof ElInputNumber &
@@ -62,14 +63,14 @@ CheckboxGroupProps
 }
 
 
-export interface CustomFormItemProps<D = any> extends Partial<FormItemProps> {
+export interface CustomFormItemProps<D = any, O = any[]> extends Partial<FormItemProps> {
     key?: any;
     type: TypeName;
     show?: boolean | ((model: D) => boolean);
     vif?: boolean | ((model: D) => boolean);
     label: string;
     sort?: number;
-    options?: RewriteFormItemProps;
+    options?: RewriteFormItemProps<O>;
     showLabel?: true;
     labelDisabled?: boolean;
     labelWrap?: boolean;

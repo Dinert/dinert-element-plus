@@ -193,9 +193,11 @@ const form = ref < RewriteFormProps > ({
             sort: 1,
             options: {
                 value: 'code',
+
                 options: [
                     {label: 'lael1', code: '1'},
                     {label: 'label2', code: '2'},
+
                 ],
             }
         },
@@ -211,7 +213,7 @@ const form = ref < RewriteFormProps > ({
             type: 'radio',
             options: {
                 options: [
-                    {label: '1', value: '1'},
+                    {label: '1', value: '1', disabled: true},
                     {label: '2', value: '2'},
                 ]
             }
