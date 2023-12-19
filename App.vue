@@ -322,6 +322,10 @@ const form = ref < RewriteFormProps > ({
             label: '级联',
             type: 'cascader',
             options: {
+                props: {
+                    emitPath: false,
+                    multiple: true,
+                },
                 options: [
                     {
                         label: '333', value: 'value1',
@@ -335,7 +339,7 @@ const form = ref < RewriteFormProps > ({
 })
 
 watchEffect(() => {
-    console.log(form.value.model.checkbox, 'newVal')
+    console.log(form.value.model.cascader, 'newVal')
 })
 </script>
 

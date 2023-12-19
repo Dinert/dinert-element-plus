@@ -13,6 +13,7 @@ import {
     CheckboxGroupProps,
     CheckboxProps,
     SelectOptionProxy,
+    ElCascader,
     CascaderProps
 } from 'element-plus'
 import {SelectProps} from 'element-plus/es/components/select-v2/src/defaults'
@@ -44,17 +45,17 @@ type TypeName = 'input' |
 export interface RewriteFormItemProps<T = any[]> extends Partial<
 InputProps &
 InputNumberProps &
-Omit<typeof SelectProps, 'options'> &
+Omit<typeof SelectProps, 'options' | 'props'> &
 Omit<typeof ElTreeSelect, 'options' | 'data'> &
 AutocompleteProps &
 SwitchProps &
 DatePickerProps &
 RateProps &
-CheckboxGroupProps &
-CascaderProps
+CheckboxGroupProps
 >{
     data?: T | Partial<CheckboxProps[] & SelectOptionProxy[]>;
     options?: T | Partial<CheckboxProps[] & SelectOptionProxy[]>;
+    props?: Partial<CascaderProps>;
     on?: Partial< InstanceType<
     typeof ElInput &
     typeof ElInputNumber &
@@ -63,7 +64,8 @@ CascaderProps
     typeof ElTreeSelect &
     typeof ElSwitch &
     typeof ElRadio &
-    typeof ElDatePicker
+    typeof ElDatePicker &
+    typeof ElCascader
     >>;
 }
 
