@@ -30,7 +30,7 @@ const tablePage = ref < TablePageProps > ({
                 label: '操作',
                 prop: 'operations',
                 setting: true,
-                operationsSplit: 3,
+                operationsSplit: 2,
                 functions: {
                     edit: {
                         message: '编辑',

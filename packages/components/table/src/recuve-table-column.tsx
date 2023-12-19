@@ -169,8 +169,7 @@ export default defineComponent({
 
             const seniorFunctions = computed(() => {
                 const list = functions.value.slice(column.operationsSplit, functions.value.length)
-                const arr2 = Object.fromEntries(list)
-                return arr2
+                return list
             })
 
 
@@ -183,10 +182,9 @@ export default defineComponent({
                             )
                         })}
                         {seniorFunctions.value.length
-                        && <el-link type="primary">更多
-                            <el-icon><ArrowDown /></el-icon>
+                        && <el-link type="primary" underline={false}>
+                            更多<el-icon><ArrowDown /></el-icon>
                         </el-link>
-
                         }
                     </>
                 )
