@@ -2,7 +2,7 @@ import {defineComponent, watch, ref, nextTick, computed} from 'vue'
 
 import {getPropByPath, dataTransformRod, escapeHTML} from '@/utils/tools'
 import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@/components/table/hooks'
-import {Setting} from '@element-plus/icons-vue'
+import {Setting, ArrowDown} from '@element-plus/icons-vue'
 import type {TableColumnCtx} from 'element-plus'
 
 
@@ -136,8 +136,68 @@ export default defineComponent({
                 </el-popover>)
         }
 
+        const moreRender = (column: RewriteTableColumnCtx, _this: any, {
+            value,
+            scope,
+            isSlotValue,
+            slotValue
+        }: any) => {
+            const itemFunc = column.functions || {}
+            const functions = computed(() => {
+                const result: any = []
+                let index = 0
+                Object.keys((itemFunc)).forEach(key => {
+                    const value = itemFunc[key]
+                    result.push({
+                        key: key,
+                        ...value,
+                        sort: typeof value.sort === 'undefined' ? index : value.sort,
+                    })
+                    index++
+                })
+
+                result.sort((a: any, b: any) => {
+                    return a.sort - b.sort
+                })
+                return result
+            })
+
+            const defaultFunctions = computed(() => {
+                const list = functions.value.slice(0, column.operationsSplit)
+                return list
+            })
+
+            const seniorFunctions = computed(() => {
+                const list = functions.value.slice(column.operationsSplit, functions.value.length)
+                const arr2 = Object.fromEntries(list)
+                return arr2
+            })
+
+
+            if (functions.value && functions.value.length) {
+                return (
+                    <>
+                        {defaultFunctions.value.map((item2: any) => {
+                            return (
+                                <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, column)} key={item2.key}>{item2.message}</el-link>
+                            )
+                        })}
+                        {seniorFunctions.value.length
+                        && <el-link type="primary">更多
+                            <el-icon><ArrowDown /></el-icon>
+                        </el-link>
+
+                        }
+                    </>
+                )
+            }
+
+            return <div class="cell-item">{ (isSlotValue && slotValue) || value}</div>
+        }
+
         return {
             settingRender,
+            moreRender
         }
     },
     render() {
@@ -155,6 +215,7 @@ export default defineComponent({
                         const showOverflowTooltip = item.showOverflowTooltip === undefined && item.prop !== 'operations' ? true : item.showOverflowTooltip
                         const className = `${item.prop || ''} ${item.className || ''}`
                         const align = item.prop === 'operations' && item.align === undefined ? 'center' : item.align
+                        const width = item.prop === 'operations' && item.width === undefined ? 200 : item.width
                         const formatter = item.formatter && typeof item.formatter === 'function'
                         const noChildItem = filterColumn(item)
 
@@ -167,6 +228,7 @@ export default defineComponent({
                                     fixed={fixed}
                                     show-overflow-tooltip={showOverflowTooltip}
                                     className={className}
+                                    width={width}
                                     align={align}
                                     v-slots= {{
                                         default: (scope: any) => {
@@ -197,36 +259,16 @@ export default defineComponent({
                                                     </>
                                                 )
                                             } else {
-                                                const itemFunc = item.functions || {}
-                                                const functions = computed(() => {
-                                                    const result: any = []
-                                                    let index = 0
-                                                    Object.keys((itemFunc)).forEach(key => {
-                                                        const value = itemFunc[key]
-                                                        result.push({
-                                                            key: key,
-                                                            ...value,
-                                                            sort: typeof value.sort === 'undefined' ? index : value.sort,
-                                                        })
-                                                        index++
-                                                    })
 
-                                                    result.sort((a: any, b: any) => {
-                                                        return a.sort - b.sort
-                                                    })
-                                                    return result
-                                                })
                                                 return (
                                                     <>
                                                         <div class="cell-item">
-                                                            {functions.value && functions.value.length ? functions.value.map((item2: any) => {
-                                                                return (
-                                                                    <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, item)}>{item2.message}</el-link>
-                                                                )
-                                                            })
-                                                                : <div class="cell-item">{ (isSlotValue && slotValue) || value}</div>
-                                                            }
-
+                                                            {this.moreRender(item, this, {
+                                                                value,
+                                                                scope,
+                                                                isSlotValue,
+                                                                slotValue
+                                                            })}
                                                         </div>
                                                         <dinert-recuve-table-column table={this.table}
                                                             key={item.prop}

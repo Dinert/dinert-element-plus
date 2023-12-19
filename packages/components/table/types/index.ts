@@ -21,6 +21,7 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCt
     checked?: boolean;
     show?: boolean;
     setting?: boolean;
+    operationsSplit?: number;
     functions?: {
         [key: string]: FunctionsProps;
     };
