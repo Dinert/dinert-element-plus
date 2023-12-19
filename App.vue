@@ -29,7 +29,21 @@ const tablePage = ref < TablePageProps > ({
             {
                 label: '操作',
                 prop: 'operations',
-                setting: true
+                setting: true,
+                functions: {
+                    edit: {
+                        message: '编辑',
+                        value: '22',
+                        click: item => {
+                            console.log(item, 'itemmmmmmmmmmm')
+                        }
+                    },
+                    operations: {
+                        message: '操作'
+                    }
+                }
+
+
             }
 
         ],

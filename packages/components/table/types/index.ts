@@ -1,10 +1,29 @@
 import type {TableProps, TableColumnCtx, ElTable, ElPagination} from 'element-plus'
 
+interface ScopeProps<T = any> {
+    $index: number;
+    cellIndex: number;
+    column: RewriteTableColumnCtx<T>;
+    row: T;
+    store: typeof ElTable;
+    _self: any;
+}
+
+interface FunctionsProps<T = any>{
+    message?: string;
+    value?: string;
+    click?: (item: ScopeProps, column: RewriteTableColumnCtx<T>) => void;
+    sort?: number;
+}
+
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
     type?: string;
     checked?: boolean;
     show?: boolean;
     setting?: boolean;
+    functions?: {
+        [key: string]: FunctionsProps;
+    };
     sort?: number;
     disabled?: boolean;
     key?: any;
