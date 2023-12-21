@@ -109,7 +109,6 @@ export default defineComponent({
     },
     render() {
 
-
         return (
             <el-form inline={true} {...this.form} ref={formRef} class={[formClass.value, packUp.value ? '' : 'packUp', 'dinert-form']}>
                 <el-row {...this.form.row} class="el-form-left">
@@ -125,7 +124,6 @@ export default defineComponent({
                         if (!show) {
                             style.display = 'none'
                         }
-
                         if (vif) {
                             return (
                                 <el-col
@@ -139,6 +137,7 @@ export default defineComponent({
                                             md: 8, // ≥992px
                                             sm: 12, // ≥768px
                                             xs: 24, // <768px
+                                            ...this.form.colLayout,
                                             ...item.colLayout
                                         }
                                     }
@@ -146,7 +145,7 @@ export default defineComponent({
                                     <el-form-item
                                         key={item.key}
                                         prop={item.key}
-                                        class={[item.labelWrap ? 'label-wrap' : '']}
+                                        class={[item.labelWrap ? 'label-wrap' : '', item.showLabel || this.form.showLabel ? 'show-label' : '']}
                                         {...{
                                             ...item,
                                             rules: item.showLabel || this.form.showLabel ? [] : item.rules

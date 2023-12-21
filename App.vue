@@ -173,8 +173,14 @@ const sizeChange = val => {
 
 const form = ref < RewriteFormProps > ({
     model: {
+        showLabel: '老大哥啊城区防守打法土木工程'
     },
     formItem: {
+        showLabel: {
+            label: '土木工程',
+            type: 'custom',
+            showLabel: true
+        },
         input: {
             label: '输入框',
             type: 'input',
@@ -354,7 +360,7 @@ const form = ref < RewriteFormProps > ({
                     {label: '2', value: 'value2'}
                 ]
             }
-        },
+        }
 
     }
 })
