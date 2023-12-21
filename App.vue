@@ -173,7 +173,7 @@ const sizeChange = val => {
 
 const form = ref < RewriteFormProps > ({
     model: {
-        showLabel: '老大哥啊城区防守打法土木工程'
+        showLabel: '老大哥啊城区防守打法11111111111111土木工程老大哥啊城区防守打法11111111111111土木工程老大哥啊城区防守打法11111111111111土木工程'
     },
     formItem: {
         showLabel: {

@@ -77,6 +77,14 @@
         margin-bottom: 18px;
         width: 100%;
 
+        &.show-label {
+            .label-text {
+                overflow: unset;
+                text-overflow: unset;
+                white-space: unset;
+            }
+        }
+
         &.label-wrap {
             .el-form-item__label {
                 height: auto;

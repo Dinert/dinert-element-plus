@@ -1,4 +1,5 @@
-export const labelMouseEnter = (e: MouseEvent, item: any) => {
+
+export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
     const el = (e.target as any).parentElement.parentElement
     const labelEl = window.getComputedStyle(el, null)
     const isRequried = item.rules ? 12 : item.beforeWidth || 0
@@ -7,9 +8,10 @@ export const labelMouseEnter = (e: MouseEvent, item: any) => {
             - parseInt(labelEl.getPropertyValue('padding-right'))
     const tooltipWidth = (e.target as any).previousElementSibling.offsetWidth
     if (tooltipWidth >= labelWidth) {
-        item.labelDisabled = false
+        _this.form.formItem[item.key].labelDisabled = false
+
     } else {
-        item.labelDisabled = true
+        _this.form.formItem[item.key].labelDisabled = true
     }
 }
 
@@ -28,12 +30,11 @@ export const getTooltipValue = (value: any, item: any): any => {
     return null
 }
 
-export const valueMouseEnter = (e: MouseEvent, item: any, value: any) => {
+export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any) => {
     if (!value) {
-        item.valueDisabled = true
+        _this.form.formItem[item.key].valueDisabled = true
         return
     }
-
     const el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
     const timer = [
         'datetime',
@@ -47,7 +48,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any) => {
         'yearrange',
     ]
     if (['switch', 'radio'].includes(item.type)) {
-        item.valueDisabled = true
+        _this.form.formItem[item.key].valueDisabled = true
     } else if (el && !timer.includes(item.type)) {
         const inputEl = window.getComputedStyle(el, null)
         const textWidth
@@ -56,12 +57,13 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any) => {
                 - parseInt(inputEl.getPropertyValue('padding-left'))
         const tooltipWidth = (e.target as any).previousElementSibling.offsetWidth
         if (tooltipWidth >= textWidth) {
-            item.valueDisabled = false
+            _this.form.formItem[item.key].valueDisabled = false
         } else {
-            item.valueDisabled = true
+            _this.form.formItem[item.key].valueDisabled = true
+
         }
     } else {
-        item.valueDisabled = true
+        _this.form.formItem[item.key].valueDisabled = false
     }
 }
 

@@ -104,7 +104,7 @@ export default defineComponent({
 
         return {
             formItemMap,
-            unfold
+            unfold,
         }
     },
     render() {
@@ -156,28 +156,25 @@ export default defineComponent({
                                                     <dinert-tooltip
                                                         key={item.key}
                                                         content={item.label}
-                                                        disabled={item.disabled}
-                                                        onLabelMouseEnter={(e: MouseEvent) => labelMouseEnter(e, item)}
+                                                        disabled={item.labelDisabled}
+                                                        onLabelMouseEnter={(e: MouseEvent) => labelMouseEnter(e, item, this)}
                                                     >
                                                     </dinert-tooltip>
                                                 )
                                             },
                                             default: () => {
-
                                                 return (
                                                     <dinert-tooltip
                                                         key={item.key}
-                                                        disabled={item.disabled}
                                                         content={getTooltipValue(this.form.model[item.key], item)}
+                                                        disabled={item.showLabel || this.form.showLabel ? true : item.valueDisabled}
                                                         item={item}
-                                                        onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key])}
-
+                                                        onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key], this)}
                                                         v-slots={{
                                                             default: () => {
                                                                 if (this.$slots[formItemSlot(item.key)]) {
                                                                     return (this.$slots[formItemSlot(item.key)]?.())
                                                                 }
-
                                                                 const slots: any = {}
                                                                 if (!item.showLabel && !this.form.showLabel) {
                                                                     if (['input', 'textarea'].includes(item.type)) {
@@ -192,7 +189,6 @@ export default defineComponent({
                                                                         if (prependSlotValue) {
                                                                             slots.prepend = () => this.$slots[formItemSlot(item.key + '_prepend')]?.()
                                                                         }
-
                                                                         return (<CustomInput form={this.form} formItem={item} v-slots={slots}></CustomInput>)
                                                                     } else if (['input-number'].includes(item.type)) {
                                                                         return (<CustomInputNumber form={this.form} formItem={item}></CustomInputNumber>)

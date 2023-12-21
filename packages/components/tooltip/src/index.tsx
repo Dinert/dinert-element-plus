@@ -3,6 +3,8 @@ import {defineComponent} from 'vue'
 import type {PropType} from 'vue'
 import type {DinertTooltipProps} from '@/components/tooltip/types'
 
+import '@/assets/scss/dinert-tooltip.scss'
+
 const getValue = (content?: string, _this?: any) => {
     if (_this.item && _this.item.options) {
         if (_this.item.type === 'select') {
@@ -45,23 +47,29 @@ export default defineComponent({
         return {}
     },
     render() {
-        // const defaultSlot = this.$slots.default
-
-        // const slotValue = defaultSlot?.()
-        // const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
+        const defaultSlot = this.$slots.default
 
         return (
             <el-tooltip
+                key={this.disabled}
                 content={this.content}
                 disabled={this.disabled}
                 {...this.options}
-                v-slots={this.$slots}
+                v-slots={{
+                    default: () => {
+                        return (
+                            <span>
+                                <span class="text-tooltip">{ getValue(this.content, this) }</span>
+                                <span class="label-text" onMouseenter={(e: MouseEvent) => this.$emit('LabelMouseEnter', e)}>
+                                    {(defaultSlot?.()) || getValue(this.content, this) }
+                                </span>
+                                <span>{this.disabled}</span>
+                            </span>
+                        )
+                    }
+                }}
             >
-                <span>
-                    <span class="text-tooltip">{ getValue(this.content, this) }</span>
-                    <span class="label-text" onMouseenter={(e: MouseEvent) => this.$emit('LabelMouseEnter', e)}>
-                    </span>
-                </span>
+
             </el-tooltip>
         )
     }
