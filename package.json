@@ -8,8 +8,8 @@
     "prepare": "husky install"
   },
   "keywords": [
-    "@dinert/element-ui",
-    "element-ui",
+    "@dinert/element-plus",
+    "element-plus",
     "@dinert"
   ],
   "main": "lib/index.js",
@@ -31,6 +31,7 @@
     "@babel/core": "^7.23.2",
     "@babel/eslint-parser": "^7.22.15",
     "@babel/eslint-plugin": "^7.22.10",
+    "@babel/preset-typescript": "^7.23.3",
     "@element-plus/icons-vue": "^2.1.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@types/node": "^20.9.0",

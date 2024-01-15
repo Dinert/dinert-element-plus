@@ -31,7 +31,7 @@ export const getTooltipValue = (value: any, item: any): any => {
 }
 
 export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any) => {
-    if (!value) {
+    if (!value || item.showLabel) {
         _this.form.formItem[item.key].valueDisabled = true
         return
     }

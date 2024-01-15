@@ -96,8 +96,8 @@ export interface CustomFormItemProps<D = any, O = any[]> extends Partial<FormIte
     >>;
 }
 
-export interface RewriteFormProps<D = any> extends Partial<FormProps> {
-    model: D & any;
+export interface RewriteFormProps<D = any> extends Omit<Partial<FormProps>, 'model'> {
+    model: Partial<D>;
     formItem: {
         [key: string]: CustomFormItemProps;
     };

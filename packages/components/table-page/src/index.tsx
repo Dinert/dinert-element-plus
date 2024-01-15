@@ -10,12 +10,13 @@ import type {RewriteFormProps} from '@/components/form/types'
 import '@/assets/scss/dinert-table-page.scss'
 
 
-const tablePageRef = ref(null)
-const tableRef = ref(null)
+const tablePageDom = ref<HTMLElement>()
+const tableRef = ref<InstanceType<typeof DinertTable>>()
+const formRef = ref<InstanceType<typeof DinertForm>>()
 
 const onUnFold = () => {
     const timer = setTimeout(() => {
-        (tableRef.value as any).resizeTaleHeightFn()
+        tableRef.value?.resizeTaleHeightFn()
         clearTimeout(timer)
     }, 300)
 }
@@ -52,8 +53,9 @@ export default defineComponent({
     setup() {
 
         return {
-            tablePageRef,
-            tableRef
+            tablePageDom,
+            tableRef,
+            formRef
         }
     },
     render() {
@@ -61,8 +63,8 @@ export default defineComponent({
         const slots = this.tableSlot ? this.$slots : {...this.$slots, default: (scope: any) => this.$slots[(scope.prop)]?.(scope)}
 
         return (
-            <section class="dinert-table-page" ref={tablePageRef}>
-                <DinertForm search={this.search} form={this.form} v-slots={this.$slots} onUnFold={onUnFold}></DinertForm>
+            <section class="dinert-table-page" ref={tablePageDom}>
+                <DinertForm search={this.search} form={this.form} v-slots={this.$slots} onUnFold={onUnFold} ref={formRef}></DinertForm>
                 <DinertTable
                     ref={tableRef}
                     table={this.table}

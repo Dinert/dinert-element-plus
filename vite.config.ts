@@ -5,7 +5,6 @@ import path from 'path'
 import dts from 'vite-plugin-dts'
 
 export default defineConfig({
-
     build: {
     // 打包文件目录
         outDir: 'es',
