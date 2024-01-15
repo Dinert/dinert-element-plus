@@ -161,14 +161,17 @@ export default defineComponent({
                 })
                 return result
             })
+            let maxOperations = column.maxOperations || 3
+            const functionsLen = functions.value.length
+            maxOperations = functionsLen > maxOperations ? maxOperations - 1 : maxOperations
 
             const defaultFunctions = computed(() => {
-                const list = functions.value.slice(0, column.operationsSplit)
+                const list = functions.value.slice(0, maxOperations)
                 return list
             })
 
             const seniorFunctions = computed(() => {
-                const list = functions.value.slice(column.operationsSplit, functions.value.length)
+                const list = functions.value.slice(maxOperations, functions.value.length)
                 return list
             })
 
@@ -178,13 +181,37 @@ export default defineComponent({
                     <>
                         {defaultFunctions.value.map((item2: any) => {
                             return (
-                                <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, column)} key={item2.key}>{item2.message}</el-link>
+                                <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, column, item2)} key={item2.key}>{item2.message}</el-link>
                             )
                         })}
-                        {seniorFunctions.value.length
-                        && <el-link type="primary" underline={false}>
+                        {(seniorFunctions.value.length && functions.value.length > maxOperations
+                        && <el-dropdown teleported={true}
+                            onCommand={(item: any) => (item.click && item.click(scope, column, item))}
+                            v-slots= {{
+                                default: () => {
+                                    return (
+                                        <el-link type="primary" underline={false}>
                             更多<el-icon><ArrowDown /></el-icon>
-                        </el-link>
+                                        </el-link>
+                                    )
+                                },
+                                dropdown: () => {
+                                    return (
+                                        <el-dropdown-menu>
+                                            {
+                                                seniorFunctions.value.map((item: any) => {
+                                                    return (
+                                                        <el-dropdown-item command={item}>{item.message}</el-dropdown-item>
+                                                    )
+                                                })
+                                            }
+                                        </el-dropdown-menu>
+                                    )
+                                }
+                            }}>
+
+                        </el-dropdown>) || null
+
                         }
                     </>
                 )

@@ -30,23 +30,25 @@ const tablePage = ref < TablePageProps > ({
                 label: '操作',
                 prop: 'operations',
                 setting: true,
-                operationsSplit: 2,
                 functions: {
                     edit: {
                         message: '编辑',
                         value: '22',
-                        click: item => {
+                        click: (scope, column, item) => {
                             console.log(item, 'itemmmmmmmmmmm')
                         }
                     },
                     operations: {
-                        message: '操作'
+                        message: '操作1'
                     },
                     operations2: {
-                        message: '操作'
+                        message: '操作2',
+                        click: (scope, column, item) => {
+                            console.log(scope, column, item, '1111111111111')
+                        }
                     },
                     operations3: {
-                        message: '操作'
+                        message: '转交给他人'
                     }
                 }
 
@@ -173,13 +175,12 @@ const sizeChange = val => {
 
 const form = ref < RewriteFormProps > ({
     model: {
-        showLabel: '老大哥啊城区防守打法11111111111111土木工程老大哥啊城区防守打法11111111111111土木工程老大哥啊城区防守打法11111111111111土木工程'
+        showLabel: '老大'
     },
     formItem: {
         showLabel: {
             label: '土木工程',
             type: 'custom',
-            showLabel: true
         },
         input: {
             label: '输入框',

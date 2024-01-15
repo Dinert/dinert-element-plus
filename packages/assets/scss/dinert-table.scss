@@ -125,6 +125,10 @@
                 }
 
                 .operations {
+                    .el-dropdown {
+                        vertical-align: -2px;
+                    }
+
                     .cell {
                         display: flex;
                         justify-content: center;

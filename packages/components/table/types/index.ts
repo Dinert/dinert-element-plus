@@ -12,7 +12,7 @@ interface ScopeProps<T = any> {
 interface FunctionsProps<T = any>{
     message?: string;
     value?: string;
-    click?: (item: ScopeProps, column: RewriteTableColumnCtx<T>) => void;
+    click?: (scope: ScopeProps, column: RewriteTableColumnCtx<T>, item: FunctionsProps) => void;
     sort?: number;
 }
 
@@ -21,7 +21,7 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCt
     checked?: boolean;
     show?: boolean;
     setting?: boolean;
-    operationsSplit?: number;
+    maxOperations?: number;
     functions?: {
         [key: string]: FunctionsProps;
     };
