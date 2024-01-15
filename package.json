@@ -12,6 +12,11 @@
     "element-plus",
     "@dinert"
   ],
+  "files": [
+    "dist",
+    "es",
+    "lib"
+  ],
   "main": "lib/index.js",
   "module": "es/packages/index.mjs",
   "types": "es/src/index.d.ts",
