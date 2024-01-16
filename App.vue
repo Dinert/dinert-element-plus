@@ -2,6 +2,7 @@
 import {ref} from 'vue'
 
 import TestTable from './packages/views/test-table/index.vue'
+import TestForm from './packages/views/test-form/index.vue'
 import TestTablePage from './packages/views/test-table-page/index.vue'
 
 const activeName = ref('table-form')
@@ -15,6 +16,9 @@ const activeName = ref('table-form')
             </el-tab-pane>
             <el-tab-pane label="表格" name="table">
                 <test-table/>
+            </el-tab-pane>
+            <el-tab-pane label="表单" name="form">
+                <test-form/>
             </el-tab-pane>
         </el-tabs>
     </div>

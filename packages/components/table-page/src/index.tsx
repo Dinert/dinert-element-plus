@@ -46,7 +46,7 @@ export default defineComponent({
         },
         tableSlot: {
             type: Boolean,
-            default: true
+            default: false
         }
     },
     emits: ['SizeChange', 'CurrentChange', 'search', 'reset'],
@@ -70,7 +70,7 @@ export default defineComponent({
                     table={this.table}
                     header={this.header}
                     footer={this.footer}
-                    tableSlot={true}
+                    tableSlot={this.tableSlot}
                     v-slots={slots}
                     onSizeChange={(val: number) => this.$emit('SizeChange', val)}
                     onCurrentChange={(val: number) => this.$emit('CurrentChange', val)}

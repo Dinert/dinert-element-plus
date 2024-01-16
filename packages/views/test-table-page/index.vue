@@ -293,14 +293,13 @@ onMounted(() => {
         :table="table"
         class="near"
         :form="form"
-        :table-slot="true"
     >
         <template #header-left>
             <el-button type="primary" icon="Plus">新增</el-button>
         </template>
 
 
-        <template #column_aaa>
+        <template #column_startTime>
             32132
         </template>
 
