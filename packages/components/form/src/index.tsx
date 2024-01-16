@@ -110,7 +110,10 @@ export default defineComponent({
     render() {
 
         return (
-            <el-form inline={true} {...this.form} ref={formRef} class={[formClass.value, packUp.value ? '' : 'packUp', 'dinert-form']}>
+            <el-form inline={true}
+                {...this.form}
+                ref={formRef}
+                class={[formClass.value, packUp.value ? '' : 'packUp', 'dinert-form']}>
                 <el-row {...this.form.row} class="el-form-left">
                     {/* eslint-disable-next-line array-callback-return, consistent-return */}
                     { this.formItemMap.map((item: CustomFormItemProps) => {
@@ -210,9 +213,9 @@ export default defineComponent({
                                                                         'yearrange',
                                                                     ].includes(item.type)) {
                                                                         return (<CustomDate form={this.form} formItem={item}></CustomDate>)
-                                                                    } else if (['radio'].includes(item.type)) {
+                                                                    } else if (['radio', 'radio-button'].includes(item.type)) {
                                                                         return (<CustomRadio form={this.form} formItem={item}></CustomRadio>)
-                                                                    } else if (['select-tree'].includes(item.type)) {
+                                                                    } else if (['tree-select'].includes(item.type)) {
                                                                         return (<CustomSelectTree form={this.form} formItem={item}></CustomSelectTree>)
                                                                     } else if (['rate'].includes(item.type)) {
                                                                         return (<CustomRate form={this.form} formItem={item}></CustomRate>)

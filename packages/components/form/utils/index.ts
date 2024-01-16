@@ -46,10 +46,16 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         'daterange',
         'monthrange',
         'yearrange',
+        'radio-button'
     ]
+    if (timer.includes(item.type)) {
+        _this.form.formItem[item.key].valueDisabled = true
+        return
+    }
+
     if (['switch', 'radio'].includes(item.type)) {
         _this.form.formItem[item.key].valueDisabled = true
-    } else if (el && !timer.includes(item.type)) {
+    } else if (el) {
         const inputEl = window.getComputedStyle(el, null)
         const textWidth
             = el.offsetWidth

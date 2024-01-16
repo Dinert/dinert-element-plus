@@ -30,28 +30,26 @@
         flex: 1;
 
         .el-col {
-            &.datetimerange {
-                min-width: 450px;
-            }
+            .label-text {
+                .el-date-editor {
+                    width: 210px;
+                }
 
-            &.date {
-                min-width: 210px;
-            }
+                .el-date-editor--daterange {
+                    width: 260px;
+                }
 
-            &.year {
-                min-width: 160px;
-            }
+                & > .el-input {
+                    width: 210px;
+                }
 
-            &.month {
-                min-width: 190px;
-            }
+                & > .el-select {
+                    width: 210px;
+                }
 
-            &.select {
-                min-width: 230px;
-            }
-
-            &.input {
-                min-width: 230px;
+                .el-date-editor--datetimerange {
+                    width: 400px;
+                }
             }
         }
     }
@@ -71,9 +69,10 @@
         }
     }
 
-    .el-form-item {
+    div.el-form-item {
         position: relative;
         display: flex;
+        margin-right: 0;
         margin-bottom: 18px;
         width: 100%;
 

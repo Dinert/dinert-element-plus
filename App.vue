@@ -52,4 +52,8 @@ body,
 #app {
     height: 100%;
 }
+
+.hide {
+    display: none;
+}
 </style>

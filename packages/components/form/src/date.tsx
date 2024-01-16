@@ -48,7 +48,7 @@ export default defineComponent({
 
         const options = computed(() => {
             const options = props.formItem.options || {on: {}};
-            (options).type = props.formItem.type
+            (options as any).type = props.formItem.type
             return options
         })
 
@@ -69,6 +69,7 @@ export default defineComponent({
                     endPlaceholder={customPlaceholder(datePickerPlaceholder(this.options.label || '', this.options), 'input', '结束')}
                     unlink-panels={true}
                     valueFormat={customValuFormat(this.options)}
+                    format={this.options.type === 'week' ? 'YYYY第ww周' : this.options.format}
                     {...this.options}
                     {...this.options.on}
                     v-slots={this.$slots}

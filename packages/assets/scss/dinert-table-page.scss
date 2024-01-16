@@ -43,56 +43,10 @@ $input-width: 200px;
             flex: unset;
 
             .el-col {
+                margin-right: 16px;
                 width: auto;
-                flex: unset;
                 max-width: unset;
-
-                .el-form-item__label {
-                    width: auto;
-                }
-
-                &.select,
-                &.select-tree {
-                    .el-select {
-                        width: $input-width;
-                    }
-                }
-
-                &.datetime {
-                    .el-date-editor--datetime {
-                        width: 220px;
-                    }
-                }
-
-                &.datetimerange {
-                    .el-date-editor--datetimerange {
-                        width: 400px;
-                    }
-                }
-
-                &.monthrange {
-                    .el-date-editor--monthrange {
-                        width: 260px;
-                    }
-                }
-
-                &.input {
-                    .el-input {
-                        width: $input-width;
-                    }
-                }
-
-                &.input-number {
-                    .el-input-number {
-                        width: $input-width;
-                    }
-                }
-
-                &.input-autocomplete {
-                    .el-autocomplete {
-                        width: $input-width;
-                    }
-                }
+                flex: unset;
             }
         }
 

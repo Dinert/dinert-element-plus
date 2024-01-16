@@ -35,6 +35,15 @@ export default defineComponent({
             <el-radio-group v-model={this.form.model[this.formItem.key]}>
                 {
                     (options as any[]).map((item: RadioProps & {value: any}) => {
+                        if (this.formItem.type === 'radio-button') {
+                            return (<el-radio-button
+                                label={item.value}
+                                {...this.options.on}
+                                v-slots={this.$slots}
+                            >
+                                {item.label}
+                            </el-radio-button>)
+                        }
                         return (<el-radio
                             label={item.value}
                             {...this.options.on}

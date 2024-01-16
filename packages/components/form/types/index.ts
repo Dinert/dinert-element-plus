@@ -36,10 +36,10 @@ type TypeName = 'input' |
                 'datetimerange' |
                 'daterange' |
                 'monthrange' |
-                'custom' | 'radio' | 'tree-select' |
-                'rate' |
-                'checkbox' |
-                'cascader'
+                'custom' | 'radio' | 'tree-select' | 'radio-button' |
+                'rate'
+                | 'checkbox'
+                | 'cascader'
 
 
 export interface RewriteFormItemProps<T = any[]> extends Partial<
@@ -99,7 +99,7 @@ export interface CustomFormItemProps<D = any, O = any[]> extends Partial<FormIte
 export interface RewriteFormProps<D = any> extends Omit<Partial<FormProps>, 'model'> {
     model: Partial<D>;
     formItem: {
-        [key: string]: CustomFormItemProps;
+        [key: string]: CustomFormItemProps<D>;
     };
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;
