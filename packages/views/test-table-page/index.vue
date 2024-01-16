@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {onMounted, ref, watchEffect} from 'vue'
+import {onMounted} from 'vue'
 
 import TablePage from '@/hooks/useTablePage/index'
 import {tableData} from './data'
@@ -40,21 +40,20 @@ onMounted(() => {
 </script>
 
 <template>
-        <dinert-table-page ref="tablePageRef"
-            :table="table"
-            class="near"
-            :form="form"
-            :table-slot="true"
+    <dinert-table-page ref="tablePageRef"
+        :table="table"
+        class="near"
+        :form="form"
+        :table-slot="true"
+    >
+        <template #header-left>
+            <el-button type="primary" icon="Plus">新增</el-button>
+        </template>
 
-        >
-            <template #header-left>
-                <el-button type="primary" icon="Plus">新增</el-button>
-            </template>
 
+        <template #column_aaa>
+            32132
+        </template>
 
-            <template #column_aaa>
-                32132
-            </template>
-
-        </dinert-table-page>
+    </dinert-table-page>
 </template>

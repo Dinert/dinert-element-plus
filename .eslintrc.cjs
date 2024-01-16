@@ -6,7 +6,7 @@ module.exports = {
             jsx: true,
         },
         requireConfigFile: false,
-        parser: '@babel/eslint-parser'
+        parser: '@typescript-eslint/parser'
     },
     plugins: [
         'vue', '@babel'
