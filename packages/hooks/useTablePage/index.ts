@@ -284,7 +284,6 @@ class TablePage<T, D = any, P = any, R = any> {
         if (this.table.value.on) {
             if (!this.table.value.on.onSelect) {
                 this.table.value.on.onSelect = (selection: T[]) => {
-                    console.log('选择')
                     if (rowKey) {
                         this.table.value.data.forEach((item: any) => {
                             for (let i = 0; i < this.selecTableDatas.value.length; i++) {
@@ -301,7 +300,6 @@ class TablePage<T, D = any, P = any, R = any> {
             }
             if (!this.table.value.on['onSelect-all']) {
                 this.table.value.on['onSelect-all'] = (selection: T[]) => {
-                    console.log('全选')
                     if (rowKey) {
                         if (selection.length === 0) {
                             this.table.value.data.forEach((item: any) => {
