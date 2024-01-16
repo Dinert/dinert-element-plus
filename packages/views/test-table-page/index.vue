@@ -48,7 +48,7 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
                         message: '编辑',
                         value: '22',
                         click: (scope, column, item) => {
-                            console.log(item, scope.row)
+                            console.log(item, 'itemmmmmmmmmmmmmmm')
                         }
                     },
                     operations: {
