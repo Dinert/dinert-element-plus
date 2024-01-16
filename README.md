@@ -18,8 +18,8 @@
 
 #### Using npm:
 ```shell
-$ npm i @dinert/element-plus lodash element-plus
-$ yarn add @dinert/element-plus lodash element-plus
+$ npm i lodash element-plus @dinert/element-plus
+$ yarn add lodash element-plus @dinert/element-plus
 ```
 
 #### In a browser：

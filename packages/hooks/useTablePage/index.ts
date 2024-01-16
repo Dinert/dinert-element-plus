@@ -17,7 +17,8 @@ import lodash from 'lodash'
  * R 请求回来的数据格式
  */
 
-class TablePage<T = any, D = any, P = any, R = any> {
+
+class TablePage<T, D = any, P = any, R = any> {
     showSearch: Ref<DinertTablePageProps['search']>
     table: Ref<RewriteTableProps<T>>
     form: Ref<RewriteFormProps<D>>
@@ -89,8 +90,12 @@ class TablePage<T = any, D = any, P = any, R = any> {
 
         this.params = {}
         this.oldParams = {}
+
+        // 监听表格选择的方法，方便表格数据回显
+        this.tableSelectEvent()
     }
 
+    // 获取请求参数
     getTableParams: (params: P) => (Partial<P>) = () => ({} as any)
     ajaxTableDataAfter: (res: R) => void = () => ({})
 
@@ -119,7 +124,7 @@ class TablePage<T = any, D = any, P = any, R = any> {
 
     async getTableData(options: (P & AjaxTableProps) | any) {
         const res = await this.ajaxTableData(options)
-        this.changeTableData(res.data)
+        this.changeTableData(res.data as R)
 
         typeof this.ajaxTableDataAfter === 'function' && this.ajaxTableDataAfter(res)
 
@@ -137,6 +142,7 @@ class TablePage<T = any, D = any, P = any, R = any> {
         this.table.value.pagination.total = res.total
     }
 
+    // 获取请求的所有参数
     getAjaxTableDataParams(options: (P & AjaxTableProps) | any) {
         this.params = this.getTableParams(options)
 
@@ -196,6 +202,7 @@ class TablePage<T = any, D = any, P = any, R = any> {
         return this.params
     }
 
+    // 请求
     ajaxTableData(options: (P & AjaxTableProps)): Promise<R | any> {
         return new Promise(resolve => {
             resolve(this.getAjaxTableDataParams(options))
@@ -252,8 +259,69 @@ class TablePage<T = any, D = any, P = any, R = any> {
     // 根据key获取表格中的数据
     getTableDataKeys(key: string = 'id') {
         this.ids.value = lodash.map(this.table.value.data || [], key)
+        return this.ids.value
     }
 
+    // 回显选中
+    echoOperations() {
+        const rowKey = this.table.value.rowKey as any
+        const keys = (this.selecTableDatas.value || []).map((item: any) => item[rowKey])
+        if (this.tablePageRef.value) {
+            (this.table.value.data || []).forEach((item: any) => {
+                if (keys.includes(item[rowKey])) {
+                    this.tablePageRef.value?.tableRef?.tableRef?.toggleRowSelection(item, true)
+                } else {
+                    this.tablePageRef.value?.tableRef?.tableRef?.toggleRowSelection(item, false)
+                }
+            })
+        }
+
+    }
+
+    // 监听表格选择事件，包括全选和单选
+    tableSelectEvent() {
+        const rowKey: any = this.table.value.rowKey
+        if (this.table.value.on) {
+            if (!this.table.value.on.onSelect) {
+                this.table.value.on.onSelect = (selection: T[]) => {
+                    console.log('选择')
+                    if (rowKey) {
+                        this.table.value.data.forEach((item: any) => {
+                            for (let i = 0; i < this.selecTableDatas.value.length; i++) {
+                                if (item[rowKey] === (this.selecTableDatas.value[i]as any)[rowKey]) {
+                                    this.selecTableDatas.value.splice(i, 1)
+                                }
+                            }
+                        })
+                        this.selecTableDatas.value = lodash.uniqBy(selection.concat(this.selecTableDatas.value), rowKey)
+                    } else {
+                        this.selecTableDatas.value = selection
+                    }
+                }
+            }
+            if (!this.table.value.on['onSelect-all']) {
+                this.table.value.on['onSelect-all'] = (selection: T[]) => {
+                    console.log('全选')
+                    if (rowKey) {
+                        if (selection.length === 0) {
+                            this.table.value.data.forEach((item: any) => {
+                                for (let i = 0; i < this.selecTableDatas.value.length; i++) {
+                                    if (item[rowKey] === (this.selecTableDatas.value[i] as any)[rowKey]) {
+                                        this.selecTableDatas.value.splice(i, 1)
+                                    }
+                                }
+                            })
+                        } else {
+                            this.selecTableDatas.value = lodash.uniqBy(selection.concat(this.selecTableDatas.value), rowKey)
+                        }
+
+                    } else {
+                        this.selecTableDatas.value = selection
+                    }
+                }
+            }
+        }
+    }
 }
 
 

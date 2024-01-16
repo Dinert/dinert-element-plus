@@ -11,7 +11,8 @@ import type {
     RecuveTableColumnProps,
     RewriteTableProps,
     TablePageProps,
-    RewriteTableColumnCtx
+    RewriteTableColumnCtx,
+    FunctionsProps
 } from '@/components/table/types/index'
 
 import type {PropType} from 'vue'
@@ -179,7 +180,7 @@ export default defineComponent({
             if (functions.value && functions.value.length) {
                 return (
                     <>
-                        {defaultFunctions.value.map((item2: any) => {
+                        {defaultFunctions.value.map((item2: FunctionsProps) => {
                             return (
                                 <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, column, item2)} key={item2.key}>{item2.message}</el-link>
                             )

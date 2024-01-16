@@ -1,6 +1,6 @@
 import type {TableProps, TableColumnCtx, ElTable, ElPagination} from 'element-plus'
 
-interface ScopeProps<T = any> {
+export interface ScopeProps<T = any> {
     $index: number;
     cellIndex: number;
     column: RewriteTableColumnCtx<T>;
@@ -9,11 +9,13 @@ interface ScopeProps<T = any> {
     _self: any;
 }
 
-interface FunctionsProps<T = any>{
+export interface FunctionsProps<T = any>{
     message?: string;
     value?: string;
     click?: (scope: ScopeProps, column: RewriteTableColumnCtx<T>, item: FunctionsProps) => void;
     sort?: number;
+    type?: string;
+    key?: any;
 }
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
@@ -23,7 +25,7 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCt
     setting?: boolean;
     maxOperations?: number;
     functions?: {
-        [key: string]: FunctionsProps;
+        [key: string]: FunctionsProps<T>;
     };
     sort?: number;
     disabled?: boolean;
