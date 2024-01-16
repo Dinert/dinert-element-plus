@@ -1,6 +1,6 @@
 # Vue3 components based on ElementPlus secondary encapsulation
 
-## 技术栈
+## Tech Stack
 <a href="https://cn.vitejs.dev/">
     <img src="https://img.shields.io/badge/vite-4.5.0-brightgreen" alt="vite">
 <a href="https://unpkg.com/vue@3.3.8/dist/vue.global.js">
@@ -39,16 +39,20 @@ import Dinert from '@dinert/element-plus'
 import '@dinert/element-plus/style'
 
 app.use(Dinert)
-
 ```
 
 #### Components
+##### <font color=blue>TablePage 表格查询页面</font>
 ```html
 <script scope lang="ts">
 import {ref} from 'vue'
 const tablePage = ref({
     table: {
         pagination: {
+              total: 0,
+              currentPage: 1,
+              pageSize: 10,
+              pageSizes: [10, 20, 30, 50, 100]
         },
         tableColumns: [
             {
@@ -113,7 +117,6 @@ const tablePage = ref({
         formItem: {
             showLabel: {
                 label: '土木工程',
-                type: 'custom',
                 showLabel: true
             },
             input: {
@@ -327,9 +330,6 @@ const tablePage = ref({
         <template #column_startTime>
             32132
         </template>
-
     </dinert-table-page>
-
 </template>
-
 ```
