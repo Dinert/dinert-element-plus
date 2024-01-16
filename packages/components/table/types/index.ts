@@ -1,5 +1,6 @@
 import type {TableProps, TableColumnCtx, ElTable, ElPagination} from 'element-plus'
 
+
 export interface ScopeProps<T = any> {
     $index: number;
     cellIndex: number;
@@ -12,7 +13,7 @@ export interface ScopeProps<T = any> {
 export interface FunctionsProps<T = any>{
     message?: string;
     value?: string;
-    click?: (scope: ScopeProps, column: RewriteTableColumnCtx<T>, item: FunctionsProps) => void;
+    click?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: FunctionsProps<T>) => void;
     sort?: number;
     type?: string;
     key?: any;
@@ -36,20 +37,20 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCt
     label?: string;
     width?: string | number;
     align?: string;
-    children?: RewriteTableColumnCtx[];
+    children?: Array<RewriteTableColumnCtx<T>>;
 }
 
 
-export interface RecuveTableColumnProps{
+export interface RecuveTableColumnProps<T = any>{
     onlyClass?: string;
     popoverValue?: boolean;
     table: RewriteTableProps;
-    children?: RewriteTableColumnCtx[];
+    children?: Array<RewriteTableColumnCtx<T>>;
 }
 
 export interface RewriteTableProps<T = any> extends TableProps<T> {
     on?: Partial< InstanceType<typeof ElTable>>;
-    tableColumns: RewriteTableColumnCtx[];
+    tableColumns: Array<RewriteTableColumnCtx<T>>;
     errData?: string;
     tableSlot?: boolean;
     tableHeaderSlot?: boolean;
