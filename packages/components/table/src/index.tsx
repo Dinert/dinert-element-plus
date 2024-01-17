@@ -1,10 +1,10 @@
 import {defineComponent, ref, computed, nextTick, watch, onMounted} from 'vue'
-import type {RewriteTableColumnCtx, RewriteTableProps} from '@/components/table/types/index'
-import {getUuid, convertToFlat, columnProp, getTreeNode} from '@/utils/tools'
-import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from '@/components/table/hooks'
+import type {RewriteTableColumnCtx, RewriteTableProps} from '@packages/components/table/types/index'
+import {getUuid, convertToFlat, columnProp, getTreeNode} from '@packages/utils/tools'
+import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from '@packages/components/table/hooks'
 
 import DinertRecuveTableColumn from './recuve-table-column'
-import useWindowResize from '@/hooks/useWindowResize'
+import useWindowResize from '@packages/hooks/useWindowResize'
 import {ArrowDown} from '@element-plus/icons-vue'
 
 
@@ -12,7 +12,7 @@ import type {ElTable, ElSelect} from 'element-plus'
 import type {PropType} from 'vue'
 import type Node from 'element-plus/es/components/tree/src/model/node'
 
-import '@/assets/scss/dinert-table.scss'
+import '@packages/assets/scss/dinert-table.scss'
 
 const popoverValue = ref(false)
 const onlyClass = ref('table_' + getUuid())

@@ -10,7 +10,7 @@
       "moduleResolution": "Node",
       "lib": ["esnext", "dom"],
       "paths": {
-         "@/*": ["packages/*"],
+         "@packages/*": ["packages/*"],
       },
     },
     "exclude": ["node_modules"],

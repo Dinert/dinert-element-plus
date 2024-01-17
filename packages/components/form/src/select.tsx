@@ -1,7 +1,7 @@
 import {computed, defineComponent} from 'vue'
 import {customPlaceholder} from '../utils'
 
-import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
+import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
 import type {ElSelect, SelectOptionProxy} from 'element-plus'
 
@@ -46,8 +46,8 @@ export default defineComponent({
                         return (<el-option
                             key={item.value}
                             {...item}
-                            label={(item as any)[(this.options as any).label] || item.label}
-                            value={(item as any)[(this.options as any).value] || item.value}
+                            label={(item as any)[(this.options).label] || item.label}
+                            value={(item as any)[(this.options).value] || item.value}
                         >
                         </el-option>)
                     })

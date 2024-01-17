@@ -1,13 +1,13 @@
 
 import {Ref, ref} from 'vue'
 
-import type {RewriteFormProps} from '@/components/form/types'
-import type {RewriteTableProps} from '@/components/table/types'
+import type {RewriteFormProps} from '@packages/components/form/types'
+import type {RewriteTableProps} from '@packages/components/table/types'
 
-import type {DinertTablePageProps, AjaxTableProps, ScopeFn} from '@/hooks/useTablePage/types'
+import type {DinertTablePageProps, AjaxTableProps, ScopeFn} from '@packages/hooks/useTablePage/types'
 
-import TablePageCom from '@/components/table-page/index'
-import {getUuid} from '@/utils/tools'
+import TablePageCom from '@packages/components/table-page/index'
+import {getUuid} from '@packages/utils/tools'
 import lodash from 'lodash'
 
 /**

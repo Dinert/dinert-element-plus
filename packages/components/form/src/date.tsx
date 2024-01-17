@@ -4,7 +4,7 @@ import {DatePickerProps} from 'element-plus'
 import {customPlaceholder} from '../utils'
 
 
-import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
+import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
 
 
@@ -48,7 +48,7 @@ export default defineComponent({
 
         const options = computed(() => {
             const options = props.formItem.options || {on: {}};
-            (options as any).type = props.formItem.type
+            (options).type = props.formItem.type
             return options
         })
 

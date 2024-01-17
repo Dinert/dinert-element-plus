@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import TablePage from '@/hooks/useTablePage/index'
+import TablePage from '@packages/hooks/useTablePage/index'
 import {tableData} from './data'
 import {tableColumns} from './tableColumns'
 

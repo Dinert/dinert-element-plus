@@ -1,7 +1,7 @@
 import {defineComponent, watch, ref, nextTick, computed} from 'vue'
 
-import {getPropByPath, dataTransformRod, escapeHTML} from '@/utils/tools'
-import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@/components/table/hooks'
+import {getPropByPath, dataTransformRod, escapeHTML} from '@packages/utils/tools'
+import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@packages/components/table/hooks'
 import {Setting, ArrowDown} from '@element-plus/icons-vue'
 import type {TableColumnCtx} from 'element-plus'
 
@@ -13,7 +13,7 @@ import type {
     TablePageProps,
     RewriteTableColumnCtx,
     FunctionsProps
-} from '@/components/table/types/index'
+} from '@packages/components/table/types/index'
 
 import type {PropType} from 'vue'
 

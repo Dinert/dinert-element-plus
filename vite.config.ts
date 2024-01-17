@@ -71,11 +71,12 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': `${path.resolve(__dirname, 'packages')}`,
+            '@packages': `${path.resolve(__dirname, 'packages')}`,
         },
         extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
     },
     server: {
         port: 8958,
-    }
+    },
+
 })

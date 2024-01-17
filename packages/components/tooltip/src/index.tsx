@@ -1,9 +1,9 @@
 import {defineComponent} from 'vue'
 
 import type {PropType} from 'vue'
-import type {DinertTooltipProps} from '@/components/tooltip/types'
+import type {DinertTooltipProps} from '@packages/components/tooltip/types'
 
-import '@/assets/scss/dinert-tooltip.scss'
+import '@packages/assets/scss/dinert-tooltip.scss'
 
 const getValue = (content?: string, _this?: any) => {
     if (_this.item && _this.item.options) {

@@ -1,6 +1,6 @@
-import type {DinertFormProps} from '@/components/form/types'
+import type {DinertFormProps} from '@packages/components/form/types'
 import type {TableInstance} from 'element-plus'
-import type {TablePageProps, RewriteTableColumnCtx} from '@/components/table/types/index'
+import type {TablePageProps, RewriteTableColumnCtx} from '@packages/components/table/types/index'
 
 export interface DinertTablePageProps<T = any, D = any> extends DinertFormProps<D>, TablePageProps<T>{
     search?: boolean;

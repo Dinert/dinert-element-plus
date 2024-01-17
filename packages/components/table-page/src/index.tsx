@@ -1,13 +1,13 @@
 import {defineComponent, ref} from 'vue'
 
-import DinertTable from '@/components/table'
-import DinertForm from '@/components/form'
+import DinertTable from '@packages/components/table'
+import DinertForm from '@packages/components/form'
 
-import type {RewriteTableProps} from '@/components/table/types/index'
+import type {RewriteTableProps} from '@packages/components/table/types/index'
 import type {PropType} from 'vue'
-import type {RewriteFormProps} from '@/components/form/types'
+import type {RewriteFormProps} from '@packages/components/form/types'
 
-import '@/assets/scss/dinert-table-page.scss'
+import '@packages/assets/scss/dinert-table-page.scss'
 
 
 const tablePageDom = ref<HTMLElement>()

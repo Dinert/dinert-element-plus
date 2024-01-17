@@ -2,7 +2,7 @@ import {computed, defineComponent} from 'vue'
 import {customPlaceholder} from '../utils'
 
 
-import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
+import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {InputNumberProps} from 'element-plus'
 import type {PropType} from 'vue'
 

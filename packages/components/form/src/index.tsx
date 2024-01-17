@@ -11,19 +11,19 @@ import CustomRate from './rate'
 import CustomCheckbox from './checkbox'
 import CustomCascader from './cascader'
 
-import useWindowResize from '@/hooks/useWindowResize'
-import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot} from '@/components/form/utils'
+import useWindowResize from '@packages/hooks/useWindowResize'
+import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot} from '@packages/components/form/utils'
 
-import {getUuid} from '@/utils/tools'
+import {getUuid} from '@packages/utils/tools'
 import {ElForm} from 'element-plus'
 
 import {ArrowUp, ArrowDown} from '@element-plus/icons-vue'
 
 
-import '@/assets/scss/dinert-form.scss'
+import '@packages/assets/scss/dinert-form.scss'
 
 import type {PropType} from 'vue'
-import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
+import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 
 
 const packUp = ref(true)

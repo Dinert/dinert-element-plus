@@ -1,6 +1,6 @@
 import {computed, defineComponent, PropType} from 'vue'
 
-import type {RewriteFormProps, CustomFormItemProps} from '@/components/form/types'
+import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {RateProps} from 'element-plus'
 
 
