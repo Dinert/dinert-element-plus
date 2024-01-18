@@ -49,9 +49,9 @@ export default defineComponent({
             default: false
         }
     },
-    emits: ['SizeChange', 'CurrentChange', 'search', 'reset'],
+    emits: ['SizeChange', 'CurrentChange', 'SearchFn', 'ResetFn'],
     setup() {
-
+        
         return {
             tablePageDom,
             tableRef,
@@ -59,12 +59,10 @@ export default defineComponent({
         }
     },
     render() {
-
         const slots = this.tableSlot ? this.$slots : {...this.$slots, default: (scope: any) => this.$slots[(scope.prop)]?.(scope)}
-
         return (
-            <section class="dinert-table-page" ref={tablePageDom}>
-                <DinertForm search={this.search} form={this.form} v-slots={this.$slots} onUnFold={onUnFold} ref={formRef}></DinertForm>
+            <section class={['dinert-table-page', this.search ? 'search' : '']} ref={tablePageDom}>
+                {this.search && <DinertForm form={this.form} v-slots={this.$slots} onSearchFn={() => this.$emit('SearchFn')} onResetFn={() => this.$emit('ResetFn')} onUnFold={onUnFold} ref={formRef}></DinertForm>}
                 <DinertTable
                     ref={tableRef}
                     table={this.table}

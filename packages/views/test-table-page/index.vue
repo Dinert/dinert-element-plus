@@ -72,6 +72,10 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
 
         },
         formItem: {
+            name: {
+                label: '名称',
+                type: 'custom',
+            },
             showLabel: {
                 label: '土木工程',
                 type: 'custom',
@@ -286,6 +290,10 @@ onMounted(() => {
     console.log(tablePageRef.value, '321312321321312')
 })
 
+const search = () => {
+    console.log('搜索')
+}
+
 </script>
 
 <template>
@@ -293,12 +301,16 @@ onMounted(() => {
         :table="table"
         class="near"
         :form="form"
+        :search="true"
+        @search-fn="search"
     >
         <template #header-left>
             <el-button type="primary" icon="Plus">新增</el-button>
         </template>
 
-
+        <template #formItem_name>
+            111
+        </template>
         <template #column_startTime>
             32132
         </template>

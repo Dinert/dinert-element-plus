@@ -4,6 +4,7 @@ import TablePage from './hooks/useTablePage/index'
 
 export * from './components/index'
 export const UseTablePage: typeof TablePage = TablePage
+export * from './hooks/useTablePage/types/index'
 
 const myPlugin: Plugin = {
     install: (app: App) => {

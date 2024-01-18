@@ -34,11 +34,19 @@ export default defineUserConfig({
         },
         {
             text: '组件',
-            link: '/examples/TablePage'
-        }
+            link: '/examples/Form'
+        },
     ],
     sidebar: {
         '/examples/': [
+            {
+                text: 'Form 生成表单',
+                link: '/examples/Form',
+            },
+            {
+                text: 'Table 表格',
+                link: '/examples/Table',
+            },
             {
                 text: 'TablePage 表格查询',
                 link: '/examples/TablePage',

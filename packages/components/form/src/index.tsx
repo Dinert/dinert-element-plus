@@ -65,7 +65,7 @@ export default defineComponent({
             default: true
         }
     },
-    emits: ['UnFold', 'Search', 'Reset'],
+    emits: ['UnFold', 'SearchFn', 'ResetFn'],
     setup(props, {emit}) {
 
         useWindowResize(() => {
@@ -257,9 +257,9 @@ export default defineComponent({
                     {this.$slots.form_search?.()
                         || (
                             <>
-                                <el-button type="primary" onClick={this.$emit('Search', 'search')}>搜索</el-button>
+                                <el-button type="primary" onClick={() => this.$emit('SearchFn')}>搜索</el-button>
                                 <el-button type="primary" plain
-                                    onClick={this.$emit('Reset', 'reset')}
+                                    onClick={() => this.$emit('ResetFn')}
                                 >重置</el-button>
                             </>
                         )

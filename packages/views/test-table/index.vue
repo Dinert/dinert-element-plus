@@ -5,6 +5,7 @@ import {tableData} from './data'
 import {tableColumns} from './tableColumns'
 
 
+
 const tablePage = new TablePage({
     table: {
         pagination: {
