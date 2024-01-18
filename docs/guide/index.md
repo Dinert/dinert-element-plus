@@ -5,7 +5,7 @@ contributors: true
 
 # 快速开始
 
-本节将介绍如何在项目中使用 <el-link type="primary" :underline="false" href="https://github.com/Dinert/element-plus">Dinert Element Plus。</el-link>
+本节将介绍如何在项目中使用 <el-link type="primary" :underline="false" href="https://github.com/Dinert/dinert-element-plus">Dinert Element Plus。</el-link>
 
 ## 安装
 ### 使用包管理器

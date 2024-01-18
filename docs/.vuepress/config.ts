@@ -12,7 +12,7 @@ export default defineUserConfig({
 
   theme: defaultTheme({
     logo: 'https://vuejs.org/images/logo.png',
-    repo: 'https://github.com/Dinert/element-plus',
+    repo: 'https://github.com/Dinert/dinert-element-plus',
 
     locales: {
         '/': {
