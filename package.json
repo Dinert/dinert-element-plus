@@ -1,6 +1,6 @@
 {
   "name": "@dinert/element-plus",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "基于vue3封装的element-plus包",
   "private": true,
   "workspaces": [

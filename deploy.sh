@@ -13,5 +13,4 @@ git init
 git add -A
 git commit -m 'deploy'
 
-# 如果发布到 https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:dinert/dinert-element-plus-docs.git master:gh-pages
