@@ -2,9 +2,6 @@
   "name": "@dinert/element-plus",
   "version": "1.0.2",
   "description": "基于vue3封装的element-plus包",
-  "workspaces": [
-    "./"
-  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
