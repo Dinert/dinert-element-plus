@@ -1,5 +1,6 @@
 import {defaultTheme, defineUserConfig } from 'vuepress'
 export default defineUserConfig({
+  base: '/dinert-element-plus-docs/',
   lang: 'zh-CN',
   locales: {
     '/': {
@@ -34,7 +35,8 @@ export default defineUserConfig({
         },
         {
             text: '组件',
-            link: '/examples/Form'
+            link: '/examples/Form',
+            activeMatch: '^/examples/',
         },
     ],
     sidebar: {
