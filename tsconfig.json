@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "noImplicitAny": false,
       "baseUrl": ".",
       "jsx": "preserve",
       "strict": true,
@@ -14,5 +15,5 @@
       },
     },
     "exclude": ["node_modules"],
-    "include": ["packages/**/*.ts", "packages/**/*.d.ts", "packages/**/*.vue", "packages/**/*.tsx", "docs/**/*.vue"],
+    "include": ["packages/**/*.ts", "packages/**/*.d.ts", "packages/**/*.vue", "packages/**/*.tsx"],
   }

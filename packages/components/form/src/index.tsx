@@ -130,7 +130,7 @@ export default defineComponent({
                         if (vif) {
                             return (
                                 <el-col
-                                    style={style}
+                                    style= {style}
                                     class={[item.type, item.key]}
                                     key={item.key}
                                     {

@@ -161,8 +161,8 @@ const {table, form} = tablePage.value
 
 | 插槽名         | 说明                                                             |
 | -------------- | ---------------------------------------------------------------- |
-| column_[key]   | column_是固定的，key里面的值取决于tableColumns数组中对象的prop值 |
-| formItem_[key] | formItem_是固定的，key里面的值取决于form中的formItem的key        |
+| form的插槽   | [请参考](form'./Form.md#form-slots') |
+| table的插槽 | [请参考table]('./Torm.md#table-slots')        |
 
 
 

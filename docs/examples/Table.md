@@ -138,29 +138,37 @@ const {table, form} = tablePage.value
 
 ### Table Attributes
 
-| 属性名    | 说明                    | 类型    | 默认值 |
-| --------- | ----------------------- | ------- | ------ |
-| header    | 是否显示头部表单        | Boolean | true   |
-| footer    | 是否显示底部分页栏      | Boolean | true   |
-| tableSlot | 是否开启table的默认插槽 | Boolean | false   |
-| table     | [table表格的所有属性，扩展配置看以下属性](https://element-plus.org/en-US/component/table.html#table-attributes)     | Object  | 一     |
-| tableColumns | [表格列，数组中的每一个对象就是一个table-column配置项](https://element-plus.org/en-US/component/table.html#table-column-attributes) | Array| []|
-| errData | 表格每一个数据为undefined、null、空字符串时显示的值 | String| - |
-| setting | 是否显示tableColumn中的设置拖拽按钮 | Boolean | false |
-| key | 表格的key属性，一般在表格布局错乱时设置为任何值，不要和上一次的相同 | Boolean | false |
-| class | 表格的class属性 | string | 一 |
-| pagination | [分页组件的所有属性](https://element-plus.org/en-US/component/pagination.html#attributes) | Object | 一 |
+| 属性名       | 说明                                                                                                                                | 类型    | 默认值 |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ------- | ------ |
+| header       | 是否显示头部表单                                                                                                                    | Boolean | true   |
+| footer       | 是否显示底部分页栏                                                                                                                  | Boolean | true   |
+| tableSlot    | 是否开启table的默认插槽                                                                                                             | Boolean | false  |
+| table        | [table表格的所有属性，扩展配置看以下属性](https://element-plus.org/en-US/component/table.html#table-attributes)                     | Object  | 一     |
+| tableColumns | [表格列，数组中的每一个对象就是一个table-column配置项](https://element-plus.org/en-US/component/table.html#table-column-attributes) | Array   | []     |
+| errData      | 表格每一个数据为undefined、null、空字符串时显示的值                                                                                 | String  | -      |
+| setting      | 是否显示tableColumn中的设置拖拽按钮                                                                                                 | Boolean | false  |
+| key          | 表格的key属性，一般在表格布局错乱时设置为任何值，不要和上一次的相同                                                                 | Boolean | false  |
+| class        | 表格的class属性                                                                                                                     | string  | 一     |
+| pagination   | [分页组件的所有属性](https://element-plus.org/en-US/component/pagination.html#attributes)                                           | Object  | 一     |
 
 ### Table-column Attributes
 
-| 属性名    | 说明                    | 类型    | 默认值 |
-| --------- | ----------------------- | ------- | ------ |
-| checked    | 是否显示当前表格        | Boolean | true   |
-| show    | 是否显示当前表格        | Boolean | true   |
-| setting    | 是否拖拽按钮        | Boolean | true   |
-| sort    | 表格列排序顺序，比如第一个组件是1、以此类推，最后一个列设置比1小就可以排列第一        | Number | 一   |
-| disabled    | 在setting设置为true时生效，是否可以拖拽排列顺序        | Number | 一   |
-| class    | 表格列的class        | Number | 一   |
+| 属性名   | 说明                                                                           | 类型    | 默认值 |
+| -------- | ------------------------------------------------------------------------------ | ------- | ------ |
+| checked  | 是否显示当前表格                                                               | Boolean | true   |
+| show     | 是否显示当前表格                                                               | Boolean | true   |
+| setting  | 是否拖拽按钮                                                                   | Boolean | true   |
+| sort     | 表格列排序顺序，比如第一个组件是1、以此类推，最后一个列设置比1小就可以排列第一 | Number  | 一     |
+| disabled | 在setting设置为true时生效，是否可以拖拽排列顺序                                | Number  | 一     |
+| class    | 表格列的class                                                                  | Number  | 一     |
+
+### Table Slots
+
+| 插槽名       | 说明                                                                                     |
+| ------------ | ---------------------------------------------------------------------------------------- |
+| column_[key] | column_是固定的，key里面的值取决于tableColumns数组中对象的prop值，tableSlot为false时有效 |
+| default      | 表格内容和表格头的默认内容                                                               |
+
 
 ### Table的类型
 ```ts

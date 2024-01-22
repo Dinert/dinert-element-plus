@@ -302,6 +302,7 @@ const search = () => {
         class="near"
         :form="form"
         :search="true"
+        :table-slot="true"
         @search-fn="search"
     >
         <template #header-left>

@@ -106,6 +106,7 @@ const {form, search} = formRef.value
 | 插槽名         | 说明                                                             |
 | -------------- | ---------------------------------------------------------------- |
 | formItem_[key] | formItem_是固定的，key里面的值取决于form中的formItem的key        |
+| form_search | 自定义查询栏        |
 
 
 ### FormItem Attributes
