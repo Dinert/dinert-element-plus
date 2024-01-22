@@ -101,6 +101,12 @@ const {form, search} = formRef.value
 | showLabel | 是否直接显示值，不显示表单组件                                               | Boolean                                                                         | false                                  |
 | formItem  | formItem为一个对象，对象下有多个key，key指向一个对象，对象的配置参考下列表格 | Object                                                                          | 一                                     |
 
+### Form Slots
+
+| 插槽名         | 说明                                                             |
+| -------------- | ---------------------------------------------------------------- |
+| formItem_[key] | formItem_是固定的，key里面的值取决于form中的formItem的key        |
+
 
 ### FormItem Attributes
 | 属性名    | 说明                                                                                                                                       | 类型                        | 默认值                                 |
@@ -115,6 +121,9 @@ const {form, search} = formRef.value
 | showLabel | 组件的名称是否显示                                                                                                                         | Boolean                     | false                                  |
 | colLayout | 组件的布局方式                                                                                                                             | Object                      | { xl: 3, lg: 4, md: 8, sm: 12, xs: 24} |
 | on        | 组件绑定的方法，比如组件的名称是input，那on里面的内容就是Input的方法，要注意，绑定方法的时候请用on加方法名称，方法名称采用大驼峰的形式书写 | Object                      | 一                                     |
+
+
+
 
 ### 支持可配置的表单组件
 

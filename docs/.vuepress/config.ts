@@ -6,7 +6,7 @@ export default defineUserConfig({
     '/': {
         lang: 'en-US',
         title: 'DinertElementPlus组件库',
-        description: '本项目是基于Vue3、ElementPlus、TypeScript二次封装的组件库',
+        description: '本项目是基于ElementPlus的UI库，采用Vue3、、TypeScript、Tsx的技术二次封装的组件库',
       },
   },
 
