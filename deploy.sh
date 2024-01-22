@@ -9,8 +9,6 @@ npm run docs:build
 # 进入生成的文件夹
 cd docs/.vuepress/dist
 
-git config --global user.email "1293437362@qq.com"
-git config --global user.name "dinert"
 
 git init
 git add -A
