@@ -7,8 +7,7 @@
     "build": "vite build",
     "prepare": "husky install",
     "docs:dev": "vuepress dev docs --port 8060",
-    "docs:build": "vuepress build docs",
-    "deploy": "bash deploy.sh"
+    "docs:build": "vuepress build docs"
   },
   "keywords": [
     "@dinert/element-plus",
