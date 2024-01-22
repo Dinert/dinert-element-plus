@@ -77,7 +77,7 @@ jobs:
       # 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         # 此actions的官方文档 https://github.com/JamesIves/github-pages-deploy-action
-        uses: /Dinert/dinert-element-plus-docs@v4
+        uses: Dinert/dinert-element-plus-docs@v4
         with:
           # 要部署的文件夹，必填
           FOLDER: docs/.vuepress/dist
