@@ -93,20 +93,26 @@ const {form, search} = formRef.value
 ## Form API
 
 ### Form Attributes
-| 属性名    | 说明                                                                         | 类型                                                                            | 默认值                                 |
-| --------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------- |
-| search    | 是否显示查询和重置按钮                                                       | Boolean                                                                         | true                                   |
-| form      | 请参考以下配置                                                               | [FormModel](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                     |
-| colLayout | 表单的布局方式                                                               | Object                                                                          | { xl: 3, lg: 4, md: 8, sm: 12, xs: 24} |
-| showLabel | 是否直接显示值，不显示表单组件                                               | Boolean                                                                         | false                                  |
-| formItem  | formItem为一个对象，对象下有多个key，key指向一个对象，对象的配置参考下列表格 | Object                                                                          | 一                                     |
+| 属性名 | 说明                                                                                         | 类型    | 默认值 |
+| ------ | -------------------------------------------------------------------------------------------- | ------- | ------ |
+| search | 是否显示查询和重置按钮                                                                       | Boolean | true   |
+| form   | (Form组件中的所有属性)[(https://element-plus.org/zh-CN/component/form.html#form-attributes)] | Object  | 一     |
+
 
 ### Form Slots
 
-| 插槽名         | 说明                                                             |
-| -------------- | ---------------------------------------------------------------- |
-| formItem_[key] | formItem_是固定的，key里面的值取决于form中的formItem的key        |
-| form_search | 自定义查询栏        |
+| 插槽名         | 说明                                                      |
+| -------------- | --------------------------------------------------------- |
+| formItem_[key] | formItem_是固定的，key里面的值取决于form中的formItem的key |
+| form_search    | 自定义查询栏                                              |
+
+### Form Form Attributes
+| 属性名    | 说明                                                                                                              | 类型    | 默认值                                 |
+| --------- | ----------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------- |
+| form      | (继承自ElementPlus的form，扩展参数查看下表)[(https://element-plus.org/zh-CN/component/form.html#form-attributes)] | Object  | 一                                     |
+| colLayout | 表单的布局方式                                                                                                    | Object  | { xl: 3, lg: 4, md: 8, sm: 12, xs: 24} |
+| showLabel | 是否直接显示值，不显示表单组件                                                                                    | Boolean | false                                  |
+| formItem  | formItem为一个对象，对象下有多个key，key指向一个对象，对象的配置参考下列表格                                      | Object  | 一                                     |
 
 
 ### FormItem Attributes
