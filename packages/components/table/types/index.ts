@@ -22,7 +22,7 @@ export interface FunctionsProps<T = any>{
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
     type?: string;
     checked?: boolean;
-    show?: boolean;
+    show?: boolean | ((column: RewriteTableColumnCtx<T>) => boolean);
     setting?: boolean;
     maxOperations?: number;
     functions?: {

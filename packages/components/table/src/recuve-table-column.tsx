@@ -238,7 +238,8 @@ export default defineComponent({
                 {
                     // eslint-disable-next-line array-callback-return, consistent-return
                     this.tableColumns && this.tableColumns.map(item => {
-                        const show = item.show === undefined || item.show === true
+                        let show = typeof item.show === 'function' ? item.show(item) : item.show
+                        show = item.show === undefined || item.show === true
                         const checked = item.checked === undefined || item.checked === true
                         const custom = !['index', 'selection', 'expand'].includes((item.type as string)) || item.custom
                         const fixed = item.prop === 'operations' && item.fixed === undefined ? 'right' : item.fixed
