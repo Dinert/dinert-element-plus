@@ -51,7 +51,9 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
                         }
                     },
                     operations: {
-                        message: '操作1'
+                        message: scope => {
+                            return '操作' + scope.$index
+                        }
                     },
                     operations2: {
                         message: '操作2',

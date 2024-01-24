@@ -181,8 +181,9 @@ export default defineComponent({
                 return (
                     <>
                         {defaultFunctions.value.map((item2: FunctionsProps) => {
+                            const message = typeof item2.message === 'function' ? item2.message(scope, column, item2) : item2.message
                             return (
-                                <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, column, item2)} key={item2.key}>{item2.message}</el-link>
+                                <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, column, item2)} key={item2.key}>{message}</el-link>
                             )
                         })}
                         {(seniorFunctions.value.length && functions.value.length > maxOperations
@@ -197,12 +198,15 @@ export default defineComponent({
                                     )
                                 },
                                 dropdown: () => {
+
                                     return (
                                         <el-dropdown-menu>
                                             {
                                                 seniorFunctions.value.map((item: any) => {
+                                                    const message = typeof item.message === 'function' ? item.message(scope, column, item) : item.message
+
                                                     return (
-                                                        <el-dropdown-item command={item}>{item.message}</el-dropdown-item>
+                                                        <el-dropdown-item command={item}>{message}</el-dropdown-item>
                                                     )
                                                 })
                                             }

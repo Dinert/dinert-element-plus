@@ -11,7 +11,7 @@ export interface ScopeProps<T = any> {
 }
 
 export interface FunctionsProps<T = any>{
-    message?: string;
+    message?: string | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: FunctionsProps<T>) => void);
     value?: string;
     click?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: FunctionsProps<T>) => void;
     sort?: number;
