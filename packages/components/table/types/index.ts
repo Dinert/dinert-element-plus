@@ -53,7 +53,6 @@ export interface RewriteTableProps<T = any> extends TableProps<T> {
     tableColumns: Array<RewriteTableColumnCtx<T>>;
     errData?: string;
     tableSlot?: boolean;
-    tableHeaderSlot?: boolean;
     setting?: boolean;
     key?: any;
     class?: string;

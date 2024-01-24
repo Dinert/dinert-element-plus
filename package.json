@@ -1,6 +1,6 @@
 {
   "name": "@dinert/element-plus",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "基于vue3封装的element-plus包",
   "scripts": {
     "dev": "vite",
