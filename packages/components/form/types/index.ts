@@ -82,6 +82,7 @@ export interface CustomFormItemProps<D = any, O = any[]> extends Partial<FormIte
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;
+    required?: boolean;
     disabled?: boolean;
     colLayout?: RewriteColProps;
     on?: Partial< InstanceType<

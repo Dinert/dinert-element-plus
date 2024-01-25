@@ -92,7 +92,8 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
             },
             textarea: {
                 label: '文本域',
-                type: 'textarea'
+                type: 'textarea',
+                required: true
             },
             inputNumber: {
                 label: '数字输入框',

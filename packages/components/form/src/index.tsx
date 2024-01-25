@@ -12,7 +12,7 @@ import CustomCheckbox from './checkbox'
 import CustomCascader from './cascader'
 
 import useWindowResize from '@packages/hooks/useWindowResize'
-import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot} from '@packages/components/form/utils'
+import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot, customPlaceholder} from '@packages/components/form/utils'
 
 import {getUuid} from '@packages/utils/tools'
 import {ElForm} from 'element-plus'
@@ -128,6 +128,9 @@ export default defineComponent({
                             style.display = 'none'
                         }
                         if (vif) {
+                            let rules = item.rules || []
+                            rules = item.required ? [{required: true, trigger: 'blur', message: customPlaceholder(item.label, item.type)}].concat(rules as any) : rules
+                            rules = (item.showLabel || this.form.showLabel) ? [] : rules
                             return (
                                 <el-col
                                     style= {style}
@@ -151,7 +154,7 @@ export default defineComponent({
                                         class={[item.labelWrap ? 'label-wrap' : '', item.showLabel || this.form.showLabel ? 'show-label' : '']}
                                         {...{
                                             ...item,
-                                            rules: item.showLabel || this.form.showLabel ? [] : item.rules
+                                            rules: rules
                                         }}
                                         v-slots={{
                                             label: () => {
