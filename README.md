@@ -15,7 +15,7 @@
 </a>
 
 ## Getting Started
-https://dinert.github.io/dinert-element-plus-docs/guide/
+https://dinert.github.io/dinert-element-plus/
 
 ## Installation
 
