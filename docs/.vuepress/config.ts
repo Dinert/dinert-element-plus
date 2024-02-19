@@ -1,6 +1,6 @@
 import {defaultTheme, defineUserConfig } from 'vuepress'
 export default defineUserConfig({
-  base: './',
+  base: '/dinert-element-plus/',
   lang: 'zh-CN',
   locales: {
     '/': {
