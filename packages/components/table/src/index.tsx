@@ -1,6 +1,6 @@
-import {defineComponent, ref, computed, nextTick, watch, onMounted} from 'vue'
-import type {RewriteTableColumnCtx, RewriteTableProps} from '@packages/components/table/types/index'
-import {getUuid, convertToFlat, columnProp, getTreeNode} from '@packages/utils/tools'
+import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs} from 'vue'
+import type {RewriteTableProps} from '@packages/components/table/types/index'
+import {getUuid, columnProp, getTreeNode} from '@packages/utils/tools'
 import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from '@packages/components/table/hooks'
 
 import DinertRecuveTableColumn from './recuve-table-column'
@@ -13,16 +13,6 @@ import type {PropType} from 'vue'
 import type Node from 'element-plus/es/components/tree/src/model/node'
 
 import '@packages/assets/scss/dinert-table.scss'
-
-const popoverValue = ref(false)
-const onlyClass = ref('table_' + getUuid())
-const selectTable = ref<InstanceType<typeof ElSelect>>()
-const isAllData = ref(true)
-const tableRef = ref<InstanceType<typeof ElTable>>()
-const headerRef = ref<HTMLElement | null>(null)
-const bodyRef = ref<HTMLElement | null>(null)
-const footerRef = ref<HTMLElement | null>(null)
-const headerFooterRef = ref<HTMLElement | null>(null)
 
 
 export default defineComponent({
@@ -46,6 +36,32 @@ export default defineComponent({
     },
     emits: ['SizeChange', 'CurrentChange'],
     setup(props) {
+        const tableRef = ref<InstanceType<typeof ElTable>>()
+        const popoverValue = ref(false)
+        const onlyClass = ref('table_' + getUuid())
+        const selectTableRef = ref<InstanceType<typeof ElSelect>>()
+        const isAllData = ref(true)
+        const headerRef = ref<HTMLElement | null>(null)
+        const bodyRef = ref<HTMLElement | null>(null)
+        const footerRef = ref<HTMLElement | null>(null)
+        const headerFooterRef = ref<HTMLElement | null>(null)
+
+        onMounted(() => {
+            console.log(tableRef.value, 'selectTable.value')
+        })
+
+
+        const {table} = toRefs(props)
+        const tableColumns = ref(table.value?.tableColumns || [])
+
+        tableColumns.value.forEach((item, index) => {
+            item.sort = typeof item.sort === 'undefined' ? index : item.sort
+            return item
+        })
+
+        tableColumns.value.sort((a: any, b: any) => {
+            return a.sort - b.sort
+        })
 
         const resizeTaleHeightFn = () => {
             resizeTaleHeight(
@@ -64,20 +80,6 @@ export default defineComponent({
             })
         })
 
-
-        const tableColumns = computed<RewriteTableColumnCtx[]>(() => {
-            let tableColumns = props.table?.tableColumns || []
-            tableColumns = tableColumns.map((item, index) => {
-                item.sort = typeof item.sort === 'undefined' ? index : item.sort
-                return item
-            })
-
-            tableColumns.sort((a: any, b: any) => {
-                return a.sort - b.sort
-            })
-
-            return tableColumns
-        })
 
         const getSetting = computed(() => {
             return getTreeNode(tableColumns.value, 'setting', [true], 'setting').length === 0
@@ -100,7 +102,7 @@ export default defineComponent({
 
         watch(() => props.table?.key, () => {
             nextTick(async () => {
-                await treeNode(selectTable.value, props.table?.tableColumns)
+                await treeNode(selectTableRef.value, tableColumns.value)
 
                 setTimeout(() => {
                     resizeTaleHeightFn()
@@ -112,9 +114,7 @@ export default defineComponent({
 
         watch(() => tableColumns.value, () => {
             nextTick(() => {
-                const tableColumnsData = convertToFlat(tableColumns.value)
-                const selectData: any = selectTable.value && (selectTable.value as any).getCheckedKeys()
-                isAllData.value = tableColumnsData.length === (selectData && selectData.length)
+                isAllData.value = tableColumns.value.every(item => item.checked === true)
             })
 
         }, {
@@ -128,7 +128,17 @@ export default defineComponent({
             checkTree,
             defaultCheckedKeys,
             resizeTaleHeightFn,
-            tableRef
+            nodeDragEnd,
+            popoverValue,
+            onlyClass,
+            isAllData,
+
+            tableRef,
+            headerRef,
+            headerFooterRef,
+            bodyRef,
+            footerRef,
+            selectTableRef
         }
     },
     render() {
@@ -139,7 +149,7 @@ export default defineComponent({
             <section class={'dinert-table'}>
                 {
                     this.header
-            && <header class={'dinert-table-header'} ref={headerRef}>
+            && <header class={'dinert-table-header'} ref={el => {this.headerRef = el}}>
                 {
                     this.$slots['header-left']
                     && <div class="dinert-table-header-left">
@@ -150,7 +160,7 @@ export default defineComponent({
                     this.getSetting
                     && <div class={'dinert-table-header-right'}>
                         <el-button-group>
-                            <el-button type={isAllData.value ? 'primary' : 'default'}
+                            <el-button type={this.isAllData ? 'primary' : 'default'}
                             >全部显示
                             </el-button>
                             <el-popover teleported={false}
@@ -159,7 +169,7 @@ export default defineComponent({
                                         default: () => (
                                             <ul class="el-popover-classify">
                                                 <el-tree
-                                                    ref={selectTable}
+                                                    ref={el => {this.selectTableRef = el}}
                                                     draggable
                                                     data={this.tableColumns}
                                                     default-expand-all
@@ -169,7 +179,7 @@ export default defineComponent({
                                                     props={treeProps}
                                                     allow-drop={allowDrop}
                                                     onCheckChange={this.checkTree}
-                                                    nodeDragEnd={(e: Node) => nodeDragEnd(e, (selectTable.value as any))}
+                                                    onNodeDragEnd={(node: Node) => nodeDragEnd(node, (this.selectTableRef as any))}
                                                     v-slots={
                                                         {
                                                             default: ({data}: {data: Node}) => (
@@ -193,7 +203,7 @@ export default defineComponent({
                                             </ul>
                                         ),
                                         reference: () => (
-                                            <el-button type={!isAllData.value ? 'primary' : ''}>
+                                            <el-button type={!this.isAllData ? 'primary' : ''}>
                                                 分类显示<el-icon><ArrowDown/></el-icon>
                                             </el-button>
                                         )
@@ -210,32 +220,32 @@ export default defineComponent({
 
                 {
                     this.$slots['header-footer']
-        && <header class={'dinert-table-headerFooter'} ref={headerFooterRef}>
+        && <header class={'dinert-table-headerFooter'} ref={el => {this.headerFooterRef = el}}>
             {this.$slots['header-footer']?.()}
         </header>
                 }
 
-                <div ref={bodyRef} class="dinert-table-body">
+                <div ref={el => {this.bodyRef = el}} class="dinert-table-body">
                     <el-table
                         height={'100%'}
                         border={true}
                         {...this.table}
-                        ref={tableRef}
+                        ref={el => {this.tableRef = el}}
                         row-key={this.table?.rowKey}
                         {...this.table?.on}
                     >
                         <DinertRecuveTableColumn table={this.table}
                             table-columns={this.tableColumns}
-                            only-class={onlyClass.value}
+                            only-class={this.onlyClass}
                             v-slots={slots}
-                            popover-value={popoverValue.value}
+                            popover-value={this.popoverValue}
                         >
                         </DinertRecuveTableColumn>
 
                     </el-table>
                 </div>
 
-                <div class="dinert-table-footer" ref={footerRef}>
+                <div class="dinert-table-footer" ref={el => {this.footerRef = el}}>
                     <el-pagination
                         model:current-page={1}
                         model:page-size={15}

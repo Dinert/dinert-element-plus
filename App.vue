@@ -40,9 +40,13 @@ const activeName = ref('table-form')
                 flex: 1;
                 height: 0;
 
-                #pane-table-form,
-                .dinert-table-page {
+                #pane-table-form {
                     height: 100%;
+                    background-color: #f5f5f5;
+
+                    .dinert-table-page {
+                        height: 100%;
+                    }
                 }
             }
         }

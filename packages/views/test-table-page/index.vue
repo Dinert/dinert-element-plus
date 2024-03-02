@@ -292,6 +292,7 @@ tablePage.getTableParams = () => {
 onMounted(() => {
     console.log(tablePageRef.value, '321312321321312')
 })
+// tablePage.search()
 
 const search = () => {
     console.log('搜索')

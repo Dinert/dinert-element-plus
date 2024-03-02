@@ -1,9 +1,10 @@
-import {computed, defineComponent} from 'vue'
+import {computed, defineComponent, PropType} from 'vue'
 import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
-import type {PropType} from 'vue'
 import type {ElSelect, SelectOptionProxy} from 'element-plus'
+
+type FormItem = CustomFormItemProps<Partial<typeof ElSelect>, SelectOptionProxy[]>
 
 export default defineComponent({
     name: 'dinert-select',
@@ -13,7 +14,7 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<typeof ElSelect>, SelectOptionProxy[]>>,
+            type: Object as PropType<FormItem>,
             default: () => ({})
         },
     },
@@ -46,8 +47,8 @@ export default defineComponent({
                         return (<el-option
                             key={item.value}
                             {...item}
-                            label={(item as any)[(this.options).label] || item.label}
-                            value={(item as any)[(this.options).value] || item.value}
+                            label={item[(this.options.label || 'label')]}
+                            value={item[((this.options.value as any) || 'value')]}
                         >
                         </el-option>)
                     })

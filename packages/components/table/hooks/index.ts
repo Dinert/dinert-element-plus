@@ -15,6 +15,7 @@ export const checkTree = (data: Node, checked: boolean, childChecked: boolean) =
 }
 
 export const treeNode = async (selectTable: any, treeData2: any) => {
+
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < treeData2.length; i++) {
         if (treeData2[i].checked === undefined) {
@@ -42,8 +43,8 @@ export const allowDrop = (draggingNode: Node, dropNode: Node, type: AllowDropTyp
     }
 }
 
-export const nodeDragEnd = (node: Node, selectTable: SelectTable): void => {
-    selectTable?.setChecked(treeNode(selectTable, [node.data]))
+export const nodeDragEnd = async (node: Node, selectTable: SelectTable) => {
+    treeNode(selectTable, [node.data])
 }
 
 export const resizeTaleHeight = (table: any, header: any, body: any, footer: any, headerFooterRef: any, tableProps: RewriteTableProps) => {

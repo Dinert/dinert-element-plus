@@ -5,6 +5,7 @@ import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/f
 import type {PropType} from 'vue'
 import type {CascaderInstance, CascaderProps} from 'element-plus'
 
+type FormItem = CustomFormItemProps<Partial<CascaderInstance>>
 export default defineComponent({
     name: 'dinert-cascader',
     props: {
@@ -13,7 +14,7 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<CascaderInstance>>>,
+            type: Object as PropType<FormItem>,
             default: () => ({})
         },
     },

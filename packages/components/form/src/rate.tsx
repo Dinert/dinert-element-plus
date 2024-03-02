@@ -18,8 +18,8 @@ export default defineComponent({
     },
     setup(props) {
         const options = computed(() => {
-            const options = props.formItem.options || {};
-            (options).type = props.formItem.type
+            const options = (props.formItem.options || {} as any)
+            options.type = props.formItem.type
             return options
         })
 
