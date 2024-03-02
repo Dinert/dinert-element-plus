@@ -1,4 +1,4 @@
-import {defineComponent, watch, ref, nextTick, computed, onMounted} from 'vue'
+import {defineComponent, watch, ref, nextTick, computed} from 'vue'
 
 import {getPropByPath, dataTransformRod, escapeHTML} from '@packages/utils/tools'
 import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@packages/components/table/hooks'
@@ -74,9 +74,6 @@ export default defineComponent({
             })
         }, {
             immediate: true
-        })
-        onMounted(() => {
-            console.log(selectTable.value, 'selectTable.value')
         })
 
         const settingRender = (props: RecuveTableColumnProps) => {
