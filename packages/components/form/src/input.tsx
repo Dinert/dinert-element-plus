@@ -21,7 +21,7 @@ export default defineComponent({
     setup(props) {
         const options = computed(() => {
             const options = props.formItem.options || {};
-            (options).type = props.formItem.type
+            (options as any).type = props.formItem.type
             return options
         })
 

@@ -26,32 +26,6 @@ import type {PropType} from 'vue'
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 
 
-const packUp = ref(true)
-const isArrow = ref(false)
-const formRef = ref<InstanceType<typeof ElForm>>()
-const formClass = ref('form_' + getUuid())
-
-
-const resizeForm = () => {
-    const elFormLeft = document.querySelectorAll(`.${formClass.value} .el-form-left > div`)
-    if (elFormLeft[0]) {
-        nextTick(() => {
-            const firstTop = elFormLeft[0].getBoundingClientRect().top
-            const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
-            const isHeight = firstTop !== lastTop
-            if (isHeight) {
-                isArrow.value = true
-            } else {
-                if (!packUp.value) {
-                    packUp.value = true
-                }
-                isArrow.value = false
-            }
-        })
-
-    }
-}
-
 // 展开还是收起状态
 export default defineComponent({
     name: 'dinert-form',
@@ -67,6 +41,33 @@ export default defineComponent({
     },
     emits: ['UnFold', 'SearchFn', 'ResetFn'],
     setup(props, {emit}) {
+
+
+        const packUp = ref(true)
+        const isArrow = ref(false)
+        const formRef = ref<InstanceType<typeof ElForm>>()
+        const formClass = ref('form_' + getUuid())
+
+
+        const resizeForm = () => {
+            const elFormLeft = document.querySelectorAll(`.${formClass.value} .el-form-left > div`)
+            if (elFormLeft[0]) {
+                nextTick(() => {
+                    const firstTop = elFormLeft[0].getBoundingClientRect().top
+                    const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
+                    const isHeight = firstTop !== lastTop
+                    if (isHeight) {
+                        isArrow.value = true
+                    } else {
+                        if (!packUp.value) {
+                            packUp.value = true
+                        }
+                        isArrow.value = false
+                    }
+                })
+
+            }
+        }
 
         useWindowResize(() => {
             resizeForm()
@@ -105,6 +106,10 @@ export default defineComponent({
         return {
             formItemMap,
             unfold,
+            formClass,
+
+            formRef,
+            packUp,
         }
     },
     render() {
@@ -112,8 +117,8 @@ export default defineComponent({
         return (
             <el-form inline={true}
                 {...this.form}
-                ref={formRef}
-                class={[formClass.value, packUp.value ? '' : 'packUp', 'dinert-form']}>
+                ref={el => {this.formRef = el}}
+                class={[this.formClass, this.packUp ? '' : 'packUp', 'dinert-form']}>
                 <el-row {...this.form.row} class="el-form-left">
                     {/* eslint-disable-next-line array-callback-return, consistent-return */}
                     { this.formItemMap.map((item: CustomFormItemProps) => {
@@ -253,9 +258,9 @@ export default defineComponent({
                         onClick={this.unfold}
                     >
                         <el-icon>
-                            {packUp.value ? <ArrowUp/> : <ArrowDown/>}
+                            {this.packUp ? <ArrowUp/> : <ArrowDown/>}
                         </el-icon>
-                        {packUp.value ? '收起' : '展开'}
+                        {this.packUp ? '收起' : '展开'}
                     </el-button>
                     {this.$slots.form_search?.()
                         || (

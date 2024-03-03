@@ -10,17 +10,6 @@ import type {RewriteFormProps} from '@packages/components/form/types'
 import '@packages/assets/scss/dinert-table-page.scss'
 
 
-const tablePageDom = ref<HTMLElement>()
-const tableRef = ref<InstanceType<typeof DinertTable>>()
-const formRef = ref<InstanceType<typeof DinertForm>>()
-
-const onUnFold = () => {
-    const timer = setTimeout(() => {
-        tableRef.value?.resizeTaleHeightFn()
-        clearTimeout(timer)
-    }, 300)
-}
-
 export default defineComponent({
     name: 'dinert-table-page',
     props: {
@@ -51,20 +40,39 @@ export default defineComponent({
     },
     emits: ['SizeChange', 'CurrentChange', 'SearchFn', 'ResetFn'],
     setup() {
-        
+
+        const tablePageDom = ref<HTMLElement>()
+        const tableRef = ref<InstanceType<typeof DinertTable>>()
+        const formRef = ref<InstanceType<typeof DinertForm>>()
+
+        const onUnFold = () => {
+            const timer = setTimeout(() => {
+                tableRef.value?.resizeTaleHeightFn()
+                clearTimeout(timer)
+            }, 300)
+        }
+
         return {
             tablePageDom,
             tableRef,
-            formRef
+            formRef,
+            onUnFold
         }
     },
     render() {
         const slots = this.tableSlot ? this.$slots : {...this.$slots, default: (scope: any) => this.$slots[(scope.prop)]?.(scope)}
         return (
-            <section class={['dinert-table-page', this.search ? 'search' : '']} ref={tablePageDom}>
-                {this.search && <DinertForm form={this.form} v-slots={this.$slots} onSearchFn={() => this.$emit('SearchFn')} onResetFn={() => this.$emit('ResetFn')} onUnFold={onUnFold} ref={formRef}></DinertForm>}
+            <section class={['dinert-table-page', this.search ? 'search' : '']} ref={el => {this.tablePageDom = el}}>
+                {this.search
+                && <DinertForm form={this.form}
+                    v-slots={this.$slots}
+                    onSearchFn={() => this.$emit('SearchFn')}
+                    onResetFn={() => this.$emit('ResetFn')}
+                    onUnFold={this.onUnFold}
+                    ref={el => {this.formRef = el}}></DinertForm>
+                }
                 <DinertTable
-                    ref={tableRef}
+                    ref={el => {this.tableRef = el}}
                     table={this.table}
                     header={this.header}
                     footer={this.footer}
