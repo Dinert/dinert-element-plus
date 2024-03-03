@@ -13,7 +13,6 @@ const activeName = ref('table-form')
         <el-tabs v-model="activeName">
             <el-tab-pane label="表格表单" name="table-form">
                 <test-table-page/>
-                <test-table-page/>
             </el-tab-pane>
             <el-tab-pane label="表格" name="table">
                 <test-table/>
