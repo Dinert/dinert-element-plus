@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "noImplicitAny": false,
+      "noImplicitAny": false,
       "baseUrl": ".",
       "jsx": "preserve",
       "strict": true,

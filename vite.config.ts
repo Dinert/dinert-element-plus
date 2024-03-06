@@ -6,7 +6,7 @@ import dts from 'vite-plugin-dts'
 
 export default defineConfig({
     build: {
-    // 打包文件目录
+        // 打包文件目录
         outDir: 'es',
 
         sourcemap: true, // 是否打包map文件

@@ -1,92 +1,93 @@
 {
-  "name": "@dinert/element-plus",
-  "version": "1.0.6",
-  "description": "基于vue3封装的element-plus包",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "prepare": "husky install",
-    "docs:dev": "vuepress dev docs --port 8060",
-    "docs:build": "vuepress build docs",
-    "deploy": "bash deploy.sh"
-  },
-  "keywords": [
-    "@dinert/element-plus",
-    "element-plus",
-    "@dinert"
-  ],
-  "files": [
-    "dist",
-    "es",
-    "lib"
-  ],
-  "main": "lib/index.js",
-  "module": "es/packages/index.mjs",
-  "types": "es/src/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./es/src/index.d.ts",
-      "import": "./es/packages/index.mjs",
-      "require": "./lib/index.js"
+    "name": "@dinert/element-plus",
+    "version": "1.0.7",
+    "description": "基于vue3封装的element-plus包",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "prepare": "husky install",
+        "docs:dev": "vuepress dev docs --port 8060",
+        "docs:build": "vuepress build docs",
+        "deploy": "bash deploy.sh"
     },
-    "./style": {
-      "import": "./es/style.css"
+    "keywords": [
+        "@dinert/element-plus",
+        "element-plus",
+        "@dinert"
+    ],
+    "files": [
+        "dist",
+        "es",
+        "lib"
+    ],
+    "main": "lib/index.js",
+    "module": "es/packages/index.mjs",
+    "browser": "dist/element-plus.umd.js",
+    "types": "es/src/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./es/src/index.d.ts",
+            "import": "./es/packages/index.mjs",
+            "require": "./lib/index.js"
+        },
+        "./style": {
+            "import": "./es/style.css"
+        }
+    },
+    "author": "dinert",
+    "license": "MIT",
+    "devDependencies": {
+        "@babel/core": "^7.23.2",
+        "@babel/eslint-parser": "^7.22.15",
+        "@babel/eslint-plugin": "^7.22.10",
+        "@babel/preset-typescript": "^7.23.3",
+        "@element-plus/icons-vue": "^2.1.0",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@types/node": "^20.9.0",
+        "@typescript-eslint/eslint-plugin": "^6.10.0",
+        "@typescript-eslint/parser": "^6.10.0",
+        "@vitejs/plugin-vue": "^4.4.0",
+        "@vitejs/plugin-vue-jsx": "^3.0.2",
+        "@vue/runtime-core": "^3.3.8",
+        "@vuepress/client": "^2.0.0-rc.0",
+        "element-plus": "^2.4.2",
+        "eslint": "^8.53.0",
+        "eslint-plugin-vue": "^9.18.1",
+        "husky": "^8.0.3",
+        "lint-staged": "12.5.0",
+        "lodash": "^4.17.21",
+        "postcss": "^8.4.31",
+        "postcss-html": "^1.5.0",
+        "postcss-scss": "^4.0.9",
+        "sass": "^1.69.5",
+        "stylelint": "^15.11.0",
+        "stylelint-config-recommended-vue": "^1.5.0",
+        "stylelint-config-standard": "^34.0.0",
+        "stylelint-order": "^6.0.3",
+        "stylelint-scss": "^5.3.1",
+        "typescript": "^5.2.2",
+        "validate-commit-msg": "^2.14.0",
+        "vite": "^4.5.0",
+        "vite-plugin-dts": "^3.6.3",
+        "vue": "^3.3.8",
+        "vue-eslint-parser": "^9.3.2"
+    },
+    "lint-staged": {
+        "*.{tsx, ts}": [
+            "eslint --fix",
+            "git add"
+        ],
+        "*.{css,scss,sass}": [
+            "stylelint --fix",
+            "git add"
+        ],
+        "*.{html,vue}": [
+            "eslint --fix",
+            "stylelint --fix",
+            "git add"
+        ]
+    },
+    "dependencies": {
+        "vuepress": "^2.0.0-rc.0"
     }
-  },
-  "author": "dinert",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/core": "^7.23.2",
-    "@babel/eslint-parser": "^7.22.15",
-    "@babel/eslint-plugin": "^7.22.10",
-    "@babel/preset-typescript": "^7.23.3",
-    "@element-plus/icons-vue": "^2.1.0",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@types/node": "^20.9.0",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "@vitejs/plugin-vue": "^4.4.0",
-    "@vitejs/plugin-vue-jsx": "^3.0.2",
-    "@vue/runtime-core": "^3.3.8",
-    "@vuepress/client": "^2.0.0-rc.0",
-    "element-plus": "^2.4.2",
-    "eslint": "^8.53.0",
-    "eslint-plugin-vue": "^9.18.1",
-    "husky": "^8.0.3",
-    "lint-staged": "12.5.0",
-    "lodash": "^4.17.21",
-    "postcss": "^8.4.31",
-    "postcss-html": "^1.5.0",
-    "postcss-scss": "^4.0.9",
-    "sass": "^1.69.5",
-    "stylelint": "^15.11.0",
-    "stylelint-config-recommended-vue": "^1.5.0",
-    "stylelint-config-standard": "^34.0.0",
-    "stylelint-order": "^6.0.3",
-    "stylelint-scss": "^5.3.1",
-    "typescript": "^5.2.2",
-    "validate-commit-msg": "^2.14.0",
-    "vite": "^4.5.0",
-    "vite-plugin-dts": "^3.6.3",
-    "vue": "^3.3.8",
-    "vue-eslint-parser": "^9.3.2"
-  },
-  "lint-staged": {
-    "*.{tsx, ts}": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.{css,scss,sass}": [
-      "stylelint --fix",
-      "git add"
-    ],
-    "*.{html,vue}": [
-      "eslint --fix",
-      "stylelint --fix",
-      "git add"
-    ]
-  },
-  "dependencies": {
-    "vuepress": "^2.0.0-rc.0"
-  }
 }
