@@ -45,7 +45,7 @@ type TypeName = 'input' |
 export interface RewriteFormItemProps<T = any[]> extends Partial<
 InputProps &
 InputNumberProps &
-Omit<typeof SelectProps, 'options' | 'props'> &
+Omit<typeof SelectProps, 'options' | 'props'| 'valueKey'> &
 Omit<typeof ElTreeSelect, 'options' | 'data'> &
 AutocompleteProps &
 SwitchProps &

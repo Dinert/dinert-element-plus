@@ -10,5 +10,5 @@ const withInstall = <T>(comp: T) => {
     }
     return comp as SFCWithInstall<T>
 }
-export const Form = withInstall(_Form)
-export default Form
+export const DinertForm = withInstall(_Form)
+export default DinertForm

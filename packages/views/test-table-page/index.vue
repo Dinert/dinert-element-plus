@@ -81,7 +81,6 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
             showLabel: {
                 label: '土木工程',
                 type: 'custom',
-                showLabel: true
             },
             input: {
                 label: '输入框',
@@ -120,10 +119,9 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
             select: {
                 label: '选择框',
                 type: 'select',
-                sort: 1,
                 options: {
-                    value: 'code',
-
+                    value: 'object',
+                    valueKey: 'code',
                     options: [
                         {label: 'lael1', code: '1'},
                         {label: 'label2', code: '2'},

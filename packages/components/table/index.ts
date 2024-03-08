@@ -10,5 +10,5 @@ const withInstall = <T>(comp: T) => {
     }
     return comp as SFCWithInstall<T>
 }
-export const Table = withInstall(_Table)
-export default Table
+export const DinertTable = withInstall(_Table)
+export default DinertTable

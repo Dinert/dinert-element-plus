@@ -10,5 +10,5 @@ const withInstall = <T>(comp: T) => {
     }
     return comp as SFCWithInstall<T>
 }
-export const Tooltip = withInstall(_Tooltip)
-export default Tooltip
+export const DinertTooltip = withInstall(_Tooltip)
+export default DinertTooltip

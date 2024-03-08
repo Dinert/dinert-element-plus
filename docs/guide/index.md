@@ -57,6 +57,8 @@ app.mount('#app')
 </template>
 <script>
   import { DinertTablePage } from '@dinert/element-plus'
+  import '@dinert/element-plus/style'
+
   export default {
     components: { DinertTablePage },
   }
