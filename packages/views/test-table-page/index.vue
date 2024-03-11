@@ -120,8 +120,8 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
                 label: '选择框',
                 type: 'select',
                 options: {
-                    value: 'object',
-                    valueKey: 'code',
+                    value: 'code',
+                    label: 'label',
                     options: [
                         {label: 'lael1', code: '1'},
                         {label: 'label2', code: '2'},
