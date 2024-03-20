@@ -1,7 +1,7 @@
 import DefaultTheme from "vitepress/theme";
 import elementplus from "element-plus"
 import "element-plus/dist/index.css";
-import DinertElementPlus from '@packages/index'
+import DinertElementPlus from '../../../packages/index'
 
 export default {
   ...DefaultTheme,
