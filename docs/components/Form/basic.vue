@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import {ref} from 'vue'
-const form = ref({
+import {RewriteFormProps} from '../../../packages'
+interface modelProps {
+    name: string;
+    status: string;
+}
+
+const form = ref<RewriteFormProps<modelProps>>({
     model: {},
     formItem: {
         name: {
