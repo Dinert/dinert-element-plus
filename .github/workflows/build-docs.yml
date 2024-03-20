@@ -4,7 +4,7 @@ on:
   push:
     branches: [main] # main 分支有 push 时触发
     paths:   # 下列文件的变更触发部署，可以自行添加
-      - 'docs/**'
+      - 'docs/package.json'
 
 jobs:
   deploy:
