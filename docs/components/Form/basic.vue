@@ -12,7 +12,7 @@ const form = ref({
             type: 'select',
             options: {
                 options: [
-                    {label: '显示', value: true},
+                    {label: '显示当我的长度过长长长长长长', value: true},
                     {label: '隐藏', value: false},
                 ]
             }

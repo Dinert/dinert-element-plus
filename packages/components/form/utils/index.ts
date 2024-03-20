@@ -35,7 +35,13 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         _this.form.formItem[item.key].valueDisabled = true
         return
     }
-    const el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
+    let el: HTMLElement | null = null
+    if (item.type === 'input') {
+        el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
+    } else if (item.type === 'select') {
+        el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
+
+    }
     const timer = [
         'datetime',
         'date',
@@ -52,6 +58,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         _this.form.formItem[item.key].valueDisabled = true
         return
     }
+    console.log('fafdsa', el)
 
     if (['switch', 'radio'].includes(item.type)) {
         _this.form.formItem[item.key].valueDisabled = true
@@ -62,6 +69,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
                 - parseInt(inputEl.getPropertyValue('padding-right'))
                 - parseInt(inputEl.getPropertyValue('padding-left'))
         const tooltipWidth = (e.target as any).previousElementSibling.offsetWidth
+
         if (tooltipWidth >= textWidth) {
             _this.form.formItem[item.key].valueDisabled = false
         } else {
