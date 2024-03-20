@@ -110,10 +110,11 @@ export default defineComponent({
 
             formRef,
             packUp,
+            isArrow
         }
     },
     render() {
-
+        console.log(this.form.colLayout, 'this.formmmmmmmmmmmmm')
         return (
             <el-form inline={true}
                 {...this.form}
@@ -136,6 +137,7 @@ export default defineComponent({
                             let rules = item.rules || []
                             rules = item.required ? [{required: true, trigger: 'blur', message: customPlaceholder(item.label, item.type)}].concat(rules as any) : rules
                             rules = (item.showLabel || this.form.showLabel) ? [] : rules
+
                             return (
                                 <el-col
                                     style= {style}
@@ -254,7 +256,8 @@ export default defineComponent({
                 {
                     this.search
                 && <el-row class="el-form-right">
-                    <el-button class="el-form-right-operation" text type="primary"
+                    {this.isArrow
+                    && <el-button class="el-form-right-operation" text type="primary"
                         onClick={this.unfold}
                     >
                         <el-icon>
@@ -262,6 +265,7 @@ export default defineComponent({
                         </el-icon>
                         {this.packUp ? '收起' : '展开'}
                     </el-button>
+                    }
                     {this.$slots.form_search?.()
                         || (
                             <>

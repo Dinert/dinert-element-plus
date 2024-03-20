@@ -14,10 +14,13 @@
 
     &.near {
         .el-form-left {
-            flex: unset;
-
             .el-col {
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
                 width: auto;
+                max-width: unset;
+                flex: unset;
             }
         }
 

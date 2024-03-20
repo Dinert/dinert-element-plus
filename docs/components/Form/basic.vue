@@ -1,0 +1,28 @@
+<script setup lang="ts">
+import {ref} from 'vue'
+const form = ref({
+    model: {},
+    formItem: {
+        name: {
+            label: '名称',
+            type: 'input'
+        },
+        status: {
+            label: '状态',
+            type: 'select',
+            options: {
+                options: [
+                    {label: '显示', value: true},
+                    {label: '隐藏', value: false},
+                ]
+            }
+        }
+    }
+})
+</script>
+
+<template>
+    <div class="home">
+        <dinert-form :form="form" class="near"/>
+    </div>
+</template>
