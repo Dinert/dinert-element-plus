@@ -114,7 +114,6 @@ export default defineComponent({
         }
     },
     render() {
-        console.log(this.form.colLayout, 'this.formmmmmmmmmmmmm')
         return (
             <el-form inline={true}
                 {...this.form}

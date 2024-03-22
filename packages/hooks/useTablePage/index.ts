@@ -278,6 +278,21 @@ class TablePage<T, D = any, P = any, R = any> {
 
     }
 
+    // 懒加载使用
+    lazyAddKey<T = any>(arr: any = [], children: string = 'children'): T {
+        return arr.map((item: any) => {
+            if (item[children]) {
+                item.children2 = [...item[children]]
+                item.hasChildren = true
+                delete item[children]
+            }
+            return {
+                ...item,
+                children2: item.children2 ? this.lazyAddKey(item.children2) : []
+            }
+        })
+    }
+
     // 监听表格选择事件，包括全选和单选
     tableSelectEvent() {
         const rowKey: any = this.table.value.rowKey
