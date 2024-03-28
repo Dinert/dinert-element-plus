@@ -3,7 +3,6 @@ import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
-import type {ElTreeSelect} from 'element-plus'
 
 export default defineComponent({
     name: 'dinert-tree-select',
@@ -13,15 +12,15 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<typeof ElTreeSelect>>>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
 
-        const options = computed(() => {
-            const options = props.formItem.options || {on: {}, options: [], data: []}
-            options.data = options.options
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['tree-select']>(() => {
+            const options = props.formItem.options || {options: [], data: []};
+            (options as any).data = (options as any).options
             return options
         })
 
@@ -38,7 +37,6 @@ export default defineComponent({
                 filterable={this.options.filterable === undefined ? true : this.options.filterable}
                 node-key={this.options.nodeKey}
                 {...this.options}
-                {...this.options.on}
                 v-slots={this.$slots}
                 key={this.formItem.key}
             >

@@ -3,7 +3,6 @@ import {computed, defineComponent} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
-import type {SwitchProps} from 'element-plus'
 
 
 export default defineComponent({
@@ -14,15 +13,14 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<SwitchProps>>>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
 
         const options = computed(() => {
-            const options = props.formItem.options || {on: {}};
-            (options as any).type = props.formItem.type
+            const options = props.formItem.options || {}
             return options
         })
 
@@ -35,9 +33,7 @@ export default defineComponent({
             <el-switch
                 v-model={this.form.model[this.formItem.key]}
                 {...this.options}
-                {...this.options.on}
                 v-slots={this.$slots}
-                key={this.options.key}
             >
             </el-switch>
         )

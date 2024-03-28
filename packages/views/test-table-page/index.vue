@@ -77,6 +77,8 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
             name: {
                 label: '名称',
                 type: 'custom',
+                options: {
+                }
             },
             showLabel: {
                 label: '土木工程',
@@ -86,34 +88,34 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
                 label: '输入框',
                 type: 'input',
                 options: {
-
                 },
             },
             textarea: {
                 label: '文本域',
                 type: 'textarea',
-                required: true
+                required: true,
+                options: {
+
+                }
             },
             inputNumber: {
                 label: '数字输入框',
                 type: 'input-number',
                 options: {
-                    on: {
-                        onChange: (e: any) => {
-                            console.log(e, '3213')
-                        },
-                    }
+                    // on: {
+                    //     onChange: (e: any) => {
+                    //         console.log(e, '3213')
+                    //     },
+                    // }
                 }
             },
             autoInput: {
                 label: '自动补全输入框',
                 type: 'input-autocomplete',
                 options: {
-                    on: {
-                        onChange: (e: any) => {
-                            console.log(e, '3213')
-                        },
-                    }
+                    onChange: (e: any) => {
+                        console.log(e, '3213')
+                    },
                 }
             },
             select: {
@@ -218,10 +220,8 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
                 label: '评分',
                 type: 'rate',
                 options: {
-                    on: {
-                        onChange(a: any) {
-                            console.log(a)
-                        }
+                    onChange(a: any) {
+                        console.log(a)
                     }
 
                 }
@@ -252,7 +252,7 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
                 type: 'radio-button',
                 options: {
                     options: [
-                        {label: '1', value: '1', disabled: true},
+                        {label: '1', value: '1'},
                         {label: '2', value: '2'},
                     ]
                 }
@@ -262,8 +262,7 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
                 type: 'cascader',
                 options: {
                     props: {
-                        emitPath: false,
-                        multiple: true,
+                        emitPath: true
                     },
                     options: [
                         {

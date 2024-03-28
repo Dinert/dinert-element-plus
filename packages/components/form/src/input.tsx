@@ -3,7 +3,6 @@ import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
-import type {InputProps} from 'element-plus'
 
 
 export default defineComponent({
@@ -14,17 +13,16 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<InputProps>, any>>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
-        const options = computed(() => {
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['input']>(() => {
             const options = props.formItem.options || {};
             (options as any).type = props.formItem.type
             return options
         })
-
 
         return {
             options,
@@ -38,11 +36,6 @@ export default defineComponent({
                 show-word-limit={this.options.showWordLimit ? true : this.options.showWordLimit}
                 placeholder={customPlaceholder(this.formItem.label)}
                 {...this.options}
-                onChange={this.options.on?.onChange}
-                onFocus={this.options.on?.onFocus}
-                onBlur={this.options.on?.onBlur}
-                onClear={this.options.on?.onClear}
-                onInput={this.options.on?.onInput}
                 v-slots={this.$slots}
             >
             </el-input>

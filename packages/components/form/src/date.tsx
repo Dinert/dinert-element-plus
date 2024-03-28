@@ -1,10 +1,9 @@
 import {computed, defineComponent} from 'vue'
 import {Calendar} from '@element-plus/icons-vue'
-import {DatePickerProps} from 'element-plus'
 import {customPlaceholder} from '../utils'
 
 
-import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
+import type {RewriteFormProps, CustomFormItemProps, RewriteFormItemPropsMap} from '@packages/components/form/types'
 import type {PropType} from 'vue'
 
 
@@ -40,15 +39,16 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<DatePickerProps>>>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
 
-        const options = computed(() => {
-            const options = props.formItem.options || {on: {}};
+        const options = computed<RewriteFormItemPropsMap['date']>(() => {
+            const options = props.formItem.options || {};
             (options as any).type = props.formItem.type
+
             return options
         })
 
@@ -71,7 +71,6 @@ export default defineComponent({
                     valueFormat={customValuFormat(this.options)}
                     format={this.options.type === 'week' ? 'YYYY第ww周' : this.options.format}
                     {...this.options}
-                    {...this.options.on}
                     v-slots={this.$slots}
                 >
                 </el-date-picker>

@@ -2,7 +2,6 @@ import {computed, defineComponent} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
-import type {RadioProps} from 'element-plus'
 
 
 export default defineComponent({
@@ -13,14 +12,14 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<RadioProps>>>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
 
-        const options = computed(() => {
-            const options = props.formItem.options || {on: {}}
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['radio']>(() => {
+            const options = props.formItem.options || {}
             return options
         })
 
@@ -34,19 +33,17 @@ export default defineComponent({
         return (
             <el-radio-group v-model={this.form.model[this.formItem.key]}>
                 {
-                    (options as any[]).map((item: RadioProps & {value: any}) => {
+                    options.map(item => {
                         if (this.formItem.type === 'radio-button') {
                             return (<el-radio-button
-                                label={item.value}
-                                {...this.options.on}
+                                {...item}
                                 v-slots={this.$slots}
                             >
                                 {item.label}
                             </el-radio-button>)
                         }
                         return (<el-radio
-                            label={item.value}
-                            {...this.options.on}
+                            {...item}
                             v-slots={this.$slots}
                         >
                             {item.label}

@@ -1,9 +1,7 @@
 import {computed, defineComponent} from 'vue'
 import {customPlaceholder} from '../utils'
 
-
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
-import type {InputNumberProps} from 'element-plus'
 import type {PropType} from 'vue'
 
 
@@ -15,14 +13,13 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<InputNumberProps>>>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
-
-        const options = computed(() => {
-            const options = props.formItem.options || {on: {}}
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['input-number']>(() => {
+            const options = props.formItem.options || {}
             return options
         })
 
@@ -38,9 +35,6 @@ export default defineComponent({
                 clearable
                 placeholder={customPlaceholder(this.formItem.label)}
                 {...this.options}
-                onChange={this.options.on?.onChange}
-                onFocus={this.options.on?.onFocus}
-                onBlur={this.options.on?.onBlur}
                 v-slots={this.$slots}
             >
             </el-input-number>

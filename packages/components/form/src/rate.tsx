@@ -1,7 +1,6 @@
 import {computed, defineComponent, PropType} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
-import type {RateProps} from 'element-plus'
 
 
 export default defineComponent({
@@ -12,14 +11,13 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<RateProps>, any>>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
-        const options = computed(() => {
-            const options = (props.formItem.options || {} as any)
-            options.type = props.formItem.type
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['rate']>(() => {
+            const options = props.formItem.options || {}
             return options
         })
 
@@ -33,7 +31,6 @@ export default defineComponent({
             <el-rate
                 v-model={this.form.model[this.formItem.key]}
                 {...this.options}
-                onChange={this.options.on?.onChange}
                 v-slots={this.$slots}
             >
             </el-rate>

@@ -2,9 +2,6 @@ import {computed, defineComponent, PropType} from 'vue'
 import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
-import type {ElSelect, SelectOptionProxy} from 'element-plus'
-
-type FormItem = CustomFormItemProps<Partial<typeof ElSelect>, SelectOptionProxy[]>
 
 export default defineComponent({
     name: 'dinert-select',
@@ -14,14 +11,14 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<FormItem>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
 
-        const options = computed(() => {
-            const options = props.formItem.options || {on: {}}
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['select']>(() => {
+            const options = props.formItem.options || []
             return options
         })
 
@@ -30,25 +27,23 @@ export default defineComponent({
         }
     },
     render() {
-        const options = (this.options.options as SelectOptionProxy[]) || []
+        const options = this.options.options || []
         return (
             <el-select
                 v-model={this.form.model[this.formItem.key]}
                 clearable
                 placeholder={customPlaceholder(this.formItem.label, 'select')}
-
                 {...this.options}
-                {...this.options.on}
                 v-slots={this.$slots}
                 key={this.formItem.key}
             >
                 {
-                    options.map((item: SelectOptionProxy) => {
+                    options.map(item => {
                         return (<el-option
                             key={item.value}
                             {...item}
                             label={item[(this.options.label || 'label')]}
-                            value={item[((this.options.value as any) || 'value')]}
+                            value={item[(this.options.value || 'value')]}
                         >
                         </el-option>)
                     })

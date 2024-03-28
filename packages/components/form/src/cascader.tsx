@@ -3,9 +3,7 @@ import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
-import type {CascaderInstance, CascaderProps} from 'element-plus'
 
-type FormItem = CustomFormItemProps<Partial<CascaderInstance>>
 export default defineComponent({
     name: 'dinert-cascader',
     props: {
@@ -14,15 +12,16 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<FormItem>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
 
-        const options = computed(() => {
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['cascader']>(() => {
             const options = props.formItem.options || {
-                on: {}, options: [], props: {
+                options: [],
+                props: {
                     children: 'children',
                     value: 'value',
                     label: 'label',
@@ -36,8 +35,6 @@ export default defineComponent({
         }
     },
     render() {
-        let emitPath = (this.options.props as CascaderProps)?.emitPath
-        emitPath = emitPath === undefined ? false : emitPath
         return (
             <div>
                 <el-cascader
@@ -45,13 +42,6 @@ export default defineComponent({
                     clearable
                     placeholder={customPlaceholder(this.formItem.label, 'select')}
                     {...this.options}
-                    props={
-                        {
-                            ...this.options.props,
-                            emitPath
-                        }
-                    }
-                    {...this.options.on}
                     v-slots={this.$slots}
                     key={this.formItem.key}
                 >

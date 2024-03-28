@@ -2,7 +2,6 @@ import {computed, defineComponent} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
-import type {CheckboxGroupProps} from 'element-plus'
 
 export default defineComponent({
     name: 'dinert-checkbox',
@@ -12,14 +11,14 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<CheckboxGroupProps>>>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
 
-        const options = computed(() => {
-            const options = props.formItem.options || {on: {}}
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['checkbox']>(() => {
+            const options = props.formItem.options || {}
             return options
         })
 
@@ -28,15 +27,15 @@ export default defineComponent({
         }
     },
     render() {
-        const options = (this.options.options || []) as CheckboxGroupProps[]
+        const options = this.options.options || []
         return (
             <el-checkbox-group v-model={this.form.model[this.formItem.key]}>
                 {
-                    options.map((item: CheckboxGroupProps) => {
+                    options.map(item => {
                         return (<el-checkbox
                             key={item.label}
                             {...item}
-                            label={item[(this.options.value as any) || 'value']}
+                            label={item[this.options.value || 'value']}
                         >
                             {item[this.options.label || 'label']}
                         </el-checkbox>)

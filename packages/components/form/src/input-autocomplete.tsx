@@ -3,7 +3,6 @@ import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
-import type {AutocompleteProps} from 'element-plus'
 
 
 export default defineComponent({
@@ -14,13 +13,13 @@ export default defineComponent({
             default: () => ({})
         },
         formItem: {
-            type: Object as PropType<CustomFormItemProps<Partial<AutocompleteProps>>>,
+            type: Object as PropType<CustomFormItemProps>,
             default: () => ({})
         },
     },
     setup(props) {
-        const options = computed(() => {
-            const options = props.formItem.options || {on: {}}
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['input-autocomplete']>(() => {
+            const options = props.formItem.options || {}
             return options
         })
 
@@ -38,7 +37,6 @@ export default defineComponent({
                     placeholder={customPlaceholder(this.formItem.label)}
                     fetch-suggestions={this.options.fetchSuggestions || (() => ({}))}
                     {...this.options}
-                    {...this.options.on}
                     v-slots={this.$slots}
                 >
                 </el-autocomplete>
