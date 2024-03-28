@@ -25,9 +25,10 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCt
     show?: boolean | ((column: RewriteTableColumnCtx<T>) => boolean);
     setting?: boolean;
     maxOperations?: number;
-    functions?: {
-        [key: string]: FunctionsProps<T>;
-    };
+    functions?: Record<string, FunctionsProps<T>>;
+    // functions?: {
+    //     [key: string]: FunctionsProps<T>;
+    // };
     sort?: number;
     disabled?: boolean;
     key?: any;

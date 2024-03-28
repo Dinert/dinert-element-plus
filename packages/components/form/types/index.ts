@@ -86,9 +86,7 @@ export interface CustomFormItemProps<D = any, O = any[]> extends Partial<FormIte
 
 export interface RewriteFormProps<D = any> extends Omit<Partial<FormProps>, 'model'> {
     model: Partial<D>;
-    formItem: {
-        [key: string]: CustomFormItemProps<D>;
-    };
+    formItem: Record<string, CustomFormItemProps<D>>;
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;
     showLabel?: boolean;

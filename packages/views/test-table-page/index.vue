@@ -279,7 +279,6 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
 })
 
 const {table, form, tablePageRef} = tablePage
-
 tablePage.getTableParams = () => {
 
 
