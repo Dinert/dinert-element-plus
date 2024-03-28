@@ -75,7 +75,7 @@ export interface CustomFormItemProps<D = any, O = any[]> extends Partial<FormIte
     label: string;
     sort?: number;
     options?: RewriteFormItemPropsMap<O>[TypeName];
-    showLabel?: true;
+    showLabel?: boolean;
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;

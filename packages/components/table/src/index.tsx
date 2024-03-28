@@ -46,11 +46,6 @@ export default defineComponent({
         const footerRef = ref<HTMLElement | null>(null)
         const headerFooterRef = ref<HTMLElement | null>(null)
 
-        onMounted(() => {
-            console.log(tableRef.value, 'selectTable.value')
-        })
-
-
         const {table} = toRefs(props)
         const tableColumns = ref(table.value?.tableColumns || [])
 

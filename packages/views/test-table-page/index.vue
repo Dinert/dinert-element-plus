@@ -82,7 +82,8 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
             },
             showLabel: {
                 label: '土木工程',
-                type: 'custom',
+                type: 'input',
+                showLabel: true
             },
             input: {
                 label: '输入框',
