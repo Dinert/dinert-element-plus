@@ -30,5 +30,5 @@ export type RewriteTreeSelectProps<O = any[]> = Partial<TreeProps & Omit<typeof 
 {options: O | SelectOptionProxy[], label: string, value: string, data: O | SelectOptionProxy[], nodeKey: string} &
 Pick<typeof ElTreeSelect, CommonFn>>
 
-export type RewriteRewriteRateProps = Partial<RateProps & Pick<typeof ElRate, 'onChange'>>
+export type RewriteRewriteRateProps<O = any[]> = Partial<Omit<RateProps, 'options'> & {options: O} & Pick<typeof ElRate, 'onChange'>>
 

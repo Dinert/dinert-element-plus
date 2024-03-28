@@ -1,7 +1,6 @@
 
 import {
     type FormProps, type FormItemProps, type ColProps, type RowProps,
-
 } from 'element-plus'
 import {
     RewriteInputProps, RewriteSelectProps, RewriteTextareaProps,
@@ -39,7 +38,6 @@ type TypeName = 'input' |
                 | 'checkbox'
                 | 'cascader'
 
-
 export interface RewriteFormItemPropsMapCommon{
     on?: object;
 }
@@ -61,12 +59,11 @@ export interface RewriteFormItemPropsMap<O = any[]>{
     datetimerange: RewriteDatePickerProps;
     daterange: RewriteDatePickerProps;
     monthrange: RewriteDatePickerProps;
-    radio: RewriteRadioGroupProps;
-    checkbox: RewriteCheckboxGroupProps;
-    'tree-select': RewriteTreeSelectProps;
-    'radio-button': RewriteRadioGroupProps;
-    'rate': RewriteRewriteRateProps;
-
+    radio: RewriteRadioGroupProps<O>;
+    checkbox: RewriteCheckboxGroupProps<O>;
+    'tree-select': RewriteTreeSelectProps<O>;
+    'radio-button': RewriteRadioGroupProps<O>;
+    'rate': RewriteRewriteRateProps<O>;
 }
 
 
