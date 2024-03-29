@@ -4,10 +4,10 @@ import {onMounted} from 'vue'
 import TablePage from '@packages/hooks/useTablePage/index'
 import {tableData} from './data'
 
-import {TableData} from './types'
+import {TableData, FormItemData} from './types'
 
 
-const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
+const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, TableData>({
     table: {
         pagination: {
         },
@@ -279,6 +279,7 @@ const tablePage = new TablePage<TableData, TableData, TableData, TableData>({
 })
 
 const {table, form, tablePageRef} = tablePage
+// form.value.formItem.a
 tablePage.getTableParams = () => {
 
 

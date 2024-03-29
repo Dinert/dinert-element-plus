@@ -84,15 +84,16 @@ export interface CustomFormItemProps<D = any, O = any[]> extends Partial<FormIte
     colLayout?: RewriteColProps;
 }
 
-export interface RewriteFormProps<D = any> extends Omit<Partial<FormProps>, 'model'> {
+
+export interface RewriteFormProps<D = any, FI = object> extends Omit<Partial<FormProps>, 'model'> {
     model: Partial<D>;
-    formItem: Record<string, CustomFormItemProps<D>>;
+    formItem: Partial<Record<keyof FI | keyof D, CustomFormItemProps<D>>>;
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;
     showLabel?: boolean;
 }
 
-export interface DinertFormProps<D = any>{
-    form: RewriteFormProps<D>;
+export interface DinertFormProps<D = any, FI = object>{
+    form: RewriteFormProps<D, FI>;
     search?: boolean;
 }

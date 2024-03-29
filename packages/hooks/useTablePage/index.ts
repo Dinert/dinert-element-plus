@@ -18,16 +18,16 @@ import lodash from 'lodash'
  */
 
 
-class TablePage<T, D = any, P = any, R = any> {
+class TablePage<T, D = any, FI = object, P = any, R = any> {
     showSearch: Ref<DinertTablePageProps['search']>
     table: Ref<RewriteTableProps<T>>
-    form: Ref<RewriteFormProps<D>>
+    form: Ref<RewriteFormProps<D, FI>>
     footer: Ref<DinertTablePageProps['footer']>
 
     selecTableDatas: Ref<T[]> = ref([])
     lastSelectDatas: Ref<T[]> = ref([])
 
-    options: DinertTablePageProps<T, D>
+    options: DinertTablePageProps<T, D, FI>
 
     ids: Ref<string[]> = ref([])
 
@@ -63,7 +63,7 @@ class TablePage<T, D = any, P = any, R = any> {
     }
 
 
-    private readonly firstOptions: DinertTablePageProps<T, D> = {
+    private readonly firstOptions: DinertTablePageProps<T, D, FI> = {
         table: {
             tableColumns: [],
             data: [],
@@ -74,7 +74,7 @@ class TablePage<T, D = any, P = any, R = any> {
     }
 
 
-    constructor(options: DinertTablePageProps<T, D>) {
+    constructor(options: DinertTablePageProps<T, D, FI>) {
 
         this.options = lodash.defaultsDeep(lodash.cloneDeep(options), this.defaultOptions)
 
@@ -82,7 +82,7 @@ class TablePage<T, D = any, P = any, R = any> {
 
         this.table = ref<DinertTablePageProps['table'] | any>(this.options.table)
 
-        this.form = ref<RewriteFormProps<D | any>>(this.options.form)
+        this.form = ref<RewriteFormProps<D | any, FI | any>>(this.options.form)
 
         this.footer = ref<DinertTablePageProps['footer']>(this.options.footer)
 
