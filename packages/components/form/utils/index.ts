@@ -18,12 +18,12 @@ export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
 export const getTooltipValue = (value: any, item: any): any => {
     const type = item.type
     const options = item.options
-    if (['input'].includes(type)) {
+    if (['input', 'input-autocomplete'].includes(type)) {
         return value
     } else if (['select'].includes(type)) {
         if (options && options.options && options.options.length) {
-            const item = options.options.filter((item: any) => item.value === value)[0]
-            return item && item.label
+            const selectItem = options.options.filter((item2: any) => item2[options.value || 'value'] === value)[0]
+            return selectItem && selectItem[options.label || 'label']
         }
 
     }
@@ -36,11 +36,10 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         return
     }
     let el: HTMLElement | null = null
-    if (item.type === 'input') {
+    if (['input', 'input-autocomplete'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
-    } else if (item.type === 'select') {
+    } else if (['select', 'tree-select'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
-
     }
     const timer = [
         'datetime',
@@ -53,7 +52,8 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         'monthrange',
         'yearrange',
         'radio-button',
-        'checkbox'
+        'checkbox',
+        'rate'
     ]
     if (timer.includes(item.type)) {
         _this.form.formItem[item.key].valueDisabled = true
@@ -64,6 +64,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         _this.form.formItem[item.key].valueDisabled = true
     } else if (el) {
         const inputEl = window.getComputedStyle(el, null)
+        console.log(inputEl, 'inputlllllllllllllll')
         const textWidth
             = el.offsetWidth
                 - parseInt(inputEl.getPropertyValue('padding-right'))

@@ -250,12 +250,12 @@ export default defineComponent({
                         const noChildItem = filterColumn(item)
                         let minWidth = 0
                         const propLowerCase = item.prop?.toLocaleLowerCase()
-                            if (propLowerCase?.includes('time')) {
-                                minWidth = 170
-                            } else if (propLowerCase?.includes('status') || propLowerCase?.includes('state')) {
-                                minWidth = 80
-                                align = item.align || 'center'
-                            }
+                        if (propLowerCase?.includes('time')) {
+                            minWidth = 170
+                        } else if (propLowerCase?.includes('status') || propLowerCase?.includes('state')) {
+                            minWidth = 80
+                            align = item.align || 'center'
+                        }
 
 
                         if (show && checked && custom) {

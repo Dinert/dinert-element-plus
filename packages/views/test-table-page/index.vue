@@ -142,7 +142,7 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
                     value: 'code',
                     label: 'label',
                     options: [
-                        {label: 'lael1', code: '1'},
+                        {label: 'lael1111111111111111111', code: '1'},
                         {label: 'label2', code: '2'},
 
                     ],
@@ -168,7 +168,7 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
                             label: '1', value: '1',
                             children: [
                                 {
-                                    label: '1', value: '3',
+                                    label: '333333333333333333333333333', value: '3',
 
                                 }
                             ]
