@@ -38,10 +38,6 @@ type TypeName = 'input' |
                 | 'checkbox'
                 | 'cascader'
 
-export interface RewriteFormItemPropsMapCommon{
-    on?: object;
-}
-
 export interface RewriteFormItemPropsMap<O = any[]>{
     input: RewriteInputProps;
     select: RewriteSelectProps<O>;

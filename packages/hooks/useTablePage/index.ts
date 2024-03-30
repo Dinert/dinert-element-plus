@@ -17,7 +17,6 @@ import lodash from 'lodash'
  * R 请求回来的数据格式
  */
 
-
 class TablePage<T, D = any, FI = object, P = any, R = any> {
     showSearch: Ref<DinertTablePageProps['search']>
     table: Ref<RewriteTableProps<T>>
@@ -51,8 +50,6 @@ class TablePage<T, D = any, FI = object, P = any, R = any> {
                 pageSize: 10,
                 pageSizes: [10, 20, 30, 50, 100],
             },
-            on: {
-            }
         },
         form: {
             model: {},
@@ -296,9 +293,9 @@ class TablePage<T, D = any, FI = object, P = any, R = any> {
     // 监听表格选择事件，包括全选和单选
     tableSelectEvent() {
         const rowKey: any = this.table.value.rowKey
-        if (this.table.value.on) {
-            if (!this.table.value.on.onSelect) {
-                this.table.value.on.onSelect = (selection: T[]) => {
+        if (this.table.value) {
+            if (!this.table.value.onSelect) {
+                this.table.value.onSelect = (selection: T[]) => {
                     if (rowKey) {
                         this.table.value.data.forEach((item: any) => {
                             for (let i = 0; i < this.selecTableDatas.value.length; i++) {
@@ -313,8 +310,8 @@ class TablePage<T, D = any, FI = object, P = any, R = any> {
                     }
                 }
             }
-            if (!this.table.value.on['onSelect-all']) {
-                this.table.value.on['onSelect-all'] = (selection: T[]) => {
+            if (!this.table.value['onSelect-all']) {
+                this.table.value['onSelect-all'] = (selection: T[]) => {
                     if (rowKey) {
                         if (selection.length === 0) {
                             this.table.value.data.forEach((item: any) => {

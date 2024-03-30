@@ -49,8 +49,9 @@ export interface RecuveTableColumnProps<T = any>{
     children?: Array<RewriteTableColumnCtx<T>>;
 }
 
-export interface RewriteTableProps<T = any> extends TableProps<T> {
-    on?: Partial< InstanceType<typeof ElTable>>;
+type TableFnProps = Partial<Pick<InstanceType<typeof ElTable>, 'onSelect' | 'onExpand-change' | 'onCurrent-change' | 'onSelect-all' | 'onSelection-change' | 'onCell-mouse-enter' | 'onCell-mouse-leave' | 'onCell-contextmenu' | 'onCell-click' | 'onCell-dblclick' | 'onRow-click' | 'onRow-contextmenu' | 'onRow-dblclick' | 'onHeader-click' | 'onHeader-contextmenu' | 'onSort-change' | 'onFilter-change' | 'onHeader-dragend'>>
+
+export interface RewriteTableProps<T = any> extends TableProps<T>, TableFnProps {
     tableColumns: Array<RewriteTableColumnCtx<T>>;
     errData?: string;
     tableSlot?: boolean;
@@ -58,11 +59,10 @@ export interface RewriteTableProps<T = any> extends TableProps<T> {
     key?: any;
     class?: string;
     pagination: RewritePaginationProps;
-
 }
 
-export interface RewritePaginationProps {
-   on?: Partial<InstanceType<typeof ElPagination>>;
+   type PaginationPropsFn = Partial<Pick<InstanceType<typeof ElPagination>, 'onChange' | 'onUpdate:current-page' |'onUpdate:page-size' | 'onSize-change' | 'onCurrent-change' | 'onPrev-click' | 'onNext-click'>>
+export interface RewritePaginationProps extends PaginationPropsFn {
    pageSize?: number;
    pageSizes?: number[];
    defaultPageSize?: number;
