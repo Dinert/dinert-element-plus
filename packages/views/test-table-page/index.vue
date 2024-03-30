@@ -23,6 +23,22 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
                 label: '操作时间',
             },
             {
+                prop: 'startTime1',
+                label: '操作时间',
+            },
+            {
+                prop: 'startTime2',
+                label: '操作时间',
+            },
+            {
+                prop: 'startTime3',
+                label: '操作时间',
+            },
+            {
+                prop: 'startTime4',
+                label: '操作时间',
+            },
+            {
                 prop: 'userName',
                 label: '操作用户',
             },
