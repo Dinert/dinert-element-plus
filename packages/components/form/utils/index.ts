@@ -36,7 +36,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         return
     }
     let el: HTMLElement | null = null
-    if (['input', 'input-autocomplete'].includes(item.type)) {
+    if (['input', 'input-autocomplete', 'cascader'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
     } else if (['select', 'tree-select'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
@@ -64,7 +64,6 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         _this.form.formItem[item.key].valueDisabled = true
     } else if (el) {
         const inputEl = window.getComputedStyle(el, null)
-        console.log(inputEl, 'inputlllllllllllllll')
         const textWidth
             = el.offsetWidth
                 - parseInt(inputEl.getPropertyValue('padding-right'))
