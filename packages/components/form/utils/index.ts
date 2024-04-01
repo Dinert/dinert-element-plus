@@ -15,17 +15,42 @@ export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
     }
 }
 
+export const findTreeNode = (treeData: any, key: string, value: string) => {
+    const result: any[] = []
+    function filterResult(treeData: any) {
+        treeData.forEach((item: any) => {
+            if (value === item[key]) {
+                result.push(item)
+            }
+            if (item.children && item.children.length) {
+                filterResult(item.children)
+            }
+        })
+    }
+    filterResult(treeData)
+    return result
+}
+
+
 export const getTooltipValue = (value: any, item: any): any => {
     const type = item.type
-    const options = item.options
-    if (['input', 'input-autocomplete'].includes(type)) {
+    const options = item.options || {}
+    if (['input', 'input-autocomplete', 'input-number'].includes(type)) {
         return value
-    } else if (['select'].includes(type)) {
+    } else if (['select', 'tree-select'].includes(type)) {
         if (options && options.options && options.options.length) {
-            const selectItem = options.options.filter((item2: any) => item2[options.value || 'value'] === value)[0]
+            const selectItem = findTreeNode(options.options, options.value || 'value', value)[0]
             return selectItem && selectItem[options.label || 'label']
         }
+    } else if (['cascader'].includes(type)) {
+        if (options && options.options && options.options.length) {
+            if (options.props?.emitPath === undefined || options.props?.emitPath === true) {
+                value = value && value[0]
+            }
 
+            const selectItem = findTreeNode(options.options, options.props?.value || 'value', value)[0]
+            return selectItem && selectItem[options.props?.label || 'label']
+        }
     }
     return null
 }
@@ -36,7 +61,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         return
     }
     let el: HTMLElement | null = null
-    if (['input', 'input-autocomplete', 'cascader'].includes(item.type)) {
+    if (['input', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
     } else if (['select', 'tree-select'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
@@ -53,7 +78,8 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         'yearrange',
         'radio-button',
         'checkbox',
-        'rate'
+        'rate',
+        'textarea'
     ]
     if (timer.includes(item.type)) {
         _this.form.formItem[item.key].valueDisabled = true

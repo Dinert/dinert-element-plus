@@ -17,7 +17,6 @@ export default defineComponent({
         },
     },
     setup(props) {
-
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['cascader']>(() => {
             const options = props.formItem.options || {
                 options: [],
@@ -41,7 +40,9 @@ export default defineComponent({
                     v-model={this.form.model[this.formItem.key]}
                     clearable
                     placeholder={customPlaceholder(this.formItem.label, 'select')}
-                    {...this.options}
+                    {...{
+                        ...this.options,
+                    }}
                     v-slots={this.$slots}
                     key={this.formItem.key}
                 >

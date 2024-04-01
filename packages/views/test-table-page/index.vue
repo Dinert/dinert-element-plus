@@ -279,11 +279,11 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
                 type: 'cascader',
                 options: {
                     props: {
-                        emitPath: true
+                        // emitPath: false
                     },
                     options: [
                         {
-                            label: '333', value: 'value1',
+                            label: '33311111111111111111111', value: 'value1',
                         },
                         {label: '2', value: 'value2'}
                     ]
