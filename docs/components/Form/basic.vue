@@ -1,17 +1,27 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import {RewriteFormProps} from '../../../packages'
-interface modelProps {
+
+// form里面的数据类型
+interface ModelProps {
     name: string;
     status: string;
 }
 
-const form = ref<RewriteFormProps<modelProps>>({
+// formItem的类型，如果formItem的类型不传就使用ModelProps的类型
+interface FormItemProps {
+    name: string;
+    status: string;
+}
+
+const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {},
     formItem: {
         name: {
             label: '名称',
-            type: 'input'
+            type: 'input',
+            options: {
+            }
         },
         status: {
             label: '状态',

@@ -86,91 +86,87 @@ const copyCode = async () => {
   }
 }
 
-const resetCode = () => {
-    rawSource.value = oldRawSource.value
-}
 
 
 </script>
 
 <template>
-   <div class="dinertDemo">
-    <p text="dinertDemo-sm" v-html="decodedDescription" />
-    <div class="dinertDemo-example">
-        <div class="dinertDemo-example-component">
-            <component :is="demoComponents" v-if="demoComponents" v-bind="$attrs" />
-        </div>
-        <ElDivider class="m-0" />
-        <div class="dinertDemo-example-operations">
-            <ElTooltip
-            content="编辑代码"
-            :show-arrow="false"
-            :trigger="['hover', 'focus']"
-          >
-            <ElIcon @click="editCode" class="op-btn">
-              <EditPen />
-            </ElIcon>
-          </ElTooltip>
-          <ElTooltip
-            content="复制代码"
-            :show-arrow="false"
-            :trigger="['hover', 'focus']"
-          >
-            <ElIcon
-              :size="16"
-              aria-label="copy-code"
-              class="op-btn"
-              tabindex="0"
-              role="button"
-              @click="copyCode"
-            >
-              <CopyDocument />
-            </ElIcon>
-          </ElTooltip>
-          <ElTooltip
-            content="查看源代码"
-            :show-arrow="false"
-            :trigger="['hover', 'focus']"
-          >
-              <ElIcon :size="16" @click="sourceVisible = !sourceVisible">
-                <Expand />
-              </ElIcon>
-          </ElTooltip>
-        </div>
+    <ClientOnly>
+        <div class="dinertDemo">
+            <p text="dinertDemo-sm" v-html="decodedDescription" />
+            <div class="dinertDemo-example">
+                <div class="dinertDemo-example-component">
+                    <component :is="demoComponents" v-if="demoComponents" v-bind="$attrs" />
+                </div>
+                <ElDivider class="m-0" />
+                <div class="dinertDemo-example-operations">
+                    <ElTooltip
+                    content="编辑代码"
+                    :show-arrow="false"
+                    :trigger="['hover', 'focus']"
+                >
+                    <ElIcon @click="editCode" class="op-btn">
+                    <EditPen />
+                    </ElIcon>
+                </ElTooltip>
+                <ElTooltip
+                    content="复制代码"
+                    :show-arrow="false"
+                    :trigger="['hover', 'focus']"
+                >
+                    <ElIcon
+                    :size="16"
+                    aria-label="copy-code"
+                    class="op-btn"
+                    tabindex="0"
+                    role="button"
+                    @click="copyCode"
+                    >
+                    <CopyDocument />
+                    </ElIcon>
+                </ElTooltip>
+                <ElTooltip
+                    content="查看源代码"
+                    :show-arrow="false"
+                    :trigger="['hover', 'focus']"
+                >
+                    <ElIcon :size="16" @click="sourceVisible = !sourceVisible">
+                        <Expand />
+                    </ElIcon>
+                </ElTooltip>
+                </div>
 
-        <div class="dinertDemo-example-source">
-            <ElCollapseTransition>
-                <div class="dinertDemo-example-source-html" v-show="sourceVisible" v-html="decodeSource" />
-            </ElCollapseTransition>
-            <Transition name="el-fade-in-linear">
-            <div
-                v-show="sourceVisible"
-                class="example-float-control"
-                tabindex="0"
-                role="button"
-                @click="sourceVisible = false"
-            >
-                <ElIcon :size="16">
-                    <CaretTop />
-                </ElIcon>
-                <span>{{ "hide-source" }}</span>
+                <div class="dinertDemo-example-source">
+                    <ElCollapseTransition>
+                        <div class="dinertDemo-example-source-html" v-show="sourceVisible" v-html="decodeSource" />
+                    </ElCollapseTransition>
+                    <Transition name="el-fade-in-linear">
+                    <div
+                        v-show="sourceVisible"
+                        class="example-float-control"
+                        tabindex="0"
+                        role="button"
+                        @click="sourceVisible = false"
+                    >
+                        <ElIcon :size="16">
+                            <CaretTop />
+                        </ElIcon>
+                        <span>{{ "hide-source" }}</span>
+                    </div>
+                    </Transition>
+                </div>
             </div>
-            </Transition>
+            <el-dialog title="编辑代码" v-model="editDialogVisible" width="80%" >
+                <div class="edit-code">
+                    <VueLive
+                        v-if="editDialogVisible"
+                    :code="decodeRawSource"
+                    @error="(e) => console.error('Error on first example', e)"
+                    />
+                </div>
+            </el-dialog>
         </div>
-    </div>
-    <el-dialog title="编辑代码" v-model="editDialogVisible" width="80%" >
-          <div class="edit-code">
-            <VueLive
-                v-if="editDialogVisible"
-              :code="decodeRawSource"
-              @error="(e) => console.error('Error on first example', e)"
-            />
-          </div>
-          <!-- <template #footer>
-                <el-button type="primary" @click="resetCode">重置代码</el-button>
-          </template> -->
-    </el-dialog>
-  </div>
+    </ClientOnly>
 </template>
 
 <style lang="scss" scoped>
