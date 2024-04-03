@@ -11,11 +11,13 @@
 </style>
 
 <script setup>
-import Basic from "../components/Form/basic.vue"
 
 </script>
 
 # DinertForm 表单
 
-## 基础用法
-<Basic/>
+:::demo
+
+Form/basic
+
+:::

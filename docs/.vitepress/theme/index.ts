@@ -2,6 +2,8 @@ import DefaultTheme from "vitepress/theme";
 import elementplus from "element-plus"
 import "element-plus/dist/index.css";
 import DinertElementPlus from '../../../packages/index'
+import globals from '../globals';
+
 
 export default {
   ...DefaultTheme,
@@ -10,6 +12,6 @@ export default {
     // custom router. `siteData`` is a `ref`` of current site-level metadata.
       app.use(elementplus);
       app.use(DinertElementPlus);
-
+      app.use(globals);
   },
 }

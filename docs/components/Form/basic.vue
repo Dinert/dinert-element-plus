@@ -29,6 +29,7 @@ const form = ref<RewriteFormProps<modelProps>>({
 
 <template>
     <div class="home">
+        <h2>基础用法</h2>
         <dinert-form :form="form" class="near"/>
     </div>
 </template>
