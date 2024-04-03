@@ -5,8 +5,20 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, toRefs,shallowRef,defineAsyncComponent,onMounted } from 'vue';
+import { computed, toRefs,shallowRef,defineAsyncComponent,onMounted, ref } from 'vue';
+import { useClipboard } from "@vueuse/core";
+
+import { VueLive } from "vue-live";
+import "vue-live/style.css";
+
+import {
+  EditPen,
+  CopyDocument,
+  Expand,
+  CaretTop
+} from "@element-plus/icons-vue";
 import { getModule } from "../../../utils/module"
+import { $message } from "../../../utils/message"
 
 interface PropsType {
     description?: string
@@ -21,21 +33,62 @@ const props = withDefaults(defineProps<PropsType>(), {
     source: ''
 })
 
-const {description} = toRefs(props)
+const {description, source, rawSource} = toRefs(props)
 const demoComponents = shallowRef();
+const sourceVisible = ref(false)
+const editDialogVisible = ref(false)
+const oldRawSource = ref(rawSource.value)
 
 onMounted(async () => {
     demoComponents.value = defineAsyncComponent(getModule(props.path));
+});
+
+const { isSupported, copy } = useClipboard({
+  source: decodeURIComponent(rawSource.value),
 });
 
 const decodedDescription = computed(() =>
   decodeURIComponent(description.value)
 )
 
-const editCode = async () => {
+const decodeSource = computed(() => {
+    let result = decodeURIComponent(source.value)
+    result = result.replace('../../../packages', '@dinert/element-plus')
+    return result;
+})
 
+const decodeRawSource =  computed(() => {
+    let result = decodeURIComponent(rawSource.value).split('\n').join('')
+    result = result.replace("import {RewriteFormProps} from '../../../packages'", '');
+    return result
+})
+
+const decodeCodeRawSource = computed(() => {
+    let result = decodeURIComponent(rawSource.value).split('\n').join('')
+    result = result.replace('../../../packages', '@dinert/element-plus')
+    return result
+})
+
+const editCode = async () => {
+    editDialogVisible.value = true
 };
 
+const copyCode = async () => {
+    if (!isSupported.value) {
+    $message.error("复制失败~");
+    return;
+  }
+  try {
+    await copy(decodeURIComponent(decodeCodeRawSource.value));
+    $message.success("已复制！");
+  } catch (e) {
+    $message.error(e.message);
+  }
+}
+
+const resetCode = () => {
+    rawSource.value = oldRawSource.value
+}
 
 
 </script>
@@ -48,24 +101,171 @@ const editCode = async () => {
             <component :is="demoComponents" v-if="demoComponents" v-bind="$attrs" />
         </div>
         <ElDivider class="m-0" />
-        <div class="dinertDemo-example operations">
+        <div class="dinertDemo-example-operations">
             <ElTooltip
             content="编辑代码"
             :show-arrow="false"
             :trigger="['hover', 'focus']"
-            :trigger-keys="[]"
           >
-            <ElIcon @click="editCode" :size="16" class="op-btn">
+            <ElIcon @click="editCode" class="op-btn">
               <EditPen />
             </ElIcon>
           </ElTooltip>
+          <ElTooltip
+            content="复制代码"
+            :show-arrow="false"
+            :trigger="['hover', 'focus']"
+          >
+            <ElIcon
+              :size="16"
+              aria-label="copy-code"
+              class="op-btn"
+              tabindex="0"
+              role="button"
+              @click="copyCode"
+            >
+              <CopyDocument />
+            </ElIcon>
+          </ElTooltip>
+          <ElTooltip
+            content="查看源代码"
+            :show-arrow="false"
+            :trigger="['hover', 'focus']"
+          >
+              <ElIcon :size="16" @click="sourceVisible = !sourceVisible">
+                <Expand />
+              </ElIcon>
+          </ElTooltip>
+        </div>
+
+        <div class="dinertDemo-example-source">
+            <ElCollapseTransition>
+                <div class="dinertDemo-example-source-html" v-show="sourceVisible" v-html="decodeSource" />
+            </ElCollapseTransition>
+            <Transition name="el-fade-in-linear">
+            <div
+                v-show="sourceVisible"
+                class="example-float-control"
+                tabindex="0"
+                role="button"
+                @click="sourceVisible = false"
+            >
+                <ElIcon :size="16">
+                    <CaretTop />
+                </ElIcon>
+                <span>{{ "hide-source" }}</span>
+            </div>
+            </Transition>
         </div>
     </div>
+    <el-dialog title="编辑代码" v-model="editDialogVisible" width="80%" >
+          <div class="edit-code">
+            <VueLive
+                v-if="editDialogVisible"
+              :code="decodeRawSource"
+              @error="(e) => console.error('Error on first example', e)"
+            />
+          </div>
+          <!-- <template #footer>
+                <el-button type="primary" @click="resetCode">重置代码</el-button>
+          </template> -->
+    </el-dialog>
   </div>
 </template>
 
 <style lang="scss" scoped>
+
+:deep() {
+    .VueLive-editor {
+        width: 60%;
+
+        .prism-editor-wrapper {
+            padding: 8px 12px;
+            height: 60vh;
+            font-size: 16px;
+            color: #1b1b1f;
+            background-color: #eee;
+            box-sizing: border-box;
+        }
+    }
+
+    .VueLivePreview {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.example-float-control {
+    position: sticky;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -1px;
+    height: 44px;
+    border-top: 1px solid var(--el-border-color);
+    color: var(--el-text-color-secondary);
+    background-color: var(--el-bg-color, #fff);
+    box-sizing: border-box;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    cursor: pointer;
+
+    span {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    &:hover {
+        color: var(--el-color-primary);
+    }
+}
+
 .dinertDemo {
     height: 100%;
+    border: 1px solid #dcdfe6;
+
+    &-example {
+        &-component {
+            padding: 0 16px;
+        }
+
+        .el-divider {
+            margin: 0;
+        }
+
+        &-operations {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: .5rem;
+            height: 2.5rem;
+
+            .el-icon {
+                margin: 0 .5rem;
+                cursor: pointer;
+                height: auto;
+                color: var(--el-text-color-secondary);
+            }
+        }
+
+        &-source {
+            &-html {
+                padding: 0 24px;
+            }
+        }
+    }
+}
+</style>
+
+<style lang="scss">
+.el-dialog {
+    .el-dialog__footer {
+        text-align: center;
+    }
 }
 </style>

@@ -16,7 +16,8 @@
     "markdown-it-container": "^4.0.0",
     "prismjs": "^1.29.0",
     "vitepress": "^1.0.0-rc.45",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-live": "^2.5.4"
   },
   "scripts": {
     "docs:dev": "vitepress dev",
