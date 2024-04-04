@@ -1,9 +1,6 @@
 
 import {Ref, ref} from 'vue'
 
-import type {RewriteFormProps} from '@packages/components/form/types'
-import type {RewriteTableProps} from '@packages/components/table/types'
-
 import type {DinertTablePageProps, AjaxTableProps, ScopeFn} from '@packages/hooks/useTablePage/types'
 
 import TablePageCom from '@packages/components/table-page/index'
@@ -17,10 +14,10 @@ import lodash from 'lodash'
  * R 请求回来的数据格式
  */
 
-class TablePage<T, D = any, FI = object, P = any, R = any> {
+class TablePage<T, D = any, FI = any, P = any, R = any> {
     showSearch: Ref<DinertTablePageProps['search']>
-    table: Ref<RewriteTableProps<T>>
-    form: Ref<RewriteFormProps<D, FI>>
+    table: Ref<DinertTablePageProps<T, D, FI>['table']>
+    form: Ref<DinertTablePageProps<T, D, FI>['form']>
     footer: Ref<DinertTablePageProps['footer']>
 
     selecTableDatas: Ref<T[]> = ref([])
@@ -77,13 +74,13 @@ class TablePage<T, D = any, FI = object, P = any, R = any> {
 
         this.firstOptions = lodash.cloneDeep(this.options)
 
-        this.table = ref<DinertTablePageProps['table'] | any>(this.options.table)
+        this.table = ref<DinertTablePageProps<T, D, FI>['table'] | any>(this.options.table)
 
-        this.form = ref<RewriteFormProps<D | any, FI | any>>(this.options.form)
+        this.form = ref<DinertTablePageProps<T, D, FI>['form'] | any>(this.options.form)
 
-        this.footer = ref<DinertTablePageProps['footer']>(this.options.footer)
+        this.footer = ref<DinertTablePageProps<T, D, FI>['footer']>(this.options.footer)
 
-        this.showSearch = ref<DinertTablePageProps['search']>(this.options.search)
+        this.showSearch = ref<DinertTablePageProps<T, D, FI>['search']>(this.options.search)
 
         this.params = {}
         this.oldParams = {}

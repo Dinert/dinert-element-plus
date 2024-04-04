@@ -295,7 +295,7 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
 })
 
 const {table, form, tablePageRef} = tablePage
-// form.value.formItem.a
+// form.value.formItem.autoInput
 tablePage.getTableParams = () => {
 
 

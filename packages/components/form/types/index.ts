@@ -19,24 +19,6 @@ type RewriteColProps = Partial<ColProps>
 
 type RewriteRowProps = Partial<RowProps>
 
-type TypeName = 'input' |
-                'select' |
-                'textarea' |
-                'input-number' |
-                'input-autocomplete'
-                | 'switch'
-                | 'datetime'
-                | 'date'
-                | 'week'
-                | 'month'
-                | 'year'
-                | 'datetimerange'
-                | 'daterange'
-                | 'monthrange'
-                | 'custom' | 'radio' | 'tree-select' | 'radio-button'
-                | 'rate'
-                | 'checkbox'
-                | 'cascader'
 
 export interface RewriteFormItemPropsMap<O = any[]>{
     input: RewriteInputProps;
@@ -63,14 +45,14 @@ export interface RewriteFormItemPropsMap<O = any[]>{
 }
 
 
-export interface CustomFormItemProps<D = any, O = any[]> extends Partial<FormItemProps> {
+export interface CustomFormItemProps<D = any, O = any[], N extends keyof RewriteFormItemPropsMap = any> extends Partial<FormItemProps> {
     key?: any;
-    type: TypeName;
+    type: N extends keyof RewriteFormItemPropsMap ? N : keyof RewriteFormItemPropsMap;
     show?: boolean | ((model: D) => boolean);
     vif?: boolean | ((model: D) => boolean);
     label: string;
     sort?: number;
-    options?: RewriteFormItemPropsMap<O>[TypeName];
+    options?: RewriteFormItemPropsMap<O>[N];
     showLabel?: boolean;
     labelDisabled?: boolean;
     labelWrap?: boolean;
@@ -80,10 +62,14 @@ export interface CustomFormItemProps<D = any, O = any[]> extends Partial<FormIte
     colLayout?: RewriteColProps;
 }
 
+type ToModelItem<D, FI> = D extends FI ? D : FI
+type FormItemMap<D, FI> = {
+    [P in keyof ToModelItem<D, FI>]: CustomFormItemProps<D, any[], ToModelItem<D, FI>[P] extends keyof RewriteFormItemPropsMap ? ToModelItem<D, FI>[P] : keyof RewriteFormItemPropsMap>;
+}
 
 export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormProps>, 'model'> {
     model: Partial<D>;
-    formItem: Partial<Record<keyof (FI | D), CustomFormItemProps<D>>>;
+    formItem: Partial<FormItemMap<D, FI>>;
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;
     showLabel?: boolean;
