@@ -9,7 +9,7 @@ interface ModelProps {
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
 interface FormItemProps {
-    status: 'select';
+    status: string;
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
