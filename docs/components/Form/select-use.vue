@@ -20,9 +20,10 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             type: 'select',
             options: {
                 value: 'code',
+                label: 'name',
                 options: [
-                    {label: '显示当我的长度过长长长长长长', code: true},
-                    {label: '隐藏', code: false},
+                    {name: '显示当我的长度过长长长长长长', code: true},
+                    {name: '隐藏', code: false},
                 ]
             }
         }
