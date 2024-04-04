@@ -58,6 +58,14 @@ export default defineConfig({
                             text: "基础用法",
                             link: "/examples/form/basic",
                         },
+                        {
+                            text: "input使用",
+                            link: "/examples/form/input-use",
+                        },
+                        {
+                            text: "select使用",
+                            link: "/examples/form/select-use",
+                        },
                     ]
                 }]
 

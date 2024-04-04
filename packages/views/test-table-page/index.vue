@@ -105,6 +105,7 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
                 label: '输入框',
                 type: 'input',
                 options: {
+
                 },
             },
             textarea: {
@@ -112,7 +113,6 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
                 type: 'textarea',
                 required: true,
                 options: {
-
                 }
             },
             inputNumber: {

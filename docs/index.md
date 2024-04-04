@@ -7,7 +7,7 @@ titleTemplate: ElementPlus组件库
 hero:
   name: DinertElementPlus
   text: 基于ElementPlus二次封装的组件库
-  tagline: 没啥特点仅供学习
+  tagline: 让你能够享受到更好的开发体验
   actions:
     - theme: brand
       text: 开始
@@ -17,13 +17,16 @@ hero:
       link: https://github.com/Dinert/dinert-element-plus
 
 features:
-  - icon: 💡
-    title: Vue3组件库
+  - title: Vue3+Typscript
     details: 基于vite打包和ElementPlus+TypeScript开发
-  - icon: 📦
-    title: 仅供学习使用
-    details: 倾向于Vue3组件库的学习，请勿用于实际生产项目
-  - icon: 🛠️
-    title: 按需引入
-    details: 直接支持按需引入无需配置任何插件。
+
+  - title: 多种类型组件
+    details: 提供了包含但不仅限于表格、表单、弹窗等3+个经常使用到的组件
+
+  - title: 全局引入和按需引入
+    details: 直接支持全局引入和按需引入无需配置任何插件
+
+  - title: 一些建议
+    details: 请尽量在项目中使用TypeScript，能够最大的提高你的开发效率
+
 ---

@@ -29,6 +29,7 @@ export default defineComponent({
         }
     },
     render() {
+        console.log(this.options.showWordLimit, 'this.options.showWordLimit')
         return (
             <el-input
                 v-model={this.form.model[this.formItem.key]}
