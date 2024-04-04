@@ -19,7 +19,7 @@ export const findTreeNode = (treeData: any, key: string, value: string) => {
     const result: any[] = []
     function filterResult(treeData: any) {
         treeData.forEach((item: any) => {
-            if (value === item[key]) {
+            if ((Array.isArray(value) && value.includes(item[key])) || value === item[key]) {
                 result.push(item)
             }
             if (item.children && item.children.length) {
@@ -35,12 +35,20 @@ export const findTreeNode = (treeData: any, key: string, value: string) => {
 export const getTooltipValue = (value: any, item: any): any => {
     const type = item.type
     const options = item.options || {}
+    const tempArr: string[] = []
     if (['input', 'input-autocomplete', 'input-number'].includes(type)) {
         return value
     } else if (['select', 'tree-select'].includes(type)) {
         if (options && options.options && options.options.length) {
-            const selectItem = findTreeNode(options.options, options.value || 'value', value)[0]
-            return selectItem && selectItem[options.label || 'label']
+            let newVal = null
+            if (options.valueKey) {
+                newVal = value && value[options.valueKey]
+            }
+            const selectItem = findTreeNode(options.options, options.value === 'object' ? options.valueKey : options.value || 'value', newVal || value)
+            selectItem.forEach(item => {
+                tempArr.push(item[options.label || 'label'])
+            })
+            return tempArr.join(',')
         }
     } else if (['cascader'].includes(type)) {
         if (options && options.options && options.options.length) {

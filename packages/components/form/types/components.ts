@@ -15,8 +15,8 @@ type CommonFn = 'onChange' | 'onClear' | 'onBlur' | 'onFocus'
 
 export type RewriteInputProps = Partial<InputProps & Pick<typeof ElInput, 'onInput'| CommonFn>>
 export type RewriteTextareaProps = Partial<InputProps & Pick<typeof ElInput, 'onInput'| CommonFn>>
-export type RewriteSelectProps<O = any[]> = Partial<Omit<typeof SelectProps, 'options'> &
-{options: O | SelectOptionProxy[], label: string, value: string}
+export type RewriteSelectProps<O = any[]> = Partial<Omit<typeof SelectProps, 'options' | 'multiple' | 'filterable'> &
+{options: O | SelectOptionProxy[], label: string, value: string, multiple: boolean, filterable: boolean}
 & Pick<typeof ElSelect, CommonFn | 'onVisible-change' | 'onRemove-tag'>
 >
 export type RewriteCascaderProps<O = any[]> = Partial<Omit<typeof cascaderProps, 'options' | 'props'> & {optison: O, props: CascaderProps} & Pick<typeof ElCascader, CommonFn | 'onVisible-change' | 'onRemove-tag'>>

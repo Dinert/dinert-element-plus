@@ -10,13 +10,15 @@ interface ModelProps {
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
 interface FormItemProps {
     status: string;
+    status1: string;
+    status2: string;
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {},
     formItem: {
         status: {
-            label: '状态',
+            label: '默认',
             type: 'select',
             options: {
                 value: 'code',
@@ -25,6 +27,36 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                     {name: '显示当我的长度过长长长长长长', code: true},
                     {name: '隐藏', code: false},
                 ]
+            }
+        },
+        status2: {
+            label: '多选搜索',
+            type: 'select',
+            options: {
+                multiple: true,
+                value: 'code',
+                filterable: true,
+                label: 'name',
+                options: [
+                    {name: '显示当我的长度过长长长长长长', code: true},
+                    {name: '隐藏', code: false},
+                ]
+            }
+        },
+        status1: {
+            label: '值对象',
+            type: 'select',
+            options: {
+                value: 'object',
+                label: 'name',
+                valueKey: 'code',
+                options: [
+                    {name: '显示当我的长度过长长长长长长', code: true},
+                    {name: '隐藏', code: false},
+                ],
+                onChange(value) {
+                    console.log(value, 'valueeeeeeeeeee')
+                }
             }
         }
     }

@@ -41,9 +41,12 @@ export default defineComponent({
                     options.map(item => {
                         return (<el-option
                             key={item.value}
-                            {...item}
-                            label={item[(this.options.label || 'label')]}
-                            value={item[(this.options.value || 'value')]}
+                            {...{
+                                ...item,
+                                label: item[(this.options.label || 'label')],
+                                value: this.options.value === 'object' ? item : item[(this.options.value || 'value')]
+                            }}
+
                         >
                         </el-option>)
                     })
