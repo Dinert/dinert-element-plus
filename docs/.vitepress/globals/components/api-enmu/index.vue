@@ -1,3 +1,8 @@
+<script lang="ts">
+export default {
+    name: 'DinertApiEnmu',
+};
+</script>
 <script setup lang="ts">
 import { computed } from 'vue'
 import { isString } from '@vue/shared'

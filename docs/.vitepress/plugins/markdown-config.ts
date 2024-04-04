@@ -24,7 +24,7 @@ export const mdPlugin = (md) => {
                 );
               }
               if (!source) throw new Error(`Incorrect source file: ${sourceFile}`);
-
+              console.log(highlight(source, 'vue'), 'source')
               return `<DinertDemo source="${encodeURIComponent(
                 highlight(source, 'vue')
               )}" path="${sourceFile}" raw-source="${encodeURIComponent(
