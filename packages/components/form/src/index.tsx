@@ -144,11 +144,11 @@ export default defineComponent({
                                     key={item.key}
                                     {
                                         ...{
-                                            xl: 3, // ≥1920px
-                                            lg: 4, // ≥1200px
-                                            md: 8, // ≥992px
-                                            sm: 12, // ≥768px
-                                            xs: 24, // <768px
+                                            // xl: 3, // ≥1920px
+                                            // lg: 4, // ≥1200px
+                                            // md: 8, // ≥992px
+                                            // sm: 12, // ≥768px
+                                            // xs: 24, // <768px
                                             ...this.form.colLayout,
                                             ...item.colLayout
                                         }

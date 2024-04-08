@@ -8,7 +8,7 @@
     .el-select__suffix{
         position: absolute;
         top: 20%;
-        right: 5%;
+        right: 8px;
     }
 </style>
 
@@ -60,7 +60,7 @@
 | sort      | 表单组件的排序顺序                                                                         | Number                                                             | 一                                        |
 | options   | 组件的参数，比如组件类型type是input，那options里面的内容就是Input的属性和方法              | Object                                                             | 一                                        |
 | showLabel | 是否直接显示表单组件的值                                                                   | boolean                                                            | 一                                        |
-| colLayout | 表单组件的布局方式                                                                         | Object                                                             | \{ xl: 3, lg: 4, md: 8, sm: 12, xs: 24 \} |
+| colLayout | 表单组件的布局方式                                                                         | Object                                                             | \{  \} |
 | required  | 是否必填                                                                                   | Boolean                                                            | 一                                        |
 | ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#formitem-attributes) | 一                                                                 | 一                                        |
 

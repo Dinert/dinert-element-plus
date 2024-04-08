@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue'
-import {RewriteFormProps} from '../../../packages'
+import {RewriteFormProps} from '../../../../packages'
 
 // form里面的数据类型
 interface ModelProps {

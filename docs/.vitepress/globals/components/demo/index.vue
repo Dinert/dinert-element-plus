@@ -39,6 +39,9 @@ const sourceVisible = ref(false)
 const editDialogVisible = ref(false)
 const oldRawSource = ref(rawSource.value)
 
+const packagesLine = /import.*?packages'/g;
+const packagesReg = /\.\.\/.*?packages/g;
+
 onMounted(async () => {
     demoComponents.value = defineAsyncComponent(getModule(props.path));
 });
@@ -53,19 +56,19 @@ const decodedDescription = computed(() =>
 
 const decodeSource = computed(() => {
     let result = decodeURIComponent(source.value)
-    result = result.replace('../../../packages', '@dinert/element-plus')
+    result = result.replace(packagesReg, '@dinert/element-plus')
     return result;
 })
 
 const decodeRawSource =  computed(() => {
     let result = decodeURIComponent(rawSource.value).split('\n').join('')
-    result = result.replace("import {RewriteFormProps} from '../../../packages'", '');
+    result = result.replace(packagesLine, '');
     return result
 })
 
 const decodeCodeRawSource = computed(() => {
     let result = decodeURIComponent(rawSource.value).split('\n').join('')
-    result = result.replace('../../../packages', '@dinert/element-plus')
+    result = result.replace(packagesReg, '@dinert/element-plus')
     return result
 })
 
@@ -189,6 +192,10 @@ const copyCode = async () => {
         display: flex;
         justify-content: center;
         align-items: center;
+
+        & > div {
+            width: 100%;
+        }
     }
 }
 

@@ -29,6 +29,20 @@
         }
     }
 
+    &.dialog {
+        .el-form-left {
+            flex: 1;
+
+            .el-col {
+                .label-text {
+                    & > div {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
     .el-form-left {
         flex: 1;
 

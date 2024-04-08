@@ -2,10 +2,16 @@
 
 # DinertForm 表单
 
-## 基础用法
+## 查询栏
 :::demo
 
-Form/basic
+Form/basic/index
+:::
+
+## 弹窗上的属性
+:::demo
+
+Form/basic/dialog
 :::
 
 <!-- @include: ./explain.md -->
