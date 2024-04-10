@@ -48,6 +48,7 @@ export default defineComponent({
     },
     render() {
         const defaultSlot = this.$slots.default
+        const defaultAfter = this.$slots.defaultAfter
 
         return (
             <el-tooltip
@@ -62,6 +63,7 @@ export default defineComponent({
                                 <span class="text-tooltip">{ getValue(this.content, this) }</span>
                                 <span class="label-text" onMouseenter={(e: MouseEvent) => this.$emit('LabelMouseEnter', e)}>
                                     {(defaultSlot?.()) || getValue(this.content, this) }
+                                    {defaultAfter?.()}
                                 </span>
                                 <span>{this.disabled}</span>
                             </span>
