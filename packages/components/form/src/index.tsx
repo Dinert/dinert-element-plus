@@ -243,7 +243,7 @@ export default defineComponent({
 
                                                                     return componentResult
                                                                 },
-                                                                defaultAfter: () => this.$slots[formItemSlot('after_' + item.key)]?.()
+                                                                defaultAfter: () => this.$slots[formItemSlot(item.key + '_after')]?.()
                                                             }
                                                         }
                                                     >
