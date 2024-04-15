@@ -26,6 +26,12 @@ Form/basic/show-value
 Form/basic/linkage
 :::
 
+## 禁用组件
+:::demo
+
+Form/basic/disabled
+:::
+
 ## 组件排序
 :::demo
 

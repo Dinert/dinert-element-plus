@@ -4,7 +4,7 @@ import {RewriteFormProps} from '../../../../packages'
 
 // form里面的数据类型
 interface ModelProps {
-    name: string;
+    name: boolean;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -23,43 +23,26 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             label: '名称',
             type: 'input',
             options: {
-
+                disabled: true
             }
         },
         name1: {
             label: '名称1',
             type: 'input',
+            colLayout: {span: 12},
             options: {
 
             }
-        }
+        },
+
     }
 })
-
-const formItemFn = formItem => {
-    console.log(formItem, 'formItemformItemformItem')
-}
-
 </script>
 
 <template>
     <div class="home">
         <dinert-form :form="form" class="dialog"
             :search="false"
-        >
-            <template #formItem_name="formItem">
-                <el-button type="primary">{{ formItem.label }}</el-button>
-                {{ formItemFn(formItem) }}
-            </template>
-
-            <template #formItem_name1="formItem">
-                <el-input v-model="formItem.value" v-bind="formItem.options"
-                    style="margin-right: 22px;width: 80%;"
-                />
-            </template>
-            <template #formItem_name1_after="formItem">
-                <el-button type="primary">{{ formItem.label }}</el-button>
-            </template>
-        </dinert-form>
+        />
     </div>
 </template>
