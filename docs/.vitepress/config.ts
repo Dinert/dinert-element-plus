@@ -60,11 +60,11 @@ export default defineConfig({
                         },
                         {
                             text: "input使用",
-                            link: "/examples/form/input-use",
+                            link: "/examples/form/input",
                         },
                         {
                             text: "select使用",
-                            link: "/examples/form/select-use",
+                            link: "/examples/form/select",
                         },
                     ]
                 }]

@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/input-use
+Form/input/index
 :::
 
 <!-- @include: ./explain.md -->

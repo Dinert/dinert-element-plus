@@ -57,6 +57,7 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;
+    tempValueDisabled?: boolean;
     required?: boolean;
     colLayout?: RewriteColProps;
 }

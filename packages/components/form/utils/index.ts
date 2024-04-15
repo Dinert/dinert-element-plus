@@ -65,7 +65,7 @@ export const getTooltipValue = (value: any, item: any): any => {
 
 export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any) => {
     if (!value || item.showLabel) {
-        _this.form.formItem[item.key].valueDisabled = true
+        _this.form.formItem[item.key].tempValueDisabled = true
         return
     }
     let el: HTMLElement | null = null
@@ -73,6 +73,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
     } else if (['select', 'tree-select'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
+        el = el || (e.target as any).parentElement.querySelector('.el-select__selection') as HTMLElement
     }
     const timer = [
         'datetime',
@@ -90,29 +91,31 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         'textarea'
     ]
     if (timer.includes(item.type)) {
-        _this.form.formItem[item.key].valueDisabled = true
+        _this.form.formItem[item.key].tempValueDisabled = true
         return
     }
 
     if (['switch', 'radio'].includes(item.type)) {
-        _this.form.formItem[item.key].valueDisabled = true
+        _this.form.formItem[item.key].tempValueDisabled = true
     } else if (el) {
         const inputEl = window.getComputedStyle(el, null)
         const textWidth
-            = el.offsetWidth
-                - parseInt(inputEl.getPropertyValue('padding-right'))
-                - parseInt(inputEl.getPropertyValue('padding-left'))
-        const tooltipWidth = (e.target as any).previousElementSibling.offsetWidth
+                = el.offsetWidth
+                    - parseInt(inputEl.getPropertyValue('padding-right'))
+                    - parseInt(inputEl.getPropertyValue('padding-left'))
+        const tooltipEl = (e.target as any).previousElementSibling
+        const tooltipWidth = tooltipEl.offsetWidth
 
         if (tooltipWidth >= textWidth) {
-            _this.form.formItem[item.key].valueDisabled = false
+            _this.form.formItem[item.key].tempValueDisabled = false
         } else {
-            _this.form.formItem[item.key].valueDisabled = true
+            _this.form.formItem[item.key].tempValueDisabled = true
 
         }
     } else {
-        _this.form.formItem[item.key].valueDisabled = false
+        _this.form.formItem[item.key].tempValueDisabled = false
     }
+
 }
 
 export const customPlaceholder = (customName: any, type: string = 'input', name: string = '请输入') => {

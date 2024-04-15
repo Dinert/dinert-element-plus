@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/select-use
+Form/select/index
 :::
 
 <!-- @include: ./explain.md -->
