@@ -10,7 +10,7 @@ function _resolve(dir: string) {
     return path.resolve(__dirname, dir)
   }
 export default defineConfig({
-    base:  '/dinert-element-plus/',
+    // base:  '/dinert-element-plus/',
     vite: {
         resolve: {
             alias: {
