@@ -10,7 +10,7 @@ function _resolve(dir: string) {
     return path.resolve(__dirname, dir)
   }
 export default defineConfig({
-    base:  '/dinert-element-plus/',
+    // base:  '/dinert-element-plus/',
     vite: {
         resolve: {
             alias: {
@@ -18,12 +18,7 @@ export default defineConfig({
                 "@docs": _resolve("../../docs"),
             }
         },
-        plugins: [vueJsx()],
-        build: {
-            rollupOptions: {
-                external: ['lodash'],
-            }
-        }
+        plugins: [vueJsx()]
     },
     themeConfig: {
       siteTitle: 'dinert-element-plus',
