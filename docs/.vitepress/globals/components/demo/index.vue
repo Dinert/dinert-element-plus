@@ -230,7 +230,7 @@ const copyCode = async () => {
 
 .dinertDemo {
     height: 100%;
-    border: 1px solid #dcdfe6;
+    border: 1px solid var(--el-border-color);
 
     &-example {
         &-component {

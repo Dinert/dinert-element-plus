@@ -11,6 +11,9 @@
         top: 20%;
         right: 8px;
     }
+    .el-form.dinert-form{
+        background-color: transparent;
+    }
 </style>
 
 <script setup>

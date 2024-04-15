@@ -1,6 +1,7 @@
 import DefaultTheme from "vitepress/theme";
 import elementplus from "element-plus"
 import "element-plus/dist/index.css";
+import "element-plus/theme-chalk/dark/css-vars.css";
 import 'prismjs/themes/prism.css'
 
 import DinertElementPlus from '../../../packages/index'

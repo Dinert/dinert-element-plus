@@ -9,8 +9,8 @@ import {mdPlugin} from './plugins/markdown-config'
 function _resolve(dir: string) {
     return path.resolve(__dirname, dir)
   }
-
 export default defineConfig({
+    base:  '/dinert-element-plus/',
     vite: {
         resolve: {
             alias: {
@@ -59,11 +59,15 @@ export default defineConfig({
                             link: "/examples/form/basic",
                         },
                         {
-                            text: "input使用",
+                            text: "input 输入框",
                             link: "/examples/form/input",
                         },
                         {
-                            text: "select使用",
+                            text: "input-number 数字输入框",
+                            link: "/examples/form/input-number",
+                        },
+                        {
+                            text: "select 选择框",
                             link: "/examples/form/select",
                         },
                     ]
