@@ -15,6 +15,7 @@ interface FormItemProps {
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
+        name1: '1321312'
     },
     colLayout: {span: 24},
     labelWidth: 60,
@@ -53,8 +54,9 @@ const formItemFn = formItem => {
             </template>
 
             <template #formItem_name1="formItem">
-                <el-input v-model="formItem.value" v-bind="formItem.options"
+                <el-input v-model="formItem.model[formItem.key]" v-bind="formItem.options"
                     style="margin-right: 22px;width: 80%;"
+                    clearable
                 />
             </template>
             <template #formItem_name1_after="formItem">

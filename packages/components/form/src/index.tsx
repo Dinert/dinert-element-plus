@@ -79,8 +79,8 @@ export default defineComponent({
             Object.keys(props.form.formItem).forEach(key => {
                 const value = props.form.formItem[key] as Partial<CustomFormItemProps>
                 result.push({
-                    key: key,
                     ...value,
+                    key: key,
                     sort: typeof value.sort === 'undefined' ? index : value.sort,
                 })
                 index++
@@ -193,7 +193,7 @@ export default defineComponent({
 
 
                                                                     if (this.$slots[formItemSlot(item.key)]) {
-                                                                        componentResult = (this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model, value: this.form.model[item.key]}))
+                                                                        componentResult = (this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
                                                                     } else if (item.showLabel || (this.form.showLabel && [true, undefined].includes(item.showLabel))) {
                                                                         return componentResult
                                                                     } else if (['input', 'textarea'].includes(item.type)) {
@@ -244,7 +244,7 @@ export default defineComponent({
 
                                                                     return componentResult
                                                                 },
-                                                                defaultAfter: () => this.$slots[formItemSlot(item.key + '_after')]?.({...item, model: this.form.model, value: this.form.model[item.key]})
+                                                                defaultAfter: () => this.$slots[formItemSlot(item.key + '_after')]?.({...item, model: this.form.model})
                                                             }
                                                         }
                                                     >

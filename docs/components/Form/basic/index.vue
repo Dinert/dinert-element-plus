@@ -15,7 +15,9 @@ interface FormItemProps {
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
-    model: {},
+    model: {
+        name: '11123132131231231211111111111'
+    },
     formItem: {
         name: {
             label: '名称',

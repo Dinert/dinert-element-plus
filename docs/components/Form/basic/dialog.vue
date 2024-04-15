@@ -18,7 +18,6 @@ interface FormItemProps {
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-        name: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
     },
     colLayout: {span: 24},
     labelWidth: 60,

@@ -37,11 +37,38 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
 
     }
 })
+const form2 = ref<RewriteFormProps<ModelProps, FormItemProps>>({
+    model: {
+    },
+    colLayout: {span: 24},
+    labelWidth: 60,
+    disabled: true,
+    formItem: {
+        name: {
+            label: '名称',
+            type: 'input',
+            options: {
+            }
+        },
+        name1: {
+            label: '名称1',
+            type: 'input',
+            colLayout: {span: 12},
+            options: {
+
+            }
+        },
+
+    }
+})
 </script>
 
 <template>
     <div class="home">
         <dinert-form :form="form" class="dialog"
+            :search="false"
+        />
+        <dinert-form :form="form2" class="dialog"
             :search="false"
         />
     </div>
