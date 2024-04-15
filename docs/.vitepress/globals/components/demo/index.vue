@@ -61,7 +61,7 @@ const decodeSource = computed(() => {
 })
 
 const decodeRawSource =  computed(() => {
-    let result = decodeURIComponent(rawSource.value).split('\n').join('')
+    let result = decodeURIComponent(rawSource.value)
     result = result.replace(packagesLine, '');
     return result
 })
