@@ -14,7 +14,7 @@ import CustomCascader from './cascader'
 import useWindowResize from '@packages/hooks/useWindowResize'
 import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot, customPlaceholder} from '@packages/components/form/utils'
 
-import {getUuid} from '@packages/utils/tools'
+import {dataTransformRod, getUuid} from '@packages/utils/tools'
 import {ElForm} from 'element-plus'
 
 import {ArrowUp, ArrowDown} from '@element-plus/icons-vue'
@@ -75,7 +75,7 @@ export default defineComponent({
 
         const formItemMap = computed(() => {
             const result: any = []
-            let index = 0
+            let index = 1
             Object.keys(props.form.formItem).forEach(key => {
                 const value = props.form.formItem[key] as Partial<CustomFormItemProps>
                 result.push({
@@ -188,11 +188,12 @@ export default defineComponent({
 
 
                                                                     const slots: any = {}
-                                                                    let componentResult = <span>{this.form.model[item.key]}</span>
+
+                                                                    let componentResult = <span>{dataTransformRod(this.form.model[item.key])}</span>
 
 
                                                                     if (this.$slots[formItemSlot(item.key)]) {
-                                                                        componentResult = (this.$slots[formItemSlot(item.key)]?.())
+                                                                        componentResult = (this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model, value: this.form.model[item.key]}))
                                                                     } else if (item.showLabel || (this.form.showLabel && [true, undefined].includes(item.showLabel))) {
                                                                         return componentResult
                                                                     } else if (['input', 'textarea'].includes(item.type)) {
@@ -243,7 +244,7 @@ export default defineComponent({
 
                                                                     return componentResult
                                                                 },
-                                                                defaultAfter: () => this.$slots[formItemSlot(item.key + '_after')]?.()
+                                                                defaultAfter: () => this.$slots[formItemSlot(item.key + '_after')]?.({...item, model: this.form.model, value: this.form.model[item.key]})
                                                             }
                                                         }
                                                     >

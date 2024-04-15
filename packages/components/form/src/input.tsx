@@ -19,8 +19,8 @@ export default defineComponent({
     },
     setup(props) {
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['input']>(() => {
-            const options = props.formItem.options || {};
-            (options as any).type = props.formItem.type
+            const options = props.formItem.options || {}
+            options.type = props.formItem.type
             return options
         })
 
@@ -29,7 +29,6 @@ export default defineComponent({
         }
     },
     render() {
-        console.log(this.options.showWordLimit, 'this.options.showWordLimit')
         return (
             <el-input
                 v-model={this.form.model[this.formItem.key]}

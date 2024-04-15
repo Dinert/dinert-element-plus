@@ -18,7 +18,6 @@ interface FormItemProps {
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-        name: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
     },
     colLayout: {span: 24},
     labelWidth: 60,
@@ -33,37 +32,37 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         name1: {
             label: '名称1',
             type: 'input',
-            colLayout: {span: 12},
             options: {
 
-            }
-        },
-        name2: {
-            label: '名称2',
-            type: 'input',
-            colLayout: {span: 12},
-            options: {
-
-            }
-        },
-        status: {
-            label: '状态',
-            type: 'select',
-            options: {
-                options: [
-                    {label: '显示当我的长度过长长长长长长', value: true},
-                    {label: '隐藏', value: false},
-                ]
             }
         }
     }
 })
+
+const formItemFn = formItem => {
+    console.log(formItem, 'formItemformItemformItem')
+}
+
 </script>
 
 <template>
     <div class="home">
         <dinert-form :form="form" class="dialog"
             :search="false"
-        />
+        >
+            <template #formItem_name="formItem">
+                <el-button type="primary">{{ formItem.label }}</el-button>
+                {{ formItemFn(formItem) }}
+            </template>
+
+            <template #formItem_name1="formItem">
+                <el-input v-model="formItem.value" v-bind="formItem.options"
+                    style="margin-right: 22px;width: 80%;"
+                />
+            </template>
+            <template #formItem_name1_after="formItem">
+                <el-button type="primary">{{ formItem.label }}</el-button>
+            </template>
+        </dinert-form>
     </div>
 </template>

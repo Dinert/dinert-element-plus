@@ -63,12 +63,21 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
 }
 
 type ToModelItem<D, FI> = D extends FI ? D : FI
+type ToString<T> = { [P in keyof T]: T[P] extends keyof RewriteFormItemPropsMap ? string : T[P]; }
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+type Compute<T> = T extends Function ? T : { [P in keyof T]: T[P] }
+
+export type MergeProp<T extends any, U extends any> = Compute<
+    T & Omit<U, keyof T>
+>
+
 type FormItemMap<D, FI> = {
-    [P in keyof ToModelItem<D, FI>]: CustomFormItemProps<D, any[], ToModelItem<D, FI>[P] extends keyof RewriteFormItemPropsMap ? ToModelItem<D, FI>[P] : keyof RewriteFormItemPropsMap>;
+    [P in keyof ToModelItem<D, FI>]: CustomFormItemProps<MergeProp<D, FI>, any[], ToModelItem<D, FI>[P] extends keyof RewriteFormItemPropsMap ? ToModelItem<D, FI>[P] : keyof RewriteFormItemPropsMap>;
 }
 
 export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormProps>, 'model'> {
-    model: Partial<D>;
+    model: Partial<D | ToString<FI>>;
     formItem: Partial<FormItemMap<D, FI>>;
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;

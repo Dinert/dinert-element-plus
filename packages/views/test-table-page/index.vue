@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {onMounted} from 'vue'
 
 import TablePage from '@packages/hooks/useTablePage/index'
 import {tableData} from './data'
@@ -20,22 +19,6 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
             },
             {
                 prop: 'startTime',
-                label: '操作时间',
-            },
-            {
-                prop: 'startTime1',
-                label: '操作时间',
-            },
-            {
-                prop: 'startTime2',
-                label: '操作时间',
-            },
-            {
-                prop: 'startTime3',
-                label: '操作时间',
-            },
-            {
-                prop: 'startTime4',
                 label: '操作时间',
             },
             {
@@ -303,10 +286,6 @@ tablePage.getTableParams = () => {
     }
 }
 
-onMounted(() => {
-    console.log(tablePageRef.value, '321312321321312')
-})
-// tablePage.search()
 
 const search = () => {
     console.log('搜索')

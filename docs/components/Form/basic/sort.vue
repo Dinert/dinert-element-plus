@@ -18,7 +18,6 @@ interface FormItemProps {
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-        name: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
     },
     colLayout: {span: 24},
     labelWidth: 60,
@@ -33,21 +32,21 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         name1: {
             label: '名称1',
             type: 'input',
-            colLayout: {span: 12},
             options: {
 
             }
         },
         name2: {
-            label: '名称2',
+            label: '排第一',
             type: 'input',
-            colLayout: {span: 12},
+            sort: 0,
             options: {
 
             }
         },
         status: {
-            label: '状态',
+            label: '排第二',
+            sort: 0,
             type: 'select',
             options: {
                 options: [

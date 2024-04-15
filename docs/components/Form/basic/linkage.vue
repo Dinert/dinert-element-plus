@@ -5,7 +5,7 @@ import {RewriteFormProps} from '../../../../packages'
 // form里面的数据类型
 interface ModelProps {
     name: string;
-    status: string;
+    status: boolean;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -14,11 +14,11 @@ interface FormItemProps {
     name1: string;
     name2: string;
     status: string;
+    status2: string;
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-        name: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
     },
     colLayout: {span: 24},
     labelWidth: 60,
@@ -33,17 +33,11 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         name1: {
             label: '名称1',
             type: 'input',
-            colLayout: {span: 12},
             options: {
 
-            }
-        },
-        name2: {
-            label: '名称2',
-            type: 'input',
-            colLayout: {span: 12},
-            options: {
-
+            },
+            vif(model) {
+                return !!model.status
             }
         },
         status: {
@@ -51,8 +45,28 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             type: 'select',
             options: {
                 options: [
-                    {label: '显示当我的长度过长长长长长长', value: true},
-                    {label: '隐藏', value: false},
+                    {label: '显示名称', value: true},
+                    {label: '隐藏名称', value: false},
+                ]
+            }
+        },
+        name2: {
+            label: '名称2',
+            type: 'input',
+            options: {
+
+            },
+            show(model) {
+                return !!model.status2
+            }
+        },
+        status2: {
+            label: '状态',
+            type: 'select',
+            options: {
+                options: [
+                    {label: '显示名称2', value: true},
+                    {label: '隐藏名称2', value: false},
                 ]
             }
         }

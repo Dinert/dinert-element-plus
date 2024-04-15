@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue'
-import {RewriteFormProps} from '../../../../packages'
+import {DinertForm, RewriteFormProps} from '../../../../packages'
 
 // form里面的数据类型
 interface ModelProps {
@@ -16,39 +16,27 @@ interface FormItemProps {
     status: string;
 }
 
+const dinertFormRef = ref<InstanceType<typeof DinertForm>>()
+
+
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-        name: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
     },
     colLayout: {span: 24},
     labelWidth: 60,
     formItem: {
         name: {
-            label: '名称',
+            label: '必填',
             type: 'input',
-            options: {
-
-            }
-        },
-        name1: {
-            label: '名称1',
-            type: 'input',
-            colLayout: {span: 12},
-            options: {
-
-            }
-        },
-        name2: {
-            label: '名称2',
-            type: 'input',
-            colLayout: {span: 12},
+            required: true,
             options: {
 
             }
         },
         status: {
-            label: '状态',
+            label: '选择',
             type: 'select',
+            required: true,
             options: {
                 options: [
                     {label: '显示当我的长度过长长长长长长', value: true},
@@ -58,12 +46,30 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         }
     }
 })
+
+const save = () => {
+    dinertFormRef.value?.formRef?.validate(validate => {
+        if (validate) {
+            console.log(form.value.model)
+        }
+    })
+}
+const reset = () => {
+    form.value.model = {}
+}
+
+
 </script>
 
 <template>
     <div class="home">
-        <dinert-form :form="form" class="dialog"
+        <dinert-form ref="dinertFormRef" :form="form"
+            class="dialog"
             :search="false"
         />
+        <el-col style=" margin-bottom: 12px;text-align: center;">
+            <el-button type="primary" @click="save">保存</el-button>
+            <el-button plain @click="reset">重置</el-button>
+        </el-col>
     </div>
 </template>
