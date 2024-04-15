@@ -264,6 +264,7 @@ const copyCode = async () => {
 
         &-source {
             &-html {
+                overflow-x: auto;
                 padding: 0 24px;
             }
         }
