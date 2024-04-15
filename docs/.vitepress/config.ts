@@ -18,7 +18,8 @@ export default defineConfig({
                 "@docs": _resolve("../../docs"),
             }
         },
-        plugins: [vueJsx()]
+        plugins: [vueJsx()],
+
     },
     themeConfig: {
       siteTitle: 'dinert-element-plus',
