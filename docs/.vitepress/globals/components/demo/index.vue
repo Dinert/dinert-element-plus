@@ -62,12 +62,18 @@ const decodeSource = computed(() => {
 
 const decodeRawSource =  computed(() => {
     let result = decodeURIComponent(rawSource.value)
+    if(process.env.NODE_ENV !== 'production') {
+        result = result.split('\n').join('')
+    }
     result = result.replace(packagesLine, '');
     return result
 })
 
 const decodeCodeRawSource = computed(() => {
-    let result = decodeURIComponent(rawSource.value).split('\n').join('')
+    let result = decodeURIComponent(rawSource.value)
+    if(process.env.NODE_ENV !== 'production') {
+        result = result.split('\n').join('')
+    }
     result = result.replace(packagesReg, '@dinert/element-plus')
     return result
 })
