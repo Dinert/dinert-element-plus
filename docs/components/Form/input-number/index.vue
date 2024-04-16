@@ -4,6 +4,7 @@ import {RewriteFormProps} from '../../../../packages'
 
 // form里面的数据类型
 interface ModelProps {
+    num3: number;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -15,7 +16,7 @@ interface FormItemProps {
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-        num3: 2
+        num3: 2,
     },
     colLayout: {span: 24},
     labelWidth: 'auto',

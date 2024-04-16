@@ -67,7 +67,6 @@ type ToString<T> = { [P in keyof T]: T[P] extends keyof RewriteFormItemPropsMap 
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type Compute<T> = T extends Function ? T : { [P in keyof T]: T[P] }
-
 export type MergeProp<T extends any, U extends any> = Compute<
     T & Omit<U, keyof T>
 >
@@ -77,7 +76,7 @@ type FormItemMap<D, FI> = {
 }
 
 export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormProps>, 'model'> {
-    model: Partial<D | ToString<FI>>;
+    model: Partial<MergeProp<D, ToString<FI>>>;
     formItem: Partial<FormItemMap<D, FI>>;
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;

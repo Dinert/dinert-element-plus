@@ -178,7 +178,7 @@ export default defineComponent({
                                                 return (
                                                     <dinert-tooltip
                                                         key={item.key}
-                                                        content={getTooltipValue(this.form.model[item.key], item)}
+                                                        content={String(getTooltipValue(this.form.model[item.key], item))}
                                                         disabled={item.showLabel || this.form.showLabel ? true : item.valueDisabled === undefined ? item.tempValueDisabled : item.valueDisabled}
                                                         item={item}
                                                         onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key], this)}
