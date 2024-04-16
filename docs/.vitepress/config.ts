@@ -71,6 +71,10 @@ export default defineConfig({
                             text: "select 选择框",
                             link: "/examples/form/select",
                         },
+                        {
+                            text: "input-autocomplete 自动补全输入框",
+                            link: "/examples/form/autocomplete",
+                        },
                     ]
                 }]
 

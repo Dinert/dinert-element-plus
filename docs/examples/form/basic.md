@@ -1,6 +1,6 @@
 
 
-# DinertForm 表单
+# 基础用法
 
 ## 查询栏
 :::demo

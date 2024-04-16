@@ -198,6 +198,8 @@ const copyCode = async () => {
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 24px;
+        box-sizing: border-box;
 
         & > div {
             width: 100%;
