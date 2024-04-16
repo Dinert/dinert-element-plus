@@ -12,7 +12,9 @@ interface FormItemProps {
     status: string;
     status1: string;
     status2: string;
+    status3: string;
 }
+
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {},
@@ -52,6 +54,44 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                 options: [
                     {name: '显示当我的长度过长长长长长长', code: true},
                     {name: '隐藏', code: false},
+                ],
+                onChange(value) {
+                    console.log(value, 'valueeeeeeeeeee')
+                }
+            }
+        },
+        status3: {
+            label: '最大选择数量',
+            type: 'select',
+            options: {
+                multiple: true,
+                collapseTags: true,
+                maxCollapseTags: 2,
+                options: [
+                    {
+                        value: 'Beijing',
+                        label: 'Beijing',
+                    },
+                    {
+                        value: 'Shanghai',
+                        label: 'Shanghai',
+                    },
+                    {
+                        value: 'Nanjing',
+                        label: 'Nanjing',
+                    },
+                    {
+                        value: 'Chengdu',
+                        label: 'Chengdu',
+                    },
+                    {
+                        value: 'Shenzhen',
+                        label: 'Shenzhen',
+                    },
+                    {
+                        value: 'Guangzhou',
+                        label: 'Guangzhou',
+                    },
                 ],
                 onChange(value) {
                     console.log(value, 'valueeeeeeeeeee')
