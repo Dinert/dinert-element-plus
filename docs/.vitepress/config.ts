@@ -10,7 +10,7 @@ function _resolve(dir: string) {
     return path.resolve(__dirname, dir)
   }
 export default defineConfig({
-    base:  process.env.NODE_ENV === 'production' ? '/dinert-element-plus/' : '/',
+    // base:  process.env.NODE_ENV === 'production' ? '/dinert-element-plus/' : '/',
     vite: {
         resolve: {
             alias: {
@@ -74,6 +74,14 @@ export default defineConfig({
                         {
                             text: "input-autocomplete 自动补全输入框",
                             link: "/examples/form/autocomplete",
+                        },
+                        {
+                            text: "switch 开关",
+                            link: "/examples/form/switch",
+                        },
+                        {
+                            text: "date 时间选择器（时、日、周、月、年）",
+                            link: "/examples/form/date",
                         },
                     ]
                 }]

@@ -220,9 +220,11 @@ export default defineComponent({
                                                                     } else if ([
                                                                         'datetime',
                                                                         'date',
+                                                                        'dates',
                                                                         'week',
                                                                         'month',
                                                                         'year',
+                                                                        'years',
                                                                         'datetimerange',
                                                                         'daterange',
                                                                         'monthrange',

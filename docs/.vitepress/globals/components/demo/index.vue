@@ -7,7 +7,7 @@ export default {
 <script setup lang="ts">
 import { computed, toRefs,shallowRef,defineAsyncComponent,onMounted, ref } from 'vue';
 import { useClipboard } from "@vueuse/core";
-
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { VueLive } from "vue-live";
 import "vue-live/style.css";
 
@@ -101,6 +101,7 @@ const copyCode = async () => {
 
 <template>
     <ClientOnly>
+        <el-config-provider :locale="zhCn">
         <div class="dinertDemo">
             <p text="dinertDemo-sm" v-html="decodedDescription" />
             <div class="dinertDemo-example">
@@ -175,6 +176,7 @@ const copyCode = async () => {
                 </div>
             </el-dialog>
         </div>
+        </el-config-provider>
     </ClientOnly>
 </template>
 

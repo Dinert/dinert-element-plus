@@ -31,9 +31,11 @@ export interface RewriteFormItemPropsMap<O = any[]>{
     switch: RewriteSwitchProps;
     datetime: RewriteDatePickerProps;
     date: RewriteDatePickerProps;
+    dates: RewriteDatePickerProps;
     week: RewriteDatePickerProps;
     month: RewriteDatePickerProps;
     year: RewriteDatePickerProps;
+    years: RewriteDatePickerProps;
     datetimerange: RewriteDatePickerProps;
     daterange: RewriteDatePickerProps;
     monthrange: RewriteDatePickerProps;

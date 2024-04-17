@@ -46,8 +46,8 @@ export default defineComponent({
     setup(props) {
 
         const options = computed<RewriteFormItemPropsMap['date']>(() => {
-            const options = props.formItem.options || {};
-            (options as any).type = props.formItem.type
+            const options = props.formItem.options || {}
+            options.type = props.formItem.type
 
             return options
         })
@@ -59,23 +59,20 @@ export default defineComponent({
     render() {
 
         return (
-            <div>
-                <el-date-picker
-                    v-model={this.form.model[this.formItem.key]}
-                    prefixIcon={Calendar}
-                    clearable
-                    placeholder={customPlaceholder(datePickerPlaceholder(this.options.label || '', this.options), 'select')}
-                    startPlaceholder={customPlaceholder(datePickerPlaceholder(this.options.label || '', this.options), 'input', '开始')}
-                    endPlaceholder={customPlaceholder(datePickerPlaceholder(this.options.label || '', this.options), 'input', '结束')}
-                    unlink-panels={true}
-                    valueFormat={customValuFormat(this.options)}
-                    format={this.options.type === 'week' ? 'YYYY第ww周' : this.options.format}
-                    {...this.options}
-                    v-slots={this.$slots}
-                >
-                </el-date-picker>
-            </div>
-
+            <el-date-picker
+                v-model={this.form.model[this.formItem.key]}
+                prefixIcon={Calendar}
+                clearable
+                placeholder={customPlaceholder(datePickerPlaceholder(this.options.label || '', this.options), 'select')}
+                startPlaceholder={customPlaceholder(datePickerPlaceholder(this.options.label || '', this.options), 'input', '开始')}
+                endPlaceholder={customPlaceholder(datePickerPlaceholder(this.options.label || '', this.options), 'input', '结束')}
+                unlink-panels={true}
+                valueFormat={customValuFormat(this.options)}
+                format={this.options.type === 'week' ? 'YYYY第ww周' : this.options.format}
+                {...this.options}
+                v-slots={this.$slots}
+            >
+            </el-date-picker>
         )
     }
 })
