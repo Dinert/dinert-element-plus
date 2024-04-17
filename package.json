@@ -1,6 +1,6 @@
 {
   "name": "@dinert/element-plus",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "基于vue3封装的element-plus包",
   "scripts": {
     "dev": "vite",
@@ -69,6 +69,7 @@
     "vite": "5.1.6",
     "vite-plugin-dts": "^3.6.3",
     "vue": "^3.3.8",
+    "vue-dompurify-html": "^5.0.1",
     "vue-eslint-parser": "^9.3.2"
   },
   "lint-staged": {

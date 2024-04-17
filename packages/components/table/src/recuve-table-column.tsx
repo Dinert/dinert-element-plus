@@ -1,6 +1,6 @@
 import {defineComponent, watch, ref, nextTick, computed} from 'vue'
 
-import {getPropByPath, dataTransformRod, escapeHTML} from '@packages/utils/tools'
+import {getPropByPath, dataTransformRod} from '@packages/utils/tools'
 import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@packages/components/table/hooks'
 import {Setting, ArrowDown} from '@element-plus/icons-vue'
 import type {TableColumnCtx} from 'element-plus'
@@ -279,13 +279,12 @@ export default defineComponent({
 
                                             if (formatter) {
                                                 const htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index)
-                                                const escapeValue = escapeHTML(htmlValue)
 
                                                 return (
                                                     <>
                                                         {isSlotValue
                                                             ? <div class="cell-item">{ defaultSlot?.({...scope, prop: item.prop})}</div>
-                                                            : <div class="cell-item" v-html={escapeValue}></div>}
+                                                            : <div class="cell-item" v-dompurify-html={htmlValue}></div>}
 
                                                         <dinert-recuve-table-column table={this.table}
                                                             key={item.prop}

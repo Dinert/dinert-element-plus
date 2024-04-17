@@ -154,27 +154,6 @@ export const formatterArray = (cellValue: any) => {
 }
 
 
-// 预防xss攻击
-export const escapeHTML = (str: any) => {
-    // eslint-disable-next-line consistent-return
-    return String(str).replace(/[<>& "]/g, (match: any) => {
-        switch (match) {
-            case '<':
-                return '&lt;'
-            case '>':
-                return '&gt;'
-            case '&':
-                return '&amp;'
-            case ' ':
-                return '&nbsp;'
-            case '"':
-                return '&quot;'
-            default:
-                return ''
-        }
-    })
-}
-
 export const columnProp = (prop: string) => {
     return 'column_' + prop.split('.').join('_')
 }

@@ -1183,6 +1183,11 @@ detect-browser@^5.2.0:
   resolved "https://registry.npmjs.org/detect-browser/-/detect-browser-5.3.0.tgz"
   integrity sha512-53rsFbGdwMwlF7qvCt0ypLM5V5/Mbl0szB7GPN8y9NCcbknYOeVVXdrXEq+90IwAfrrzt6Hd+u2E2ntakICU8w==
 
+dompurify@^3.0.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.1.0.tgz#8c6b9fe986969a33aa4686bd829cbe8e14dd9445"
+  integrity sha512-yoU4rhgPKCo+p5UrWWWNKiIq+ToGqmVVhk0PmMYBK4kRsR3/qhemNFL8f6CFmBd4gMwm3F4T7HBoydP5uY07fA==
+
 electron-to-chromium@^1.4.668:
   version "1.4.736"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.736.tgz#ecb4348f4d5c70fb1e31c347e5bad6b751066416"
@@ -1760,6 +1765,13 @@ vue-demi@*, vue-demi@>=0.14.7:
   version "0.14.7"
   resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.14.7.tgz"
   integrity sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==
+
+vue-dompurify-html@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/vue-dompurify-html/-/vue-dompurify-html-5.0.1.tgz#870e3636f1e1a452c8bf1732e9e10b917176f61f"
+  integrity sha512-8yoMbo7PX4vt01k0dcCHvP4tY0fOCLkQeMhXXRNmH7/muIUTkFOQNzkAtE0RmqgaF/unabvYnsnCu2CjIMgueg==
+  dependencies:
+    dompurify "^3.0.0"
 
 vue-inbrowser-compiler-demi@^4.71.1:
   version "4.71.1"

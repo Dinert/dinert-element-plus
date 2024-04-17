@@ -5,6 +5,7 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 import 'prismjs/themes/prism.css'
 
 import DinertElementPlus from '../../../packages/index'
+import VueDOMPurifyHTML from 'vue-dompurify-html';
 import globals from '../globals';
 
 export default {
@@ -14,6 +15,7 @@ export default {
     // app is the Vue 3 app instance from `createApp()`. router is VitePress'
     // custom router. `siteData`` is a `ref`` of current site-level metadata.
       app.use(elementplus);
+      app.use(VueDOMPurifyHTML);
       app.use(DinertElementPlus);
       app.use(globals);
   },

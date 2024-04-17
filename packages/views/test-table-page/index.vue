@@ -20,6 +20,9 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
             {
                 prop: 'startTime',
                 label: '操作时间',
+                formatter: () => {
+                    return '<span>31321</span>'
+                }
             },
             {
                 prop: 'userName',
