@@ -237,7 +237,7 @@ export default defineComponent({
                                                                         componentResult = (<CustomSelectTree form={this.form} formItem={item}></CustomSelectTree>)
                                                                     } else if (['rate'].includes(item.type)) {
                                                                         componentResult = (<CustomRate form={this.form} formItem={item}></CustomRate>)
-                                                                    } else if (['checkbox'].includes(item.type)) {
+                                                                    } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
                                                                         componentResult = (<CustomCheckbox form={this.form} formItem={item}></CustomCheckbox>)
                                                                     } else if (['cascader'].includes(item.type)) {
                                                                         componentResult = (<CustomCascader form={this.form} formItem={item}></CustomCascader>)

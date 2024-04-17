@@ -48,7 +48,8 @@
 
         .el-col {
             .label-text {
-                .el-radio.is-bordered {
+                .el-radio.is-bordered,
+                .el-checkbox.is-bordered {
                     margin-right: 16px;
                 }
 

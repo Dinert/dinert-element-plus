@@ -88,7 +88,8 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         'radio-button',
         'checkbox',
         'rate',
-        'textarea'
+        'textarea',
+        'checkbox-button'
     ]
     if (timer.includes(item.type)) {
         _this.form.formItem[item.key].tempValueDisabled = true

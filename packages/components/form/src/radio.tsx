@@ -38,15 +38,19 @@ export default defineComponent({
                             return (<el-radio-button
                                 {...item}
                                 v-slots={this.$slots}
+                                value={item[this.options.value || 'value']}
                             >
-                                {item.label}
+                                {item[this.options.label || 'label']}
+
                             </el-radio-button>)
                         }
                         return (<el-radio
                             {...item}
                             v-slots={this.$slots}
+                            value={item[this.options.value || 'value']}
                         >
-                            {item.label}
+                            {item[this.options.label || 'label']}
+
                         </el-radio>)
                     })
                 }

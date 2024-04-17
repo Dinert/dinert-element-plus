@@ -92,6 +92,10 @@ export default defineConfig({
                             link: "/examples/form/radio",
                         },
                         {
+                            text: "checkbox 多选框",
+                            link: "/examples/form/checkbox",
+                        },
+                        {
                             text: "rate 评分",
                             link: "/examples/form/rate",
                         },

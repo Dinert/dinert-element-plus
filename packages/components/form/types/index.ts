@@ -41,6 +41,7 @@ export interface RewriteFormItemPropsMap<O = any[]>{
     monthrange: RewriteDatePickerProps;
     radio: RewriteRadioGroupProps<O>;
     checkbox: RewriteCheckboxGroupProps<O>;
+    'checkbox-button': RewriteCheckboxGroupProps<O>;
     'tree-select': RewriteTreeSelectProps<O>;
     'radio-button': RewriteRadioGroupProps<O>;
     'rate': RewriteRewriteRateProps<O>;

@@ -32,10 +32,20 @@ export default defineComponent({
             <el-checkbox-group v-model={this.form.model[this.formItem.key]}>
                 {
                     options.map(item => {
+                        if (this.formItem.type === 'checkbox-button') {
+                            return (<el-checkbox-button
+                                {...item}
+                                v-slots={this.$slots}
+                                value={item[this.options.value || 'value']}
+                            >
+                                {item[this.options.label || 'label']}
+                            </el-checkbox-button>)
+                        }
+
                         return (<el-checkbox
-                            key={item.label}
                             {...item}
-                            label={item[this.options.value || 'value']}
+                            v-slots={this.$slots}
+                            value={item[this.options.value || 'value']}
                         >
                             {item[this.options.label || 'label']}
                         </el-checkbox>)
