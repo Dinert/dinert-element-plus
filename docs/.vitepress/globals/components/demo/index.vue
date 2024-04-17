@@ -277,6 +277,7 @@ const copyCode = async () => {
             background: unset;
         }
 
+        .token.script,
         .token.language-javascript {
             color: var(--el-text-color-primary);
         }
