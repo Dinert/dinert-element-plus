@@ -51,57 +51,57 @@ export default defineConfig({
                 text: '组件',
                 items: [{
                     text: "Form（表单）",
-                    link: "/examples/form",
                     target: '/examples/form/basic',
                     collapsed: true,
+                    base: '/examples/form/',
                     items: [
                         {
                             text: "基础用法",
-                            link: "/examples/form/basic",
+                            link: "basic",
                         },
                         {
                             text: "input 输入框",
-                            link: "/examples/form/input",
+                            link: "input",
                         },
                         {
                             text: "input-number 数字输入框",
-                            link: "/examples/form/input-number",
+                            link: "input-number",
                         },
                         {
                             text: "select 选择框",
-                            link: "/examples/form/select",
+                            link: "select",
                         },
                         {
                             text: "tree-select 树形选择",
-                            link: "/examples/form/tree-select",
+                            link: "tree-select",
                         },
                         {
                             text: "input-autocomplete 自动补全输入框",
-                            link: "/examples/form/autocomplete",
+                            link: "autocomplete",
                         },
                         {
                             text: "switch 开关",
-                            link: "/examples/form/switch",
+                            link: "switch",
                         },
                         {
                             text: "date 时间选择器（时、日、周、月、年）",
-                            link: "/examples/form/date",
+                            link: "date",
                         },
                         {
                             text: "radio 单选按钮",
-                            link: "/examples/form/radio",
+                            link: "radio",
                         },
                         {
                             text: "checkbox 多选框",
-                            link: "/examples/form/checkbox",
+                            link: "checkbox",
                         },
                         {
                             text: "rate 评分",
-                            link: "/examples/form/rate",
+                            link: "rate",
                         },
                         {
                             text: "cascader 级联选择器",
-                            link: "/examples/form/cascader",
+                            link: "cascader",
                         },
 
                     ]
