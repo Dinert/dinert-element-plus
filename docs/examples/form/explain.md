@@ -50,7 +50,7 @@
 | 属性名    | 说明                                                                                   | 类型                                                                     | 默认值                                    |
 | --------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ----------------------------------------- |
 | formItem  | 表单组件列表对象，[详细请参阅下面formItem属性](#formitem-属性)                         | object                                                                   | \{\}                                      |
-| colLayout | 每个表单组件列表布局                                                                   | <dinert-api-typing type="enmu" :details="colLayout"></dinert-api-typing> | \{ xl: 3, lg: 4, md: 8, sm: 12, xs: 24 \} |
+| colLayout | 每个表单组件列表布局                                                                   | <dinert-api-typing type="object" :details="colLayout"></dinert-api-typing> | \{ xl: 3, lg: 4, md: 8, sm: 12, xs: 24 \} |
 | row       | 表单组件的row                                                                          | object                                                                   | \{\}                                      |
 | showLabel | 是否显示每个表单组件的值，不显示表单组件                                               | boolean                                                                  | 一                                        |
 | ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                       | 一                                        |

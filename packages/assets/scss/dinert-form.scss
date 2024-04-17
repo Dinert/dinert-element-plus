@@ -48,6 +48,10 @@
 
         .el-col {
             .label-text {
+                .el-radio.is-bordered {
+                    margin-right: 16px;
+                }
+
                 .el-date-editor {
                     width: 210px;
                 }

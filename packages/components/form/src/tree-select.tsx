@@ -19,8 +19,8 @@ export default defineComponent({
     setup(props) {
 
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['tree-select']>(() => {
-            const options = props.formItem.options || {options: [], data: []};
-            (options as any).data = (options as any).options
+            const options = props.formItem.options || {options: [], data: []}
+            options.data = options.options
             return options
         })
 

@@ -72,6 +72,10 @@ export default defineConfig({
                             link: "/examples/form/select",
                         },
                         {
+                            text: "tree-select 树形选择",
+                            link: "/examples/form/tree-select",
+                        },
+                        {
                             text: "input-autocomplete 自动补全输入框",
                             link: "/examples/form/autocomplete",
                         },
@@ -83,6 +87,11 @@ export default defineConfig({
                             text: "date 时间选择器（时、日、周、月、年）",
                             link: "/examples/form/date",
                         },
+                        {
+                            text: "radio 单选按钮",
+                            link: "/examples/form/radio",
+                        },
+
                     ]
                 }]
 

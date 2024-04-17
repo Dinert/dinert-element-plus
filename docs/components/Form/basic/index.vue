@@ -36,10 +36,21 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         }
     }
 })
+
+const search = () => {
+    console.log('查询')
+}
+
+const reset = () => {
+    form.value.model = {}
+    console.log('重置')
+}
 </script>
 
 <template>
     <div class="home">
-        <dinert-form :form="form" class="near"/>
+        <dinert-form :form="form" class="near"
+            @search-fn="search" @reset-fn="reset"
+        />
     </div>
 </template>
