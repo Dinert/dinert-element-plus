@@ -25,7 +25,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                 options: [
                     {label: '显示', value: true},
                     {label: '隐藏', value: false},
-                    {label: '禁用', value: null, disabled: true},
+                    {label: '禁用', value: '', disabled: true},
                 ]
             }
         },
@@ -36,7 +36,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                 options: [
                     {label: '显示', value: true},
                     {label: '隐藏', value: false},
-                    {label: '禁用', value: null, disabled: true},
+                    {label: '禁用', value: '', disabled: true},
                 ]
             }
         },

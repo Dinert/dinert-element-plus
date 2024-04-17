@@ -91,6 +91,10 @@ export default defineConfig({
                             text: "radio 单选按钮",
                             link: "/examples/form/radio",
                         },
+                        {
+                            text: "rate 评分",
+                            link: "/examples/form/rate",
+                        },
 
                     ]
                 }]
