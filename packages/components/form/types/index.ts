@@ -14,6 +14,7 @@ import {
     RewriteTreeSelectProps,
     RewriteRewriteRateProps
 } from './components'
+import {MergeProp} from './utils'
 
 type RewriteColProps = Partial<ColProps>
 
@@ -69,10 +70,6 @@ type ToModelItem<D, FI> = D extends FI ? D : FI
 type ToString<T> = { [P in keyof T]: T[P] extends keyof RewriteFormItemPropsMap ? string : T[P]; }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-type Compute<T> = T extends Function ? T : { [P in keyof T]: T[P] }
-export type MergeProp<T extends any, U extends any> = Compute<
-    T & Omit<U, keyof T>
->
 
 type FormItemMap<D, FI> = {
     [P in keyof ToModelItem<D, FI>]: CustomFormItemProps<MergeProp<D, FI>, any[], ToModelItem<D, FI>[P] extends keyof RewriteFormItemPropsMap ? ToModelItem<D, FI>[P] : keyof RewriteFormItemPropsMap>;

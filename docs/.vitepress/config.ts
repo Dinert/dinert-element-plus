@@ -99,6 +99,10 @@ export default defineConfig({
                             text: "rate 评分",
                             link: "/examples/form/rate",
                         },
+                        {
+                            text: "cascader 级联选择器",
+                            link: "/examples/form/cascader",
+                        },
 
                     ]
                 }]
