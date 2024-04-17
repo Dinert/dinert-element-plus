@@ -189,7 +189,6 @@ const copyCode = async () => {
             height: 60vh;
             font-size: 16px;
             color: #1b1b1f;
-            background-color: #eee;
             box-sizing: border-box;
         }
     }
@@ -200,6 +199,7 @@ const copyCode = async () => {
         align-items: center;
         padding: 24px;
         box-sizing: border-box;
+        background-color: var(--el-bg-color);
 
         & > div {
             width: 100%;
@@ -269,6 +269,16 @@ const copyCode = async () => {
                 overflow-x: auto;
                 padding: 0 24px;
             }
+        }
+    }
+
+    :deep() {
+        .token.operator {
+            background: unset;
+        }
+
+        .token.language-javascript {
+            color: var(--el-text-color-primary);
         }
     }
 }
