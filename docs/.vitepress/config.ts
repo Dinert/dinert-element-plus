@@ -49,7 +49,8 @@ export default defineConfig({
         "/examples/": [
             {
                 text: '组件',
-                items: [{
+                items: [
+                    {
                     text: "Form（表单）",
                     target: '/examples/form/basic',
                     collapsed: true,
@@ -105,7 +106,20 @@ export default defineConfig({
                         },
 
                     ]
-                }]
+                    },
+                    {
+                        text: "Table（表格）",
+                        target: '/examples/table/basic',
+                        collapsed: true,
+                        base: '/examples/table/',
+                        items: [
+                            {
+                                text: "基础用法",
+                                link: "basic",
+                            },
+                        ]
+                    }
+            ]
 
             }
         ]

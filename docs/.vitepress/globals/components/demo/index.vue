@@ -10,6 +10,9 @@ import { useClipboard } from "@vueuse/core";
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { VueLive } from "vue-live";
 import "vue-live/style.css";
+// import {UseTablePage} from '../../../../../packages'
+import {UseTablePage} from '../../../../../packages'
+
 
 import {
   EditPen,
@@ -65,7 +68,7 @@ const decodeRawSource =  computed(() => {
     if(process.env.NODE_ENV !== 'production') {
         result = result.split('\n').join('')
     }
-    result = result.replace(packagesLine, '');
+    // result = result.replace(packagesLine, '');
     return result
 })
 
@@ -171,6 +174,7 @@ const copyCode = async () => {
                     <VueLive
                         v-if="editDialogVisible"
                     :code="decodeRawSource"
+                    :requires="{UseTablePage: UseTablePage}"
                     @error="(e) => console.error('Error on first example', e)"
                     />
                 </div>
@@ -291,6 +295,16 @@ const copyCode = async () => {
 .el-dialog {
     .el-dialog__footer {
         text-align: center;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.el-table {
+    table {
+        margin: 0;
     }
 }
 </style>
