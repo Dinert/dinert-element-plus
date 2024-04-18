@@ -1,4 +1,4 @@
-import type {TableProps, TableColumnCtx, ElTable, ElPagination} from 'element-plus'
+import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps} from 'element-plus'
 
 
 export interface ScopeProps<T = any> {
@@ -20,21 +20,12 @@ export interface FunctionsProps<T = any>{
 }
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
-    type?: string;
     checked?: boolean;
     show?: boolean | ((column: RewriteTableColumnCtx<T>) => boolean);
     setting?: boolean;
     maxOperations?: number;
     functions?: Record<string, FunctionsProps<T>>;
     sort?: number;
-    disabled?: boolean;
-    key?: any;
-    class?: any;
-    custom?: boolean;
-    prop?: string;
-    label?: string;
-    width?: string | number;
-    align?: string;
     children?: Array<RewriteTableColumnCtx<T>>;
 }
 
@@ -51,7 +42,6 @@ type TableFnProps = Partial<Pick<InstanceType<typeof ElTable>, 'onSelect' | 'onE
 export interface RewriteTableProps<T = any> extends TableProps<T>, TableFnProps {
     tableColumns: Array<RewriteTableColumnCtx<T>>;
     errData?: string;
-    tableSlot?: boolean;
     setting?: boolean;
     key?: any;
     class?: string;
@@ -59,15 +49,8 @@ export interface RewriteTableProps<T = any> extends TableProps<T>, TableFnProps 
 }
 
    type PaginationPropsFn = Partial<Pick<InstanceType<typeof ElPagination>, 'onChange' | 'onUpdate:current-page' |'onUpdate:page-size' | 'onSize-change' | 'onCurrent-change' | 'onPrev-click' | 'onNext-click'>>
-export interface RewritePaginationProps extends PaginationPropsFn {
-   pageSize?: number;
-   pageSizes?: number[];
-   defaultPageSize?: number;
-   total?: number;
-   pageCount?: number;
-   pagerCount?: number;
-   currentPage?: number;
-   defaultCurrentPage?: number;
+export interface RewritePaginationProps extends PaginationPropsFn, Partial<PaginationProps> {
+
 }
 
 

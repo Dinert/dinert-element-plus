@@ -72,9 +72,6 @@
         height: 0;
 
         .el-table {
-            --el-table-header-bg-color: #f4f4f4;
-            --el-border-color-lighter: #e4e4e4;
-
             &--border {
                 &::after,
                 &::before {
@@ -99,14 +96,21 @@
                 //     border-right: none;
                 //     border-bottom: none;
                 // }
+                .el-table__cell {
+                    &.setting {
+                        .setting-icon {
+                            display: inline-block;
+                        }
+                    }
 
-                .cell {
-                    color: var(--zp-color-secondary-text-title);
+                    .cell {
+                        color: var(--zp-color-secondary-text-title);
 
-                    .setting-icon {
-                        vertical-align: -1px;
-                        margin-left: 4px;
-                        cursor: pointer;
+                        .setting-icon {
+                            vertical-align: -1px;
+                            margin-left: 4px;
+                            cursor: pointer;
+                        }
                     }
                 }
             }

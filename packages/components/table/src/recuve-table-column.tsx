@@ -238,12 +238,12 @@ export default defineComponent({
                     // eslint-disable-next-line array-callback-return, consistent-return
                     this.tableColumns && this.tableColumns.map(item => {
                         let show = typeof item.show === 'function' ? item.show(item) : item.show
-                        show = item.show === undefined || item.show === true
+                        show = show === undefined || show === true
                         const checked = item.checked === undefined || item.checked === true
-                        const custom = !['index', 'selection', 'expand'].includes((item.type as string)) || item.custom
+                        const custom = !['index', 'selection', 'expand'].includes((item.type as string))
                         const fixed = item.prop === 'operations' && item.fixed === undefined ? 'right' : item.fixed
                         const showOverflowTooltip = item.showOverflowTooltip === undefined && item.prop !== 'operations' ? true : item.showOverflowTooltip
-                        const className = `${item.prop || ''} ${item.className || ''}`
+                        const className = `${item.prop || ''} ${item.className || ''} ${item.setting ? 'setting' : ''}`
                         let align = item.prop === 'operations' && item.align === undefined ? 'center' : item.align
                         const width = item.prop === 'operations' && item.width === undefined ? 200 : item.width
                         const formatter = item.formatter && typeof item.formatter === 'function'
@@ -256,7 +256,6 @@ export default defineComponent({
                             minWidth = 80
                             align = item.align || 'center'
                         }
-
 
                         if (show && checked && custom) {
                             return (
@@ -355,6 +354,7 @@ export default defineComponent({
                                 align={align}
                                 reserve-selection={item.reserveSelection}
                                 width={width}
+                                v-slots={this.$slots}
                             >
                             </el-table-column>)
                         }

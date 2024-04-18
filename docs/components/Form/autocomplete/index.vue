@@ -39,7 +39,6 @@ const form = ref<RewriteFormProps<ModelProps>>({
     }
 })
 
-
 </script>
 
 <template>

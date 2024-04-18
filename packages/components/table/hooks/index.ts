@@ -101,7 +101,7 @@ export const treeProps = {
     children: 'children',
     label: 'label',
     class: (data: any) => {
-        const hide = data.show === false || data.setting || ['index', 'selection'].includes(data.type) || ['selection'].includes(data.prop) ? 'hide' : ''
+        const hide = (typeof data.show === 'function' ? data.show(data) === false : data.show === false) || data.setting || ['index', 'selection'].includes(data.type) || ['selection'].includes(data.prop) ? 'hide' : ''
         return hide
     }
 }

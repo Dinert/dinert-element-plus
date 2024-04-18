@@ -1,14 +1,25 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
+import {TablePageProps} from '../../../../packages'
 
-const tablePage = ref({
+interface DataProps {
+    code: string;
+    createTime: string;
+    createUser: string;
+    id: number;
+    msg: string;
+    type: string;
+}
+
+
+const tablePage = ref<TablePageProps<DataProps>>({
     table: {
         pagination: {
         },
         tableColumns: [
             {
                 prop: 'createTime',
-                label: '报错时间',
+                label: '报错时间'
             },
             {
                 prop: 'type',
@@ -21,6 +32,7 @@ const tablePage = ref({
             {
                 prop: 'msg',
                 label: '错误信息',
+                setting: true
             },
         ],
         data: [
@@ -28,7 +40,7 @@ const tablePage = ref({
                 'code': 'business',
                 'createTime': '2024-04-18 10:22:50',
                 'createUser': '',
-                'id': 1117,
+                'id': 1116,
                 'msg': '访问此资源需要完全身份验证',
                 'type': 'business'
             },
@@ -106,17 +118,13 @@ const tablePage = ref({
             }
         ]
     },
-    form: {
-        model: {},
-        formItem: {}
-    }
+    footer: false
 })
 
 </script>
 
 <template>
     <dinert-table :table="tablePage.table"
-        :form="tablePage.form"
-        :footer="false"
+        :footer="tablePage.footer"
     />
 </template>

@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-table/index
+table/basic/index
 :::
 
 <!-- @include: ./explain.md -->

@@ -6,9 +6,6 @@ export * from './components/index'
 export const UseTablePage: typeof TablePage = TablePage
 export * from './hooks/useTablePage/types/index'
 
-export const aaa = () => {
-    console.log('aaaaaaaaaa')
-}
 
 const myPlugin: Plugin = {
     install: (app: App) => {
