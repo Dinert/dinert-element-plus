@@ -44,10 +44,9 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
                 prop: 'operations',
                 label: '操作结果',
                 setting: true,
-                functions: {
+                operations: {
                     edit: {
                         message: '编辑',
-                        value: '22',
                         click: (scope, column, item) => {
                             console.log(item, 'itemmmmmmmmmmmmmmm')
                         }
@@ -60,7 +59,7 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
                     operations2: {
                         message: '操作2',
                         click: (scope, column, item) => {
-                            console.log(column, item)
+                            console.log(scope, column, item, '操作2操作2')
                         }
                     },
                     operations3: {

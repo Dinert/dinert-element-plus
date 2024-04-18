@@ -49,8 +49,8 @@ export default defineComponent({
         const {table} = toRefs(props)
         const tableColumns = ref(table.value?.tableColumns || [])
 
-        tableColumns.value.forEach((item, index) => {
-            item.sort = typeof item.sort === 'undefined' ? index : item.sort
+        tableColumns.value.forEach(item => {
+            item.sort = typeof item.sort === 'undefined' ? Infinity : item.sort
             return item
         })
 

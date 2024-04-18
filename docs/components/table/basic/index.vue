@@ -24,6 +24,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
             {
                 prop: 'type',
                 label: '错误分类',
+                sort: 0
             },
             {
                 prop: 'code',
@@ -32,7 +33,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
             {
                 prop: 'msg',
                 label: '错误信息',
-                setting: true
             },
         ],
         data: [

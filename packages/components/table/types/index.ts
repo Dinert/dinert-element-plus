@@ -10,13 +10,11 @@ export interface ScopeProps<T = any> {
     _self: any;
 }
 
-export interface FunctionsProps<T = any>{
-    message?: string | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: FunctionsProps<T>) => void);
-    value?: string;
-    click?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: FunctionsProps<T>) => void;
+export interface OperationsProps<T = any>{
+    message?: string | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void);
+    click?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void;
     sort?: number;
     type?: string;
-    key?: any;
 }
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
@@ -24,7 +22,7 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCt
     show?: boolean | ((column: RewriteTableColumnCtx<T>) => boolean);
     setting?: boolean;
     maxOperations?: number;
-    functions?: Record<string, FunctionsProps<T>>;
+    operations?: Record<string, OperationsProps<T>>;
     sort?: number;
     children?: Array<RewriteTableColumnCtx<T>>;
 }

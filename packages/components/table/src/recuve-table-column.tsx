@@ -12,7 +12,7 @@ import type {
     RewriteTableProps,
     TablePageProps,
     RewriteTableColumnCtx,
-    FunctionsProps
+    OperationsProps
 } from '@packages/components/table/types/index'
 
 import type {PropType} from 'vue'
@@ -142,18 +142,17 @@ export default defineComponent({
             isSlotValue,
             slotValue
         }: any) => {
-            const itemFunc = column.functions || {}
-            const functions = computed(() => {
+            const itemOperations = column.operations || {}
+            const operations = computed(() => {
                 const result: any = []
-                let index = 0
-                Object.keys((itemFunc)).forEach(key => {
-                    const value = itemFunc[key]
+                Object.keys((itemOperations)).forEach(key => {
+                    const tempObj = itemOperations[key]
+
                     result.push({
                         key: key,
-                        ...value,
-                        sort: typeof value.sort === 'undefined' ? index : value.sort,
+                        ...tempObj,
+                        sort: typeof tempObj.sort === 'undefined' ? Infinity : tempObj.sort,
                     })
-                    index++
                 })
 
                 result.sort((a: any, b: any) => {
@@ -162,30 +161,30 @@ export default defineComponent({
                 return result
             })
             let maxOperations = column.maxOperations || 3
-            const functionsLen = functions.value.length
-            maxOperations = functionsLen > maxOperations ? maxOperations - 1 : maxOperations
+            const operationsLen = operations.value.length
+            maxOperations = operationsLen > maxOperations ? maxOperations - 1 : maxOperations
 
             const defaultFunctions = computed(() => {
-                const list = functions.value.slice(0, maxOperations)
+                const list = operations.value.slice(0, maxOperations)
                 return list
             })
 
             const seniorFunctions = computed(() => {
-                const list = functions.value.slice(maxOperations, functions.value.length)
+                const list = operations.value.slice(maxOperations, operations.value.length)
                 return list
             })
 
 
-            if (functions.value && functions.value.length) {
+            if (operations.value && operations.value.length) {
                 return (
                     <>
-                        {defaultFunctions.value.map((item2: FunctionsProps) => {
+                        {defaultFunctions.value.map((item2: OperationsProps) => {
                             const message = typeof item2.message === 'function' ? item2.message(scope, column, item2) : item2.message
                             return (
-                                <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, column, item2)} key={item2.key}>{message}</el-link>
+                                <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, column, item2)} key={(item2 as any).key}>{message}</el-link>
                             )
                         })}
-                        {(seniorFunctions.value.length && functions.value.length > maxOperations
+                        {(seniorFunctions.value.length && operations.value.length > maxOperations
                         && <el-dropdown teleported={true}
                             onCommand={(item: any) => (item.click && item.click(scope, column, item))}
                             v-slots= {{
