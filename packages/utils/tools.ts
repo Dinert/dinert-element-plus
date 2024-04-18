@@ -29,7 +29,7 @@ export const type = (type: any) => {
 
 // 生成唯一ID
 export const getUuid = (): string => {
-    const s = []
+    const s: any[] = []
     const hexDigits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     for (let i = 0; i < 36; i++) {
         s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
@@ -156,4 +156,8 @@ export const formatterArray = (cellValue: any) => {
 
 export const columnProp = (prop: string) => {
     return 'column_' + prop.split('.').join('_')
+}
+
+export const headerProp = (prop: string) => {
+    return 'column_header_' + prop.split('.').join('_')
 }

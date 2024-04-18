@@ -10,9 +10,7 @@ import { useClipboard } from "@vueuse/core";
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { VueLive } from "vue-live";
 import "vue-live/style.css";
-// import {UseTablePage} from '../../../../../packages'
 import {UseTablePage} from '../../../../../packages'
-
 
 import {
   EditPen,
@@ -69,6 +67,8 @@ const decodeRawSource =  computed(() => {
         result = result.split('\n').join('')
     }
     // result = result.replace(packagesLine, '');
+    result = result.replace(packagesReg, '@dinert/element-plus')
+
     return result
 })
 
@@ -174,7 +174,7 @@ const copyCode = async () => {
                     <VueLive
                         v-if="editDialogVisible"
                     :code="decodeRawSource"
-                    :requires="{UseTablePage: UseTablePage}"
+                    :requires="{'@dinert/element-plus': {UseTablePage}}"
                     @error="(e) => console.error('Error on first example', e)"
                     />
                 </div>
@@ -188,7 +188,7 @@ const copyCode = async () => {
 
 :deep() {
     .VueLive-editor {
-        width: 60%;
+        width: 50%;
 
         .prism-editor-wrapper {
             padding: 8px 12px;
@@ -204,8 +204,10 @@ const copyCode = async () => {
         justify-content: center;
         align-items: center;
         padding: 24px;
-        box-sizing: border-box;
+        width: 50%;
         background-color: var(--el-bg-color);
+        flex: 1;
+        box-sizing: border-box;
 
         & > div {
             width: 100%;
@@ -279,6 +281,12 @@ const copyCode = async () => {
     }
 
     :deep() {
+        .dinert-table-header-right {
+            .el-popover {
+                --el-popover-padding: 0;
+            }
+        }
+
         .token.operator {
             background: unset;
         }

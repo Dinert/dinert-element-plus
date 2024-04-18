@@ -3,6 +3,7 @@ import elementplus from "element-plus"
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 import 'prismjs/themes/prism.css'
+import '../assets/globals.scss'
 
 import DinertElementPlus from '../../../packages/index'
 import VueDOMPurifyHTML from 'vue-dompurify-html';

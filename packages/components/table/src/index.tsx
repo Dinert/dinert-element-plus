@@ -1,6 +1,6 @@
 import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs} from 'vue'
 import type {RewriteTableProps} from '@packages/components/table/types/index'
-import {getUuid, columnProp, getTreeNode} from '@packages/utils/tools'
+import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
 import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from '@packages/components/table/hooks'
 
 import DinertRecuveTableColumn from './recuve-table-column'
@@ -127,6 +127,7 @@ export default defineComponent({
             popoverValue,
             onlyClass,
             isAllData,
+            isFooter: props.footer,
 
             tableRef,
             headerRef,
@@ -137,17 +138,22 @@ export default defineComponent({
         }
     },
     render() {
-        const slots = this.tableSlot ? this.$slots : {default: (scope: any) => this.$slots[scope.prop && columnProp(scope.prop)]?.(scope)}
+        const slots = this.tableSlot ? this.$slots : {
+            ...this.$slots,
+            default: (scope: any) => this.$slots[scope.prop && columnProp(scope.prop)]?.(scope),
+            header: (scope: any) => this.$slots[scope.prop && headerProp(scope.prop)]?.(scope)
+        }
+        const isHeader = (this.header && this.$slots['header-left']) || (this.getSetting && this.header)
 
+        console.log(this.getSetting)
 
         return (
             <section class={'dinert-table'}>
                 {
-                    this.header
+                    isHeader
             && <header class={'dinert-table-header'} ref={el => {this.headerRef = el}}>
                 {
-                    this.$slots['header-left']
-                    && <div class="dinert-table-header-left">
+                    <div class="dinert-table-header-left">
                         {this.$slots['header-left']?.()}
                     </div>
                 }
@@ -239,7 +245,7 @@ export default defineComponent({
                     </el-table>
                 </div>
 
-                <div class="dinert-table-footer" ref={el => {this.footerRef = el}}>
+                {this.isFooter && <div class="dinert-table-footer" ref={el => {this.footerRef = el}} >
                     <el-pagination
                         model:current-page={1}
                         model:page-size={15}
@@ -254,7 +260,7 @@ export default defineComponent({
 
                     </el-pagination>
                 </div>
-
+                }
             </section>
         )
     }

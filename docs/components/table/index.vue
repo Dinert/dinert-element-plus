@@ -1,58 +1,109 @@
 <script lang="ts" setup>
+import {ref} from 'vue'
 
-import {UseTablePage} from '../../../packages'
-
-
-const tablePage = new UseTablePage({
+const tablePage = ref({
     table: {
         pagination: {
         },
         tableColumns: [
             {
-                prop: 'startTime',
-                label: '时间',
+                prop: 'createTime',
+                label: '报错时间',
             },
             {
-                prop: 'startTime2',
-                label: '时间',
+                prop: 'type',
+                label: '错误分类',
             },
             {
-                prop: 'startTime3',
-                label: '时间',
+                prop: 'code',
+                label: '错误类型'
+            },
+            {
+                prop: 'msg',
+                label: '错误信息',
             },
         ],
         data: [
             {
-                'startTime': '2024-01-15 15:10:10',
+                'code': 'business',
+                'createTime': '2024-04-18 10:22:50',
+                'createUser': '',
+                'id': 1117,
+                'msg': '访问此资源需要完全身份验证',
+                'type': 'business'
             },
             {
-                'startTime': '2024-01-15 15:10:10',
+                'code': 'business',
+                'createTime': '2024-04-18 10:20:57',
+                'createUser': '',
+                'id': 1116,
+                'msg': 'token过期，请重新登录',
+                'type': 'business'
             },
             {
-                'startTime': '2024-01-15 15:10:10',
+                'code': 'business',
+                'createTime': '2024-04-18 10:20:57',
+                'createUser': '',
+                'id': 1114,
+                'msg': 'token过期，请重新登录',
+                'type': 'business'
             },
             {
-                'startTime': '2024-01-15 15:10:09',
+                'code': 'business',
+                'createTime': '2024-04-18 10:20:57',
+                'createUser': '',
+                'id': 1115,
+                'msg': 'token过期，请重新登录',
+                'type': 'business'
             },
             {
-                'startTime': '2024-01-15 15:10:07',
+                'code': 'business',
+                'createTime': '2024-04-18 10:20:45',
+                'createUser': '',
+                'id': 1113,
+                'msg': '访问此资源需要完全身份验证',
+                'type': 'business'
             },
             {
-                'startTime': '2024-01-15 15:10:04',
+                'code': 'business',
+                'createTime': '2024-04-18 10:20:45',
+                'createUser': '',
+                'id': 1112,
+                'msg': '访问此资源需要完全身份验证',
+                'type': 'business'
             },
             {
-                'startTime': '2024-01-15 15:09:52',
+                'code': 'business',
+                'createTime': '2024-04-18 10:15:15',
+                'createUser': '',
+                'id': 1111,
+                'msg': '访问此资源需要完全身份验证',
+                'type': 'business'
             },
             {
-                'startTime': '2024-01-15 15:09:52',
+                'code': 'business',
+                'createTime': '2024-04-18 10:09:47',
+                'createUser': '',
+                'id': 1110,
+                'msg': 'token过期，请重新登录',
+                'type': 'business'
             },
             {
-                'startTime': '2024-01-15 15:09:23',
+                'code': 'business',
+                'createTime': '2024-04-18 10:09:47',
+                'createUser': '',
+                'id': 1109,
+                'msg': 'token过期，请重新登录',
+                'type': 'business'
             },
             {
-                'startTime': '2024-01-15 15:09:23',
-            },
-
+                'code': 'business',
+                'createTime': '2024-04-18 10:09:47',
+                'createUser': '',
+                'id': 1108,
+                'msg': 'token过期，请重新登录',
+                'type': 'business'
+            }
         ]
     },
     form: {
@@ -61,13 +112,11 @@ const tablePage = new UseTablePage({
     }
 })
 
-const {table, form} = tablePage
-
 </script>
 
 <template>
-    <dinert-table :table="table"
-        class="near"
-        :form="form"
+    <dinert-table :table="tablePage.table"
+        :form="tablePage.form"
+        :footer="false"
     />
 </template>

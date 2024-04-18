@@ -220,8 +220,7 @@ export default defineComponent({
                     </>
                 )
             }
-
-            return <div class="cell-item">{ (isSlotValue && slotValue) || value}</div>
+            return <div class="cell-item-text">{ (isSlotValue && slotValue) || value}</div>
         }
 
         return {
@@ -230,8 +229,9 @@ export default defineComponent({
         }
     },
     render() {
-        const defaultSlot = this.$slots.default
-
+        const solts = this.$slots
+        const defaultSlot = solts.default
+        const headerSlot = solts.header
         return (
             <>
                 {
@@ -291,7 +291,7 @@ export default defineComponent({
                                                             tableColumns={item.children}
                                                             popover-value={this.popoverValue}
                                                             only-class={this.onlyClass}
-                                                            v-slots={defaultSlot}
+                                                            v-slots={solts}
                                                         >
                                                         </dinert-recuve-table-column>
                                                     </>
@@ -313,7 +313,7 @@ export default defineComponent({
                                                             tableColumns={item.children}
                                                             popover-value={this.popoverValue}
                                                             only-class={this.onlyClass}
-                                                            v-slots={defaultSlot}
+                                                            v-slots={solts}
                                                         >
                                                         </dinert-recuve-table-column>
                                                     </>
@@ -321,12 +321,11 @@ export default defineComponent({
                                             }
                                         },
                                         header: (scope: any) => {
-
-                                            const slotValue = defaultSlot?.({header: 'header_' + item.prop, data: item, ...scope})
+                                            const slotValue = headerSlot?.({...scope, data: item, prop: item.prop})
                                             const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
-                                            if (defaultSlot) {
+                                            if (headerSlot) {
                                                 return (
-                                                    <>  {(isSlotValue && slotValue) || <span>{scope.column.label}</span>}
+                                                    <>  {<span>{isSlotValue ? headerSlot?.({...scope, data: item, prop: item.prop}) : scope.column.label}</span>}
                                                         {item.setting && this.table?.setting !== false && this.settingRender((this as RecuveTableColumnProps))}
                                                     </>
                                                 )
