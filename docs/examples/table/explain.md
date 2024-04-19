@@ -74,6 +74,6 @@
 | -------------------- | ------------------------------------------------------------------------------------ |
 | column_[prop]        | column_是固定的，prop里面的值取决于tableColumns中的prop，自定义表格中的内容          |
 | column_header_[prop] | column_header_是固定的，prop里面的值取决于tableColumns中的prop，自定义表格头部的内容 |
-| header_left          | 自定义表格头部操作栏的左侧                                                           |
+| header_left_[key]    | column_header_是固定的，prop里面的值取决于header中的key，自定义表格头部操作栏的左侧  |
 
 
