@@ -197,10 +197,15 @@ export default defineComponent({
                     <div class="dinert-table-header-left">
                         {
                             headerList.map((item: HeaderListProps) => {
-                                return <el-button {...{
-                                    ...item,
-                                    type: item.type || 'primary',
-                                }} onClick={() => item.click && item.click(item)}>{item.message}</el-button>
+                                if ((typeof item.show !== 'function' && [true, undefined].includes(item.show))
+                                    || (typeof item.show === 'function' && [true, undefined].includes(item.show(item)))
+                                ) {
+                                    return <el-button {...{
+                                        ...item,
+                                        type: item.type || 'primary',
+                                    }} onClick={() => item.click && item.click(item)}>{item.message}</el-button>
+                                }
+                                return null
                             })
                         }
                         {this.$slots['header-left']?.()}
@@ -219,7 +224,7 @@ export default defineComponent({
                                         default: () => (
                                             <ul class="el-popover-classify">
                                                 <el-tree
-                                                    ref={el => {this.selectTableRef = el}}
+                                                    ref={this.selectTableRef}
                                                     draggable
                                                     data={this.tableColumns}
                                                     default-expand-all
@@ -228,7 +233,7 @@ export default defineComponent({
                                                     node-key={'prop'}
                                                     props={treeProps}
                                                     allow-drop={allowDrop}
-                                                    onCheckChange={this.checkTree}
+                                                    onCheckChange={(data: Node, checked: boolean, childChecked: boolean) => this.checkTree(data, checked, childChecked)}
                                                     onNodeDragEnd={(node: Node) => nodeDragEnd(node, (this.selectTableRef as any))}
                                                     v-slots={
                                                         {

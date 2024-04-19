@@ -16,7 +16,10 @@ const tablePage = ref<TablePageProps<DataProps>>({
         tableColumns: [
             {
                 prop: 'date',
-                label: '时间'
+                label: '时间',
+                show() {
+                    return true
+                }
             },
             {
                 prop: 'name',

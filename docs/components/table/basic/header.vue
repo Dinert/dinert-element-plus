@@ -25,7 +25,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
             },
             {
                 prop: 'address',
-                label: '地址'
+                label: '地址',
             },
         ],
         data: [

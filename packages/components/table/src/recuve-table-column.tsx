@@ -19,9 +19,6 @@ import type {PropType} from 'vue'
 
 import type {ElSelect} from 'element-plus'
 
-const selectTable = ref<InstanceType<typeof ElSelect>>()
-
-const popoverIndex = ref(0)
 
 const filterColumn = (column: any) => {
     const obj: any = {}
@@ -31,13 +28,6 @@ const filterColumn = (column: any) => {
         }
     }
     return obj
-}
-
-const treeBeforeEnter = (props: TablePageProps) => {
-    popoverIndex.value++
-    if (popoverIndex.value === 1 && selectTable.value) {
-        treeNode(selectTable.value, props.table.tableColumns)
-    }
 }
 
 const mapWidth: Record<string, any> = {
@@ -67,6 +57,19 @@ export default defineComponent({
         }
     },
     setup(props) {
+
+
+        const selectTable = ref<InstanceType<typeof ElSelect>>()
+
+        const popoverIndex = ref(0)
+
+
+        const treeBeforeEnter = (props: TablePageProps) => {
+            popoverIndex.value++
+            if (popoverIndex.value === 1 && selectTable.value) {
+                treeNode(selectTable.value, props.table.tableColumns)
+            }
+        }
 
         watch(() => props.table?.key, () => {
             nextTick(() => {
@@ -148,12 +151,16 @@ export default defineComponent({
                 const result: any = []
                 Object.keys((itemOperations)).forEach(key => {
                     const tempObj = itemOperations[key]
+                    if ((typeof tempObj.show !== 'function' && [true, undefined].includes(tempObj.show))
+                        || (typeof tempObj.show === 'function' && [true, undefined].includes(tempObj.show(scope, column, tempObj)))
+                    ) {
+                        result.push({
+                            key: key,
+                            ...tempObj,
+                            sort: typeof tempObj.sort === 'undefined' ? index : tempObj.sort,
+                        })
+                    }
 
-                    result.push({
-                        key: key,
-                        ...tempObj,
-                        sort: typeof tempObj.sort === 'undefined' ? index : tempObj.sort,
-                    })
                     index++
                 })
 
