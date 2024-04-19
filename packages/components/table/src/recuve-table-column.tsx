@@ -86,9 +86,9 @@ export default defineComponent({
                             default: () => (
                                 <ul class="el-popover-classify">
                                     <li>
-                                        <el-link class="allSelect" underline={false}
+                                        <el-button class="allSelect" link
                                             type={'primary'} onClick={() => allShow(selectTable.value, props.table?.tableColumns || [])}
-                                        >全选</el-link>
+                                        >全选</el-button>
                                     </li>
                                     <el-tree
                                         ref={selectTable}
@@ -143,6 +143,7 @@ export default defineComponent({
             slotValue
         }: any) => {
             const itemOperations = column.operations || {}
+            let index = 1
             const operations = computed(() => {
                 const result: any = []
                 Object.keys((itemOperations)).forEach(key => {
@@ -151,8 +152,9 @@ export default defineComponent({
                     result.push({
                         key: key,
                         ...tempObj,
-                        sort: typeof tempObj.sort === 'undefined' ? Infinity : tempObj.sort,
+                        sort: typeof tempObj.sort === 'undefined' ? index : tempObj.sort,
                     })
+                    index++
                 })
 
                 result.sort((a: any, b: any) => {
@@ -181,7 +183,12 @@ export default defineComponent({
                         {defaultFunctions.value.map((item2: OperationsProps) => {
                             const message = typeof item2.message === 'function' ? item2.message(scope, column, item2) : item2.message
                             return (
-                                <el-link type={item2.type || 'primary'} onClick={() => item2.click && item2.click(scope, column, item2)} key={(item2 as any).key}>{message}</el-link>
+                                <el-button {...{
+                                    ...item2,
+                                    type: item2.type || 'primary',
+                                    link: item2.link === undefined ? true : item2.link
+                                }}
+                                onClick={() => item2.click && item2.click(scope, column, item2)} key={(item2 as any).key}>{message}</el-button>
                             )
                         })}
                         {(seniorFunctions.value.length && operations.value.length > maxOperations
@@ -190,9 +197,9 @@ export default defineComponent({
                             v-slots= {{
                                 default: () => {
                                     return (
-                                        <el-link type="primary" underline={false}>
+                                        <el-button type="primary" link text>
                             更多<el-icon><ArrowDown /></el-icon>
-                                        </el-link>
+                                        </el-button>
                                     )
                                 },
                                 dropdown: () => {

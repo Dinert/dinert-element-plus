@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {ref} from 'vue'
+
 import {TablePageProps} from '../../../../packages'
 
 interface DataProps {
@@ -21,7 +22,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
             {
                 prop: 'name',
                 label: '名称',
-                sort: 0
             },
             {
                 prop: 'address',
@@ -51,6 +51,23 @@ const tablePage = ref<TablePageProps<DataProps>>({
             },
         ]
     },
+    header: {
+        'add': {
+            message: '新增',
+            click: item => {
+                console.log(item, '1321321')
+            }
+        },
+        'upload': {
+            message: '导入',
+        },
+        'download': {
+            message: '导出',
+        },
+        'delete': {
+            message: '删除',
+        },
+    },
     footer: false
 })
 
@@ -59,5 +76,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
 <template>
     <dinert-table :table="tablePage.table"
         :footer="tablePage.footer"
+        :header="tablePage.header"
     />
 </template>

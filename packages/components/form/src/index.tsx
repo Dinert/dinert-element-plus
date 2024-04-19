@@ -72,7 +72,7 @@ export default defineComponent({
         useWindowResize(() => {
             resizeForm()
         }, 10, true)
-
+        let index = 1
         const formItemMap = computed(() => {
             const result: any = []
             Object.keys(props.form.formItem).forEach(key => {
@@ -80,8 +80,9 @@ export default defineComponent({
                 result.push({
                     ...value,
                     key: key,
-                    sort: typeof value.sort === 'undefined' ? Infinity : value.sort,
+                    sort: typeof value.sort === 'undefined' ? index : value.sort,
                 })
+                index++
             })
 
             result.sort((a: any, b: any) => {

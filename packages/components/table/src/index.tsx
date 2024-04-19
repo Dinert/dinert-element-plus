@@ -1,11 +1,11 @@
-import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs} from 'vue'
-import type {RewriteTableProps} from '@packages/components/table/types/index'
+import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs, shallowRef} from 'vue'
+import type {HeaderListProps, RewriteTableProps, TablePageProps} from '@packages/components/table/types/index'
 import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
 import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from '@packages/components/table/hooks'
 
 import DinertRecuveTableColumn from './recuve-table-column'
 import useWindowResize from '@packages/hooks/useWindowResize'
-import {ArrowDown} from '@element-plus/icons-vue'
+import {ArrowDown, Plus, Delete, Download, Upload} from '@element-plus/icons-vue'
 
 
 import type {ElTable, ElSelect} from 'element-plus'
@@ -22,7 +22,7 @@ export default defineComponent({
             type: Object as PropType<RewriteTableProps>,
         },
         header: {
-            type: Boolean,
+            type: [Object, Boolean] as PropType<HeaderListProps | boolean>,
             default: true
         },
         footer: {
@@ -46,16 +46,57 @@ export default defineComponent({
         const footerRef = ref<HTMLElement | null>(null)
         const headerFooterRef = ref<HTMLElement | null>(null)
 
-        const {table} = toRefs(props)
+        const {table, header} = toRefs(props)
         const tableColumns = ref(table.value?.tableColumns || [])
 
+        let index = 1
         tableColumns.value.forEach(item => {
-            item.sort = typeof item.sort === 'undefined' ? Infinity : item.sort
+            item.sort = typeof item.sort === 'undefined' ? index : item.sort
+            index++
             return item
         })
 
         tableColumns.value.sort((a: any, b: any) => {
             return a.sort - b.sort
+        })
+        let index2 = 1
+
+        const headerList = computed(() => {
+            if (typeof header.value === 'boolean') {
+                return header.value
+            }
+            const result: Array<TablePageProps['header']> = []
+            Object.keys(header.value).forEach(key => {
+                const tempObj = header.value[key]
+                if (key === 'add') {
+                    tempObj.icon = tempObj.icon || shallowRef(Plus)
+                    tempObj.type = 'primary'
+                } else if (key === 'delete') {
+                    tempObj.icon = tempObj.icon || shallowRef(Delete)
+                    tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                } else if (key === 'download') {
+                    tempObj.icon = tempObj.icon || shallowRef(Download)
+                    tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                    tempObj.type = 'primary'
+                } else if (key === 'upload') {
+                    tempObj.icon = tempObj.icon || shallowRef(Upload)
+                    tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                    tempObj.type = 'primary'
+                }
+
+                result.push({
+                    key: key,
+                    ...tempObj,
+                    type: tempObj.type || 'default',
+                    sort: typeof tempObj.sort === 'undefined' ? index2 : tempObj.sort,
+                })
+                index2++
+            })
+
+            result.sort((a: any, b: any) => {
+                return a.sort - b.sort
+            })
+            return result
         })
 
         const resizeTaleHeightFn = () => {
@@ -128,6 +169,7 @@ export default defineComponent({
             onlyClass,
             isAllData,
             isFooter: props.footer,
+            headerList,
 
             tableRef,
             headerRef,
@@ -145,8 +187,7 @@ export default defineComponent({
         }
         const isHeader = (this.header && this.$slots['header-left']) || (this.getSetting && this.header)
 
-        console.log(this.getSetting)
-
+        const headerList = typeof this.headerList !== 'boolean' ? this.headerList as HeaderListProps[] : []
         return (
             <section class={'dinert-table'}>
                 {
@@ -154,6 +195,14 @@ export default defineComponent({
             && <header class={'dinert-table-header'} ref={el => {this.headerRef = el}}>
                 {
                     <div class="dinert-table-header-left">
+                        {
+                            headerList.map((item: HeaderListProps) => {
+                                return <el-button {...{
+                                    ...item,
+                                    type: item.type || 'primary',
+                                }} onClick={() => item.click && item.click(item)}>{item.message}</el-button>
+                            })
+                        }
                         {this.$slots['header-left']?.()}
                     </div>
                 }

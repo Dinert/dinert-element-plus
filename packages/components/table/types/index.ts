@@ -1,4 +1,4 @@
-import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps} from 'element-plus'
+import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps, ButtonProps} from 'element-plus'
 
 
 export interface ScopeProps<T = any> {
@@ -10,11 +10,10 @@ export interface ScopeProps<T = any> {
     _self: any;
 }
 
-export interface OperationsProps<T = any>{
+export interface OperationsProps<T = any> extends Partial<ButtonProps>{
     message?: string | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void);
     click?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void;
     sort?: number;
-    type?: string;
 }
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
@@ -51,9 +50,15 @@ export interface RewritePaginationProps extends PaginationPropsFn, Partial<Pagin
 
 }
 
+export interface HeaderListProps extends Partial<ButtonProps>{
+    message?: string;
+    click?: (item: HeaderListProps) => void;
+    sort?: number;
+}
+
 
 export interface TablePageProps<T = any>{
-    header?: boolean;
+    header?: boolean | {[key: string]: HeaderListProps};
     table: RewriteTableProps<T>;
     footer?: boolean;
     tableSlot?: boolean;
