@@ -16,7 +16,7 @@ const tablePage = new TablePage<DataProps>({
     },
     table: {
         pagination: {
-
+            total: 50
         },
         tableColumns: [
             {

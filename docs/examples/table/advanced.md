@@ -28,7 +28,13 @@ interface TableParams<T = any> {
     totalPages?: number;
 }
 
-// 重写TablePage的方法
+/* TablePage的类型参数说明
+ * T 表格data数据格式
+ * D 表单model的数据格式
+ * FI 表单formItem的数据格式
+ * P 发起请求的数据格式
+ * R 请求回来的数据格式
+*/
 class RewriteTablePage<T> extends TablePage<T, T, T, Parameters<typeof service.request>[0], TableParams<T>> {
     constructor(options: DinertTablePageProps<T, T>) {
         super(options)
