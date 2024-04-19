@@ -1,10 +1,10 @@
 import {Plugin, App} from 'vue'
 import * as components from './components/index'
-import TablePage from './hooks/useTablePage/index'
+import TablePage2 from './hooks/TablePage/index'
 
 export * from './components/index'
-export const UseTablePage: typeof TablePage = TablePage
-export * from './hooks/useTablePage/types/index'
+export const TablePage = TablePage2
+export * from './hooks/TablePage/types/index'
 
 
 const myPlugin: Plugin = {

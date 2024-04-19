@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import TablePage from '@packages/hooks/useTablePage/index'
+import TablePage from '@packages/hooks/TablePage/index'
 import {tableData} from './data'
 
 import {TableData, FormItemData} from './types'
@@ -9,6 +9,7 @@ import {TableData, FormItemData} from './types'
 const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, TableData>({
     table: {
         pagination: {
+
         },
         tableColumns: [
             {

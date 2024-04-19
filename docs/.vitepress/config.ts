@@ -117,6 +117,10 @@ export default defineConfig({
                                 text: "基础用法",
                                 link: "basic",
                             },
+                            {
+                                text: "高级用法",
+                                link: "advanced",
+                            },
                         ]
                     }
             ]

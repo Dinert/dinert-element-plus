@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
-import {TablePageProps} from '../../../../packages'
+import {TablePage} from '../../../../packages'
 
 interface DataProps {
     date: string;
@@ -8,8 +7,13 @@ interface DataProps {
     address: string;
 }
 
-
-const tablePage = ref<TablePageProps<DataProps>>({
+// 这里的TablePage可以用上面的RewriteTablePage代替
+const tablePage = new TablePage<DataProps>({
+    header: {
+        add: {
+            message: '新增'
+        }
+    },
     table: {
         pagination: {
 
@@ -55,13 +59,32 @@ const tablePage = ref<TablePageProps<DataProps>>({
             },
         ]
     },
-    footer: true
+    footer: true,
+    form: {
+        model: {},
+        formItem: {}
+    }
 })
+
+const {table, footer, header} = tablePage
+
+// 获取请求的参数，必需
+tablePage.getTableParams = () => {
+    return {
+        url: '',
+        method: 'post',
+        data: {}
+    }
+}
+
+// 调用查询
+tablePage.search()
 
 </script>
 
 <template>
-    <dinert-table :table="tablePage.table"
-        :footer="tablePage.footer"
+    <dinert-table :table="table"
+        :footer="footer"
+        :header="header"
     />
 </template>

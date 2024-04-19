@@ -1,24 +1,27 @@
 
 import {Ref, ref} from 'vue'
 
-import type {DinertTablePageProps, AjaxTableProps} from '@packages/hooks/useTablePage/types'
+import type {DinertTablePageProps, AjaxTableProps} from './types'
 
 import TablePageCom from '@packages/components/table-page/index'
 import {getUuid} from '@packages/utils/tools'
 import lodash from 'lodash'
+import {MergeProp} from '@packages/components/form/types/utils'
 
 /**
  * T 表格data数据格式
  * D 表单model的数据格式
+ * FI 表单formItem的数据格式
  * P 发起请求的数据格式
  * R 请求回来的数据格式
  */
 
-class TablePage<T, D = any, FI = any, P = any, R = any> {
+class TablePage<T, D = any, FI = any, P = object, R = any> {
     showSearch: Ref<DinertTablePageProps['search']>
     table: Ref<DinertTablePageProps<T, D, FI>['table']>
     form: Ref<DinertTablePageProps<T, D, FI>['form']>
     footer: Ref<DinertTablePageProps['footer']>
+    header: Ref<DinertTablePageProps['header']>
 
     selecTableDatas: Ref<T[]> = ref([])
     lastSelectDatas: Ref<T[]> = ref([])
@@ -32,7 +35,7 @@ class TablePage<T, D = any, FI = any, P = any, R = any> {
 
     tablePageRef: Ref<InstanceType<typeof TablePageCom> | null> = ref(null)
 
-    private readonly defaultOptions: DinertTablePageProps<T, D> = {
+    private readonly defaultOptions: DinertTablePageProps<T, D, FI> = {
         table: {
             rowKey: 'id',
             className: 'table_page' + getUuid(),
@@ -79,6 +82,8 @@ class TablePage<T, D = any, FI = any, P = any, R = any> {
 
         this.footer = ref<DinertTablePageProps<T, D, FI>['footer']>(this.options.footer)
 
+        this.header = ref<DinertTablePageProps<T, D, FI>['header']>(this.options.header)
+
         this.showSearch = ref<DinertTablePageProps<T, D, FI>['search']>(this.options.search)
 
         this.params = {}
@@ -89,8 +94,8 @@ class TablePage<T, D = any, FI = any, P = any, R = any> {
     }
 
     // 获取请求参数
-    getTableParams: (params: P) => (Partial<P>) = () => ({} as any)
-    ajaxTableDataAfter: (res: R) => void = () => ({})
+    getTableParams: (params: P) => (Partial<P>) = () => ({} as P)
+    ajaxTableDataAfter: (res: R) => void = () => undefined
 
     sizeChange(size: number) {
 
@@ -109,9 +114,9 @@ class TablePage<T, D = any, FI = any, P = any, R = any> {
         this.search({name: 'current', currentPage})
     }
 
-    async getTableData(options: (P & AjaxTableProps) | any) {
+    async getTableData(options: (MergeProp<P, AjaxTableProps>)) {
         const res = await this.ajaxTableData(options)
-        this.changeTableData(res.data as R)
+        this.changeTableData(res)
 
         typeof this.ajaxTableDataAfter === 'function' && this.ajaxTableDataAfter(res)
 
@@ -119,18 +124,8 @@ class TablePage<T, D = any, FI = any, P = any, R = any> {
         return res
     }
 
-    changeTableData(res: R | any) {
-        if (res && res.data && res.data.length) {
-            for (let i = 0; i < res.data.length; i++) {
-                res.data[i].index = i + 1 + (res.pageNum as number) * (res.pageSize as number)
-            }
-        }
-        this.table.value.data = res.data
-        this.table.value.pagination.total = res.total
-    }
-
     // 获取请求的所有参数
-    getAjaxTableDataParams(options: (P & AjaxTableProps) | any) {
+    getAjaxTableDataParams(options: MergeProp<P, AjaxTableProps> | any): MergeProp<P, AjaxTableProps> {
         this.params = this.getTableParams(options)
 
         const isSame = lodash.isEqual(this.params, this.oldParams) // 判断当前提交的参数和上一次提交的参数是否相同
@@ -190,10 +185,20 @@ class TablePage<T, D = any, FI = any, P = any, R = any> {
     }
 
     // 请求
-    ajaxTableData(options: (P & AjaxTableProps)): Promise<R | any> {
+    ajaxTableData(options: (MergeProp<P, AjaxTableProps>)): Promise<R> {
         return new Promise(resolve => {
-            resolve(this.getAjaxTableDataParams(options))
+            resolve(this.getAjaxTableDataParams(options) as any)
         })
+    }
+
+    changeTableData(res: R | any) {
+        if (res && res.data && res.data.length) {
+            for (let i = 0; i < res.data.length; i++) {
+                res.data[i].index = i + 1 + (res.pageNum as number) * (res.pageSize as number)
+            }
+            this.table.value.data = res.data
+            this.table.value.pagination.total = res.total
+        }
     }
 
 
