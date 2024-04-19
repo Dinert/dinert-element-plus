@@ -67,6 +67,9 @@ const tablePage = ref<TablePageProps<DataProps>>({
         'delete': {
             message: '删除',
         },
+        'custom': {
+            message: '自定义内容',
+        },
     },
     footer: false
 })
@@ -77,5 +80,9 @@ const tablePage = ref<TablePageProps<DataProps>>({
     <dinert-table :table="tablePage.table"
         :footer="tablePage.footer"
         :header="tablePage.header"
-    />
+    >
+        <template #header_left_custom="item">
+            {{ item.message }}
+        </template>
+    </dinert-table>
 </template>

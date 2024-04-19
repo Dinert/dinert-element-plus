@@ -185,7 +185,7 @@ export default defineComponent({
             default: (scope: any) => this.$slots[scope.prop && columnProp(scope.prop)]?.(scope),
             header: (scope: any) => this.$slots[scope.prop && headerProp(scope.prop)]?.(scope)
         }
-        const isHeader = (this.header && this.$slots['header-left']) || (this.getSetting && this.header)
+        const isHeader = this.header || (this.getSetting && this.header)
 
         const headerList = typeof this.headerList !== 'boolean' ? this.headerList as HeaderListProps[] : []
         return (
@@ -197,6 +197,11 @@ export default defineComponent({
                     <div class="dinert-table-header-left">
                         {
                             headerList.map((item: HeaderListProps) => {
+                                if (this.$slots['header_left_' + (item as any).key]) {
+                                    return this.$slots['header_left_' + (item as any).key]?.(item)
+                                }
+
+
                                 if ((typeof item.show !== 'function' && [true, undefined].includes(item.show))
                                     || (typeof item.show === 'function' && [true, undefined].includes(item.show(item)))
                                 ) {
@@ -208,7 +213,6 @@ export default defineComponent({
                                 return null
                             })
                         }
-                        {this.$slots['header-left']?.()}
                     </div>
                 }
                 {

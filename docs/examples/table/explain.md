@@ -23,12 +23,12 @@
 
 
 ### 属性
-| 属性名    | 说明                                                                           | 类型    | 默认值 |
-| --------- | ------------------------------------------------------------------------------ | ------- | ------ |
-| header    | 是否显示头部的操作栏                                                           | <dinert-api-typing type="enmu" :details="headerList"/> | true   |
-| footer    | 是否显示底部分页栏                                                             | Boolean | true   |
-| tableSlot | 表格的插槽为true时，表格中所有的插槽名称都为default，为false，可以正常使用插槽 | Boolean | false  |
-| table     | [详细请参阅下面table属性](#table-属性)                                         | Object  | 一     |
+| 属性名    | 说明                                                                           | 类型                                                   | 默认值 |
+| --------- | ------------------------------------------------------------------------------ | ------------------------------------------------------ | ------ |
+| header    | 是否显示头部的操作栏                                                           | <dinert-api-typing type="enmu" :details="headerList"/> | 一     |
+| footer    | 是否显示底部分页栏                                                             | Boolean                                                | true   |
+| tableSlot | 表格的插槽为true时，表格中所有的插槽名称都为default，为false时可以正常使用插槽 | Boolean                                                | false  |
+| table     | [详细请参阅下面table属性](#table-属性)                                         | Object                                                 | 一     |
 
 
 ### Table 属性
@@ -44,21 +44,32 @@
 
 
 ### TableColumns 属性
-| 属性名        | 说明                                                                                            | 类型                                                                     | 默认值 |
-| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ------ |
+| 属性名        | 说明                                                                                            | 类型                                                                      | 默认值 |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------ |
 | show          | 当前列是否显示                                                                                  | <dinert-api-typing type="enmu" details="boolean \| (column) => boolean"/> | 一     |
-| setting       | 操作栏是否显示在当前列，当值为true时表格右上的操作栏会消失                                      | Boolean                                                                  | 一     |
-| maxOperations | 表格最大显示的操作按钮数，超出这个数显示更多，设置operations有效                                | Number                                                                   | 3      |
-| operations    | [表格操作按钮列表，详情请参阅下表](#operations-属性)                                            | Object                                                                   | 一     |
-| sort          | 列的排序，数值越小列越靠前                                                                      | Number                                                                   | 一     |
-| children      | 表格头下的数据配置项，多级表头                                                                  | Array                                                                    | 一     |
-| ......        | [更多配置，请参考](https://element-plus.org/en-US/component/table.html#table-column-attributes) | 一                                                                       | 一     |
+| setting       | 操作栏是否显示在当前列，当值为true时表格右上的操作栏会消失                                      | Boolean                                                                   | 一     |
+| maxOperations | 表格最大显示的操作按钮数，超出这个数显示更多，设置operations有效                                | Number                                                                    | 3      |
+| operations    | [表格操作按钮列表，详情请参阅下表](#operations-属性)                                            | Object                                                                    | 一     |
+| sort          | 列的排序，数值越小列越靠前                                                                      | Number                                                                    | 一     |
+| children      | 表格头下的数据配置项，多级表头                                                                  | Array                                                                     | 一     |
+| ......        | [更多配置，请参考](https://element-plus.org/en-US/component/table.html#table-column-attributes) | 一                                                                        | 一     |
 
 ### Operations 属性
-| 属性名  | 说明                                                                              | 类型     | 默认值 |
-| ------- | --------------------------------------------------------------------------------- | -------- | ------ |
-| message | 名称                                                                              | String   | 一     |
-| click   | 点击事件                                                                          | Function | 一     |
-| show    | 是否显示                                                                          | <dinert-api-typing type="enmu" :details="showOperations"/> |  | 一     |
-| sort    | 操作的排序，数据越小越靠前                                                        | Number   | 一     |
-| ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/link.html#attributes) | 一       | 一     |
+| 属性名  | 说明                                                                              | 类型                                                       | 默认值 |
+| ------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------ |
+| message | 名称                                                                              | String                                                     | 一     |
+| click   | 点击事件                                                                          | Function                                                   | 一     |
+| show    | 是否显示                                                                          | <dinert-api-typing type="enmu" :details="showOperations"/> |        | 一 |
+| sort    | 操作的排序，数据越小越靠前                                                        | Number                                                     | 一     |
+| ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/link.html#attributes) | 一                                                         | 一     |
+
+
+### 插槽
+
+| 插槽名               | 说明                                                                                 |
+| -------------------- | ------------------------------------------------------------------------------------ |
+| column_[prop]        | column_是固定的，prop里面的值取决于tableColumns中的prop，自定义表格中的内容          |
+| column_header_[prop] | column_header_是固定的，prop里面的值取决于tableColumns中的prop，自定义表格头部的内容 |
+| header_left          | 自定义表格头部操作栏的左侧                                                                 |
+
+
