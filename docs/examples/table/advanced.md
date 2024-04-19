@@ -35,7 +35,7 @@ interface TableParams<T = any> {
  * P 发起请求的数据格式
  * R 请求回来的数据格式
 */
-class RewriteTablePage<T> extends TablePage<T, T, T, Parameters<typeof service.request>[0], TableParams<T>> {
+class RewriteTablePage<T> extends TablePage<T, T, T, Parameters<typeof axios.request>[0], TableParams<T>> {
     constructor(options: DinertTablePageProps<T, T>) {
         super(options)
         this.options = options
@@ -43,7 +43,7 @@ class RewriteTablePage<T> extends TablePage<T, T, T, Parameters<typeof service.r
 
     // 注意，这里一定要返回promise
     ajaxTableData(options: AjaxTableProps): Promise<TableParams<T>> {
-        return service.request(this.getAjaxTableDataParams(options))
+        return axios.request(this.getAjaxTableDataParams(options))
     }
 
     changeTableData(res: TableParams<T>) {
