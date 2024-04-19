@@ -26,5 +26,12 @@ table/basic/slot-use
 table/basic/header
 :::
 
+## 分页
+:::demo
+
+table/basic/pagination
+:::
+
+
 <!-- @include: ./explain.md -->
 

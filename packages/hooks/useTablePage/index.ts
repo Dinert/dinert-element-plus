@@ -1,7 +1,7 @@
 
 import {Ref, ref} from 'vue'
 
-import type {DinertTablePageProps, AjaxTableProps, ScopeFn} from '@packages/hooks/useTablePage/types'
+import type {DinertTablePageProps, AjaxTableProps} from '@packages/hooks/useTablePage/types'
 
 import TablePageCom from '@packages/components/table-page/index'
 import {getUuid} from '@packages/utils/tools'
@@ -40,7 +40,6 @@ class TablePage<T, D = any, FI = any, P = any, R = any> {
             data: [],
             key: true,
             border: true,
-            tableSlot: true,
             pagination: {
                 total: 0,
                 currentPage: 1,
@@ -92,12 +91,6 @@ class TablePage<T, D = any, FI = any, P = any, R = any> {
     // 获取请求参数
     getTableParams: (params: P) => (Partial<P>) = () => ({} as any)
     ajaxTableDataAfter: (res: R) => void = () => ({})
-
-    lookOperations: ScopeFn<T> = () => ({}) // 查看
-    editOperations: ScopeFn<T> = () => ({}) // 编辑
-    addOperations: ScopeFn<T> = () => ({}) // 添加
-    deleteOperations: ScopeFn<T> = () => ({}) // 删除
-    importOperations: ScopeFn<T> = () => ({}) // 导入
 
     sizeChange(size: number) {
 

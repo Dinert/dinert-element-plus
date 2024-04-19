@@ -60,7 +60,11 @@ export default defineComponent({
         }
     },
     render() {
-        const slots = this.tableSlot ? this.$slots : {...this.$slots, default: (scope: any) => this.$slots[(scope.prop)]?.(scope)}
+        const slots = this.tableSlot ? this.$slots : {
+            ...this.$slots,
+            default: (scope: any) => this.$slots[(scope.prop)]?.(scope)
+        }
+
         return (
             <section class={['dinert-table-page', this.search ? 'search' : '']} ref={el => {this.tablePageDom = el}}>
                 {this.search

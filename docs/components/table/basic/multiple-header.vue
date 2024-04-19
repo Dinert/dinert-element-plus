@@ -18,6 +18,10 @@ const tablePage = ref<TablePageProps<DataProps>>({
         },
         tableColumns: [
             {
+                type: 'index',
+                label: '序号'
+            },
+            {
                 prop: 'date',
                 label: '时间'
             },

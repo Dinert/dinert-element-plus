@@ -5,6 +5,9 @@
         width: 100%;
         padding: 0 0 16px 0;
     }
+    .vp-doc li + li{
+        margin-top: 0;
+    }
 </style>
 
 <script setup>
@@ -47,6 +50,7 @@
 | 属性名        | 说明                                                                                            | 类型                                                                      | 默认值 |
 | ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------ |
 | show          | 当前列是否显示                                                                                  | <dinert-api-typing type="enmu" details="boolean \| (column) => boolean"/> | 一     |
+| checked       | 当前列是否是选中状态和右上角的操作栏有联动效果，选中时显示，反之不显示                          | Boolean                                                                   | true   |
 | setting       | 操作栏是否显示在当前列，当值为true时表格右上的操作栏会消失                                      | Boolean                                                                   | 一     |
 | maxOperations | 表格最大显示的操作按钮数，超出这个数显示更多，设置operations有效                                | Number                                                                    | 3      |
 | operations    | [表格操作按钮列表，详情请参阅下表](#operations-属性)                                            | Object                                                                    | 一     |
@@ -70,6 +74,6 @@
 | -------------------- | ------------------------------------------------------------------------------------ |
 | column_[prop]        | column_是固定的，prop里面的值取决于tableColumns中的prop，自定义表格中的内容          |
 | column_header_[prop] | column_header_是固定的，prop里面的值取决于tableColumns中的prop，自定义表格头部的内容 |
-| header_left          | 自定义表格头部操作栏的左侧                                                                 |
+| header_left          | 自定义表格头部操作栏的左侧                                                           |
 
 

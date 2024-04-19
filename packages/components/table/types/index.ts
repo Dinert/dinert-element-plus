@@ -1,5 +1,8 @@
 import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps, ButtonProps} from 'element-plus'
 
+export type Mutable<T> = {
+    -readonly [K in keyof T]: T[K];
+}
 
 export interface ScopeProps<T = any> {
     $index: number;
@@ -18,6 +21,7 @@ export interface OperationsProps<T = any> extends Partial<ButtonProps>{
 }
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
+    type?: 'default' | 'selection' | 'index' | 'expand';
     checked?: boolean;
     show?: boolean | ((column: RewriteTableColumnCtx<T>) => boolean);
     setting?: boolean;
@@ -47,7 +51,7 @@ export interface RewriteTableProps<T = any> extends TableProps<T>, TableFnProps 
 }
 
    type PaginationPropsFn = Partial<Pick<InstanceType<typeof ElPagination>, 'onChange' | 'onUpdate:current-page' |'onUpdate:page-size' | 'onSize-change' | 'onCurrent-change' | 'onPrev-click' | 'onNext-click'>>
-export interface RewritePaginationProps extends PaginationPropsFn, Partial<PaginationProps> {
+export interface RewritePaginationProps extends PaginationPropsFn, Partial<Mutable<PaginationProps>> {
 
 }
 

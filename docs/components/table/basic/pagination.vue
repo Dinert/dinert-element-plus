@@ -54,7 +54,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
             },
         ]
     },
-    footer: false
+    footer: true
 })
 
 </script>

@@ -1,16 +1,7 @@
 
 
 <style>
-    .el-select__placeholder{
-        transform: unset;
-        top: 0;
-    }
 
-    .el-select__suffix{
-        position: absolute;
-        top: 20%;
-        right: 8px;
-    }
     .el-form.dinert-form{
         background-color: transparent;
     }

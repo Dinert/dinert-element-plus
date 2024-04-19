@@ -59,7 +59,7 @@ export default defineComponent({
                 v-slots={{
                     default: () => {
                         return (
-                            <span>
+                            <span class="dinert-tooltip">
                                 <span class="text-tooltip">{ getValue(this.content, this) }</span>
                                 <span class="label-text" onMouseenter={(e: MouseEvent) => this.$emit('LabelMouseEnter', e)}>
                                     {(defaultSlot?.()) || getValue(this.content, this) }
