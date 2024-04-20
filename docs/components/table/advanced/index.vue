@@ -7,7 +7,7 @@ interface DataProps {
     address: string;
 }
 
-// 这里的TablePage可以用上面的RewriteTablePage代替
+// 这里的TablePage 请用上面的RewriteTablePage代替
 const tablePage = new TablePage<DataProps>({
     header: {
         add: {

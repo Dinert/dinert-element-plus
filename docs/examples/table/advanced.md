@@ -35,8 +35,8 @@ interface TableParams<T = any> {
  * P 发起请求的数据格式
  * R 请求回来的数据格式
 */
-class RewriteTablePage<T> extends TablePage<T, T, T, Parameters<typeof axios.request>[0], TableParams<T>> {
-    constructor(options: DinertTablePageProps<T, T>) {
+class RewriteTablePage<T, D, FI> extends TablePage<T, D, FI, Parameters<typeof axios.request>[0], TableParams<T>> {
+    constructor(options: DinertTablePageProps<T, D, FI>) {
         super(options)
         this.options = options
     }

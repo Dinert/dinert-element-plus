@@ -12,7 +12,7 @@ interface DataProps {
 const tablePage = ref<TablePageProps<DataProps>>({
     table: {
         pagination: {
-
+            total: 20
         },
         tableColumns: [
             {
