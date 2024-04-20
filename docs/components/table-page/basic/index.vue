@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import {TablePage} from '../../../../packages'
+import {ref} from 'vue'
+import {DinertTablePageProps} from '../../../../packages'
 
 interface DataProps {
     date: string;
@@ -7,16 +8,10 @@ interface DataProps {
     address: string;
 }
 
-// 这里的TablePage 请用上面的RewriteTablePage代替
-const tablePage = new TablePage<DataProps>({
-    header: {
-        add: {
-            message: '新增'
-        }
-    },
+
+const tablePage = ref<DinertTablePageProps<DataProps, DataProps, DataProps>>({
     table: {
         pagination: {
-            total: 50
         },
         tableColumns: [
             {
@@ -59,36 +54,44 @@ const tablePage = new TablePage<DataProps>({
             },
         ]
     },
-    footer: true,
     form: {
         model: {},
-        formItem: {}
-    }
+        formItem: {
+            name: {
+                type: 'input',
+                label: '名称',
+                options: {}
+            },
+            address: {
+                type: 'input',
+                label: '地址',
+                options: {}
+            },
+            date: {
+                type: 'date',
+                label: '时间',
+                options: {}
+            },
+        }
+    },
+    footer: true
 })
 
-const {table, footer, header} = tablePage
-
-// 获取请求的参数，必需
-tablePage.getTableParams = () => {
-    return {
-        url: '',
-        method: 'post',
-        data: {}
-    }
+const search = () => {
+    console.log('查询')
 }
 
-// 调用查询
-tablePage.search()
+const reset = () => {
+    console.log('重置')
+}
 
 </script>
 
 <template>
-    <dinert-table :table="table"
-        :footer="footer"
-        :header="header"
-        v-on="{
-            sizeChange: (val: number) => tablePage.sizeChange(val),
-            currentChange: (val: number) => tablePage.currentChange(val)
-        }"
+    <dinert-table-page :table="tablePage.table" :form="tablePage.form"
+        class="near"
+        :footer="tablePage.footer"
+        @search-fn="search"
+        @reset-fn="reset"
     />
 </template>

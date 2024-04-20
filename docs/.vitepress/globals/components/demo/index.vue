@@ -169,7 +169,7 @@ const copyCode = async () => {
                     </Transition>
                 </div>
             </div>
-            <el-dialog title="编辑代码" v-model="editDialogVisible" width="80%" >
+            <el-dialog title="编辑代码" v-model="editDialogVisible" width="90%" >
                 <div class="edit-code">
                     <VueLive
                         v-if="editDialogVisible"

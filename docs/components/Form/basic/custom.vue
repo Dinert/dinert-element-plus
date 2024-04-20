@@ -38,7 +38,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
 })
 
 const formItemFn = formItem => {
-    console.log(formItem, 'formItemformItemformItem')
+    // console.log(formItem, 'formItemformItemformItem')
 }
 
 </script>

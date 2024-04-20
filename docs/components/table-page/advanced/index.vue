@@ -62,11 +62,27 @@ const tablePage = new TablePage<DataProps>({
     footer: true,
     form: {
         model: {},
-        formItem: {}
+        formItem: {
+            name: {
+                type: 'input',
+                label: '名称',
+                options: {}
+            },
+            address: {
+                type: 'input',
+                label: '地址',
+                options: {}
+            },
+            date: {
+                type: 'date',
+                label: '时间',
+                options: {}
+            },
+        }
     }
 })
 
-const {table, footer, header} = tablePage
+const {table, footer, header, form} = tablePage
 
 // 获取请求的参数，必需
 tablePage.getTableParams = () => {
@@ -83,12 +99,14 @@ tablePage.search()
 </script>
 
 <template>
-    <dinert-table :table="table"
+    <dinert-table-page :table="table" :form="form"
         :footer="footer"
         :header="header"
         v-on="{
-            sizeChange: (val: number) => tablePage.sizeChange(val),
-            currentChange: (val: number) => tablePage.currentChange(val)
+            sizeChange: (val) => tablePage.sizeChange(val),
+            currentChange: (val) => tablePage.currentChange(val),
+            search: () => tablePage.search(),
+            reset: () => tablePage.resetSearch()
         }"
     />
 </template>
