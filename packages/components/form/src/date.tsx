@@ -3,7 +3,7 @@ import {Calendar} from '@element-plus/icons-vue'
 import {customPlaceholder} from '../utils'
 
 
-import type {RewriteFormProps, CustomFormItemProps, RewriteFormItemPropsMap} from '@packages/components/form/types'
+import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
 
 
@@ -45,7 +45,7 @@ export default defineComponent({
     },
     setup(props) {
 
-        const options = computed<RewriteFormItemPropsMap['date']>(() => {
+        const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['date']>(() => {
             const options = props.formItem.options || {}
             options.type = props.formItem.type
 

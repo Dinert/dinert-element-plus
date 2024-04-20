@@ -7,8 +7,6 @@ import DinertRecuveTableColumn from './recuve-table-column'
 import useWindowResize from '@packages/hooks/useWindowResize'
 import {ArrowDown, Plus, Delete, Download, Upload} from '@element-plus/icons-vue'
 
-
-import type {ElTable, ElSelect} from 'element-plus'
 import type {PropType} from 'vue'
 import type Node from 'element-plus/es/components/tree/src/model/node'
 
@@ -36,10 +34,10 @@ export default defineComponent({
     },
     emits: ['SizeChange', 'CurrentChange'],
     setup(props) {
-        const tableRef = ref<InstanceType<typeof ElTable>>()
+        const tableRef = ref<any>()
         const popoverValue = ref(false)
         const onlyClass = ref('table_' + getUuid())
-        const selectTableRef = ref<InstanceType<typeof ElSelect>>()
+        const selectTableRef = ref<any>()
         const isAllData = ref(true)
         const headerRef = ref<HTMLElement | null>(null)
         const bodyRef = ref<HTMLElement | null>(null)
@@ -238,7 +236,7 @@ export default defineComponent({
                                                     props={treeProps}
                                                     allow-drop={allowDrop}
                                                     onCheckChange={(data: Node, checked: boolean, childChecked: boolean) => this.checkTree(data, checked, childChecked)}
-                                                    onNodeDragEnd={(node: Node) => nodeDragEnd(node, (this.selectTableRef as any))}
+                                                    onNodeDragEnd={(node: Node) => nodeDragEnd(node, (this.selectTableRef))}
                                                     v-slots={
                                                         {
                                                             default: ({data}: {data: Node}) => (

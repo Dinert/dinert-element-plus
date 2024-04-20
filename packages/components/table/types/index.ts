@@ -73,10 +73,4 @@ export interface TablePageProps<T = any>{
 
 export type SelectTable = {setChecked: (num: any) => void, getCheckedKeys: () => void, setCheckedNodes: () => void} | null
 
-export interface CtxType {
-    slots: {
-        'header-left'?: () => void;
-        'header-footer'?: () => void;
-    };
 
-}

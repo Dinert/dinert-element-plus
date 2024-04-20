@@ -1,9 +1,11 @@
 
-import {Ref, ref} from 'vue'
+import {Ref, onMounted, ref} from 'vue'
 
 import type {DinertTablePageProps, AjaxTableProps} from './types'
 
-import TablePageCom from '@packages/components/table-page/index'
+import TablePageComponent from '@packages/components/table-page/index'
+import TableComponent from '@packages/components/table/index'
+import FormComponent from '@packages/components/form/index'
 import {getUuid} from '@packages/utils/tools'
 import lodash from 'lodash'
 import {MergeProp} from '@packages/components/form/types/utils'
@@ -33,7 +35,13 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
     params: P | any
     oldParams: P | any
 
-    tablePageRef: Ref<InstanceType<typeof TablePageCom> | null> = ref(null)
+    tablePageRef: Ref<InstanceType<typeof TablePageComponent> | null> = ref(null)
+
+    tableRef: Ref<InstanceType<typeof TablePageComponent>['tableRef'] | null> = ref(null) // DinertTable的Dom
+    tableOriginRef: Ref<InstanceType<typeof TableComponent>['tableRef'] | null> = ref(null) // elTable的Dom
+
+    formRef: Ref<(InstanceType<typeof TablePageComponent>['formRef']) | null> = ref(null) // DinertForm的Dom
+    formOriginRef: Ref<(InstanceType<typeof FormComponent>['formRef']) | null> = ref(null) // elForm的Dom
 
     private readonly defaultOptions: DinertTablePageProps<T, D, FI> = {
         table: {
@@ -70,7 +78,7 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
     }
 
 
-    constructor(options: DinertTablePageProps<T, D, FI>) {
+    constructor(options: DinertTablePageProps<T, D, FI> & {initMounteFlag?: boolean}) {
 
         this.options = lodash.defaultsDeep(lodash.cloneDeep(options), this.defaultOptions)
 
@@ -87,10 +95,23 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
         this.showSearch = ref<DinertTablePageProps<T, D, FI>['search']>(this.options.search)
 
         this.params = {}
-        this.oldParams = {}
+        this.oldParams = {};
+
+        // 在组件挂载时调用
+        ([undefined, true].includes(options.initMounteFlag)) && this.initMonunt()
 
         // 监听表格选择的方法，方便表格数据回显
         this.tableSelectEvent()
+    }
+
+    initMonunt() {
+        onMounted(() => {
+            this.tableRef.value = this.tablePageRef.value?.tableRef
+            this.tableOriginRef.value = this.tablePageRef.value?.tableRef?.tableRef
+
+            this.formRef.value = this.tablePageRef.value?.formRef
+            this.formOriginRef.value = this.tablePageRef.value?.formRef?.formRef
+        })
     }
 
     // 获取请求参数

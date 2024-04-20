@@ -68,9 +68,9 @@
 | ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/link.html#attributes) | 一                                                         | 一     |
 
 ## 事件
-| 事件名      | 说明                 | 类型                                                                   |
-| ----------- | -------------------- | ---------------------------------------------------------------------- |
-| size-change | page-size 改变时触发 | <dinert-api-typing type="Function" details="(value: number) => void"/> |
+| 事件名         | 说明                    | 类型                                                                   |
+| -------------- | ----------------------- | ---------------------------------------------------------------------- |
+| size-change    | page-size 改变时触发    | <dinert-api-typing type="Function" details="(value: number) => void"/> |
 | current-change | current-page 改变时触发 | <dinert-api-typing type="Function" details="(value: number) => void"/> |
 
 
@@ -81,5 +81,6 @@
 | column_[prop]        | column_是固定的，prop里面的值取决于tableColumns中的prop，自定义表格中的内容          |
 | column_header_[prop] | column_header_是固定的，prop里面的值取决于tableColumns中的prop，自定义表格头部的内容 |
 | header_left_[key]    | column_header_是固定的，prop里面的值取决于header中的key，自定义表格头部操作栏的左侧  |
+| header-footer        | 自定义表格头部操作栏的底部                                                           |
 
 

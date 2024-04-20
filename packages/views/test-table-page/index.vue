@@ -2,7 +2,7 @@
 
 import TablePage from '@packages/hooks/TablePage/index'
 import {tableData} from './data'
-
+import {DinertTablePage} from '@packages/index'
 import {TableData, FormItemData} from './types'
 
 
@@ -280,7 +280,8 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
     }
 })
 
-const {table, form, tablePageRef} = tablePage
+const {table, form, tablePageRef, formOriginRef} = tablePage
+
 // form.value.formItem.autoInput
 tablePage.getTableParams = () => {
 
@@ -292,7 +293,10 @@ tablePage.getTableParams = () => {
 
 const search = () => {
     console.log('搜索')
+    console.log(formOriginRef.value, '1321321312')
 }
+
+// const tablePageRef = ref<InstanceType<typeof DinertTablePage>>()
 
 </script>
 
