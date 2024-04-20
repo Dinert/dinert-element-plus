@@ -146,6 +146,18 @@ export default defineConfig({
                                 link: "advanced",
                             },
                         ]
+                    },
+                    {
+                        text: "dialog（弹窗）",
+                        target: '/examples/dialog/basic',
+                        collapsed: true,
+                        base: '/examples/dialog/',
+                        items: [
+                            {
+                                text: "基础用法",
+                                link: "basic",
+                            },
+                        ]
                     }
             ]
 
