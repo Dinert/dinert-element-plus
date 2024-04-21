@@ -1,0 +1,105 @@
+
+.el-overlay {
+    &.autoHeight {
+        .el-dialog {
+            height: 80%;
+        }
+    }
+
+    &.notPadding {
+        .el-dialog__body {
+            padding: 0;
+        }
+    }
+
+    .el-dialog {
+        top: 10%;
+        display: flex;
+        min-width: 310px;
+        max-height: 80%;
+        border-radius: 4px;
+        flex-direction: column;
+
+        --el-dialog-margin-top: 0;
+        --el-dialog-padding-primary: 0;
+
+        &.is-fullscreen {
+            top: unset;
+            max-height: unset;
+        }
+
+        &__headerbtn {
+            right: 0;
+            width: 40px;
+            height: 100%;
+            color: var(--el-color-info);
+        }
+
+        .full {
+            position: absolute;
+            top: -1.5px;
+            right: 34px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 100%;
+            font-size: var(--el-message-close-size, 16px);
+            border: none;
+            color: var(--el-color-info);
+            background: transparent;
+            outline: none;
+            cursor: pointer;
+
+            .icon {
+                overflow: hidden;
+                width: 14px;
+                height: 14px;
+                vertical-align: -.15em;
+                fill: var(--el-color-info);
+
+                &:hover {
+                    fill: var(--el-color-primary);
+                    color: var(--el-color-primary);
+                }
+            }
+        }
+
+        &__header {
+            position: relative;
+            margin-right: 0;
+            padding: 16px 24px;
+            height: 54px;
+            box-sizing: border-box;
+        }
+
+        &__body {
+            display: flex;
+            overflow-y: auto;
+            padding: 24px;
+            flex-direction: column;
+            flex: 1;
+            word-wrap: break-word;
+
+            & > .el-form {
+                overflow: unset;
+            }
+        }
+
+        &__footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clear: both;
+            padding: 12px 24px 16px;
+
+            .el-button {
+                margin: 0;
+            }
+
+            .el-button + .el-button {
+                margin-left: 12px;
+            }
+        }
+    }
+}

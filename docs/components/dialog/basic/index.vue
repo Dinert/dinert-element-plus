@@ -1,10 +1,15 @@
 <script setup lang="ts">
-import {defineComponent, ref} from 'vue'
+import {ref, watch} from 'vue'
 
 const modelValue = ref(false)
 const open = () => {
     console.log('opennnnnnnnnnnnn')
 }
+const fullscreen = ref(false)
+
+watch(fullscreen, newVal => {
+    console.log(newVal)
+})
 </script>
 
 <template>

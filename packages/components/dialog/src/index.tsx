@@ -1,7 +1,9 @@
-import {defineComponent} from 'vue'
+import {defineComponent, watch, ref} from 'vue'
 import {getUuid} from '@packages/utils/tools'
 import lodash from 'lodash'
 import type {RewriteDialogProps, GETWH} from '../types'
+import '@packages/assets/scss/dinert-dialog.scss'
+import '@packages/assets/fonts/iconfont.js'
 
 const getWH = (options: RewriteDialogProps): GETWH => {
     const result: GETWH = {
@@ -29,7 +31,13 @@ const getWH = (options: RewriteDialogProps): GETWH => {
 
 export default defineComponent({
     name: 'dinert-dialog',
-    setup() {
+    props: {
+        fullscreen: {
+            type: Boolean,
+        }
+    },
+    emits: ['update:fullscreen'],
+    setup(props, ctx) {
 
         const uuid = 'dialog_' + getUuid()
         const defaultAttrs = {
@@ -38,14 +46,30 @@ export default defineComponent({
             closeOnPressEscape: true,
             appendToBody: true
         }
+        const currentFullScreen = ref(false)
+
+        const fullToggle = () => {
+            currentFullScreen.value = !currentFullScreen.value
+            ctx.emit('update:fullscreen', currentFullScreen.value)
+        }
+
+        watch(() => props.fullscreen, newVal => {
+            currentFullScreen.value = newVal
+        }, {
+            deep: true,
+            immediate: true
+        })
 
         return {
             uuid,
-            defaultAttrs
+            defaultAttrs,
+            fullToggle,
+            currentFullScreen
         }
     },
     render() {
         const slots = this.$slots
+
         const attrs = lodash.defaultsDeep(lodash.cloneDeep({
             ...this.$attrs,
             class: this.$attrs.modalClass ? 'dialog_' + this.$attrs.modalClass : '',
@@ -56,9 +80,10 @@ export default defineComponent({
                 height: getWH(this.$attrs).height,
             }
         }), this.defaultAttrs)
+
         return (
             <div>
-                <el-dialog {...attrs}>
+                <el-dialog {...attrs} fullscreen={this.currentFullScreen}>
                     {{
                         default: () => slots.default?.(),
                         header: () => {
@@ -67,7 +92,12 @@ export default defineComponent({
                                     <span role="heading" class="el-dialog__title">
                                         { slots.header?.() || attrs.title }
                                     </span>
-                                    <dinert-svg-icon class="el-dialog__full" icon-class={'全屏'}></dinert-svg-icon>
+
+                                    <span class="full" onClick={this.fullToggle}>
+                                        <svg class="icon" aria-hidden="true">
+                                            <use xlink:href={this.currentFullScreen ? '#icon-tuichuquanping' : '#icon-quanping'}></use>
+                                        </svg>
+                                    </span>
                                 </>
                             )
                         },

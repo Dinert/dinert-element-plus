@@ -68,7 +68,6 @@
     "validate-commit-msg": "^2.14.0",
     "vite": "5.1.6",
     "vite-plugin-dts": "^3.6.3",
-    "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.3.8",
     "vue-dompurify-html": "^5.0.1",
     "vue-eslint-parser": "^9.3.2"

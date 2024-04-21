@@ -314,6 +314,7 @@ const search = () => {
         </template>
 
         <template #formItem_name>
+            <dinert-svg-icon icon-class="full"/>
             111
         </template>
         <template #formItem_after_name>

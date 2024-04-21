@@ -3,7 +3,6 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx' // 添加这一句
 import path from 'path'
 import dts from 'vite-plugin-dts'
-import {createSvgIconsPlugin} from 'vite-plugin-svg-icons'
 
 export default defineConfig({
     build: {
@@ -60,13 +59,8 @@ export default defineConfig({
     },
     plugins: [
         vue(),
-        vueJsx(),
-        createSvgIconsPlugin({
-            iconDirs: [path.resolve(process.cwd(), '/packages/assets/icons')],
-            // 指定symbolId格式
-            symbolId: 'icon-[dir]-[name]',
-            customDomId: 'dinert_icon'
-        }),
+        vueJsx() as any,
+
         dts({
             entryRoot: './packages',
 

@@ -5,6 +5,7 @@ declare module '@vue/runtime-core' {
     DinertForm: typeof components.DinertForm;
     DinertTooltip: typeof components.DinertTooltip;
     DinertTablePage: typeof components.DinertTablePage;
+    DinertSvgIcon: typeof components.DinertSvgIcon;
   }
 }
 export {}
