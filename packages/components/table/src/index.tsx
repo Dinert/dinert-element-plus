@@ -5,7 +5,7 @@ import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from '@pa
 
 import DinertRecuveTableColumn from './recuve-table-column'
 import useWindowResize from '@packages/hooks/useWindowResize'
-import {ArrowDown, Plus, Delete, Download, Upload} from '@element-plus/icons-vue'
+import {ArrowDown, Plus, Delete, Download, Upload, Check, Close, ArrowUp} from '@element-plus/icons-vue'
 
 import type {PropType} from 'vue'
 import type Node from 'element-plus/es/components/tree/src/model/node'
@@ -81,6 +81,18 @@ export default defineComponent({
                     tempObj.icon = tempObj.icon || shallowRef(Upload)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
                     tempObj.type = 'primary'
+                } else if (key === 'select') {
+                    tempObj.icon = tempObj.icon || shallowRef(Check)
+                    tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                } else if (key === 'close') {
+                    tempObj.icon = tempObj.icon || shallowRef(Close)
+                    tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                } else if (key === 'down') {
+                    tempObj.icon = tempObj.icon || shallowRef(ArrowDown)
+                    tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                } else if (key === 'up') {
+                    tempObj.icon = tempObj.icon || shallowRef(ArrowUp)
+                    tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
                 }
 
                 result.push({

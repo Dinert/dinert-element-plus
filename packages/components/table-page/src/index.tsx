@@ -3,7 +3,7 @@ import {defineComponent, ref} from 'vue'
 import DinertTable from '@packages/components/table'
 import DinertForm from '@packages/components/form'
 
-import type {RewriteTableProps} from '@packages/components/table/types/index'
+import type {RewriteTableProps, HeaderListProps} from '@packages/components/table/types/index'
 import type {PropType} from 'vue'
 import type {RewriteFormProps} from '@packages/components/form/types'
 
@@ -30,7 +30,7 @@ export default defineComponent({
             default: true
         },
         header: {
-            type: Boolean,
+            type: [Object, Boolean] as PropType<HeaderListProps | boolean>,
             default: true
         },
         tableSlot: {

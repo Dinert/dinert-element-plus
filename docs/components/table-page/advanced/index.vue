@@ -12,6 +12,8 @@ const tablePage = new TablePage<DataProps>({
     header: {
         add: {
             message: '新增'
+        },
+        delete: {
         }
     },
     table: {
