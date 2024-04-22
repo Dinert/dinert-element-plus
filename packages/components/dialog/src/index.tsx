@@ -77,7 +77,7 @@ export default defineComponent({
             width: getWH(this.$attrs).width,
             style: {
                 ...(this.$attrs?.style as any),
-                height: getWH(this.$attrs).height,
+                height: this.currentFullScreen ? undefined : getWH(this.$attrs).height,
             }
         }), this.defaultAttrs)
 
