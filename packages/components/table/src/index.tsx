@@ -72,6 +72,7 @@ export default defineComponent({
                 } else if (key === 'delete') {
                     tempObj.icon = tempObj.icon || shallowRef(Delete)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                    tempObj.type = tempObj.type === undefined ? 'danger' : tempObj.type
                 } else if (key === 'download') {
                     tempObj.icon = tempObj.icon || shallowRef(Download)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
