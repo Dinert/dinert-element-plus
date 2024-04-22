@@ -189,15 +189,40 @@ export default defineComponent({
                     <>
                         {defaultFunctions.value.map((item2: OperationsProps) => {
                             const message = typeof item2.message === 'function' ? item2.message(scope, column, item2) : item2.message
-                            return (
-                                <el-button {...{
-                                    ...item2,
-                                    type: item2.type || 'primary',
-                                    link: item2.link === undefined ? true : item2.link
-                                }}
-                                onClick={() => item2.click && item2.click(scope, column, item2)} key={(item2 as any).key}>{message}</el-button>
-                            )
+
+
+                            if ((item2 as any).key === 'delete') {
+
+                                return (
+                                    <el-popconfirm title="是否删除该数据" {...{...item2.confirm}} onConfirm={() => item2.click && item2.click(scope, column, item2)}>
+                                        {{
+                                            reference: () => {
+                                                return (<el-button {...{
+                                                    ...item2,
+                                                    type: item2.type || 'primary',
+                                                    link: item2.link === undefined ? true : item2.link
+                                                }}
+                                                key={(item2 as any).key}>
+                                                    {message}
+                                                </el-button>)
+                                            }
+                                        }}
+                                    </el-popconfirm>
+
+                                )
+                            }
+                            return (<el-button {...{
+                                ...item2,
+                                type: item2.type || 'primary',
+                                link: item2.link === undefined ? true : item2.link
+                            }}
+                            onClick={() => item2.click && item2.click(scope, column, item2)}
+                            key={(item2 as any).key}>
+                                {message}
+                            </el-button>)
+
                         })}
+
                         {(seniorFunctions.value.length && operations.value.length > maxOperations
                         && <el-dropdown teleported={true}
                             onCommand={(item: any) => (item.click && item.click(scope, column, item))}

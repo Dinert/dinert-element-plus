@@ -1,4 +1,4 @@
-import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps, ButtonProps} from 'element-plus'
+import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps, ButtonProps, PopconfirmProps} from 'element-plus'
 
 export type Mutable<T> = {
     -readonly [K in keyof T]: T[K];
@@ -18,6 +18,7 @@ export interface OperationsProps<T = any> extends Partial<ButtonProps>{
     show?: boolean | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => boolean);
     click?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void;
     sort?: number;
+    confirm?: Partial<PopconfirmProps>;
 }
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{

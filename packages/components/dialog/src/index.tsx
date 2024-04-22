@@ -44,7 +44,7 @@ export default defineComponent({
             title: '弹窗标题',
             closeOnClickModal: false,
             closeOnPressEscape: true,
-            appendToBody: true
+            appendToBody: true,
         }
         const currentFullScreen = ref(false)
 

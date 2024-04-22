@@ -2,9 +2,7 @@
 import {ref, watch} from 'vue'
 
 const modelValue = ref(false)
-const open = () => {
-    console.log('opennnnnnnnnnnnn')
-}
+
 const fullscreen = ref(false)
 
 watch(fullscreen, newVal => {
@@ -20,7 +18,7 @@ watch(fullscreen, newVal => {
 
             <template #footer>
                 <el-button type="primary">保存</el-button>
-                <el-button plain>取消</el-button>
+                <el-button plain @click="modelValue = false">取消</el-button>
             </template>
         </dinert-dialog>
     </div>

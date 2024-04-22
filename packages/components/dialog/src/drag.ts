@@ -140,14 +140,18 @@ const _dialogDrag = {
         watch(binding.value, () => {
 
             // dialog 不可见，退出
-            if (!binding.value.modelValue) {return}
+            if (!binding.value.modelValue) {
+                return undefined
+            }
 
             // 寻找 el-dialog 组件
             const container: any = document.querySelector('.' + el.getAttribute('data-class'))
 
 
             // 已经设置拖拽事件，退出
-            if (container.onmousemove) {return}
+            if (container.onmousemove) {
+                return undefined
+            }
 
             // 等待 DOM 渲染完毕
             setTimeout(() => {

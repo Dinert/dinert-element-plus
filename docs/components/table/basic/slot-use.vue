@@ -40,12 +40,12 @@ const tablePage = ref<TablePageProps<DataProps>>({
                             console.log(item, 'itemmmmmmmmmmmmmmm')
                         }
                     },
-                    del: {
+                    delete: {
                         message: '删除',
                         type: 'danger',
                         click: (scope, column, item) => {
                             console.log(item, 'itemmmmmmmmmmmmmmm')
-                        }
+                        },
                     },
                     other1: {
                         message: '操作1',
