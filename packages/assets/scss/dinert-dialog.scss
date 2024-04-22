@@ -51,17 +51,19 @@
             outline: none;
             cursor: pointer;
 
+            &:hover {
+                .icon {
+                    fill: var(--el-color-primary);
+                    color: var(--el-color-primary);
+                }
+            }
+
             .icon {
                 overflow: hidden;
                 width: 14px;
                 height: 14px;
                 vertical-align: -.15em;
                 fill: var(--el-color-info);
-
-                &:hover {
-                    fill: var(--el-color-primary);
-                    color: var(--el-color-primary);
-                }
             }
         }
 
