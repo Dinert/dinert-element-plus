@@ -3372,7 +3372,7 @@ util-deprecate@^1.0.2:
 
 validate-commit-msg@^2.14.0:
   version "2.14.0"
-  resolved "https://registry.npmjs.org/validate-commit-msg/-/validate-commit-msg-2.14.0.tgz"
+  resolved "https://registry.yarnpkg.com/validate-commit-msg/-/validate-commit-msg-2.14.0.tgz#e5383691012cbb270dcc0bc2a4effebe14890eac"
   integrity sha512-sETG7UmikRVseMyeayyF6L1svmNXoZiyG4TVyLYSVSYjcSuZT602T+irJKjIyE+FutGyngSLxHGLTeyFy+oyag==
   dependencies:
     conventional-commit-types "^2.0.0"
