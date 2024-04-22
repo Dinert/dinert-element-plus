@@ -64,7 +64,9 @@ export const getTooltipValue = (value: any, item: any): any => {
 }
 
 export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any) => {
-    if (!value || item.showLabel) {
+    const showCom = ['input', 'input-autocomplete', 'cascader', 'input-number', 'select', 'tree-select']
+
+    if (!value || item.showLabel || !showCom.includes(item.type)) {
         _this.form.formItem[item.key].tempValueDisabled = true
         return
     }
@@ -75,30 +77,8 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this: any
         el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
         el = el || (e.target as any).parentElement.querySelector('.el-select__selection') as HTMLElement
     }
-    const timer = [
-        'datetime',
-        'date',
-        'week',
-        'month',
-        'year',
-        'datetimerange',
-        'daterange',
-        'monthrange',
-        'yearrange',
-        'radio-button',
-        'checkbox',
-        'rate',
-        'textarea',
-        'checkbox-button'
-    ]
-    if (timer.includes(item.type)) {
-        _this.form.formItem[item.key].tempValueDisabled = true
-        return
-    }
 
-    if (['switch', 'radio'].includes(item.type)) {
-        _this.form.formItem[item.key].tempValueDisabled = true
-    } else if (el) {
+    if (el) {
         const inputEl = window.getComputedStyle(el, null)
         const textWidth
                 = el.offsetWidth

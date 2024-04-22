@@ -160,6 +160,10 @@ export default defineConfig({
                                 text: "基础用法",
                                 link: "basic",
                             },
+                            {
+                                text: "属性",
+                                link: "explain",
+                            },
                         ]
                     }
             ]
