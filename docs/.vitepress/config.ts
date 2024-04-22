@@ -10,7 +10,7 @@ function _resolve(dir: string) {
     return path.resolve(__dirname, dir)
   }
 export default defineConfig({
-    // base:  process.env.NODE_ENV === 'production' ? '/dinert-element-plus/' : '/',
+    base:  process.env.NODE_ENV === 'production' ? '/dinert-element-plus/' : '/',
     vite: {
         resolve: {
             alias: {

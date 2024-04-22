@@ -11,4 +11,10 @@
 dialog/basic/index
 :::
 
+## 不同尺寸
+:::demo
+
+dialog/basic/size
+:::
+
 <!-- @include: ./explain.md -->
