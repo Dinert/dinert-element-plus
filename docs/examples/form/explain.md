@@ -41,7 +41,7 @@
 ## form 属性
 | 属性名    | 说明                                                                                   | 类型                                                                       | 默认值                                    |
 | --------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------- |
-| formItem  | 表单组件列表对象，[详细请参阅下面formItem属性](#formitem-属性)                         | object                                                                     | \{\}                                      |
+| formItem  | 表单组件列表对象，[详细请参阅下面formItem属性](#formitem-属性)                         | <dinert-api-typing type="object" details="{[key: string]: FormItemProps}"></dinert-api-typing>                                                                    | \{\}                                      |
 | colLayout | 每个表单组件列表布局                                                                   | <dinert-api-typing type="object" :details="colLayout"></dinert-api-typing> | \{ xl: 3, lg: 4, md: 8, sm: 12, xs: 24 \} |
 | row       | 表单组件的row                                                                          | object                                                                     | \{\}                                      |
 | showLabel | 是否显示每个表单组件的值，不显示表单组件                                               | boolean                                                                    | 一                                        |
@@ -57,7 +57,7 @@
 | sort      | 表单组件的列的排序，数值越小组件越靠前                                                                         | Number                                                                                        | 一     |
 | options   | 组件的参数，比如组件类型type是input，那options里面的内容就是Input的属性和方法              | Object                                                                                        | 一     |
 | showLabel | 是否直接显示表单组件的值                                                                   | boolean                                                                                       | 一     |
-| colLayout | 表单组件的布局方式                                                                         | Object                                                                                        | \{  \} |
+| colLayout | 当前表单组件列表布局                                                                   | <dinert-api-typing type="object" :details="colLayout"></dinert-api-typing> | \{  \} |
 | required  | 是否必填                                                                                   | Boolean                                                                                       | 一     |
 | ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#formitem-attributes) | 一                                                                                            | 一     |
 
@@ -66,6 +66,7 @@
 | ----------- | -------------------- | ---------------------------------------------------------------------- |
 | search-fn | 点击查询时触发 | <dinert-api-typing type="Function" details="(value: number) => void"/> |
 | reset-fn | 点击重置时触发 | <dinert-api-typing type="Function" details="(value: number) => void"/> |
+| un-fold | 点击更多时触发 | <dinert-api-typing type="Function" details="() => void"/> |
 
 ## 插槽
 
