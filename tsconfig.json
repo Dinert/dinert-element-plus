@@ -15,5 +15,5 @@
       },
     },
     "exclude": ["node_modules"],
-    "include": ["packages/**/*.ts", "packages/**/*.d.ts", "packages/**/*.vue", "packages/**/*.tsx", "docs/**/*.ts"],
+    "include": ["packages/**/*.ts", "packages/**/*.d.ts", "packages/**/*.vue", "packages/**/*.tsx", "docs/.vitepress/globals/index.ts"],
   }
