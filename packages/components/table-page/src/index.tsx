@@ -38,7 +38,7 @@ export default defineComponent({
             default: false
         }
     },
-    emits: ['SizeChange', 'CurrentChange', 'SearchFn', 'ResetFn'],
+    emits: ['SizeChange', 'CurrentChange', 'SearchFn', 'ResetFn', 'CheckedChange'],
     setup() {
 
         const tablePageDom = ref<HTMLElement>()
@@ -84,6 +84,7 @@ export default defineComponent({
                     v-slots={slots}
                     onSizeChange={(val: number) => this.$emit('SizeChange', val)}
                     onCurrentChange={(val: number) => this.$emit('CurrentChange', val)}
+                    onCheckedChange={(data: Node, checked: boolean, childChecked: boolean) => this.$emit('CheckedChange', data, checked, childChecked)}
                 >
                 </DinertTable>
             </section>

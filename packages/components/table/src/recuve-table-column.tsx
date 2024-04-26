@@ -10,7 +10,6 @@ import type Node from 'element-plus/es/components/tree/src/model/node'
 import type {
     RecuveTableColumnProps,
     RewriteTableProps,
-    TablePageProps,
     RewriteTableColumnCtx,
     OperationsProps
 } from '@packages/components/table/types/index'
@@ -54,22 +53,15 @@ export default defineComponent({
         tableColumns: {
             type: Array as PropType<RewriteTableColumnCtx[]>,
             default: () => ([])
+        },
+        defaultCheckedKeys: {
+            type: Array,
+            default: () => ([])
         }
     },
-    setup(props) {
-
-
+    emits: ['CheckedChange'],
+    setup(props, {emit}) {
         const selectTable = ref<InstanceType<typeof ElSelect>>()
-
-        const popoverIndex = ref(0)
-
-
-        const treeBeforeEnter = (props: TablePageProps) => {
-            popoverIndex.value++
-            if (popoverIndex.value === 1 && selectTable.value) {
-                treeNode(selectTable.value, props.table.tableColumns)
-            }
-        }
 
         watch(() => props.table?.key, () => {
             nextTick(() => {
@@ -78,19 +70,17 @@ export default defineComponent({
         }, {
             immediate: true
         })
-
         const settingRender = (props: RecuveTableColumnProps) => {
             return (
                 <el-popover
                     value={props.popoverValue}
-                    onBeforeEnter={() => treeBeforeEnter((props as TablePageProps))}
                     v-slots={
                         {
                             default: () => (
                                 <ul class="el-popover-classify">
                                     <li>
                                         <el-button class="allSelect" link
-                                            type={'primary'} onClick={() => allShow(selectTable.value, props.table?.tableColumns || [])}
+                                            type={'primary'} onClick={async () => allShow(selectTable.value, props.table?.tableColumns || [])}
                                         >全选</el-button>
                                     </li>
                                     <el-tree
@@ -98,11 +88,16 @@ export default defineComponent({
                                         draggable
                                         data={props.table?.tableColumns}
                                         default-expand-all
+                                        defaultCheckedKeys={props.defaultCheckedKeys}
                                         show-checkbox
                                         node-key={'prop'}
                                         props={treeProps}
                                         allowDrop={allowDrop}
-                                        onCheckChange={checkTree}
+                                        onCheckChange={async (data: Node, checked: boolean, childChecked: boolean) => {
+                                            // eslint-disable-next-line @typescript-eslint/await-thenable
+                                            await checkTree(data, checked, childChecked)
+                                            emit('CheckedChange', data, checked, childChecked)
+                                        }}
                                         onNodeDragEnd={(e: Node) => nodeDragEnd(e, (selectTable.value as any))}
                                         v-slots={
                                             {

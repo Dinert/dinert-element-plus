@@ -26,6 +26,12 @@ table/basic/slot-use
 table/basic/header
 :::
 
+## 显示操作栏
+:::demo
+
+table/basic/show-operations
+:::
+
 ## 分页
 :::demo
 

@@ -27,6 +27,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
             },
             {
                 label: '信息',
+                prop: 'info',
                 children: [
                     {
                         prop: 'name',
@@ -34,10 +35,12 @@ const tablePage = ref<TablePageProps<DataProps>>({
                     },
                     {
                         label: '地址信息',
+                        prop: 'infoAddress',
                         children: [
                             {
                                 prop: 'state',
-                                label: '状态'
+                                label: '状态',
+                                checked: false
                             },
                             {
                                 prop: 'city',

@@ -73,14 +73,41 @@ export const dataTransformRod = (data: any, errData: any = '-') => {
     return [null, undefined, ''].includes(data) ? errData : data
 }
 
+function findNode(tree) {
+    // 如果当前节点为目标节点，返回 true
+    if (tree.checked === false) {
+        return true
+    }
+
+    // 遍历当前节点的所有子节点
+    if (tree.children && tree.children.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
+        for (let i = 0; i < tree.children.length; i++) {
+        // 对每个子节点递归执行查找过程
+            const found = findNode(tree.children[i])
+            if (found) {
+                // 如果找到了目标节点，直接返回 true，结束递归
+                return true
+            }
+        }
+    }
+    // 如果所有子节点都不是目标节点，返回 false
+    return false
+}
+
+
 // 获取树指定的所有节点
 export const getTreeNode = <T = any>(treeData: any, name: string, value: any, key: string): T[] => {
     const result: T[] = []
+
     // eslint-disable-next-line consistent-return
     const treeNode = (treeData2: any) => {
         // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < treeData2.length; i++) {
-            if (value.includes(treeData2[i][name])) {
+            const isFlag = findNode(treeData2[i])
+
+
+            if (value.includes(treeData2[i][name]) && !isFlag && treeData2[i][key]) {
                 result.push(treeData2[i][key])
             }
             if (treeData2[i].children && treeData2[i].children.length) {

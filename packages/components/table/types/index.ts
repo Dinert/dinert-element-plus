@@ -38,6 +38,7 @@ export interface RecuveTableColumnProps<T = any>{
     popoverValue?: boolean;
     table: RewriteTableProps;
     children?: Array<RewriteTableColumnCtx<T>>;
+    defaultCheckedKeys?: any[];
 }
 
 type TableFnProps = Partial<Pick<InstanceType<typeof ElTable>, 'onSelect' | 'onExpand-change' | 'onCurrent-change' | 'onSelect-all' | 'onSelection-change' | 'onCell-mouse-enter' | 'onCell-mouse-leave' | 'onCell-contextmenu' | 'onCell-click' | 'onCell-dblclick' | 'onRow-click' | 'onRow-contextmenu' | 'onRow-dblclick' | 'onHeader-click' | 'onHeader-contextmenu' | 'onSort-change' | 'onFilter-change' | 'onHeader-dragend'>>

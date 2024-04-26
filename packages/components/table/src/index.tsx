@@ -32,8 +32,8 @@ export default defineComponent({
             default: false
         },
     },
-    emits: ['SizeChange', 'CurrentChange'],
-    setup(props) {
+    emits: ['SizeChange', 'CurrentChange', 'CheckedChange'],
+    setup(props, {emit}) {
         const tableRef = ref<any>()
         const popoverValue = ref(false)
         const onlyClass = ref('table_' + getUuid())
@@ -137,6 +137,7 @@ export default defineComponent({
 
         const checkTree = (data: Node, checked: boolean, childChecked: boolean) => {
             data.checked = childChecked || checked
+            emit('CheckedChange', data, checked, childChecked)
             nextTick(() => {
                 resizeTaleHeightFn()
             })
@@ -150,7 +151,6 @@ export default defineComponent({
         watch(() => props.table?.key, () => {
             nextTick(async () => {
                 await treeNode(selectTableRef.value, tableColumns.value)
-
                 setTimeout(() => {
                     resizeTaleHeightFn()
                 })
@@ -296,6 +296,7 @@ export default defineComponent({
                 }
 
                 <div ref={el => {this.bodyRef = el}} class="dinert-table-body">
+
                     <el-table
                         height={'100%'}
                         border={true}
@@ -308,6 +309,9 @@ export default defineComponent({
                             only-class={this.onlyClass}
                             v-slots={slots}
                             popover-value={this.popoverValue}
+                            defaultCheckedKeys={this.defaultCheckedKeys}
+                            onCheckedChange={(data: Node, checked: boolean, childChecked: boolean) => this.$emit('CheckedChange', data, checked, childChecked)}
+
                         >
                         </DinertRecuveTableColumn>
 
