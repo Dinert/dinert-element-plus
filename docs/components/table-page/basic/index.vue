@@ -85,6 +85,9 @@ const reset = () => {
     console.log('重置')
 }
 
+const checkedChange = () => {
+    console.log('fdsafa')
+}
 </script>
 
 <template>
@@ -93,5 +96,6 @@ const reset = () => {
         :footer="tablePage.footer"
         @search-fn="search"
         @reset-fn="reset"
+        @checked-change="checkedChange"
     />
 </template>

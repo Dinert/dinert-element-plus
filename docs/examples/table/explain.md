@@ -72,6 +72,7 @@
 | -------------- | ----------------------- | ---------------------------------------------------------------------- |
 | size-change    | page-size 改变时触发    | <dinert-api-typing type="Function" details="(value: number) => void"/> |
 | current-change | current-page 改变时触发 | <dinert-api-typing type="Function" details="(value: number) => void"/> |
+| checked-change | 点击隐藏显示操作栏时触发 | <dinert-api-typing type="Function" details="(data: Node, checked: boolean, childChecked: boolean) => void"/> |
 
 
 ## 插槽
