@@ -1,4 +1,4 @@
-import {defineComponent, ref, computed, nextTick} from 'vue'
+import {defineComponent, ref, nextTick, toRefs} from 'vue'
 import CustomInput from './input'
 import CustomInputNumber from './input-number'
 import CustomInputAutocomplete from './input-autocomplete'
@@ -47,6 +47,8 @@ export default defineComponent({
         const isArrow = ref(false)
         const formRef = ref<InstanceType<typeof ElForm>>()
         const formClass = ref('form_' + getUuid())
+        const {form} = toRefs(props)
+        const formItemMap: any = ref([])
 
 
         const resizeForm = () => {
@@ -73,23 +75,20 @@ export default defineComponent({
             resizeForm()
         }, 10, true)
         let index = 1
-        const formItemMap = computed(() => {
-            const result: any = []
-            Object.keys(props.form.formItem).forEach(key => {
-                const value = props.form.formItem[key] as Partial<CustomFormItemProps>
-                result.push({
-                    ...value,
-                    key: key,
-                    sort: typeof value.sort === 'undefined' ? index : value.sort,
-                })
-                index++
-            })
 
-            result.sort((a: any, b: any) => {
-                return a.sort - b.sort
-            })
+        Object.keys(form.value.formItem).forEach(key => {
+            const value = form.value.formItem[key] as Partial<CustomFormItemProps>
 
-            return result
+            formItemMap.value.push({
+                ...value,
+                key: key,
+                sort: typeof value.sort === 'undefined' ? index : value.sort,
+            })
+            !value.sort && index++
+        })
+
+        formItemMap.value.sort((a: any, b: any) => {
+            return a.sort - b.sort
         })
 
         const unfold = () => {
