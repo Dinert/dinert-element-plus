@@ -87,8 +87,8 @@ tablePage.search()
         :footer="footer"
         :header="header"
         v-on="{
-            sizeChange: (val: number) => tablePage.sizeChange(val),
-            currentChange: (val: number) => tablePage.currentChange(val)
+            sizeChange: (val) => tablePage.sizeChange(val),
+            currentChange: (val) => tablePage.currentChange(val)
         }"
     />
 </template>

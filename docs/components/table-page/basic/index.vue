@@ -88,6 +88,14 @@ const reset = () => {
 const checkedChange = () => {
     console.log('fdsafa')
 }
+
+const sizeChange = () => {
+    console.log('fdsafa')
+}
+
+const currentChange = () => {
+    console.log('fdsafa')
+}
 </script>
 
 <template>
@@ -97,5 +105,7 @@ const checkedChange = () => {
         @search-fn="search"
         @reset-fn="reset"
         @checked-change="checkedChange"
+        @size-change="sizeChange"
+        @current-change="currentChange"
     />
 </template>
