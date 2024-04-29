@@ -38,7 +38,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
 })
 
 const formItemFn = formItem => {
-    // console.log(formItem, 'formItemformItemformItem')
+    console.log(formItem, 'formItemformItemformItem')
 }
 
 </script>
@@ -55,11 +55,14 @@ const formItemFn = formItem => {
 
             <template #formItem_name1="formItem">
                 <el-input v-model="formItem.model[formItem.key]" v-bind="formItem.options"
-                    style="margin-right: 22px;width: 80%;"
+                    style="margin: 0 22px;width: 50%;"
                     clearable
                 />
             </template>
-            <template #formItem_name1_after="formItem">
+            <template #formItem_after_name1="formItem">
+                <el-button type="primary">{{ formItem.label }}</el-button>
+            </template>
+            <template #formItem_before_name1="formItem">
                 <el-button type="primary">{{ formItem.label }}</el-button>
             </template>
         </dinert-form>

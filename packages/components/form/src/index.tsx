@@ -245,7 +245,8 @@ export default defineComponent({
 
                                                                     return componentResult
                                                                 },
-                                                                defaultAfter: () => this.$slots[formItemSlot('after_' + item.key)]?.({...item, model: this.form.model})
+                                                                defaultAfter: () => this.$slots[formItemSlot('after_' + item.key)]?.({...item, model: this.form.model}),
+                                                                defaultBefore: () => this.$slots[formItemSlot('before_' + item.key)]?.({...item, model: this.form.model}),
                                                             }
                                                         }
                                                     >

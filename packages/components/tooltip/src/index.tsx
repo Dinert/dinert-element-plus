@@ -49,6 +49,7 @@ export default defineComponent({
     render() {
         const defaultSlot = this.$slots.default
         const defaultAfter = this.$slots.defaultAfter
+        const defaultBefore = this.$slots.defaultBefore
 
         return (
             <el-tooltip
@@ -62,6 +63,7 @@ export default defineComponent({
                             <span class="dinert-tooltip">
                                 <span class="text-tooltip">{ getValue(this.content, this) }</span>
                                 <span class="label-text" onMouseenter={(e: MouseEvent) => this.$emit('LabelMouseEnter', e)}>
+                                    {defaultBefore?.()}
                                     {(defaultSlot?.()) || getValue(this.content, this) }
                                     {defaultAfter?.()}
                                 </span>
