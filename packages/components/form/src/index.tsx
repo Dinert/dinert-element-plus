@@ -1,4 +1,4 @@
-import {defineComponent, ref, nextTick, toRefs, watch} from 'vue'
+import {defineComponent, ref, computed, nextTick, toRefs} from 'vue'
 import CustomInput from './input'
 import CustomInputNumber from './input-number'
 import CustomInputAutocomplete from './input-autocomplete'
@@ -25,29 +25,6 @@ import '@packages/assets/scss/dinert-form.scss'
 import type {PropType} from 'vue'
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 
-
-function sortFormItem(form) {
-    let index = 0
-    const formItemMap: any = []
-
-    Object.keys(form.value.formItem).forEach(key => {
-        const value = form.value.formItem[key] as Partial<CustomFormItemProps>
-
-        formItemMap.push({
-            ...value,
-            key: key,
-            sort: typeof value.sort === 'undefined' ? index : value.sort,
-        })
-        index += 10
-    })
-
-    formItemMap.sort((a: any, b: any) => {
-        return a.sort - b.sort
-    })
-    return formItemMap
-}
-
-
 // 展开还是收起状态
 export default defineComponent({
     name: 'dinert-form',
@@ -70,8 +47,25 @@ export default defineComponent({
         const formRef = ref<InstanceType<typeof ElForm>>()
         const formClass = ref('form_' + getUuid())
         const {form} = toRefs(props)
-        const formItemMap: any = ref([])
-        formItemMap.value = sortFormItem(form)
+        const formItemMap = computed(() => {
+            let index = 0
+            const result: any = []
+            Object.keys(form.value.formItem).forEach(key => {
+                const value = form.value.formItem[key] as Partial<CustomFormItemProps>
+                result.push({
+                    ...value,
+                    key: key,
+                    sort: typeof value.sort === 'undefined' ? index : value.sort,
+                })
+                index += 10
+            })
+
+            result.sort((a: any, b: any) => {
+                return a.sort - b.sort
+            })
+
+            return result
+        })
 
         const resizeForm = () => {
             const elFormLeft = document.querySelectorAll(`.${formClass.value} .el-form-left > div`)
@@ -108,11 +102,6 @@ export default defineComponent({
             emit('UnFold', packUp.value)
         }
 
-        watch(() => form.value.formItem, () => {
-            formItemMap.value = sortFormItem(form)
-        }, {
-            deep: true
-        })
 
         return {
             formItemMap,
@@ -192,7 +181,7 @@ export default defineComponent({
                                                         content={String(getTooltipValue(this.form.model[item.key], item))}
                                                         disabled={item.showLabel || this.form.showLabel ? true : item.valueDisabled === undefined ? item.tempValueDisabled : item.valueDisabled}
                                                         item={item}
-                                                        onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key])}
+                                                        onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key], this)}
                                                         v-slots={
                                                             {
                                                                 default: () => {

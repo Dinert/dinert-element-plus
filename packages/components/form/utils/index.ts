@@ -63,11 +63,12 @@ export const getTooltipValue = (value: any, item: any): any => {
     return null
 }
 
-export const valueMouseEnter = (e: MouseEvent, item: any, value: any) => {
+export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => {
     const showCom = ['input', 'input-autocomplete', 'cascader', 'input-number', 'select', 'tree-select']
 
     if (!value || item.showLabel || !showCom.includes(item.type)) {
-        item.tempValueDisabled = true
+        _this.form.formItem[item.key].tempValueDisabled = true
+
         return
     }
     let el: HTMLElement | null = null
@@ -88,13 +89,13 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any) => {
         const tooltipWidth = tooltipEl.offsetWidth
 
         if (tooltipWidth >= textWidth) {
-            item.tempValueDisabled = false
+            _this.form.formItem[item.key].tempValueDisabled = false
         } else {
-            item.tempValueDisabled = true
+            _this.form.formItem[item.key].tempValueDisabled = true
 
         }
     } else {
-        item.tempValueDisabled = false
+        _this.form.formItem[item.key].tempValueDisabled = false
     }
 
 }
