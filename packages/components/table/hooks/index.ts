@@ -43,7 +43,7 @@ export const allowDrop = (draggingNode: Node, dropNode: Node, type: AllowDropTyp
     }
 }
 
-export const nodeDragEnd = async (node: Node, selectTable: SelectTable) => {
+export const nodeDragEnd = async (node: Node, targetNode: Node, selectTable: SelectTable) => {
     treeNode(selectTable, [node.data])
 }
 

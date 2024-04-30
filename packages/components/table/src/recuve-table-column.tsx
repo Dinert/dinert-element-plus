@@ -98,7 +98,7 @@ export default defineComponent({
                                             await checkTree(data, checked, childChecked)
                                             emit('CheckedChange', data, checked, childChecked)
                                         }}
-                                        onNodeDragEnd={(e: Node) => nodeDragEnd(e, (selectTable.value as any))}
+                                        onNodeDragEnd={(currentNode: Node, targetNode: Node) => nodeDragEnd(currentNode, targetNode, (selectTable.value as any))}
                                         v-slots={
                                             {
                                                 default: ({data}: {data: Node}) => (

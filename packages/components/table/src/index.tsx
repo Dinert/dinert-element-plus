@@ -259,7 +259,7 @@ export default defineComponent({
                                                     props={treeProps}
                                                     allow-drop={allowDrop}
                                                     onCheckChange={(data: Node, checked: boolean, childChecked: boolean) => this.checkTree(data, checked, childChecked)}
-                                                    onNodeDragEnd={(node: Node) => nodeDragEnd(node, (this.selectTableRef))}
+                                                    onNodeDragEnd={(currentNode: Node, targetNode: Node) => nodeDragEnd(currentNode, targetNode, this.selectTableRef)}
                                                     v-slots={
                                                         {
                                                             default: ({data}: {data: Node}) => (
