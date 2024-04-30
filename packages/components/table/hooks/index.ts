@@ -30,6 +30,7 @@ export const treeNode = async (selectTable: any, treeData2: any) => {
     }
 }
 
+
 export const allowDrop = (draggingNode: Node, dropNode: Node, type: AllowDropType) => {
     if (draggingNode.level === dropNode.level) {
         if (draggingNode.parent === dropNode.parent) {
@@ -43,8 +44,8 @@ export const allowDrop = (draggingNode: Node, dropNode: Node, type: AllowDropTyp
     }
 }
 
-export const nodeDragEnd = async (node: Node, targetNode: Node, selectTable: SelectTable) => {
-    treeNode(selectTable, [node.data])
+export const nodeDragEnd = async (currentNode: Node, targetNode: Node, selectTable: SelectTable) => {
+    treeNode(selectTable, [currentNode.data])
 }
 
 export const resizeTaleHeight = (table: any, header: any, body: any, footer: any, headerFooterRef: any, tableProps: RewriteTableProps) => {

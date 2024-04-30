@@ -13,21 +13,6 @@ import type Node from 'element-plus/es/components/tree/src/model/node'
 import '@packages/assets/scss/dinert-table.scss'
 
 
-function sortTableColumns(tableColumns) {
-    let index = 0
-
-    tableColumns.value.forEach(item => {
-        item.sort = typeof item.sort === 'undefined' ? index : item.sort
-        index += 10
-        return item
-    })
-
-    tableColumns.value.sort((a: any, b: any) => {
-        return a.sort - b.sort
-    })
-}
-
-
 export default defineComponent({
     name: 'dinert-table',
     props: {
@@ -61,9 +46,21 @@ export default defineComponent({
 
         const {table, header} = toRefs(props)
 
-        const tableColumns = ref(table.value?.tableColumns || [])
 
-        sortTableColumns(tableColumns)
+        const tableColumns = computed(() => {
+            let index = 0
+            const result = table.value?.tableColumns || []
+
+            result.forEach(item => {
+                item.sort = typeof item.sort === 'undefined' ? index : item.sort
+                index += 10
+            })
+
+            result.sort((a: any, b: any) => {
+                return a.sort - b.sort
+            })
+            return result
+        })
 
         const headerList = computed(() => {
             let index = 0
@@ -167,9 +164,8 @@ export default defineComponent({
             immediate: true
         })
 
-        watch(() => tableColumns.value, () => {
-            sortTableColumns(tableColumns)
-
+        watch(tableColumns, () => {
+            console.log(tableColumns.value, 'fdsfsdafdsaaaaaaaaaa')
             nextTick(() => {
                 isAllData.value = tableColumns.value.every(item => item.checked === true)
             })
