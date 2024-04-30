@@ -141,8 +141,8 @@ export default defineComponent({
             slotValue
         }: any) => {
             const itemOperations = column.operations || {}
-            let index = 1
             const operations = computed(() => {
+                let index = 0
                 const result: any = []
                 Object.keys((itemOperations)).forEach(key => {
                     const tempObj = itemOperations[key]
@@ -156,7 +156,7 @@ export default defineComponent({
                         })
                     }
 
-                    index++
+                    index += 10
                 })
 
                 result.sort((a: any, b: any) => {

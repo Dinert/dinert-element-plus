@@ -13,6 +13,21 @@ import type Node from 'element-plus/es/components/tree/src/model/node'
 import '@packages/assets/scss/dinert-table.scss'
 
 
+function sortTableColumns(tableColumns) {
+    let index = 0
+
+    tableColumns.value.forEach(item => {
+        item.sort = typeof item.sort === 'undefined' ? index : item.sort
+        index += 10
+        return item
+    })
+
+    tableColumns.value.sort((a: any, b: any) => {
+        return a.sort - b.sort
+    })
+}
+
+
 export default defineComponent({
     name: 'dinert-table',
     props: {
@@ -45,21 +60,14 @@ export default defineComponent({
         const headerFooterRef = ref<HTMLElement | null>(null)
 
         const {table, header} = toRefs(props)
+
         const tableColumns = ref(table.value?.tableColumns || [])
 
-        let index = 1
-        tableColumns.value.forEach(item => {
-            item.sort = typeof item.sort === 'undefined' ? index : item.sort
-            index++
-            return item
-        })
-
-        tableColumns.value.sort((a: any, b: any) => {
-            return a.sort - b.sort
-        })
-        let index2 = 1
+        sortTableColumns(tableColumns)
 
         const headerList = computed(() => {
+            let index = 0
+
             if (typeof header.value === 'boolean') {
                 return header.value
             }
@@ -99,9 +107,9 @@ export default defineComponent({
                     key: key,
                     ...tempObj,
                     type: tempObj.type || 'default',
-                    sort: typeof tempObj.sort === 'undefined' ? index2 : tempObj.sort,
+                    sort: typeof tempObj.sort === 'undefined' ? index : tempObj.sort,
                 })
-                index2++
+                index += 10
             })
 
             result.sort((a: any, b: any) => {
@@ -160,6 +168,8 @@ export default defineComponent({
         })
 
         watch(() => tableColumns.value, () => {
+            sortTableColumns(tableColumns)
+
             nextTick(() => {
                 isAllData.value = tableColumns.value.every(item => item.checked === true)
             })

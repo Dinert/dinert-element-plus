@@ -24,7 +24,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
             {
                 prop: 'name',
                 label: '名称',
-                sort: 1
+                sort: 9
             },
             {
                 prop: 'address',
@@ -56,6 +56,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
     },
     footer: false
 })
+
 
 </script>
 
