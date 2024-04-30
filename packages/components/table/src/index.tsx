@@ -48,17 +48,7 @@ export default defineComponent({
 
 
         const tableColumns = computed(() => {
-            let index = 0
             const result = table.value?.tableColumns || []
-
-            result.forEach(item => {
-                item.sort = typeof item.sort === 'undefined' ? index : item.sort
-                index += 10
-            })
-
-            result.sort((a: any, b: any) => {
-                return a.sort - b.sort
-            })
             return result
         })
 
@@ -165,7 +155,6 @@ export default defineComponent({
         })
 
         watch(tableColumns, () => {
-            console.log(tableColumns.value, 'fdsfsdafdsaaaaaaaaaa')
             nextTick(() => {
                 isAllData.value = tableColumns.value.every(item => item.checked === true)
             })
@@ -255,7 +244,8 @@ export default defineComponent({
                                                     props={treeProps}
                                                     allow-drop={allowDrop}
                                                     onCheckChange={(data: Node, checked: boolean, childChecked: boolean) => this.checkTree(data, checked, childChecked)}
-                                                    onNodeDragEnd={(currentNode: Node, targetNode: Node) => nodeDragEnd(currentNode, targetNode, this.selectTableRef)}
+                                                    onNodeDragEnd={(currentNode: Node, targetNode: Node) => nodeDragEnd(currentNode, targetNode, this.selectTableRef)
+                                                    }
                                                     v-slots={
                                                         {
                                                             default: ({data}: {data: Node}) => (

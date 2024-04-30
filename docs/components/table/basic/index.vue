@@ -24,7 +24,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
             {
                 prop: 'name',
                 label: '名称',
-                sort: 9
+                sort: 1
             },
             {
                 prop: 'address',
@@ -57,16 +57,10 @@ const tablePage = ref<TablePageProps<DataProps>>({
     footer: false
 })
 
-setTimeout(() => {
-    // console.log(tablePage.value.table.tableColumns[1], 'tablePage.value.table.tableColumns[2]tablePage.value.table.tableColumns[2]')
-    // tablePage.value.table.tableColumns[1].sort = 8
-    console.log('排序')
-}, 3000)
 
 </script>
 
 <template>
-    {{ tablePage.table.tableColumns }}
     <dinert-table :table="tablePage.table"
         :footer="tablePage.footer"
     />

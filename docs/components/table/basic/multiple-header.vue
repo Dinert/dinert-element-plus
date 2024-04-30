@@ -125,8 +125,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
 </script>
 
 <template>
-    {{ tablePage.table.tableColumns }}
-
     <dinert-table :table="tablePage.table"
         :footer="tablePage.footer"
     />
