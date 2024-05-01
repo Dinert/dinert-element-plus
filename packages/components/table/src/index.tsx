@@ -49,6 +49,24 @@ export default defineComponent({
 
         const tableColumns = computed(() => {
             const result = table.value?.tableColumns || []
+
+            function sortRecuve(columns) {
+                // eslint-disable-next-line @typescript-eslint/prefer-for-of
+                for (let i = 0; i < columns.length; i++) {
+                    const item = columns[i]
+                    if (item.sort && i !== item.sort) {
+                        columns.splice(i, 1)
+                        if (item.sort > columns.length) {
+                            columns.splice(columns.length - 1, 0, item)
+                        } else if (item.sort < 0) {
+                            columns.splice(0, 0, item)
+                        } else {
+                            columns.splice(item.sort, 0, item)
+                        }
+                    }
+                }
+            }
+            sortRecuve(result)
             return result
         })
 
@@ -244,7 +262,11 @@ export default defineComponent({
                                                     props={treeProps}
                                                     allow-drop={allowDrop}
                                                     onCheckChange={(data: Node, checked: boolean, childChecked: boolean) => this.checkTree(data, checked, childChecked)}
-                                                    onNodeDragEnd={(currentNode: Node, targetNode: Node) => nodeDragEnd(currentNode, targetNode, this.selectTableRef)
+                                                    onNodeDragEnd={(currentNode: Node, targetNode: Node) => {
+                                                        currentNode.data.sort && delete currentNode.data.sort
+                                                        targetNode.data.sort && delete targetNode.data.sort
+                                                        nodeDragEnd(currentNode, targetNode, this.selectTableRef)
+                                                    }
                                                     }
                                                     v-slots={
                                                         {
