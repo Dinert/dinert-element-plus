@@ -81,35 +81,47 @@ export default defineComponent({
                 return header.value
             }
             const result: Array<TablePageProps['header']> = []
+            // eslint-disable-next-line max-statements
             Object.keys(header.value).forEach(key => {
                 const tempObj = header.value[key]
                 if (key === 'add') {
                     tempObj.icon = tempObj.icon || shallowRef(Plus)
                     tempObj.type = 'primary'
+                    tempObj.message = tempObj.message || '新增'
                 } else if (key === 'delete') {
                     tempObj.icon = tempObj.icon || shallowRef(Delete)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
                     tempObj.type = tempObj.type === undefined ? 'danger' : tempObj.type
+                    tempObj.message = tempObj.message || '删除'
                 } else if (key === 'download') {
                     tempObj.icon = tempObj.icon || shallowRef(Download)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
                     tempObj.type = 'primary'
+                    tempObj.message = tempObj.message || '下载'
                 } else if (key === 'upload') {
                     tempObj.icon = tempObj.icon || shallowRef(Upload)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
                     tempObj.type = 'primary'
+                    tempObj.message = tempObj.message || '上传'
                 } else if (key === 'select') {
                     tempObj.icon = tempObj.icon || shallowRef(Check)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                    tempObj.message = tempObj.message || '全选'
+
                 } else if (key === 'close') {
                     tempObj.icon = tempObj.icon || shallowRef(Close)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                    tempObj.message = tempObj.message || '取消全选'
+
                 } else if (key === 'down') {
                     tempObj.icon = tempObj.icon || shallowRef(ArrowDown)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                    tempObj.message = tempObj.message || '展开'
+
                 } else if (key === 'up') {
                     tempObj.icon = tempObj.icon || shallowRef(ArrowUp)
                     tempObj.plain = tempObj.plain === undefined ? 'plain' : tempObj.plain
+                    tempObj.message = tempObj.message || '收起'
                 }
 
                 result.push({
