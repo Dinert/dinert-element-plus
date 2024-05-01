@@ -54,7 +54,7 @@
 | setting       | 操作栏是否显示在当前列，当值为true时表格右上的操作栏会消失                                      | Boolean                                                                   | 一     |
 | maxOperations | 表格最大显示的操作按钮数，超出这个数显示更多，设置operations有效                                | Number                                                                    | 3      |
 | operations    | [表格操作按钮列表，详情请参阅下表](#operations-属性)                                            | Object                                                                    | 一     |
-| sort          | 列的排序，数值越小列越靠前                                 | Number                                                                    | 一     |
+| sort          | 列的排序，第一列为1，第二列为2，以次类推，数值越小列越靠前                                 | Number                                                                    | 一     |
 | children      | 表格头下的数据配置项，多级表头                                                                  | Array                                                                     | 一     |
 | ......        | [更多配置，请参考](https://element-plus.org/en-US/component/table.html#table-column-attributes) | 一                                                                        | 一     |
 

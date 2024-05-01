@@ -48,11 +48,12 @@ const tablePage = ref<TablePageProps<DataProps>>({
                             },
                             {
                                 prop: 'address',
-                                label: '住址'
+                                label: '住址',
                             },
                             {
                                 prop: 'zip',
-                                label: 'Zip'
+                                label: 'Zip',
+                                sort: 1,
                             },
                         ]
                     }

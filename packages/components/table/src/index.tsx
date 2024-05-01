@@ -64,6 +64,10 @@ export default defineComponent({
                             columns.splice(item.sort, 0, item)
                         }
                     }
+
+                    if (item.children && item.children.length) {
+                        sortRecuve(item.children)
+                    }
                 }
             }
             sortRecuve(result)
