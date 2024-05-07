@@ -24,6 +24,7 @@ type RewriteRowProps = Partial<RowProps>
 export interface RewriteFormItemPropsMap<O = any[]>{
     input: RewriteInputProps;
     select: RewriteSelectProps<O>;
+    'select-v2': RewriteSelectProps<O>;
     custom: RewriteInputProps;
     textarea: RewriteTextareaProps;
     cascader: RewriteCascaderProps<O>;

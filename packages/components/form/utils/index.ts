@@ -38,7 +38,7 @@ export const getTooltipValue = (value: any, item: any): any => {
     const tempArr: string[] = []
     if (['input', 'input-autocomplete', 'input-number'].includes(type)) {
         return value
-    } else if (['select', 'tree-select'].includes(type)) {
+    } else if (['select', 'tree-select', 'select-v2'].includes(type)) {
         if (options && options.options && options.options.length) {
             let newVal = null
             if (options.valueKey) {
@@ -64,7 +64,7 @@ export const getTooltipValue = (value: any, item: any): any => {
 }
 
 export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => {
-    const showCom = ['input', 'input-autocomplete', 'cascader', 'input-number', 'select', 'tree-select']
+    const showCom = ['input', 'input-autocomplete', 'cascader', 'input-number', 'select', 'tree-select', 'select-v2']
 
     if (!value || item.showLabel || !showCom.includes(item.type)) {
         _this.form.formItem[item.key].tempValueDisabled = true
@@ -74,7 +74,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => 
     let el: HTMLElement | null = null
     if (['input', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
-    } else if (['select', 'tree-select'].includes(item.type)) {
+    } else if (['select', 'tree-select', 'select-v2'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
         el = el || (e.target as any).parentElement.querySelector('.el-select__selection') as HTMLElement
     }

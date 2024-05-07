@@ -3,6 +3,7 @@ import CustomInput from './input'
 import CustomInputNumber from './input-number'
 import CustomInputAutocomplete from './input-autocomplete'
 import CustomSelect from './select'
+import CustomSelectV2 from './select-v2'
 import CustomSwitch from './switch'
 import CustomDate from './date'
 import CustomRadio from './radio'
@@ -215,6 +216,8 @@ export default defineComponent({
                                                                         componentResult = (<CustomInputAutocomplete form={this.form} formItem={item}></CustomInputAutocomplete>)
                                                                     } else if (['select'].includes(item.type)) {
                                                                         componentResult = (<CustomSelect form={this.form} formItem={item}></CustomSelect>)
+                                                                    } else if (['select-v2'].includes(item.type)) {
+                                                                        componentResult = (<CustomSelectV2 form={this.form} formItem={item}></CustomSelectV2>)
                                                                     } else if (['switch'].includes(item.type)) {
                                                                         componentResult = (<CustomSwitch form={this.form} formItem={item}></CustomSwitch>)
                                                                     } else if ([

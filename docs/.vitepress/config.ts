@@ -76,6 +76,10 @@ export default defineConfig({
                                     link: 'select',
                                 },
                                 {
+                                    text: 'select-v2 虚拟化选择框',
+                                    link: 'select-v2',
+                                },
+                                {
                                     text: 'tree-select 树形选择',
                                     link: 'tree-select',
                                 },
