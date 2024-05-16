@@ -46,4 +46,4 @@ app.use(Dinert)
 
 ### 交流
 
-- [点击链接加入群聊【dinert-element-plus交流群】：](https://qm.qq.com/q/EPvdDeeVjM)
+- [点击链接加入群聊【dinert-element-plus交流群】：698069400](https://qm.qq.com/q/EPvdDeeVjM)
