@@ -135,6 +135,12 @@
             }
         }
 
+        .el-textarea {
+            .el-textarea__inner {
+                height: 80px;
+            }
+        }
+
         .el-date-editor {
             width: 100%;
             box-sizing: border-box;

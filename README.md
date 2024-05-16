@@ -43,3 +43,7 @@ import '@dinert/element-plus/style'
 
 app.use(Dinert)
 ```
+
+### 交流
+
+- [点击链接加入群聊【dinert-element-plus交流群】：](https://qm.qq.com/q/EPvdDeeVjM)
