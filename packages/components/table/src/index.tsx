@@ -279,8 +279,10 @@ export default defineComponent({
                                                     allow-drop={allowDrop}
                                                     onCheckChange={(data: Node, checked: boolean, childChecked: boolean) => this.checkTree(data, checked, childChecked)}
                                                     onNodeDragEnd={(currentNode: Node, targetNode: Node) => {
-                                                        currentNode.data.sort && delete currentNode.data.sort
-                                                        targetNode.data.sort && delete targetNode.data.sort
+                                                        const currentNodeSort = currentNode.data.sort
+                                                        const targetNodeSort = targetNode.data.sort
+                                                        currentNode.data.sort = targetNodeSort
+                                                        targetNode.data.sort = currentNodeSort
                                                         nodeDragEnd(currentNode, targetNode, this.selectTableRef)
                                                     }
                                                     }
