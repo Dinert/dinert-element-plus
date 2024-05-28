@@ -45,6 +45,7 @@
 | colLayout | 每个表单组件列表布局                                                                   | <dinert-api-typing type="object" :details="colLayout"></dinert-api-typing>                     | \{ xl: 3, lg: 4, md: 8, sm: 12, xs: 24 \} |
 | row       | 表单组件的row                                                                          | object                                                                                         | \{\}                                      |
 | showLabel | 是否显示每个表单组件的值，不显示表单组件                                               | boolean                                                                                        | 一                                        |
+| required  | 是否验证每个表单组件是否必填                                                           | boolean                                                                                        | 一                                        |
 | ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                                             | 一                                        |
 
 ## formItem 属性

@@ -134,6 +134,7 @@ export default defineComponent({
                             style.display = 'none'
                         }
                         if (vif) {
+                            item.required = item.required || this.form.required
                             let rules = item.rules || []
                             rules = item.required ? [{required: true, trigger: 'blur', message: customPlaceholder(item.label, item.type)}].concat(rules as any) : rules
                             rules = (item.showLabel || this.form.showLabel) ? [] : rules
