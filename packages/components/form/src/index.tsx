@@ -138,6 +138,7 @@ export default defineComponent({
                             let rules = item.rules || []
                             rules = item.required ? [{required: true, trigger: 'blur', message: customPlaceholder(item.label, item.type)}].concat(rules as any) : rules
                             rules = (item.showLabel || this.form.showLabel) ? [] : rules
+                            const valDisabled = item.showLabel || (item.showLabel !== false && this.form.showLabel) ? true : item.tempValueDisabled
 
                             return (
                                 <el-col
@@ -181,7 +182,7 @@ export default defineComponent({
                                                     <dinert-tooltip
                                                         key={item.key}
                                                         content={String(getTooltipValue(this.form.model[item.key], item))}
-                                                        disabled={item.showLabel || this.form.showLabel ? true : item.valueDisabled === undefined ? item.tempValueDisabled : item.valueDisabled}
+                                                        disabled={valDisabled}
                                                         item={item}
                                                         onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key], this)}
                                                         v-slots={

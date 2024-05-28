@@ -88,6 +88,8 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => 
         const tooltipEl = (e.target as any).previousElementSibling
         const tooltipWidth = tooltipEl.offsetWidth
 
+        console.log(el.offsetWidth, tooltipWidth, 'el.offsetWidthel.offsetWidth')
+
         if (tooltipWidth >= textWidth) {
             _this.form.formItem[item.key].tempValueDisabled = false
         } else {
