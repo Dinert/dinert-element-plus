@@ -134,11 +134,13 @@ export default defineComponent({
                             style.display = 'none'
                         }
                         if (vif) {
-                            item.required = item.required || this.form.required
+                            item.required = item.required === undefined ? item.required || this.form.required : item.required
+                            item.showLabel = item.showLabel === undefined ? item.showLabel || this.form.showLabel : item.showLabel
+
                             let rules = item.rules || []
                             rules = item.required ? [{required: true, trigger: 'blur', message: customPlaceholder(item.label, item.type)}].concat(rules as any) : rules
-                            rules = (item.showLabel || this.form.showLabel) ? [] : rules
-                            const valDisabled = item.showLabel || (item.showLabel !== false && this.form.showLabel) ? true : item.tempValueDisabled
+                            rules = item.showLabel ? [] : rules
+                            const valDisabled = item.showLabel ? true : item.tempValueDisabled
 
                             return (
                                 <el-col

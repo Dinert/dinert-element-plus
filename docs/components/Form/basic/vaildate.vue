@@ -24,11 +24,15 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     },
     colLayout: {span: 24},
     labelWidth: 60,
+    required: true,
+    showLabel: true,
     formItem: {
         name: {
             label: '必填',
             type: 'input',
             required: true,
+            showLabel: false,
+
             options: {
 
             }
@@ -36,7 +40,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         status: {
             label: '选择',
             type: 'select',
-            required: true,
+            required: false,
             options: {
                 options: [
                     {label: '显示当我的长度过长长长长长长', value: true},
