@@ -25,7 +25,10 @@
         }
 
         .el-form-right {
-            min-width: auto;
+            &.isArrow {
+                width: 230px;
+                flex: 0 0 230px;
+            }
         }
     }
 
@@ -44,8 +47,6 @@
     }
 
     .el-form-left {
-        flex: 1;
-
         .el-col {
             .label-text {
                 .el-radio.is-bordered,
@@ -79,7 +80,6 @@
     .el-form-right {
         display: flex;
         margin-left: 24px;
-        min-width: 230px;
 
         .el-form-right-operation {
             padding: 0;

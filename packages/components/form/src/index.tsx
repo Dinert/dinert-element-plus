@@ -42,7 +42,6 @@ export default defineComponent({
     emits: ['UnFold', 'SearchFn', 'ResetFn'],
     setup(props, {emit}) {
 
-
         const packUp = ref(true)
         const isArrow = ref(false)
         const formRef = ref<InstanceType<typeof ElForm>>()
@@ -69,8 +68,9 @@ export default defineComponent({
         })
 
         const resizeForm = () => {
-            const elFormLeft = document.querySelectorAll(`.${formClass.value} .el-form-left > div`)
+            let elFormLeft = document.querySelectorAll(`.${formClass.value} .el-form-left > div`) as any
             if (elFormLeft[0]) {
+                isArrow.value = false
                 nextTick(() => {
                     const firstTop = elFormLeft[0].getBoundingClientRect().top
                     const lastTop = elFormLeft[elFormLeft.length - 1].getBoundingClientRect().top
@@ -83,6 +83,7 @@ export default defineComponent({
                         }
                         isArrow.value = false
                     }
+                    elFormLeft = null
                 })
 
             }
@@ -90,7 +91,7 @@ export default defineComponent({
 
         useWindowResize(() => {
             resizeForm()
-        }, 10, true)
+        }, 100, true)
 
 
         const unfold = () => {
@@ -273,7 +274,7 @@ export default defineComponent({
                 </el-row>
                 {
                     this.search
-                && <el-row class="el-form-right">
+                && <el-row class={['el-form-right', this.isArrow ? 'isArrow' : '']}>
                     {this.isArrow
                     && <el-button class="el-form-right-operation" text type="primary"
                         onClick={this.unfold}
