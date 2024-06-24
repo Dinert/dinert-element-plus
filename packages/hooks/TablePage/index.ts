@@ -166,38 +166,15 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
         } else if (options.name === 'delete') {
             if (this.table.value.data && this.table.value.data.length) {
                 if (this.table.value.data.length === 1 && (this.table.value as any).pagination.currentPage > 1) {
-                    this.table.value.pagination.currentPage = 2
+                    this.table.value.pagination.currentPage = (this.table.value.pagination as any).currentPage - 1
 
                     this.params = this.getTableParams(options)
                 }
             }
-        } else if (options.name === 'current') {
-            if (this.oldParams.data && this.oldParams.data.pageNum) {
-                this.oldParams.data.pageNum = options.currentPage
-            } else if (this.oldParams.data && this.oldParams.data.page) {
-                this.oldParams.data.page = options.currentPage
-            } else if (this.oldParams.params && this.oldParams.params.page) {
-                this.oldParams.params.page = options.currentPage
-            } else if (this.oldParams.params && this.oldParams.params.pageNum) {
-                this.oldParams.params.pageNum = options.currentPage
-            }
-
-            if (this.oldParams.data && this.oldParams.data.pageSize) {
-                this.oldParams.data.pageSize = this.table.value.pagination.pageSize
-            } else if (this.oldParams.params && this.oldParams.params.pageSize) {
-                this.oldParams.params.pageSize = this.table.value.pagination.pageSize
-            }
-
-            this.params = lodash.cloneDeep(this.oldParams)
-        } else if (options.name === 'size') {
-            if (this.oldParams.data && this.oldParams.data.pageSize) {
-                this.oldParams.data.pageSize = options.pageSize
-            } else if (this.oldParams.params && this.oldParams.params.pageSize) {
-                this.oldParams.params.pageSize = options.pageSize
-            }
-
-            this.params = lodash.cloneDeep(this.oldParams)
+        } else if (['current', 'size', 'reset'].includes(options.name || '')) {
+            this.oldParams = lodash.cloneDeep(this.params)
         }
+
         if (!['size', 'current'].includes(options.name || '') || !this.table.value.rowKey) {
             this.selecTableDatas.value = []
         }
@@ -243,7 +220,7 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
 
     // 重置分页参数
     resetPagination() {
-        this.table.value.pagination = this.defaultOptions.table.pagination
+        this.table.value.pagination = {...this.defaultOptions.table.pagination}
     }
 
     // 重置表格请求参数
