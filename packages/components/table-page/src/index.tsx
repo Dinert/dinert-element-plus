@@ -69,6 +69,7 @@ export default defineComponent({
             <section class={['dinert-table-page', this.search ? 'search' : '']} ref={el => {this.tablePageDom = el}}>
                 {this.search
                 && <DinertForm form={this.form}
+                    class="near"
                     v-slots={this.$slots}
                     onSearchFn={() => this.$emit('SearchFn')}
                     onResetFn={() => this.$emit('ResetFn')}
