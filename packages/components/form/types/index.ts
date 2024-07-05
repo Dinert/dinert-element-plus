@@ -73,7 +73,7 @@ type ToString<T> = { [P in keyof T]: T[P] extends keyof RewriteFormItemPropsMap 
 // eslint-disable-next-line @typescript-eslint/ban-types
 
 type FormItemMap<D, FI> = {
-    [P in keyof ToModelItem<D, FI>]: CustomFormItemProps<MergeProp<FI, D>, any[], ToModelItem<D, FI>[P] extends keyof RewriteFormItemPropsMap ? ToModelItem<D, FI>[P] : keyof RewriteFormItemPropsMap>;
+    [P in keyof ToModelItem<D, FI>]: CustomFormItemProps<D, any[], ToModelItem<D, FI>[P] extends keyof RewriteFormItemPropsMap ? ToModelItem<D, FI>[P] : keyof RewriteFormItemPropsMap>;
 }
 
 export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormProps>, 'model'> {

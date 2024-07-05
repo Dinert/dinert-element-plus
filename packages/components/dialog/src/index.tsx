@@ -73,7 +73,7 @@ export default defineComponent({
         const attrs = lodash.defaultsDeep(lodash.cloneDeep({
             ...this.$attrs,
             class: this.$attrs.modalClass ? 'dialog_' + this.$attrs.modalClass : '',
-            modalClass: `${this.uuid} el-overlay ${this.$attrs.modalClass || ''}`,
+            modalClass: `${this.uuid} el-overlay dinert-dialog ${this.$attrs.modalClass || ''}`,
             width: getWH(this.$attrs).width,
             style: {
                 ...(this.$attrs?.style as any),
