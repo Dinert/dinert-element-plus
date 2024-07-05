@@ -19,6 +19,7 @@ import {MergeProp} from '@packages/components/form/types/utils'
  */
 
 class TablePage<T, D = any, FI = any, P = object, R = any> {
+    dialogForm: Ref<DinertTablePageProps<T, T, FI>['form']> = ref({formItem: {}, model: {}})
     showSearch: Ref<DinertTablePageProps['search']>
     table: Ref<DinertTablePageProps<T, D, FI>['table']>
     form: Ref<DinertTablePageProps<T, D, FI>['form']>

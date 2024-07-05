@@ -19,6 +19,7 @@ export interface OperationsProps<T = any> extends Partial<ButtonProps>{
     click?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void;
     sort?: number;
     confirm?: Partial<PopconfirmProps>;
+    key?: string;
 }
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
@@ -62,6 +63,7 @@ export interface HeaderListProps extends Partial<ButtonProps>{
     click?: (item: HeaderListProps) => void;
     sort?: number;
     show?: boolean | ((item: HeaderListProps) => boolean);
+    key?: string;
 }
 
 

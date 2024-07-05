@@ -1,4 +1,4 @@
-.el-form {
+.dinert-form.el-form {
     display: flex;
     overflow: hidden;
     padding: 0;
@@ -8,7 +8,7 @@
     transition: all .3s cubic-bezier(.645, .045, .355, 1);
     box-sizing: content-box;
 
-    &.dinert-form.packUp {
+    &.packUp {
         max-height: 50px;
     }
 
