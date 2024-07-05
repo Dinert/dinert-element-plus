@@ -42,7 +42,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
                     },
                     delete: {
                         message: '删除',
-                        type: 'danger',
                         click: (scope, column, item) => {
                             console.log(item, 'itemmmmmmmmmmmmmmm')
                         },

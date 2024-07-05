@@ -137,6 +137,7 @@ export default defineComponent({
                         if (vif) {
                             item.required = item.required === undefined ? item.required || this.form.required : item.required
                             item.showLabel = item.showLabel === undefined ? item.showLabel || this.form.showLabel : item.showLabel
+                            item.label = typeof item.label === 'string' ? item.label : item.label(this.form.model)
 
                             let rules = item.rules || []
                             rules = item.required ? [{required: true, trigger: 'blur', message: customPlaceholder(item.label, item.type)}].concat(rules as any) : rules

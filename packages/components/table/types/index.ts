@@ -20,6 +20,7 @@ export interface OperationsProps<T = any> extends Partial<ButtonProps>{
     sort?: number;
     confirm?: Partial<PopconfirmProps>;
     key?: string;
+    second?: boolean;
 }
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{

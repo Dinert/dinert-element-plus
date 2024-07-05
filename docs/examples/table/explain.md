@@ -66,6 +66,7 @@
 | click   | 点击事件                                                                          | Function                                                   | 一     |
 | show    | 是否显示                                                                          | <dinert-api-typing type="enmu" :details="showOperations"/> |        | 一 |
 | sort    | 操作的排序，第一个组件为0，第二个为10，以此类推，数值越小列越靠前 前              | Number                                                     | 一     |
+| second  | 二次确认框，点确定后才会调用click方法，当operations的key为delete时默认开启        | Boolean                                                    | 一     |
 | ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/link.html#attributes) | 一                                                         | 一     |
 
 ## 事件
@@ -86,12 +87,12 @@
 | header-footer        | 自定义表格头部操作栏的底部                                                           |
 
 ## Header 属性
-| 属性名  | 说明                                                                              | 类型                                                       | 默认值 |
-| ------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------ |
-| message | 名称                                                                              | String                                                     | 一     |
-| click   | 点击事件                                                                          | Function                                                   | 一     |
-| show    | 是否显示                                                                          | <dinert-api-typing type="enmu" :details="HeaderListProps"/> |        | 一 |
-| sort    | 操作的排序，第一个组件为0，第二个为10，以此类推，数值越小按钮越靠前 前              | Number                                                     | 一     |
-| ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/button.html#attributes) | 一                                                         | 一     |
+| 属性名  | 说明                                                                                | 类型                                                        | 默认值 |
+| ------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------- | ------ |
+| message | 名称                                                                                | String                                                      | 一     |
+| click   | 点击事件                                                                            | Function                                                    | 一     |
+| show    | 是否显示                                                                            | <dinert-api-typing type="enmu" :details="HeaderListProps"/> |        | 一 |
+| sort    | 操作的排序，第一个组件为0，第二个为10，以此类推，数值越小按钮越靠前 前              | Number                                                      | 一     |
+| ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/button.html#attributes) | 一                                                          | 一     |
 
 

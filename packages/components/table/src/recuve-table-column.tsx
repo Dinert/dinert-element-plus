@@ -186,15 +186,14 @@ export default defineComponent({
                             const message = typeof item2.message === 'function' ? item2.message(scope, column, item2) : item2.message
 
 
-                            if ((item2 as any).key === 'delete') {
-
+                            if (item2.key === 'delete' || item2.second) {
                                 return (
-                                    <el-popconfirm title="是否删除该数据" {...{...item2.confirm}} onConfirm={() => item2.click && item2.click(scope, column, item2)}>
+                                    <el-popconfirm title={item2.key === 'delete' ? '是否删除该数据？' : '二次确认'} {...{...item2.confirm}} onConfirm={() => item2.click && item2.click(scope, column, item2)}>
                                         {{
                                             reference: () => {
                                                 return (<el-button {...{
                                                     ...item2,
-                                                    type: item2.type || 'primary',
+                                                    type: item2.type || item2.key === 'delete' ? 'danger' : 'primary',
                                                     link: item2.link === undefined ? true : item2.link
                                                 }}
                                                 key={(item2 as any).key}>
