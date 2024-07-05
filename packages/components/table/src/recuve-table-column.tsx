@@ -278,15 +278,14 @@ export default defineComponent({
                         const showOverflowTooltip = item.showOverflowTooltip === undefined && item.prop !== 'operations' ? true : item.showOverflowTooltip
                         const className = `${item.prop || ''} ${item.className || ''} ${item.setting ? 'setting' : ''}`
                         let align = item.prop === 'operations' && item.align === undefined ? 'center' : item.align
-                        const width = item.prop === 'operations' && item.width === undefined ? 200 : item.width
+                        let width = item.prop === 'operations' && item.width === undefined ? 200 : item.width
                         const formatter = item.formatter && typeof item.formatter === 'function'
                         const noChildItem = filterColumn(item)
-                        let minWidth = 0
                         const propLowerCase = item.prop?.toLocaleLowerCase()
                         if (propLowerCase?.includes('time')) {
-                            minWidth = 170
+                            width = width ? width : 170
                         } else if (propLowerCase?.includes('status') || propLowerCase?.includes('state')) {
-                            minWidth = 80
+                            width = width ? width : 80
                             align = item.align || 'center'
                         }
 
@@ -299,7 +298,7 @@ export default defineComponent({
                                     show-overflow-tooltip={showOverflowTooltip}
                                     className={className}
                                     width={width}
-                                    minWidth={item.minWidth || minWidth}
+                                    minWidth={item.minWidth}
                                     align={align}
                                     v-slots= {{
                                         default: (scope: any) => {
