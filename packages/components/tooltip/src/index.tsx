@@ -67,7 +67,6 @@ export default defineComponent({
                                     {(defaultSlot?.()) || getValue(this.content, this) }
                                     {defaultAfter?.()}
                                 </span>
-                                <span>{this.disabled}</span>
                             </span>
                         )
                     }

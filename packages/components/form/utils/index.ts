@@ -102,7 +102,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => 
 
 export const customPlaceholder = (customName: any, type: string = 'input', name: string = '请输入') => {
     name = type === 'select' ? '请选择' : name
-    return name + (customName || '')
+    return name + ((customName) || '')
 }
 
 export const formItemSlot = (customName: any, name: string = 'formItem_') => {

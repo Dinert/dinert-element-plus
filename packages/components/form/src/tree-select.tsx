@@ -1,5 +1,4 @@
 import {computed, defineComponent} from 'vue'
-import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
@@ -33,7 +32,6 @@ export default defineComponent({
             <el-tree-select
                 v-model={this.form.model[this.formItem.key]}
                 clearable
-                placeholder={customPlaceholder(this.formItem.label, 'select')}
                 filterable={this.options.filterable === undefined ? true : this.options.filterable}
                 node-key={this.options.nodeKey}
                 {...this.options}

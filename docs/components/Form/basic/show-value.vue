@@ -6,6 +6,7 @@ import {RewriteFormProps} from '../../../../packages'
 interface ModelProps {
     name: string;
     status: string;
+    name3: number;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -13,12 +14,14 @@ interface FormItemProps {
     name: string;
     name1: string;
     name2: string;
+    name3: number;
+    name6: number;
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
         name: '值',
-        name2: '哈哈哈',
+        // name2: '哈哈哈',
     },
     colLayout: {span: 24},
     showLabel: true,
@@ -43,6 +46,22 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             label: '有值的情况',
             type: 'input',
         },
+        name6: {
+            label: model => (model.name3 === 1 ? '动态label' : '动态label2'),
+            showLabel: false,
+            type: 'input',
+        },
+        name3: {
+            type: 'select',
+            label: '切换',
+            showLabel: false,
+            options: {
+                options: [
+                    {label: '启用', value: 1},
+                    {label: '禁用', value: 0},
+                ]
+            }
+        }
 
     }
 })

@@ -130,6 +130,8 @@ export default defineComponent({
 
                         let show = typeof item.show === 'function' ? item.show(this.form.model) : item.show
                         show = show === undefined ? true : show
+                        item.options = {placeholder: customPlaceholder(typeof item.label === 'function' ? item.label(this.form.model) : item.label, item.type), ...item.options}
+
 
                         if (!show) {
                             style.display = 'none'
@@ -139,7 +141,7 @@ export default defineComponent({
                             item.showLabel = item.showLabel === undefined ? item.showLabel || this.form.showLabel : item.showLabel
 
                             let rules = item.rules || []
-                            rules = item.required ? [{required: true, trigger: 'blur', message: customPlaceholder(item.label, item.type)}].concat(rules as any) : rules
+                            rules = item.required ? [{required: true, trigger: 'blur', message: customPlaceholder(typeof item.label === 'function' ? item.label(this.form.model) : item.label, item.type)}].concat(rules as any) : rules
                             rules = item.showLabel ? [] : rules
                             const valDisabled = item.showLabel ? true : item.tempValueDisabled
 
@@ -166,6 +168,7 @@ export default defineComponent({
                                         class={[item.labelWrap ? 'label-wrap' : '', item.showLabel || this.form.showLabel ? 'show-label' : '']}
                                         {...{
                                             ...item,
+                                            label: typeof item.label === 'function' ? item.label(this.form.model) : item.label,
                                             rules: rules
                                         }}
                                         v-slots={{
@@ -173,7 +176,7 @@ export default defineComponent({
                                                 return (
                                                     <dinert-tooltip
                                                         key={item.key}
-                                                        content={item.label}
+                                                        content={typeof item.label === 'function' ? item.label(this.form.model) : item.label}
                                                         disabled={item.labelDisabled}
                                                         onLabelMouseEnter={(e: MouseEvent) => labelMouseEnter(e, item, this)}
                                                     >

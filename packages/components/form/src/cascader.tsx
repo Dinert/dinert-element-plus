@@ -1,5 +1,4 @@
 import {computed, defineComponent} from 'vue'
-import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
@@ -39,7 +38,6 @@ export default defineComponent({
                 <el-cascader
                     v-model={this.form.model[this.formItem.key]}
                     clearable
-                    placeholder={customPlaceholder(this.formItem.label, 'select')}
                     {...{
                         ...this.options,
                     }}

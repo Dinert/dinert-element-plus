@@ -1,5 +1,4 @@
 import {computed, defineComponent} from 'vue'
-import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
@@ -34,7 +33,6 @@ export default defineComponent({
                 <el-autocomplete
                     v-model={this.form.model[this.formItem.key]}
                     clearable
-                    placeholder={customPlaceholder(this.formItem.label)}
                     fetch-suggestions={this.options.fetchSuggestions || (() => ({}))}
                     {...this.options}
                     v-slots={this.$slots}

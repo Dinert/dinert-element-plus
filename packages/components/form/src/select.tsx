@@ -1,5 +1,4 @@
 import {computed, defineComponent, PropType} from 'vue'
-import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 
@@ -32,7 +31,6 @@ export default defineComponent({
             <el-select
                 v-model={this.form.model[this.formItem.key]}
                 clearable
-                placeholder={customPlaceholder(this.formItem.label, 'select')}
                 {...this.options}
                 v-slots={this.$slots}
                 key={this.formItem.key}
