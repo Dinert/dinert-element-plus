@@ -284,7 +284,7 @@ export default defineComponent({
                         if (propLowerCase?.includes('time')) {
                             width = width ? width : 170
                         } else if (propLowerCase?.includes('status') || propLowerCase?.includes('state')) {
-                            width = width ? width : 80
+                            width = width ? width : 100
                             align = item.align || 'center'
                         }
 
