@@ -23,10 +23,11 @@ export interface OperationsProps<T = any> extends Partial<ButtonProps>{
     second?: boolean;
 }
 
-export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children'>{
+export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children' | 'formatter'>{
     type?: 'default' | 'selection' | 'index' | 'expand';
     checked?: boolean;
     show?: boolean | ((column: RewriteTableColumnCtx<T>) => boolean);
+    formatter?: (row: ScopeProps<T>, column: TableColumnCtx<T>, cellValue: any, index: number) => any;
     setting?: boolean;
     maxOperations?: number;
     operations?: Record<string, OperationsProps<T>>;
