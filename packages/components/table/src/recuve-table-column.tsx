@@ -4,6 +4,7 @@ import {getPropByPath, dataTransformRod} from '@packages/utils/tools'
 import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@packages/components/table/hooks'
 import {Setting, ArrowDown} from '@element-plus/icons-vue'
 import type {TableColumnCtx} from 'element-plus'
+import {buildVueDompurifyHTMLDirective} from 'vue-dompurify-html'
 
 
 import type Node from 'element-plus/es/components/tree/src/model/node'
@@ -35,6 +36,8 @@ const mapWidth: Record<string, any> = {
     expand: 40
 }
 
+const DompurifyHtml = buildVueDompurifyHTMLDirective({})
+
 
 export default defineComponent({
     name: 'dinert-recuve-table-column',
@@ -58,6 +61,9 @@ export default defineComponent({
             type: Array,
             default: () => ([])
         }
+    },
+    directives: {
+        DompurifyHtml: DompurifyHtml
     },
     emits: ['CheckedChange'],
     setup(props, {emit}) {
@@ -308,8 +314,8 @@ export default defineComponent({
                                             const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
 
                                             if (formatter) {
-                                                const htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index)
-
+                                                let htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index)
+                                                htmlValue = dataTransformRod(htmlValue, this.table?.errData)
                                                 return (
                                                     <>
                                                         {isSlotValue

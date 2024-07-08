@@ -21,7 +21,9 @@ export default defineConfig({
         plugins: [
             vueJsx() as any,
         ],
-
+        server: {
+            port: 8922,
+        }
     },
 
     themeConfig: {
