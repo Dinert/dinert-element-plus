@@ -8,7 +8,7 @@
     transition: all .3s cubic-bezier(.645, .045, .355, 1);
     box-sizing: content-box;
 
-    &.packUp {
+    &.near.packUp {
         max-height: 50px;
     }
 
