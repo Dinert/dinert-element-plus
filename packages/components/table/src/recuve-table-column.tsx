@@ -287,7 +287,7 @@ export default defineComponent({
                         const formatter = item.formatter && typeof item.formatter === 'function'
                         const noChildItem = filterColumn(item)
                         const propLowerCase = item.prop?.toLocaleLowerCase()
-                        if (propLowerCase?.includes('time')) {
+                        if (propLowerCase?.includes('time') || propLowerCase?.includes('date')) {
                             width = width ? width : 170
                         } else if (propLowerCase?.includes('status') || propLowerCase?.includes('state')) {
                             width = width ? width : 100
