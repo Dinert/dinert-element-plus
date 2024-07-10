@@ -89,3 +89,21 @@ export interface DinertFormProps<D = any, FI = any>{
     form: RewriteFormProps<D, FI>;
     search?: boolean;
 }
+
+
+// interface AAA extends BaseProps{
+//     type: 'input';
+//     name: string;
+// }
+// interface BBB extends BaseProps{
+//     type: 'select';
+//     age: string;
+// }
+
+// interface BaseProps {
+//     type: 'input' | 'select';
+// }
+
+// interface AB extends AAA, BBB {
+
+// }
