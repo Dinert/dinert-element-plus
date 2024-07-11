@@ -1,4 +1,4 @@
-import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps, ButtonProps, PopconfirmProps} from 'element-plus'
+import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps, ButtonProps, PopconfirmProps, ElMessageBoxOptions} from 'element-plus'
 
 export type Mutable<T> = {
     -readonly [K in keyof T]: T[K];
@@ -20,7 +20,8 @@ export interface OperationsProps<T = any> extends Partial<ButtonProps>{
     sort?: number;
     confirm?: Partial<PopconfirmProps>;
     key?: string;
-    second?: boolean;
+    second?: boolean | 'messageBox';
+    messageBox?: Partial<ElMessageBoxOptions>;
 }
 
 export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCtx<T>>, 'children' | 'formatter'>{
