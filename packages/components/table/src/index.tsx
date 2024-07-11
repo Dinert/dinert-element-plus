@@ -354,7 +354,7 @@ export default defineComponent({
                     </el-table>
                 </div>
 
-                {this.isFooter && this.table?.data && this.table?.data.length && <div class="dinert-table-footer" ref={el => {this.footerRef = el}} >
+                {this.isFooter && this.table?.data && this.table?.data.length !== 0 && <div class="dinert-table-footer" ref={el => {this.footerRef = el}} >
                     <el-pagination
                         model:current-page={1}
                         model:page-size={15}
