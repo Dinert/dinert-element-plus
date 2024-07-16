@@ -40,14 +40,15 @@
 
 
 ## form 属性
-| 属性名    | 说明                                                                                   | 类型                                                                                           | 默认值                                    |
-| --------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| formItem  | 表单组件列表对象，[详细请参阅下面formItem属性](#formitem-属性)                         | <dinert-api-typing type="object" details="{[key: string]: FormItemProps}"></dinert-api-typing> | \{\}                                      |
-| colLayout | 每个表单组件列表布局                                                                   | <dinert-api-typing type="object" :details="colLayout"></dinert-api-typing>                     | \{ xl: 3, lg: 4, md: 8, sm: 12, xs: 24 \} |
-| row       | 表单组件的row                                                                          | object                                                                                         | \{\}                                      |
-| showLabel | 是否显示每个表单组件的值，不显示表单组件                                               | boolean                                                                                        | 一                                        |
-| required  | 是否验证每个表单组件是否必填                                                           | boolean                                                                                        | 一                                        |
-| ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                                             | 一                                        |
+| 属性名    | 说明                                                                                   | 类型                                                                                           | 默认值 |
+| --------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------ |
+| formItem  | 表单组件列表对象，[详细请参阅下面formItem属性](#formitem-属性)                         | <dinert-api-typing type="object" details="{[key: string]: FormItemProps}"></dinert-api-typing> | \{\}   |
+| colLayout | 每个表单组件列表布局                                                                   | <dinert-api-typing type="object" :details="colLayout"/>                                        | 一     |
+| row       | 表单组件的row                                                                          | object                                                                                         | 一     |
+| showLabel | 是否显示每个表单组件的值，不显示表单组件                                               | boolean                                                                                        | 一     |
+| required  | 是否验证每个表单组件是否必填                                                           | boolean                                                                                        | 一     |
+| packUp    | 第一次加载是否默认展开超出的组件                                                       | boolean                                                                                        | true   |
+| ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                                             | 一     |
 
 ## formItem 属性
 | 属性名    | 说明                                                                                       | 类型                                                                                          | 默认值 |
@@ -55,7 +56,7 @@
 | type      | 表单组件类型                                                                               | <dinert-api-typing type="enmu" :details="arr"></dinert-api-typing>                            | 一     |
 | show      | 是否显示该表单组件                                                                         | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing> | 一     |
 | vif       | 是否渲染该表单组件                                                                         | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing> | 一     |
-| label     | 表单组件的名称                                                                             | <dinert-api-typing type="enmu" details="'string' \| (model) => boolean"></dinert-api-typing>                                                                                     | 一     |
+| label     | 表单组件的名称                                                                             | <dinert-api-typing type="enmu" details="'string' \| (model) => boolean"></dinert-api-typing>  | 一     |
 | sort      | 表单组件的列的排序，第一个组件为0，第二个为10，以此类推，数值越小组件越靠前                | Number                                                                                        | 一     |
 | options   | 组件的参数，比如组件类型type是input，那options里面的内容就是Input的属性和方法              | Object                                                                                        | 一     |
 | showLabel | 是否直接显示表单组件的值                                                                   | boolean                                                                                       | 一     |

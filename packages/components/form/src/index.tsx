@@ -42,11 +42,11 @@ export default defineComponent({
     emits: ['UnFold', 'SearchFn', 'ResetFn'],
     setup(props, {emit}) {
 
-        const packUp = ref(true)
+        const {form} = toRefs(props)
+        const packUp = ref(form.value.packUp === undefined)
         const isArrow = ref(false)
         const formRef = ref<InstanceType<typeof ElForm>>()
         const formClass = ref('form_' + getUuid())
-        const {form} = toRefs(props)
         const formItemMap = computed(() => {
             let index = 0
             const result: any = []

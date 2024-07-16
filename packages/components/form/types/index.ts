@@ -83,6 +83,7 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     row?: RewriteRowProps;
     showLabel?: boolean;
     required?: boolean;
+    packUp?: boolean;
 }
 
 export interface DinertFormProps<D = any, FI = any>{
