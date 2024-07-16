@@ -19,12 +19,15 @@ export const findTreeNode = (treeData: any, key: string, value: string) => {
     const result: any[] = []
     function filterResult(treeData: any) {
         treeData.forEach((item: any) => {
-            if ((Array.isArray(value) && value.includes(item[key])) || value === item[key]) {
-                result.push(item)
+            if (item) {
+                if ((Array.isArray(value) && value.includes(item[key])) || value === item[key]) {
+                    result.push(item)
+                }
+                if (item.children && item.children.length) {
+                    filterResult(item.children)
+                }
             }
-            if (item.children && item.children.length) {
-                filterResult(item.children)
-            }
+
         })
     }
     filterResult(treeData)
