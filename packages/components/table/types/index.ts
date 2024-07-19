@@ -28,7 +28,7 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCt
     type?: 'default' | 'selection' | 'index' | 'expand';
     checked?: boolean;
     show?: boolean | ((column: RewriteTableColumnCtx<T>) => boolean);
-    formatter?: (row: ScopeProps<T>, column: TableColumnCtx<T>, cellValue: any, index: number) => any;
+    formatter?: (scope: ScopeProps<T>, column: TableColumnCtx<T>, cellValue: any, index: number) => any;
     setting?: boolean;
     maxOperations?: number;
     operations?: Record<string, OperationsProps<T>>;
