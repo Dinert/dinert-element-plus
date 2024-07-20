@@ -225,7 +225,7 @@ export default defineComponent({
 
                             if (item2.key === 'delete' || item2.second) {
                                 return (
-                                    <el-popconfirm title={item2.key === 'delete' ? '是否删除该数据？' : '二次确认'} {...{...item2.confirm}}
+                                    <el-popconfirm title={`是否${item2.message}该数据？`} {...{...item2.confirm}}
                                         onConfirm={() => item2.click && item2.click(scope, column, item2)}>
                                         {{
                                             reference: () => {
@@ -250,7 +250,7 @@ export default defineComponent({
                         {(seniorFunctions.value.length && operations.value.length > maxOperations
                         && <el-dropdown teleported={true}
                             onCommand={item => {
-                                if (item.key === 'delete' || item.second === 'messageBox') {
+                                if (item.key === 'delete' || item.second) {
                                     return ElMessageBox({
                                         title: '警告',
                                         message: `是否${item.message}该条数据？`,
@@ -270,7 +270,9 @@ export default defineComponent({
                             v-slots= {{
                                 default: () => {
                                     return (
-                                        <el-button type="primary" link text>更多<el-icon><ArrowDown /></el-icon></el-button>
+                                        <el-button type="primary" link text>
+                                            更多<el-icon><ArrowDown /></el-icon>
+                                        </el-button>
                                     )
                                 },
                                 dropdown: () => {
