@@ -58,7 +58,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
                         message: '操作1',
                         type: 'danger',
                         click: (scope, column, item) => {
-                            console.log(item, 'itemmmmmmmmmmmmmmm')
+                            console.log(scope, column, item, 'itemmmmmmmmmmmmmmm')
                         }
                     },
                     other2: {
@@ -67,6 +67,13 @@ const tablePage = ref<TablePageProps<DataProps>>({
                         click: (scope, column, item) => {
                             console.log(item, 'itemmmmmmmmmmmmmmm')
                         }
+                    },
+                    other3: {
+                        message: '下发',
+                        second: 'messageBox',
+                        click(scope) {
+                            console.log(scope, 'scopeeeeeeee')
+                        },
                     }
                 }
             },

@@ -147,7 +147,7 @@ export default defineComponent({
             slotValue
         }: any) => {
             const itemOperations = column.operations || {}
-            const operations = computed(() => {
+            const operations = computed<OperationsProps[]>(() => {
                 let index = 0
                 const result: any = []
                 Object.keys((itemOperations)).forEach(key => {
@@ -188,7 +188,7 @@ export default defineComponent({
             if (operations.value && operations.value.length) {
                 return (
                     <>
-                        {defaultFunctions.value.map((item2: OperationsProps) => {
+                        {defaultFunctions.value.map(item2 => {
                             const message = typeof item2.message === 'function' ? item2.message(scope, column, item2) : item2.message
 
                             const buttonCom = (<el-button {...{
@@ -201,7 +201,7 @@ export default defineComponent({
                                 if (item2.second === 'messageBox' || item2.key === 'delete') {
                                     return ElMessageBox({
                                         title: '警告',
-                                        message: '是否删除该数据？',
+                                        message: `是否${item2.message}该条数据？`,
                                         type: 'warning',
                                         showCancelButton: true,
                                         cancelButtonText: '取消',
@@ -249,13 +249,28 @@ export default defineComponent({
 
                         {(seniorFunctions.value.length && operations.value.length > maxOperations
                         && <el-dropdown teleported={true}
-                            onCommand={(item: any) => (item.click && item.click(scope, column, item))}
+                            onCommand={item => {
+                                if (item.key === 'delete' || item.second === 'messageBox') {
+                                    return ElMessageBox({
+                                        title: '警告',
+                                        message: `是否${item.message}该条数据？`,
+                                        type: 'warning',
+                                        showCancelButton: true,
+                                        cancelButtonText: '取消',
+                                        beforeClose(action, instance, done) {
+                                            done()
+                                        },
+                                        ...item.messageBox
+                                    }).then(() => {
+                                        return item.click && item.click(scope, column, item)
+                                    }).catch(() => null)
+                                }
+                                return item.click && item.click(scope, column, item)
+                            }}
                             v-slots= {{
                                 default: () => {
                                     return (
-                                        <el-button type="primary" link text>
-                            更多<el-icon><ArrowDown /></el-icon>
-                                        </el-button>
+                                        <el-button type="primary" link text>更多<el-icon><ArrowDown /></el-icon></el-button>
                                     )
                                 },
                                 dropdown: () => {
@@ -263,9 +278,8 @@ export default defineComponent({
                                     return (
                                         <el-dropdown-menu>
                                             {
-                                                seniorFunctions.value.map((item: any) => {
+                                                seniorFunctions.value.map(item => {
                                                     const message = typeof item.message === 'function' ? item.message(scope, column, item) : item.message
-
                                                     return (
                                                         <el-dropdown-item command={item}>{message}</el-dropdown-item>
                                                     )
