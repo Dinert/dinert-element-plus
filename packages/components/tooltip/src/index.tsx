@@ -24,10 +24,6 @@ const getValue = (content?: string, _this?: any) => {
 export default defineComponent({
     name: 'dinert-tooltip',
     props: {
-        options: {
-            type: Object,
-            default: () => ({})
-        },
         content: {
             type: String,
             default: ''
@@ -56,7 +52,7 @@ export default defineComponent({
                 key={this.disabled}
                 content={this.content}
                 disabled={this.disabled}
-                {...this.options}
+                {...this.$attrs}
                 v-slots={{
                     default: () => {
                         return (

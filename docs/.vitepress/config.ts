@@ -157,10 +157,26 @@ export default defineConfig({
                             ]
                         },
                         {
-                            text: 'dialog（弹窗）',
+                            text: 'Dialog（弹窗）',
                             target: '/examples/dialog/basic',
                             collapsed: true,
                             base: '/examples/dialog/',
+                            items: [
+                                {
+                                    text: '基础用法',
+                                    link: 'basic',
+                                },
+                                {
+                                    text: '属性',
+                                    link: 'explain',
+                                },
+                            ]
+                        },
+                        {
+                            text: 'Tooltip（动态超出宽度打点）',
+                            target: '/examples/tooltip/basic',
+                            collapsed: true,
+                            base: '/examples/tooltip/',
                             items: [
                                 {
                                     text: '基础用法',
