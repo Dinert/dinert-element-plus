@@ -19,7 +19,6 @@ export default defineComponent({
     setup(props) {
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['input']>(() => {
             const options = props.formItem.options || {}
-            options.type = props.formItem.type
             return options
         })
 
@@ -32,9 +31,9 @@ export default defineComponent({
             <el-input
                 v-model={this.form.model[this.formItem.key]}
                 clearable
-                show-word-limit={this.options.showWordLimit ? true : this.options.showWordLimit}
+                show-word-limit={this.options.showWordLimit === undefined ? true : this.options.showWordLimit}
                 onBlur={e => {this.form.model[this.formItem.key] = e.target.value.trim()}}
-                {...this.options}
+                {...{...this.options}}
                 v-slots={this.$slots}
             >
             </el-input>

@@ -10,6 +10,7 @@ interface ModelProps {
 interface FormItemProps {
     name: string;
     name2: string;
+    name3: string;
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
@@ -20,6 +21,16 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         name: {
             label: '名称',
             type: 'input',
+            options: {
+            }
+        },
+        name3: {
+            label: '有限制字数的名称',
+            type: 'input',
+            options: {
+                maxlength: 10,
+                showWordLimit: true,
+            }
         },
         name2: {
             label: '统计字数',
