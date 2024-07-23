@@ -33,6 +33,7 @@ export default defineComponent({
                 v-model={this.form.model[this.formItem.key]}
                 clearable
                 show-word-limit={this.options.showWordLimit ? true : this.options.showWordLimit}
+                onBlur={e => {this.form.model[this.formItem.key] = e.target.value.trim()}}
                 {...this.options}
                 v-slots={this.$slots}
             >
