@@ -19,6 +19,7 @@ export default defineComponent({
     setup(props) {
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['input']>(() => {
             const options = props.formItem.options || {}
+            options.type = props.formItem.type === 'textarea' ? props.formItem.type : options.type
             return options
         })
 
