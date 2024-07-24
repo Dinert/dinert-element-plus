@@ -101,7 +101,7 @@ export default defineComponent({
                                 </>
                             )
                         },
-                        footer: () => slots.footer?.(),
+                        footer: slots.footer?.() ? () => slots.footer?.() : null,
                     }}
                 </el-dialog>
             </div>
