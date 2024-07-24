@@ -48,7 +48,7 @@ export default defineComponent({
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['date']>(() => {
             const options = props.formItem.options || {}
             options.type = props.formItem.type
-
+            options.defaultTime = options.defaultTime || (['datetimerange'].includes(options.type) ? [new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 1, 1, 23, 59, 59)] : options.defaultTime)
             return options
         })
 
