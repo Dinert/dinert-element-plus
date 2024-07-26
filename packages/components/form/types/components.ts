@@ -30,7 +30,7 @@ export type RewriteSelectProps<O = any[]> = Partial<Omit<ExtractPropTypes<typeof
 {options: O | SelectOptionProxy[], label: string, value: string }
 & Pick<typeof ElSelect, CommonFn | 'onVisible-change' | 'onRemove-tag'>
 >
-export type RewriteCascaderProps<O = any[]> = Partial<Omit<ExtractPropTypes<typeof cascaderProps>, 'options' | 'props'> & {optison: O, props: Partial<MergeProp<CascaderProps, TreeOptionProps>>} & Pick<typeof ElCascader, CommonFn | 'onVisible-change' | 'onRemove-tag'>>
+export type RewriteCascaderProps<O = any[]> = Partial<Omit<ExtractPropTypes<typeof cascaderProps>, 'options' | 'props'> & {options: O, props: Partial<MergeProp<CascaderProps, TreeOptionProps>>} & Pick<typeof ElCascader, CommonFn | 'onVisible-change' | 'onRemove-tag'>>
 
 export type RewriteAutocompleteProps = Partial<AutocompleteProps & Pick<typeof ElAutocomplete, 'onSelect' | 'onChange'>>
 
