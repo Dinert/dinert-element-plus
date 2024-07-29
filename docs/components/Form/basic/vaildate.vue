@@ -37,6 +37,18 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
 
             }
         },
+        name2: {
+            label: '必填',
+            type: 'select',
+            required: true,
+            showLabel: false,
+            options: {
+                options: [
+                    {label: '显示当我的长度过长长长长长长', value: true},
+                    {label: '隐藏', value: false},
+                ]
+            }
+        },
         status: {
             label: '选择',
             type: 'select',
