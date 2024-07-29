@@ -23,6 +23,7 @@ export default defineComponent({
                     children: 'children',
                     value: 'value',
                     label: 'label',
+                    expandTrigger: 'hover'
                 }
             }
             return options
@@ -40,6 +41,10 @@ export default defineComponent({
                     clearable
                     {...{
                         ...this.options,
+                        props: {
+                            expandTrigger: 'hover',
+                            ...this.options.props
+                        }
                     }}
                     v-slots={this.$slots}
                     key={this.formItem.key}
