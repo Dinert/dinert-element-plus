@@ -188,3 +188,7 @@ export const columnProp = (prop: string) => {
 export const headerProp = (prop: string) => {
     return 'column_header_' + prop.split('.').join('_')
 }
+
+export const isSlotsValue = (slot: any) => {
+    return slot && slot[0] && slot[0].children
+}

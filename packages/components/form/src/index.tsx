@@ -15,7 +15,7 @@ import CustomCascader from './cascader'
 import useWindowResize from '@packages/hooks/useWindowResize'
 import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot, customPlaceholder} from '@packages/components/form/utils'
 
-import {dataTransformRod, getUuid} from '@packages/utils/tools'
+import {dataTransformRod, getUuid, isSlotsValue} from '@packages/utils/tools'
 import {ElForm} from 'element-plus'
 
 import {ArrowUp, ArrowDown} from '@element-plus/icons-vue'
@@ -25,6 +25,7 @@ import '@packages/assets/scss/dinert-form.scss'
 
 import type {PropType} from 'vue'
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
+
 
 // 展开还是收起状态
 export default defineComponent({
@@ -193,13 +194,21 @@ export default defineComponent({
                                                         onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key], this)}
                                                         v-slots={
                                                             {
+                                                                // eslint-disable-next-line max-statements
                                                                 default: () => {
-
 
                                                                     const slots: any = {}
 
                                                                     let componentResult = <span>{dataTransformRod(this.form.model[item.key])}</span>
 
+
+                                                                    if (['select'].includes(item.type)) {
+                                                                        const headerSlot = this.$slots[formItemSlot(item.key + '_header')]?.()
+                                                                        const footerSlot = this.$slots[formItemSlot(item.key + '_footer')]?.()
+
+                                                                        isSlotsValue(headerSlot) && (slots.header = () => headerSlot)
+                                                                        isSlotsValue(footerSlot) && (slots.footer = () => footerSlot)
+                                                                    }
 
                                                                     if (this.$slots[formItemSlot(item.key)]) {
                                                                         componentResult = (this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
@@ -219,15 +228,15 @@ export default defineComponent({
                                                                         }
                                                                         componentResult = (<CustomInput form={this.form} formItem={item} v-slots={slots}></CustomInput>)
                                                                     } else if (['input-number'].includes(item.type)) {
-                                                                        componentResult = (<CustomInputNumber form={this.form} formItem={item}></CustomInputNumber>)
+                                                                        componentResult = (<CustomInputNumber form={this.form} formItem={item} v-slots={slots}></CustomInputNumber>)
                                                                     } else if (['input-autocomplete'].includes(item.type)) {
-                                                                        componentResult = (<CustomInputAutocomplete form={this.form} formItem={item}></CustomInputAutocomplete>)
+                                                                        componentResult = (<CustomInputAutocomplete form={this.form} formItem={item} v-slots={slots}></CustomInputAutocomplete>)
                                                                     } else if (['select'].includes(item.type)) {
-                                                                        componentResult = (<CustomSelect form={this.form} formItem={item}></CustomSelect>)
+                                                                        componentResult = (<CustomSelect form={this.form} formItem={item} v-slots={slots}></CustomSelect>)
                                                                     } else if (['select-v2'].includes(item.type)) {
-                                                                        componentResult = (<CustomSelectV2 form={this.form} formItem={item}></CustomSelectV2>)
+                                                                        componentResult = (<CustomSelectV2 form={this.form} formItem={item} v-slots={slots}></CustomSelectV2>)
                                                                     } else if (['switch'].includes(item.type)) {
-                                                                        componentResult = (<CustomSwitch form={this.form} formItem={item}></CustomSwitch>)
+                                                                        componentResult = (<CustomSwitch form={this.form} formItem={item} v-slots={slots}></CustomSwitch>)
                                                                     } else if ([
                                                                         'datetime',
                                                                         'date',
@@ -241,17 +250,17 @@ export default defineComponent({
                                                                         'monthrange',
                                                                         'yearrange',
                                                                     ].includes(item.type)) {
-                                                                        componentResult = (<CustomDate form={this.form} formItem={item}></CustomDate>)
+                                                                        componentResult = (<CustomDate form={this.form} formItem={item} v-slots={slots}></CustomDate>)
                                                                     } else if (['radio', 'radio-button'].includes(item.type)) {
-                                                                        componentResult = (<CustomRadio form={this.form} formItem={item}></CustomRadio>)
+                                                                        componentResult = (<CustomRadio form={this.form} formItem={item} v-slots={slots}></CustomRadio>)
                                                                     } else if (['tree-select'].includes(item.type)) {
-                                                                        componentResult = (<CustomSelectTree form={this.form} formItem={item}></CustomSelectTree>)
+                                                                        componentResult = (<CustomSelectTree form={this.form} formItem={item} v-slots={slots}></CustomSelectTree>)
                                                                     } else if (['rate'].includes(item.type)) {
-                                                                        componentResult = (<CustomRate form={this.form} formItem={item}></CustomRate>)
+                                                                        componentResult = (<CustomRate form={this.form} formItem={item} v-slots={slots}></CustomRate>)
                                                                     } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
-                                                                        componentResult = (<CustomCheckbox form={this.form} formItem={item}></CustomCheckbox>)
+                                                                        componentResult = (<CustomCheckbox form={this.form} formItem={item} v-slots={slots}></CustomCheckbox>)
                                                                     } else if (['cascader'].includes(item.type)) {
-                                                                        componentResult = (<CustomCascader form={this.form} formItem={item}></CustomCascader>)
+                                                                        componentResult = (<CustomCascader form={this.form} formItem={item} v-slots={slots}></CustomCascader>)
                                                                     }
 
 
