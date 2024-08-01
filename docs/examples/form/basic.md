@@ -26,6 +26,12 @@ Form/basic/show-value
 Form/basic/linkage
 :::
 
+## 全局组件的显示
+:::demo
+
+Form/basic/linkage-global
+:::
+
 ## 禁用组件
 :::demo
 

@@ -78,6 +78,7 @@ type FormItemMap<D, FI> = {
 
 export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormProps>, 'model'> {
     model: Partial<MergeProp<D, ToString<FI>>>;
+    vif?: boolean | ((model: D) => boolean);
     formItem: Partial<FormItemMap<D, FI>>;
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;

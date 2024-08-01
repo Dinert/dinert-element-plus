@@ -127,6 +127,7 @@ export default defineComponent({
                     { this.formItemMap.map((item: CustomFormItemProps) => {
                         const style: any = {}
                         let vif = typeof item.vif === 'function' ? item.vif(this.form.model) : item.vif
+                        vif = vif === undefined ? typeof this.form.vif === 'function' ? this.form.vif(this.form.model) : vif : vif
                         vif = vif === undefined ? true : vif
 
                         let show = typeof item.show === 'function' ? item.show(this.form.model) : item.show
