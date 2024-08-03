@@ -17,7 +17,8 @@ interface FormItemProps {
 
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
-    model: {},
+    model: {
+    },
     labelWidth: 'auto',
     formItem: {
         status: {
@@ -50,16 +51,15 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             label: '值对象',
             type: 'tree-select',
             options: {
-                nodeKey: 'code',
                 props: {
                     label: 'name'
                 },
+                nodeKey: 'code',
                 options: [
                     {name: '显示当我的长度过长长长长长长', code: true},
                     {name: '隐藏', code: false},
                 ],
-                'onNode-click'(value) {
-                    console.log(value, 'valueeeeeeeeeee')
+                'onCurrent-change'(value) {
                 }
             }
         },
