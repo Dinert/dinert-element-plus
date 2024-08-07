@@ -8,6 +8,12 @@
 table/basic/index
 :::
 
+## 序号和选择
+:::demo
+
+table/basic/indexAndSelection
+:::
+
 ## 多级表头
 :::demo
 

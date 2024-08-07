@@ -52,6 +52,8 @@ export interface RewriteTableProps<T = any> extends TableProps<T>, TableFnProps 
     errData?: string;
     setting?: boolean;
     key?: any;
+    rowIndex?: RewriteTableColumnCtx<T>;
+    rowSelection?: RewriteTableColumnCtx<T>;
     class?: string;
     pagination: RewritePaginationProps;
 }
