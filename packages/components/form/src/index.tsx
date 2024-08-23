@@ -206,9 +206,11 @@ export default defineComponent({
                                                                     if (['select'].includes(item.type)) {
                                                                         const headerSlot = this.$slots[formItemSlot(item.key + '_header')]?.()
                                                                         const footerSlot = this.$slots[formItemSlot(item.key + '_footer')]?.()
+                                                                        const prefixSlot = this.$slots[formItemSlot(item.key + '_prefix')]?.()
 
                                                                         isSlotsValue(headerSlot) && (slots.header = () => headerSlot)
                                                                         isSlotsValue(footerSlot) && (slots.footer = () => footerSlot)
+                                                                        isSlotsValue(prefixSlot) && (slots.prefix = () => prefixSlot)
                                                                     }
 
                                                                     if (this.$slots[formItemSlot(item.key)]) {

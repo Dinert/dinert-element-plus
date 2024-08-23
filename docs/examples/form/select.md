@@ -8,5 +8,11 @@
 Form/select/index
 :::
 
+## 使用插槽
+:::demo
+
+Form/select/select-slot
+:::
+
 <!-- @include: ./explain.md -->
 
