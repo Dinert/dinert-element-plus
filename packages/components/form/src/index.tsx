@@ -300,10 +300,11 @@ export default defineComponent({
                     {this.$slots.form_search?.()
                         || (
                             <>
-                                <el-button type="primary" onClick={() => this.$emit('SearchFn')}>搜索</el-button>
+                                <el-button type="primary" onClick={() => this.$emit('SearchFn')} {...this.form.searchButton}>{this.form.searchButton?.message || '搜索'}</el-button>
                                 <el-button type="primary" plain
                                     onClick={() => this.$emit('ResetFn')}
-                                >重置</el-button>
+                                    {...this.form.resetButton}
+                                >{this.form.searchButton?.message || '重置'}</el-button>
                             </>
                         )
                     }

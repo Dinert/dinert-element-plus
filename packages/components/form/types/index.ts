@@ -1,6 +1,7 @@
 
 import {
     type FormProps, type FormItemProps, type ColProps, type RowProps,
+    ButtonProps,
 } from 'element-plus'
 import {
     RewriteInputProps, RewriteSelectProps, RewriteTextareaProps,
@@ -85,6 +86,8 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     showLabel?: boolean;
     required?: boolean;
     packUp?: boolean;
+    searchButton?: Partial<ButtonProps & {message?: string}>;
+    resetButton?: Partial<ButtonProps & {message?: string}>;
 }
 
 export interface DinertFormProps<D = any, FI = any>{
