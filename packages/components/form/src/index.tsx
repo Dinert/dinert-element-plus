@@ -202,15 +202,23 @@ export default defineComponent({
 
                                                                     let componentResult = <span>{dataTransformRod(this.form.model[item.key])}</span>
 
-
-                                                                    if (['select'].includes(item.type)) {
-                                                                        const headerSlot = this.$slots[formItemSlot(item.key + '_header')]?.()
-                                                                        const footerSlot = this.$slots[formItemSlot(item.key + '_footer')]?.()
-                                                                        const prefixSlot = this.$slots[formItemSlot(item.key + '_prefix')]?.()
-
-                                                                        isSlotsValue(headerSlot) && (slots.header = () => headerSlot)
-                                                                        isSlotsValue(footerSlot) && (slots.footer = () => footerSlot)
-                                                                        isSlotsValue(prefixSlot) && (slots.prefix = () => prefixSlot)
+                                                                    for (const prop in this.$slots) {
+                                                                        const slotName = prop.split('formItem_').join('').split('_')[1]
+                                                                        let slotFn: any = null
+                                                                        if (['prefix', 'suffix', 'prepend', 'append'].includes(slotName) && ['input'].includes(item.type)) {
+                                                                            slotFn = this.$slots[prop]?.()
+                                                                        } else if ([
+                                                                            'header',
+                                                                            'footer',
+                                                                            'prefix',
+                                                                            'empty',
+                                                                            'tag',
+                                                                            'loading',
+                                                                            'label'
+                                                                        ].includes(slotName) && ['select'].includes(item.type)) {
+                                                                            slotFn = this.$slots[prop]?.()
+                                                                        }
+                                                                        slotName && isSlotsValue(slotFn) && (slots[slotName] = () => slotFn)
                                                                     }
 
                                                                     if (this.$slots[formItemSlot(item.key)]) {
@@ -218,17 +226,6 @@ export default defineComponent({
                                                                     } else if (item.showLabel || (this.form.showLabel && [true, undefined].includes(item.showLabel))) {
                                                                         return componentResult
                                                                     } else if (['input', 'textarea'].includes(item.type)) {
-                                                                        const appendSlot = this.$slots[formItemSlot(item.key + '_append')]?.()
-                                                                        const appendSlotValue = appendSlot && appendSlot[0] && appendSlot[0].children
-
-                                                                        const prependSlot = this.$slots[formItemSlot(item.key + '_prepend')]?.()
-                                                                        const prependSlotValue = prependSlot && prependSlot[0] && prependSlot[0].children
-                                                                        if (appendSlotValue) {
-                                                                            slots.append = () => this.$slots[formItemSlot(item.key + '_append')]?.()
-                                                                        }
-                                                                        if (prependSlotValue) {
-                                                                            slots.prepend = () => this.$slots[formItemSlot(item.key + '_prepend')]?.()
-                                                                        }
                                                                         componentResult = (<CustomInput form={this.form} formItem={item} v-slots={slots}></CustomInput>)
                                                                     } else if (['input-number'].includes(item.type)) {
                                                                         componentResult = (<CustomInputNumber form={this.form} formItem={item} v-slots={slots}></CustomInputNumber>)
