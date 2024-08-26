@@ -1,4 +1,4 @@
-import {computed, defineComponent} from 'vue'
+import {computed, defineComponent, ref} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
@@ -17,13 +17,15 @@ export default defineComponent({
         },
     },
     setup(props) {
+        const inputAutocompleteRef = ref(null)
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['input-autocomplete']>(() => {
             const options = props.formItem.options || {}
             return options
         })
 
         return {
-            options
+            options,
+            inputAutocompleteRef
         }
     },
     render() {
@@ -36,6 +38,7 @@ export default defineComponent({
                     fetch-suggestions={this.options.fetchSuggestions || (() => ({}))}
                     {...this.options}
                     v-slots={this.$slots}
+                    ref={el => {this.inputAutocompleteRef = el}}
                 >
                 </el-autocomplete>
             </div>

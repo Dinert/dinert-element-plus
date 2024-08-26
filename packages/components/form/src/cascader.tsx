@@ -1,4 +1,4 @@
-import {computed, defineComponent} from 'vue'
+import {computed, defineComponent, ref} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
@@ -16,6 +16,8 @@ export default defineComponent({
         },
     },
     setup(props) {
+
+        const cascaderRef = ref(null)
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['cascader']>(() => {
             const options = props.formItem.options || {
                 options: [],
@@ -30,7 +32,8 @@ export default defineComponent({
         })
 
         return {
-            options
+            options,
+            cascaderRef
         }
     },
     render() {
@@ -48,6 +51,7 @@ export default defineComponent({
                     }}
                     v-slots={this.$slots}
                     key={this.formItem.key}
+                    ref={el => {this.cascaderRef = el}}
                 >
                 </el-cascader>
             </div>

@@ -1,4 +1,4 @@
-import {computed, defineComponent} from 'vue'
+import {computed, defineComponent, ref} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
@@ -16,7 +16,7 @@ export default defineComponent({
         },
     },
     setup(props) {
-
+        const treeSelectRef = ref(null)
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['tree-select']>(() => {
             const options = props.formItem.options || {options: [], data: []}
             options.data = options.options
@@ -24,7 +24,8 @@ export default defineComponent({
         })
 
         return {
-            options
+            options,
+            treeSelectRef
         }
     },
     render() {
@@ -37,6 +38,7 @@ export default defineComponent({
                 {...this.options}
                 v-slots={this.$slots}
                 key={this.formItem.key}
+                ref={el => {this.treeSelectRef = el}}
             >
             </el-tree-select>
         )

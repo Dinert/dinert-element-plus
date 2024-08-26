@@ -15,6 +15,7 @@ export default defineComponent({
         },
     },
     setup(props) {
+        const selectRef = (null)
 
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['select']>(() => {
             const options = props.formItem.options || []
@@ -23,6 +24,7 @@ export default defineComponent({
 
         return {
             options,
+            selectRef
         }
     },
     render() {
@@ -34,6 +36,7 @@ export default defineComponent({
                 {...this.options}
                 v-slots={this.$slots}
                 key={this.formItem.key}
+                ref={el => {this.selectRef = el}}
             >
                 {
                     options.map(item => {

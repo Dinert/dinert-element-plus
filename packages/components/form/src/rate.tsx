@@ -1,4 +1,4 @@
-import {computed, defineComponent, PropType} from 'vue'
+import {computed, defineComponent, PropType, ref} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 
@@ -16,6 +16,7 @@ export default defineComponent({
         },
     },
     setup(props) {
+        const reateRef = ref(null)
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['rate']>(() => {
             const options = props.formItem.options || {}
             return options
@@ -24,6 +25,7 @@ export default defineComponent({
 
         return {
             options,
+            reateRef
         }
     },
     render() {
@@ -32,6 +34,7 @@ export default defineComponent({
                 v-model={this.form.model[this.formItem.key]}
                 {...this.options}
                 v-slots={this.$slots}
+                ref={el => {this.reateRef = el}}
             >
             </el-rate>
         )

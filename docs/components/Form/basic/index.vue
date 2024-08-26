@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {RewriteFormProps} from '../../../../packages'
 
 interface ModelProps {
@@ -37,6 +37,12 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     }
 })
 
+const formRef = ref(null)
+
+onMounted(() => {
+    console.log(formRef.value)
+})
+
 const search = () => {
     console.log('查询')
 }
@@ -49,7 +55,8 @@ const reset = () => {
 
 <template>
     <div class="home">
-        <dinert-form :form="form" class="near"
+        <dinert-form ref="formRef" :form="form"
+            class="near"
             @search-fn="search" @reset-fn="reset"
         />
     </div>

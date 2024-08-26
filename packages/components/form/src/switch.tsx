@@ -1,4 +1,4 @@
-import {computed, defineComponent} from 'vue'
+import {computed, defineComponent, ref} from 'vue'
 
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
@@ -18,14 +18,15 @@ export default defineComponent({
         },
     },
     setup(props) {
-
+        const switchRef = ref(null)
         const options = computed(() => {
             const options = props.formItem.options || {}
             return options
         })
 
         return {
-            options
+            options,
+            switchRef
         }
     },
     render() {
@@ -34,6 +35,7 @@ export default defineComponent({
                 v-model={this.form.model[this.formItem.key]}
                 {...this.options}
                 v-slots={this.$slots}
+                ref={el => {this.switchRef = el}}
             >
             </el-switch>
         )

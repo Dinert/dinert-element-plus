@@ -1,4 +1,4 @@
-import {defineComponent, ref, computed, nextTick, toRefs} from 'vue'
+import {defineComponent, ref, computed, nextTick, toRefs, onBeforeUpdate} from 'vue'
 import CustomInput from './input'
 import CustomInputNumber from './input-number'
 import CustomInputAutocomplete from './input-autocomplete'
@@ -42,12 +42,20 @@ export default defineComponent({
     },
     emits: ['UnFold', 'SearchFn', 'ResetFn'],
     setup(props, {emit}) {
-
         const {form} = toRefs(props)
         const packUp = ref(form.value.packUp === undefined)
         const isArrow = ref(false)
         const formRef = ref<InstanceType<typeof ElForm>>()
+        const formTypeRef = ref<any>({})
+        const setFormTypeRefs = (type: string, el: any) => {
+            formTypeRef.value[type] = el
+        }
         const formClass = ref('form_' + getUuid())
+
+        onBeforeUpdate(() => {
+            formTypeRef.value = {}
+        })
+
         const formItemMap = computed(() => {
             let index = 0
             const result: any = []
@@ -108,12 +116,14 @@ export default defineComponent({
 
         return {
             formItemMap,
-            unfold,
             formClass,
-
+            formTypeRef,
             formRef,
             packUp,
-            isArrow
+            isArrow,
+
+            setFormTypeRefs,
+            unfold,
         }
     },
     render() {
@@ -215,7 +225,7 @@ export default defineComponent({
                                                                             'tag',
                                                                             'loading',
                                                                             'label'
-                                                                        ].includes(slotName) && ['select'].includes(item.type)) {
+                                                                        ].includes(slotName) && ['select', 'select-v2'].includes(item.type)) {
                                                                             slotFn = this.$slots[prop]?.()
                                                                         }
                                                                         slotName && isSlotsValue(slotFn) && (slots[slotName] = () => slotFn)
@@ -226,17 +236,23 @@ export default defineComponent({
                                                                     } else if (item.showLabel || (this.form.showLabel && [true, undefined].includes(item.showLabel))) {
                                                                         return componentResult
                                                                     } else if (['input', 'textarea'].includes(item.type)) {
-                                                                        componentResult = (<CustomInput form={this.form} formItem={item} v-slots={slots}></CustomInput>)
+                                                                        componentResult = (<CustomInput form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInput>)
                                                                     } else if (['input-number'].includes(item.type)) {
-                                                                        componentResult = (<CustomInputNumber form={this.form} formItem={item} v-slots={slots}></CustomInputNumber>)
+                                                                        componentResult = (<CustomInputNumber form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputNumber>)
                                                                     } else if (['input-autocomplete'].includes(item.type)) {
-                                                                        componentResult = (<CustomInputAutocomplete form={this.form} formItem={item} v-slots={slots}></CustomInputAutocomplete>)
+                                                                        componentResult = (<CustomInputAutocomplete form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputAutocomplete>)
                                                                     } else if (['select'].includes(item.type)) {
-                                                                        componentResult = (<CustomSelect form={this.form} formItem={item} v-slots={slots}></CustomSelect>)
+                                                                        componentResult = (<CustomSelect form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelect>)
                                                                     } else if (['select-v2'].includes(item.type)) {
-                                                                        componentResult = (<CustomSelectV2 form={this.form} formItem={item} v-slots={slots}></CustomSelectV2>)
+                                                                        componentResult = (<CustomSelectV2 form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectV2>)
                                                                     } else if (['switch'].includes(item.type)) {
-                                                                        componentResult = (<CustomSwitch form={this.form} formItem={item} v-slots={slots}></CustomSwitch>)
+                                                                        componentResult = (<CustomSwitch form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSwitch>)
                                                                     } else if ([
                                                                         'datetime',
                                                                         'date',
@@ -250,19 +266,24 @@ export default defineComponent({
                                                                         'monthrange',
                                                                         'yearrange',
                                                                     ].includes(item.type)) {
-                                                                        componentResult = (<CustomDate form={this.form} formItem={item} v-slots={slots}></CustomDate>)
+                                                                        componentResult = (<CustomDate form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomDate>)
                                                                     } else if (['radio', 'radio-button'].includes(item.type)) {
-                                                                        componentResult = (<CustomRadio form={this.form} formItem={item} v-slots={slots}></CustomRadio>)
+                                                                        componentResult = (<CustomRadio form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomRadio>)
                                                                     } else if (['tree-select'].includes(item.type)) {
-                                                                        componentResult = (<CustomSelectTree form={this.form} formItem={item} v-slots={slots}></CustomSelectTree>)
+                                                                        componentResult = (<CustomSelectTree form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectTree>)
                                                                     } else if (['rate'].includes(item.type)) {
-                                                                        componentResult = (<CustomRate form={this.form} formItem={item} v-slots={slots}></CustomRate>)
+                                                                        componentResult = (<CustomRate form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomRate>)
                                                                     } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
-                                                                        componentResult = (<CustomCheckbox form={this.form} formItem={item} v-slots={slots}></CustomCheckbox>)
+                                                                        componentResult = (<CustomCheckbox form={this.form} formItem={item} v-slots={slots}
+                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomCheckbox>)
                                                                     } else if (['cascader'].includes(item.type)) {
-                                                                        componentResult = (<CustomCascader form={this.form} formItem={item} v-slots={slots}></CustomCascader>)
+                                                                        componentResult = (<CustomCascader ref={el => this.setFormTypeRefs(item.key, el)}
+                                                                            form={this.form} formItem={item} v-slots={slots}></CustomCascader>)
                                                                     }
-
 
                                                                     return componentResult
                                                                 },

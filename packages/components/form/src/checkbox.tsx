@@ -1,7 +1,6 @@
-import {computed, defineComponent} from 'vue'
+import {computed, defineComponent, PropType} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
-import type {PropType} from 'vue'
 
 export default defineComponent({
     name: 'dinert-checkbox',

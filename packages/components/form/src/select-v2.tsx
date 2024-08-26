@@ -1,4 +1,4 @@
-import {computed, defineComponent, PropType} from 'vue'
+import {computed, defineComponent, PropType, ref} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 
@@ -16,6 +16,8 @@ export default defineComponent({
     },
     setup(props) {
 
+        const selectV2Ref = ref(null)
+
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['select-v2']>(() => {
             const options = props.formItem.options || []
             return options
@@ -23,6 +25,7 @@ export default defineComponent({
 
         return {
             options,
+            selectV2Ref
         }
     },
     render() {
@@ -33,6 +36,7 @@ export default defineComponent({
                 {...this.options}
                 v-slots={this.$slots}
                 key={this.formItem.key}
+                ref={el => {this.selectV2Ref = el}}
             >
 
             </el-select-v2>

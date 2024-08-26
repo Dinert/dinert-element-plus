@@ -1,4 +1,4 @@
-import {computed, defineComponent} from 'vue'
+import {computed, defineComponent, ref} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
@@ -17,6 +17,7 @@ export default defineComponent({
         },
     },
     setup(props) {
+        const inputNumber = ref(null)
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['input-number']>(() => {
             const options = props.formItem.options || {}
             return options
@@ -24,6 +25,7 @@ export default defineComponent({
 
         return {
             options,
+            inputNumber
         }
     },
     render() {
@@ -34,6 +36,7 @@ export default defineComponent({
                 clearable
                 {...this.options}
                 v-slots={this.$slots}
+                ref={el => {this.inputNumber = el}}
             >
             </el-input-number>
         )

@@ -1,4 +1,4 @@
-import {computed, defineComponent} from 'vue'
+import {computed, defineComponent, ref} from 'vue'
 import {Calendar} from '@element-plus/icons-vue'
 import {customPlaceholder} from '../utils'
 
@@ -44,7 +44,7 @@ export default defineComponent({
         },
     },
     setup(props) {
-
+        const dateRef = ref(null)
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['date']>(() => {
             const options = props.formItem.options || {}
             options.type = props.formItem.type
@@ -52,8 +52,10 @@ export default defineComponent({
             return options
         })
 
+
         return {
-            options
+            options,
+            dateRef
         }
     },
     render() {
@@ -70,6 +72,7 @@ export default defineComponent({
                 format={this.options.type === 'week' ? 'YYYY第ww周' : this.options.format}
                 {...this.options}
                 v-slots={this.$slots}
+                ref={el => {this.dateRef = el}}
             >
             </el-date-picker>
         )

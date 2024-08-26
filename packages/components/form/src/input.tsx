@@ -1,4 +1,4 @@
-import {computed, defineComponent} from 'vue'
+import {computed, defineComponent, ref} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
@@ -17,14 +17,18 @@ export default defineComponent({
         },
     },
     setup(props) {
+        const inputRef = ref(null)
+
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['input']>(() => {
             const options = props.formItem.options || {}
             options.type = props.formItem.type === 'textarea' ? props.formItem.type : options.type
             return options
         })
 
+
         return {
             options,
+            inputRef
         }
     },
     render() {
@@ -36,6 +40,7 @@ export default defineComponent({
                 onBlur={e => {this.form.model[this.formItem.key] = e.target.value.trim()}}
                 {...{...this.options}}
                 v-slots={this.$slots}
+                ref={el => {this.inputRef = el}}
             >
             </el-input>
         )
