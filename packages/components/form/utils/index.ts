@@ -1,3 +1,4 @@
+import {isSlotsValue} from '@packages/utils/tools'
 
 export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
     const el = (e.target as any).parentElement.parentElement
@@ -111,4 +112,20 @@ export const customPlaceholder = (customName: any, type: string = 'input', name:
 
 export const formItemSlot = (customName: any, name: string = 'formItem_') => {
     return name + (customName || '')
+}
+
+
+export const renderSlot = (arr: string[] = [], _this: any, slots, item: any): any => {
+    for (const prop in _this.$slots) {
+        const slotName = prop.split('formItem_').join('').split('_')[1]
+        let slotFn: any = null
+        if (!slotName) {
+            return
+        }
+        if (arr.includes(slotName)) {
+            slotFn = _this.$slots[prop]?.(item)
+            // eslint-disable-next-line consistent-return
+            isSlotsValue(slotFn) && (slots[slotName] = () => slotFn)
+        }
+    }
 }

@@ -47,7 +47,6 @@ export default defineComponent({
                                 label: item[(this.options.label || 'label')],
                                 value: this.options.value === 'object' ? item : item[(this.options.value || 'value')]
                             }}
-
                         >
                         </el-option>)
                     })

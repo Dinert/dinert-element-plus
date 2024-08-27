@@ -13,9 +13,9 @@ import CustomCheckbox from './checkbox'
 import CustomCascader from './cascader'
 
 import useWindowResize from '@packages/hooks/useWindowResize'
-import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot, customPlaceholder} from '@packages/components/form/utils'
+import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot, customPlaceholder, renderSlot} from '@packages/components/form/utils'
 
-import {dataTransformRod, getUuid, isSlotsValue} from '@packages/utils/tools'
+import {dataTransformRod, getUuid} from '@packages/utils/tools'
 import {ElForm} from 'element-plus'
 
 import {ArrowUp, ArrowDown} from '@element-plus/icons-vue'
@@ -212,45 +212,33 @@ export default defineComponent({
 
                                                                     let componentResult = <span>{dataTransformRod(this.form.model[item.key])}</span>
 
-                                                                    for (const prop in this.$slots) {
-                                                                        const slotName = prop.split('formItem_').join('').split('_')[1]
-                                                                        let slotFn: any = null
-                                                                        if (['prefix', 'suffix', 'prepend', 'append'].includes(slotName) && ['input'].includes(item.type)) {
-                                                                            slotFn = this.$slots[prop]?.()
-                                                                        } else if ([
-                                                                            'header',
-                                                                            'footer',
-                                                                            'prefix',
-                                                                            'empty',
-                                                                            'tag',
-                                                                            'loading',
-                                                                            'label'
-                                                                        ].includes(slotName) && ['select', 'select-v2'].includes(item.type)) {
-                                                                            slotFn = this.$slots[prop]?.()
-                                                                        }
-                                                                        slotName && isSlotsValue(slotFn) && (slots[slotName] = () => slotFn)
-                                                                    }
-
                                                                     if (this.$slots[formItemSlot(item.key)]) {
+
                                                                         componentResult = (this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
                                                                     } else if (item.showLabel || (this.form.showLabel && [true, undefined].includes(item.showLabel))) {
                                                                         return componentResult
                                                                     } else if (['input', 'textarea'].includes(item.type)) {
+                                                                        renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, slots, item)
                                                                         componentResult = (<CustomInput form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomInput>)
                                                                     } else if (['input-number'].includes(item.type)) {
+                                                                        renderSlot(['decrease-icon', 'increase-icon'], this, slots, item)
                                                                         componentResult = (<CustomInputNumber form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputNumber>)
                                                                     } else if (['input-autocomplete'].includes(item.type)) {
+                                                                        renderSlot(['prefix', 'suffix', 'prepend', 'append', 'loading'], this, slots, item)
                                                                         componentResult = (<CustomInputAutocomplete form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputAutocomplete>)
                                                                     } else if (['select'].includes(item.type)) {
+                                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
                                                                         componentResult = (<CustomSelect form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelect>)
                                                                     } else if (['select-v2'].includes(item.type)) {
+                                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
                                                                         componentResult = (<CustomSelectV2 form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectV2>)
                                                                     } else if (['switch'].includes(item.type)) {
+                                                                        renderSlot(['active-action', 'inactive-action'], this, slots, item)
                                                                         componentResult = (<CustomSwitch form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomSwitch>)
                                                                     } else if ([
@@ -266,12 +254,14 @@ export default defineComponent({
                                                                         'monthrange',
                                                                         'yearrange',
                                                                     ].includes(item.type)) {
+                                                                        renderSlot(['range-separator', 'prev-month', 'next-month', 'prev-year', 'next-year'], this, slots, item)
                                                                         componentResult = (<CustomDate form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomDate>)
                                                                     } else if (['radio', 'radio-button'].includes(item.type)) {
                                                                         componentResult = (<CustomRadio form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomRadio>)
                                                                     } else if (['tree-select'].includes(item.type)) {
+                                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
                                                                         componentResult = (<CustomSelectTree form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectTree>)
                                                                     } else if (['rate'].includes(item.type)) {
@@ -281,6 +271,7 @@ export default defineComponent({
                                                                         componentResult = (<CustomCheckbox form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomCheckbox>)
                                                                     } else if (['cascader'].includes(item.type)) {
+                                                                        renderSlot(['empty'], this, slots, item)
                                                                         componentResult = (<CustomCascader ref={el => this.setFormTypeRefs(item.key, el)}
                                                                             form={this.form} formItem={item} v-slots={slots}></CustomCascader>)
                                                                     }
