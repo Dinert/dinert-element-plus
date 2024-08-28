@@ -57,20 +57,17 @@ export default defineComponent({
         })
 
         const formItemMap = computed(() => {
-            let index = 0
             const result: any = []
             Object.keys(form.value.formItem).forEach(key => {
                 const value = form.value.formItem[key] as Partial<CustomFormItemProps>
                 result.push({
                     ...value,
                     key: key,
-                    sort: typeof value.sort === 'undefined' ? index : value.sort,
                 })
-                index += 10
             })
 
             result.sort((a: any, b: any) => {
-                return a.sort - b.sort
+                return (a.sort || Infinity) - (b.sort || Infinity)
             })
 
             return result

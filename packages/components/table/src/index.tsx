@@ -51,20 +51,10 @@ export default defineComponent({
             const result = table.value?.tableColumns || []
 
             function sortRecuve(columns) {
+                columns.sort((a, b) => (a.sort || Infinity) - (b.sort || Infinity))
                 // eslint-disable-next-line @typescript-eslint/prefer-for-of
                 for (let i = 0; i < columns.length; i++) {
                     const item = columns[i]
-                    if (item.sort && i !== item.sort) {
-                        columns.splice(i, 1)
-                        if (item.sort > columns.length) {
-                            columns.splice(columns.length - 1, 0, item)
-                        } else if (item.sort < 0) {
-                            columns.splice(0, 0, item)
-                        } else {
-                            columns.splice(item.sort, 0, item)
-                        }
-                    }
-
                     if (item.children && item.children.length) {
                         sortRecuve(item.children)
                     }
@@ -75,7 +65,6 @@ export default defineComponent({
         })
 
         const headerList = computed(() => {
-            let index = 0
 
             if (typeof header.value === 'boolean') {
                 return header.value
@@ -128,13 +117,11 @@ export default defineComponent({
                     key: key,
                     ...tempObj,
                     type: tempObj.type || 'default',
-                    sort: typeof tempObj.sort === 'undefined' ? index : tempObj.sort,
                 })
-                index += 10
             })
 
             result.sort((a: any, b: any) => {
-                return a.sort - b.sort
+                return (a.sort || Infinity) - (b.sort || Infinity)
             })
             return result
         })

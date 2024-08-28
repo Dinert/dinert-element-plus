@@ -55,7 +55,7 @@
 | setting       | 操作栏是否显示在当前列，当值为true时表格右上的操作栏会消失                                      | Boolean                                                                   | 一     |
 | maxOperations | 表格最大显示的操作按钮数，超出这个数显示更多，设置operations有效                                | Number                                                                    | 3      |
 | operations    | [表格操作按钮列表，详情请参阅下表](#operations-属性)                                            | Object                                                                    | 一     |
-| sort          | 列的排序，第一列为1，第二列为2，以次类推，数值越小列越靠前                                      | Number                                                                    | 一     |
+| sort          | 列的排序，数值越小列越靠前                                      | Number                                                                    | 一     |
 | children      | 表格头下的数据配置项，多级表头                                                                  | Array                                                                     | 一     |
 | ......        | [更多配置，请参考](https://element-plus.org/en-US/component/table.html#table-column-attributes) | 一                                                                        | 一     |
 
@@ -65,7 +65,7 @@
 | message    | 名称                                                                                                                                                   | String                                                               | 一     |
 | click      | 点击事件                                                                                                                                               | Function                                                             | 一     |
 | show       | 是否显示                                                                                                                                               | <dinert-api-typing type="enmu" :details="showOperations"/>           |        | 一 |
-| sort       | 操作的排序，第一个组件为0，第二个为10，以此类推，数值越小列越靠前 前                                                                                   | Number                                                               | 一     |
+| sort       | 操作的排序，数值越小列越靠前 前                                                                                   | Number                                                               | 一     |
 | second     | 二次确认框，点确定后才会调用click方法，当operations的key为delete时默认开启，当值为messageBox时是弹窗的确认状态，在操作为更多时下的按钮都为弹窗确认状态 | <dinert-api-typing type="enmu" details="'Boolean' \| 'messageBox'"/> | 一     |
 | messageBox | 当second为messageBox时生效，[messageBox](https://element-plus.org/en-US/component/message-box.html#api)的配置项                                        | Object                                                               | 一     |
 | ......     | [更多配置，请参考](https://element-plus.org/zh-CN/component/link.html#attributes)                                                                      | 一                                                                   | 一     |
@@ -93,7 +93,7 @@
 | message | 名称                                                                                | String                                                      | 一     |
 | click   | 点击事件                                                                            | Function                                                    | 一     |
 | show    | 是否显示                                                                            | <dinert-api-typing type="enmu" :details="HeaderListProps"/> |        | 一 |
-| sort    | 操作的排序，第一个组件为0，第二个为10，以此类推，数值越小按钮越靠前 前              | Number                                                      | 一     |
+| sort    | 操作的排序，数值越小按钮越靠前              | Number                                                      | 一     |
 | ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/button.html#attributes) | 一                                                          | 一     |
 
 

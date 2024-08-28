@@ -60,7 +60,7 @@
 | show      | 是否显示该表单组件                                                                         | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing> | 一     |
 | vif       | 是否渲染该表单组件                                                                         | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing> | 一     |
 | label     | 表单组件的名称                                                                             | <dinert-api-typing type="enmu" details="'string' \| (model) => boolean"></dinert-api-typing>  | 一     |
-| sort      | 表单组件的列的排序，第一个组件为0，第二个为10，以此类推，数值越小组件越靠前                | Number                                                                                        | 一     |
+| sort      | 表单组件的列的排序，数值越小组件越靠前                | Number                                                                                        | 一     |
 | options   | 组件的参数，比如组件类型type是input，那options里面的内容就是Input的属性和方法              | Object                                                                                        | 一     |
 | showLabel | 是否直接显示当前表单组件的值                                                               | boolean                                                                                       | 一     |
 | colLayout | 当前表单组件列表布局                                                                       | <dinert-api-typing type="object" :details="colLayout"></dinert-api-typing>                    | \{  \} |

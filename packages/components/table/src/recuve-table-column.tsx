@@ -148,7 +148,6 @@ export default defineComponent({
         }: any) => {
             const itemOperations = column.operations || {}
             const operations = computed<OperationsProps[]>(() => {
-                let index = 0
                 const result: any = []
                 Object.keys((itemOperations)).forEach(key => {
                     const tempObj = itemOperations[key]
@@ -158,15 +157,12 @@ export default defineComponent({
                         result.push({
                             key: key,
                             ...tempObj,
-                            sort: typeof tempObj.sort === 'undefined' ? index : tempObj.sort,
                         })
                     }
-
-                    index += 10
                 })
 
                 result.sort((a: any, b: any) => {
-                    return a.sort - b.sort
+                    return (a.sort || Infinity) - (b.sort || Infinity)
                 })
                 return result
             })
