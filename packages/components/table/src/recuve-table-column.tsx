@@ -197,7 +197,7 @@ export default defineComponent({
                                 if (item2.second === 'messageBox' || item2.key === 'delete') {
                                     return ElMessageBox({
                                         title: '警告',
-                                        message: `是否${item2.message}该条数据？`,
+                                        message: `是否${message}该条数据？`,
                                         type: 'warning',
                                         showCancelButton: true,
                                         cancelButtonText: '取消',
@@ -221,7 +221,7 @@ export default defineComponent({
 
                             if (item2.key === 'delete' || item2.second) {
                                 return (
-                                    <el-popconfirm title={`是否${item2.message}该数据？`} {...{...item2.confirm}}
+                                    <el-popconfirm title={`是否${message}该数据？`} {...{...item2.confirm}}
                                         onConfirm={() => item2.click && item2.click(scope, column, item2)}>
                                         {{
                                             reference: () => {

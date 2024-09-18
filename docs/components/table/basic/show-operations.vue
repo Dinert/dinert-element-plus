@@ -61,13 +61,13 @@ const tablePage = ref<TablePageProps<DataProps>>({
                         }
                     },
                     second2: {
-                        message: '二次确认',
+                        message: scope => '二次确认',
                         second: true,
                         click: (scope, column, item) => {
                             console.log(item, 'itemmmmmmmmmmmmmmm')
                         },
                         confirm: {
-                            title: '二次确认框'
+                            // title: '二次确认框'
                         }
                     }
                 }
