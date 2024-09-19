@@ -207,7 +207,7 @@ export default defineComponent({
 
                                                                     const slots: any = {}
 
-                                                                    let componentResult = <span>{dataTransformRod(this.form.model[item.key])}</span>
+                                                                    let componentResult = <span>{dataTransformRod(getTooltipValue(this.form.model[item.key], item))}</span>
 
                                                                     if (this.$slots[formItemSlot(item.key)]) {
 

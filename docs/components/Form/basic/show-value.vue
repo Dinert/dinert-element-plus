@@ -44,7 +44,13 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         },
         name2: {
             label: '有值的情况',
-            type: 'input',
+            type: 'select',
+            options: {
+                options: [
+                    {label: '启用', value: 1},
+                    {label: '禁用', value: 0},
+                ]
+            }
         },
         name6: {
             label: model => (model.name3 === 1 ? '动态label' : '动态label2'),

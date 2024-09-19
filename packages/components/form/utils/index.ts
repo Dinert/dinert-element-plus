@@ -67,6 +67,47 @@ export const getTooltipValue = (value: any, item: any): any => {
     return null
 }
 
+export const getSpanValue = (value: any, item: any): any => {
+    const type = item.type
+    const options = item.options || {}
+    const tempArr: string[] = []
+    if (['input', 'input-autocomplete', 'input-number', 'textarea', 'datetime',
+        'date',
+        'dates',
+        'week',
+        'month',
+        'year',
+        'years',
+        'datetimerange',
+        'daterange',
+        'monthrange',
+        'yearrange',].includes(type)) {
+        return value
+    } else if (['select', 'tree-select', 'select-v2', 'radio', 'radio-button', 'switch', 'checkbox', 'checkbox-button'].includes(type)) {
+        if (options && options.options && options.options.length) {
+            let newVal = null
+            if (options.valueKey) {
+                newVal = value && value[options.valueKey]
+            }
+            const selectItem = findTreeNode(options.options, options.value === 'object' ? options.valueKey : options.value || 'value', newVal || value)
+            selectItem.forEach(item => {
+                tempArr.push(item[options.label || 'label'])
+            })
+            return tempArr.join(',')
+        }
+    } else if (['cascader'].includes(type)) {
+        if (options && options.options && options.options.length) {
+            if (options.props?.emitPath === undefined || options.props?.emitPath === true) {
+                value = value && value[0]
+            }
+
+            const selectItem = findTreeNode(options.options, options.props?.value || 'value', value)[0]
+            return selectItem && selectItem[options.props?.label || 'label']
+        }
+    }
+    return null
+}
+
 export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => {
     const showCom = ['input', 'input-autocomplete', 'cascader', 'input-number', 'select', 'tree-select', 'select-v2']
 
