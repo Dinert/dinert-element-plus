@@ -44,6 +44,12 @@ table/basic/show-operations
 table/basic/pagination
 :::
 
+## 不显示头部操作栏
+:::demo
+
+table/basic/header-operations
+:::
+
 
 <!-- @include: ./explain.md -->
 

@@ -85,6 +85,7 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     row?: RewriteRowProps;
     showLabel?: boolean;
     required?: boolean;
+    key?: any;
     packUp?: boolean;
     searchButton?: Partial<ButtonProps & {message?: string}>;
     resetButton?: Partial<ButtonProps & {message?: string}>;

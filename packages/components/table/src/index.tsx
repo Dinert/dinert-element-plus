@@ -212,9 +212,10 @@ export default defineComponent({
             default: (scope: any) => this.$slots[scope.prop && columnProp(scope.prop)]?.(scope),
             header: (scope: any) => this.$slots[scope.prop && headerProp(scope.prop)]?.(scope)
         }
-        const isHeader = this.header || (this.getSetting && this.header)
-
         const headerList = typeof this.headerList !== 'boolean' ? this.headerList as HeaderListProps[] : []
+
+        const isHeader = (this.header && headerList.length) || (this.getSetting && this.header)
+
         return (
             <section class={'dinert-table'}>
                 {

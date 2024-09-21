@@ -13,7 +13,7 @@ import CustomCheckbox from './checkbox'
 import CustomCascader from './cascader'
 
 import useWindowResize from '@packages/hooks/useWindowResize'
-import {labelMouseEnter, valueMouseEnter, getTooltipValue, formItemSlot, customPlaceholder, renderSlot} from '@packages/components/form/utils'
+import {labelMouseEnter, valueMouseEnter, getTooltipValue, getSpanValue, formItemSlot, customPlaceholder, renderSlot} from '@packages/components/form/utils'
 
 import {dataTransformRod, getUuid} from '@packages/utils/tools'
 import {ElForm} from 'element-plus'
@@ -128,7 +128,8 @@ export default defineComponent({
             <el-form inline={true}
                 {...this.form}
                 ref={el => {this.formRef = el}}
-                class={[this.formClass, this.packUp ? '' : 'packUp', 'dinert-form']}>
+                class={[this.formClass, this.packUp ? '' : 'packUp', 'dinert-form']} key={this.form.key}>
+
                 <el-row {...this.form.row} class="el-form-left">
                     {/* eslint-disable-next-line array-callback-return, consistent-return */}
                     { this.formItemMap.map((item: CustomFormItemProps) => {
@@ -207,7 +208,7 @@ export default defineComponent({
 
                                                                     const slots: any = {}
 
-                                                                    let componentResult = <span>{dataTransformRod(getTooltipValue(this.form.model[item.key], item))}</span>
+                                                                    let componentResult = <span>{dataTransformRod(getSpanValue(this.form.model[item.key], item))}</span>
 
                                                                     if (this.$slots[formItemSlot(item.key)]) {
 

@@ -83,7 +83,7 @@ export const getSpanValue = (value: any, item: any): any => {
         'monthrange',
         'yearrange',].includes(type)) {
         return value
-    } else if (['select', 'tree-select', 'select-v2', 'radio', 'radio-button', 'switch', 'checkbox', 'checkbox-button'].includes(type)) {
+    } else if (['select', 'tree-select', 'select-v2', 'radio', 'radio-button', 'checkbox', 'checkbox-button'].includes(type)) {
         if (options && options.options && options.options.length) {
             let newVal = null
             if (options.valueKey) {
