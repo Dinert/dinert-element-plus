@@ -71,8 +71,6 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
 type ToModelItem<D, FI> = D extends FI ? D : FI
 type ToString<T> = { [P in keyof T]: T[P] extends keyof RewriteFormItemPropsMap ? string : T[P]; }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-
 type FormItemMap<D, FI> = {
     [P in keyof ToModelItem<D, FI>]: CustomFormItemProps<D, any[], ToModelItem<D, FI>[P] extends keyof RewriteFormItemPropsMap ? ToModelItem<D, FI>[P] : keyof RewriteFormItemPropsMap>;
 }
@@ -97,72 +95,72 @@ export interface DinertFormProps<D = any, FI = any>{
 }
 
 
-export interface FormItemPropsInput<D> extends CustomFormItemProps<D>{
-    type: 'input';
-    options?: RewriteInputProps;
-}
+// export interface FormItemPropsInput<D> extends CustomFormItemProps<D>{
+//     type: 'input';
+//     options?: RewriteInputProps;
+// }
 
-export interface FormItemPropsSelect <D> extends CustomFormItemProps<D> {
-    type: 'select';
-    options?: RewriteSelectProps;
-}
+// export interface FormItemPropsSelect <D> extends CustomFormItemProps<D> {
+//     type: 'select';
+//     options?: RewriteSelectProps;
+// }
 
-export interface FormItemPropsCustom <D> extends CustomFormItemProps<D> {
-    type: 'custom';
-    options?: RewriteInputProps;
-}
+// export interface FormItemPropsCustom <D> extends CustomFormItemProps<D> {
+//     type: 'custom';
+//     options?: RewriteInputProps;
+// }
 
-export interface FormItemPropsTextarea <D> extends CustomFormItemProps<D> {
-    type: 'textarea';
-    options?: RewriteTextareaProps;
-}
+// export interface FormItemPropsTextarea <D> extends CustomFormItemProps<D> {
+//     type: 'textarea';
+//     options?: RewriteTextareaProps;
+// }
 
-export interface FormItemPropsCascader <D> extends CustomFormItemProps<D> {
-    type: 'cascader';
-    options?: RewriteCascaderProps;
-}
+// export interface FormItemPropsCascader <D> extends CustomFormItemProps<D> {
+//     type: 'cascader';
+//     options?: RewriteCascaderProps;
+// }
 
-export interface FormItemPropsInputAutocomplete <D> extends CustomFormItemProps<D> {
-    type: 'input-autocomplete';
-    options?: RewriteAutocompleteProps;
-}
+// export interface FormItemPropsInputAutocomplete <D> extends CustomFormItemProps<D> {
+//     type: 'input-autocomplete';
+//     options?: RewriteAutocompleteProps;
+// }
 
-export interface FormItemPropsInputNumber <D> extends CustomFormItemProps<D> {
-    type: 'input-number';
-    options?: RewriteInputNumberProps;
-}
+// export interface FormItemPropsInputNumber <D> extends CustomFormItemProps<D> {
+//     type: 'input-number';
+//     options?: RewriteInputNumberProps;
+// }
 
-export interface FormItemPropsSwitch <D> extends CustomFormItemProps<D> {
-    type: 'switch';
-    options?: RewriteSwitchProps;
-}
+// export interface FormItemPropsSwitch <D> extends CustomFormItemProps<D> {
+//     type: 'switch';
+//     options?: RewriteSwitchProps;
+// }
 
-export interface FormItemPropsDate <D> extends CustomFormItemProps<D> {
-    type: 'date' | 'datetime' | 'week' |'month' | 'year' | 'years' | 'daterange' | 'datetimerange' |'monthrange';
-    options?: RewriteDatePickerProps;
-}
+// export interface FormItemPropsDate <D> extends CustomFormItemProps<D> {
+//     type: 'date' | 'datetime' | 'week' |'month' | 'year' | 'years' | 'daterange' | 'datetimerange' |'monthrange';
+//     options?: RewriteDatePickerProps;
+// }
 
-export interface FormItemPropsRadio <D> extends CustomFormItemProps<D> {
-    type: 'radio';
-    options?: RewriteRadioGroupProps;
-}
+// export interface FormItemPropsRadio <D> extends CustomFormItemProps<D> {
+//     type: 'radio';
+//     options?: RewriteRadioGroupProps;
+// }
 
-export interface FormItemPropsCheckbox <D> extends CustomFormItemProps<D> {
-    type: 'checkbox' | 'checkbox-button';
-    options?: RewriteCheckboxGroupProps;
-}
+// export interface FormItemPropsCheckbox <D> extends CustomFormItemProps<D> {
+//     type: 'checkbox' | 'checkbox-button';
+//     options?: RewriteCheckboxGroupProps;
+// }
 
-export interface FormItemPropsTreeSelect <D> extends CustomFormItemProps<D> {
-    type: 'tree-select';
-    options?: RewriteTreeSelectProps;
-}
+// export interface FormItemPropsTreeSelect <D> extends CustomFormItemProps<D> {
+//     type: 'tree-select';
+//     options?: RewriteTreeSelectProps;
+// }
 
-export interface FormItemPropsRate <D> extends CustomFormItemProps<D> {
-    type: 'rate';
-    options?: RewriteRewriteRateProps;
-}
+// export interface FormItemPropsRate <D> extends CustomFormItemProps<D> {
+//     type: 'rate';
+//     options?: RewriteRewriteRateProps;
+// }
 
-export type FormItemPropsCommon<D> = FormItemPropsInput<D> | FormItemPropsSelect<D> | FormItemPropsCustom<D> | FormItemPropsTextarea<D> | FormItemPropsCascader<D> | FormItemPropsInputAutocomplete<D> | FormItemPropsInputNumber<D> | FormItemPropsSwitch<D> | FormItemPropsDate<D> | FormItemPropsRadio<D> | FormItemPropsCheckbox<D> | FormItemPropsTreeSelect<D> | FormItemPropsRate<D>
+// export type FormItemPropsCommon<D> = FormItemPropsInput<D> | FormItemPropsSelect<D> | FormItemPropsCustom<D> | FormItemPropsTextarea<D> | FormItemPropsCascader<D> | FormItemPropsInputAutocomplete<D> | FormItemPropsInputNumber<D> | FormItemPropsSwitch<D> | FormItemPropsDate<D> | FormItemPropsRadio<D> | FormItemPropsCheckbox<D> | FormItemPropsTreeSelect<D> | FormItemPropsRate<D>
 
 
 // interface AAA extends BaseProps{
