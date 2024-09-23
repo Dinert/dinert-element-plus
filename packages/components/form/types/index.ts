@@ -97,19 +97,91 @@ export interface DinertFormProps<D = any, FI = any>{
 }
 
 
+export interface FormItemPropsInput<D> extends CustomFormItemProps<D>{
+    type: 'input';
+    options?: RewriteInputProps;
+}
+
+export interface FormItemPropsSelect <D> extends CustomFormItemProps<D> {
+    type: 'select';
+    options?: RewriteSelectProps;
+}
+
+export interface FormItemPropsCustom <D> extends CustomFormItemProps<D> {
+    type: 'custom';
+    options?: RewriteInputProps;
+}
+
+export interface FormItemPropsTextarea <D> extends CustomFormItemProps<D> {
+    type: 'textarea';
+    options?: RewriteTextareaProps;
+}
+
+export interface FormItemPropsCascader <D> extends CustomFormItemProps<D> {
+    type: 'cascader';
+    options?: RewriteCascaderProps;
+}
+
+export interface FormItemPropsInputAutocomplete <D> extends CustomFormItemProps<D> {
+    type: 'input-autocomplete';
+    options?: RewriteAutocompleteProps;
+}
+
+export interface FormItemPropsInputNumber <D> extends CustomFormItemProps<D> {
+    type: 'input-number';
+    options?: RewriteInputNumberProps;
+}
+
+export interface FormItemPropsSwitch <D> extends CustomFormItemProps<D> {
+    type: 'switch';
+    options?: RewriteSwitchProps;
+}
+
+export interface FormItemPropsDate <D> extends CustomFormItemProps<D> {
+    type: 'date' | 'datetime' | 'week' |'month' | 'year' | 'years' | 'daterange' | 'datetimerange' |'monthrange';
+    options?: RewriteDatePickerProps;
+}
+
+export interface FormItemPropsRadio <D> extends CustomFormItemProps<D> {
+    type: 'radio';
+    options?: RewriteRadioGroupProps;
+}
+
+export interface FormItemPropsCheckbox <D> extends CustomFormItemProps<D> {
+    type: 'checkbox' | 'checkbox-button';
+    options?: RewriteCheckboxGroupProps;
+}
+
+export interface FormItemPropsTreeSelect <D> extends CustomFormItemProps<D> {
+    type: 'tree-select';
+    options?: RewriteTreeSelectProps;
+}
+
+export interface FormItemPropsRate <D> extends CustomFormItemProps<D> {
+    type: 'rate';
+    options?: RewriteRewriteRateProps;
+}
+
+export type FormItemPropsCommon<D> = FormItemPropsInput<D> | FormItemPropsSelect<D> | FormItemPropsCustom<D> | FormItemPropsTextarea<D> | FormItemPropsCascader<D> | FormItemPropsInputAutocomplete<D> | FormItemPropsInputNumber<D> | FormItemPropsSwitch<D> | FormItemPropsDate<D> | FormItemPropsRadio<D> | FormItemPropsCheckbox<D> | FormItemPropsTreeSelect<D> | FormItemPropsRate<D>
+
+
 // interface AAA extends BaseProps{
 //     type: 'input';
 //     name: string;
 // }
 // interface BBB extends BaseProps{
 //     type: 'select';
-//     age: string;
+//     name: number;
 // }
 
 // interface BaseProps {
 //     type: 'input' | 'select';
+//     name: any;
 // }
 
-// interface AB extends AAA, BBB {
-
+// type AB = AAA | BBB
+// const a: AB = {
+//     type: 'input',
+//     name: '111',
 // }
+// console.log(a, 'aaa')
