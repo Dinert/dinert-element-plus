@@ -189,7 +189,7 @@ export default defineComponent({
 
                             const buttonCom = (<el-button {...{
                                 ...item2,
-                                type: item2.type || item2.key === 'delete' ? 'danger' : 'primary',
+                                type: item2.key === 'delete' ? 'danger' : item2.type || 'primary',
                                 link: item2.link === undefined ? true : item2.link
                             }}
 
@@ -227,7 +227,7 @@ export default defineComponent({
                                             reference: () => {
                                                 return (<el-button {...{
                                                     ...item2,
-                                                    type: item2.type || item2.key === 'delete' ? 'danger' : 'primary',
+                                                    type: item2.key === 'delete' ? 'danger' : item2.type || 'primary',
                                                     link: item2.link === undefined ? true : item2.link
                                                 }}
                                                 key={(item2 as any).key}>

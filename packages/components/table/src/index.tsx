@@ -43,6 +43,7 @@ export default defineComponent({
         const bodyRef = ref<HTMLElement | null>(null)
         const footerRef = ref<HTMLElement | null>(null)
         const headerFooterRef = ref<HTMLElement | null>(null)
+        const headerTitleRef = ref<HTMLElement | null>(null)
 
         const {table, header} = toRefs(props)
 
@@ -132,7 +133,6 @@ export default defineComponent({
                 headerRef.value,
                 bodyRef.value,
                 footerRef.value,
-                headerFooterRef.value,
                 (props.table as RewriteTableProps)
             )
         }
@@ -201,6 +201,7 @@ export default defineComponent({
             tableRef,
             headerRef,
             headerFooterRef,
+            headerTitleRef,
             bodyRef,
             footerRef,
             selectTableRef
@@ -218,6 +219,12 @@ export default defineComponent({
 
         return (
             <section class={'dinert-table'}>
+                {
+                    this.$slots['header-title']
+        && <header class={'dinert-table-headerTitle'} ref={el => {this.headerTitleRef = el}}>
+            {this.$slots['header-title']?.()}
+        </header>
+                }
                 {
                     isHeader
             && <header class={'dinert-table-header'} ref={el => {this.headerRef = el}}>

@@ -48,7 +48,7 @@ export const nodeDragEnd = async (currentNode: Node, targetNode: Node, selectTab
     treeNode(selectTable, [currentNode.data])
 }
 
-export const resizeTaleHeight = (table: any, header: any, body: any, footer: any, headerFooterRef: any, tableProps: RewriteTableProps) => {
+export const resizeTaleHeight = (table: any, header: any, body: any, footer: any, tableProps: RewriteTableProps) => {
     if (!tableProps.height) {
 
         if (body && body.parentElement && body.parentElement.parentElement) {

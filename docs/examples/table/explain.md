@@ -86,6 +86,7 @@
 | column_header_[prop] | column_header_是固定的，prop里面的值取决于tableColumns中的prop，自定义表格头部的内容 |
 | header_left_[key]    | column_header_是固定的，prop里面的值取决于header中的key，自定义表格头部操作栏的左侧  |
 | header-footer        | 自定义表格头部操作栏的底部                                                           |
+| header-title        | 自定义表格头部操作栏的头部                                                           |
 
 ## Header 属性
 | 属性名  | 说明                                                                                | 类型                                                        | 默认值 |
