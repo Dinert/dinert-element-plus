@@ -1,4 +1,4 @@
-import {defineComponent, ref, computed, nextTick, toRefs, onBeforeUpdate} from 'vue'
+import {defineComponent, ref, computed, nextTick, toRefs, onBeforeUpdate, withModifiers} from 'vue'
 import CustomInput from './input'
 import CustomInputNumber from './input-number'
 import CustomInputAutocomplete from './input-autocomplete'
@@ -25,7 +25,6 @@ import '@packages/assets/scss/dinert-form.scss'
 
 import type {PropType} from 'vue'
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
-
 
 // 展开还是收起状态
 export default defineComponent({
@@ -128,7 +127,9 @@ export default defineComponent({
             <el-form inline={true}
                 {...this.form}
                 ref={el => {this.formRef = el}}
-                class={[this.formClass, this.packUp ? '' : 'packUp', 'dinert-form']} key={this.form.key}>
+                class={[this.formClass, this.packUp ? '' : 'packUp', 'dinert-form']}
+                onSubmit={withModifiers(() => undefined, ['stop', 'prevent'])}
+                key={this.form.key}>
 
                 <el-row {...this.form.row} class="el-form-left">
                     {/* eslint-disable-next-line array-callback-return, consistent-return */}
