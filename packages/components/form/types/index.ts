@@ -13,7 +13,10 @@ import {
     RewriteRadioGroupProps,
     RewriteCheckboxGroupProps,
     RewriteTreeSelectProps,
-    RewriteRewriteRateProps
+    RewriteRewriteRateProps,
+    RewriteSliderProps,
+    RewriteTimePickerProps,
+    RewriteTimeSelectProps
 } from './components'
 import {MergeProp} from './utils'
 import {TreeProps} from 'element-plus/es/components/tree-v2/src/types'
@@ -50,6 +53,9 @@ export interface RewriteFormItemPropsMap<O = any[]>{
     'tree-select': RewriteTreeSelectProps<O>;
     'radio-button': RewriteRadioGroupProps<O>;
     'rate': RewriteRewriteRateProps<O>;
+    slider: RewriteSliderProps;
+    'time-picker': RewriteTimePickerProps;
+    'time-select': RewriteTimeSelectProps;
 }
 
 
@@ -158,7 +164,7 @@ export interface FormItemPropsCheckbox <D, FI> extends CustomFormItemProps<D, FI
 
 export interface FormItemPropsTreeSelect <D, FI> extends CustomFormItemProps<D, FI> {
     type: 'tree-select';
-    options?: RewriteTreeSelectProps & {props?: TreeProps['props'], nodeKey?: string};
+    options?: RewriteTreeSelectProps & {nodeKey?: string};
 }
 
 export interface FormItemPropsRate <D, FI> extends CustomFormItemProps<D, FI> {
@@ -166,7 +172,28 @@ export interface FormItemPropsRate <D, FI> extends CustomFormItemProps<D, FI> {
     options?: RewriteRewriteRateProps;
 }
 
-export type FormItemPropsCommon<D, FI> = FormItemPropsInput<D, FI> | FormItemPropsSelect<D, FI> | FormItemPropsCustom<D, FI> | FormItemPropsTextarea<D, FI> | FormItemPropsCascader<D, FI> | FormItemPropsInputAutocomplete<D, FI> | FormItemPropsInputNumber<D, FI> | FormItemPropsSwitch<D, FI> | FormItemPropsDate<D, FI> | FormItemPropsRadio<D, FI> | FormItemPropsCheckbox<D, FI> | FormItemPropsTreeSelect<D, FI> | FormItemPropsRate<D, FI> | FormItemPropsSelectV2<D, FI>
+export interface FormItemPropsSlider <D, FI> extends CustomFormItemProps<D, FI> {
+    type: 'slider';
+    options?: RewriteSliderProps;
+}
+
+export interface FormItemPropsTimePicker <D, FI> extends CustomFormItemProps<D, FI> {
+    type: 'time-picker';
+    options?: RewriteTimePickerProps;
+}
+
+export interface FormItemPropsTimeSelect <D, FI> extends CustomFormItemProps<D, FI> {
+    type: 'time-select';
+    options?: RewriteTimeSelectProps;
+}
+
+export type FormItemPropsCommon<D, FI> = FormItemPropsInput<D, FI>
+| FormItemPropsSelect<D, FI> | FormItemPropsCustom<D, FI> | FormItemPropsTextarea<D, FI>
+| FormItemPropsCascader<D, FI> | FormItemPropsInputAutocomplete<D, FI> | FormItemPropsInputNumber<D, FI>
+| FormItemPropsSwitch<D, FI> | FormItemPropsDate<D, FI>
+ | FormItemPropsRadio<D, FI> | FormItemPropsCheckbox<D, FI> | FormItemPropsTreeSelect<D, FI>
+ | FormItemPropsRate<D, FI> | FormItemPropsSelectV2<D, FI> | FormItemPropsSlider<D, FI>
+ | FormItemPropsTimePicker<D, FI> | FormItemPropsTimeSelect<D, FI>
 
 
 // interface AAA extends BaseProps{

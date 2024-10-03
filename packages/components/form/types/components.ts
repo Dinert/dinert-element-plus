@@ -10,6 +10,11 @@ import {
     ElRate,
     CascaderProps,
     ElTree,
+    ElSlider,
+    SliderProps,
+    TimePickerDefaultProps,
+    ElTimePicker,
+    ElTimeSelect,
 } from 'element-plus'
 import {TreeOptionProps} from 'element-plus/es/components/tree-v2/src/types'
 
@@ -17,7 +22,7 @@ import {TreeOptionProps} from 'element-plus/es/components/tree-v2/src/types'
 
 import type {SelectProps} from 'element-plus/es/components/select/src/select'
 import {TreeProps} from 'element-plus/es/components/tree-v2/src/types'
-
+import {TimeSelectProps} from 'element-plus/es/components/time-select/src/time-select'
 
 type CommonFn = 'onChange' | 'onClear' | 'onBlur' | 'onFocus'
 
@@ -44,7 +49,7 @@ export type RewriteRadioGroupProps<O = any[]> = Partial<RadioGroupProps & {optio
 
 export type RewriteCheckboxGroupProps<O = any[]> = Partial<CheckboxGroupProps & {options: O | CheckboxProps[], value: string} & Pick<typeof ElCheckbox, 'onChange'>>
 
-export type RewriteTreeSelectProps<O = any[]> = Partial<Omit<TreeProps, 'props'> & Omit<ExtractPropTypes<typeof SelectProps>, 'options'> &
+export type RewriteTreeSelectProps<O = any[]> = Partial<TreeProps& Omit<ExtractPropTypes<typeof SelectProps>, 'options'> &
 {options: O | SelectOptionProxy[], label: string, value: string, data: O | SelectOptionProxy[]} &
 Pick<typeof ElTreeSelect, CommonFn> & Pick<typeof ElTree,
 'onCurrent-change'| 'onCheck' | 'onNode-click' | 'onCurrent-change' | 'onNode-expand' |'onCheck-change' | 'onNode-click' | 'onNode-contextmenu' | 'onNode-collapse' | 'onNode-drag-start'
@@ -52,6 +57,9 @@ Pick<typeof ElTreeSelect, CommonFn> & Pick<typeof ElTree,
 
 
 export type RewriteRewriteRateProps<O = any[]> = Partial<Omit<RateProps, 'options'> & {options: O} & Pick<typeof ElRate, 'onChange'>>
+export type RewriteSliderProps = Partial<SliderProps & Pick<typeof ElSlider, 'onChange' | 'onInput'>>
+export type RewriteTimePickerProps = Partial<TimePickerDefaultProps & Pick<typeof ElTimePicker, CommonFn | 'onVisible-change'>>
+export type RewriteTimeSelectProps = Partial<TimeSelectProps & Pick<typeof ElTimeSelect, CommonFn>>
 
 
 // type UnionToIntersection<U> = (U extends any ? (a: (k: U) => void) => void : never) extends (a: infer I) => void ? I : never

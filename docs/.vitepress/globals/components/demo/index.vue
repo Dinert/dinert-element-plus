@@ -64,7 +64,7 @@ const decodeSource = computed(() => {
 const decodeRawSource = computed(() => {
     let result = decodeURIComponent(rawSource.value)
     if (process.env.NODE_ENV !== 'production') {
-        result = result.split('\n').join('')
+        // result = result.split('\n').join('')
     }
     // result = result.replace(packagesLine, '');
     result = result.replace(packagesReg, '@dinert/element-plus')
