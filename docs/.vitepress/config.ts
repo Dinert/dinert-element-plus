@@ -114,6 +114,18 @@ export default defineConfig({
                                     link: 'cascader',
                                 },
                                 {
+                                    text: 'slider 滑块',
+                                    link: 'slider',
+                                },
+                                {
+                                    text: 'time-picker 时间选择器',
+                                    link: 'time-picker',
+                                },
+                                {
+                                    text: 'time-select 时间选择',
+                                    link: 'time-select',
+                                },
+                                {
                                     text: '属性',
                                     link: 'explain',
                                 },

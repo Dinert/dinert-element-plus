@@ -42,6 +42,20 @@
                         width: 100%;
                     }
                 }
+
+                &.slider {
+                    .label-text {
+                        overflow: unset;
+
+                        .el-slider {
+                            padding-left: 12px;
+
+                            .el-input-number {
+                                width: auto;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -123,7 +137,7 @@
         flex: 1;
         margin-left: 0;
 
-        .el-tooltip__trigger {
+        .el-tooltip__trigger:not(.el-slider__button) {
             width: 100%;
         }
 

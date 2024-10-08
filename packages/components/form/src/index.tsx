@@ -11,6 +11,9 @@ import CustomSelectTree from './tree-select'
 import CustomRate from './rate'
 import CustomCheckbox from './checkbox'
 import CustomCascader from './cascader'
+import CustomSlider from './slider'
+import CustomTimePicker from './time-picker'
+import CustomTimeSelect from './time-select'
 
 import useWindowResize from '@packages/hooks/useWindowResize'
 import {labelMouseEnter, valueMouseEnter, getTooltipValue, getSpanValue, formItemSlot, customPlaceholder, renderSlot} from '@packages/components/form/utils'
@@ -273,6 +276,15 @@ export default defineComponent({
                                                                         renderSlot(['empty'], this, slots, item)
                                                                         componentResult = (<CustomCascader ref={el => this.setFormTypeRefs(item.key, el)}
                                                                             form={this.form} formItem={item} v-slots={slots}></CustomCascader>)
+                                                                    } else if (['slider'].includes(item.type)) {
+                                                                        componentResult = (<CustomSlider ref={el => this.setFormTypeRefs(item.key, el)}
+                                                                            form={this.form} formItem={item} v-slots={slots}></CustomSlider>)
+                                                                    } else if (['time-picker'].includes(item.type)) {
+                                                                        componentResult = (<CustomTimePicker ref={el => this.setFormTypeRefs(item.key, el)}
+                                                                            form={this.form} formItem={item} v-slots={slots}></CustomTimePicker>)
+                                                                    } else if (['time-select'].includes(item.type)) {
+                                                                        componentResult = (<CustomTimeSelect ref={el => this.setFormTypeRefs(item.key, el)}
+                                                                            form={this.form} formItem={item} v-slots={slots}></CustomTimeSelect>)
                                                                     }
 
                                                                     return componentResult
