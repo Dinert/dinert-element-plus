@@ -333,6 +333,12 @@ export default defineComponent({
                     }
                 </el-row>
                 }
+                {
+                    this.$slots.form_search_operations
+        && <el-row class={'el-form-right-after'}>
+            {this.$slots.form_search_operations?.()}
+        </el-row>
+                }
             </el-form>
         )
     }
