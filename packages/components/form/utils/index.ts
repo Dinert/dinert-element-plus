@@ -52,6 +52,9 @@ export const getTooltipValue = (value: any, item: any): any => {
             selectItem.forEach(item => {
                 tempArr.push(item[options.label || 'label'])
             })
+            if (tempArr && tempArr.length) {
+                return tempArr.join(',')
+            }
             return tempArr.join(',')
         }
     } else if (['cascader'].includes(type)) {
@@ -71,6 +74,11 @@ export const getSpanValue = (value: any, item: any): any => {
     const type = item.type
     const options = item.options || {}
     const tempArr: string[] = []
+    if (item.showLabel) {
+        return value
+    }
+
+
     if (['input', 'input-autocomplete', 'input-number', 'textarea', 'datetime',
         'date',
         'dates',
@@ -93,7 +101,10 @@ export const getSpanValue = (value: any, item: any): any => {
             selectItem.forEach(item => {
                 tempArr.push(item[options.label || 'label'])
             })
-            return tempArr.join(',')
+            if (tempArr && tempArr.length) {
+                return tempArr.join(',')
+            }
+            return value
         }
     } else if (['cascader'].includes(type)) {
         if (options && options.options && options.options.length) {
