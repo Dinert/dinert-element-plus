@@ -151,14 +151,16 @@ export default defineComponent({
                             style.display = 'none'
                         }
                         if (vif) {
+                            const formShowLabel = typeof this.form.showLabel === 'function' ? this.form.showLabel(this.form.model) : this.form.showLabel
+                            let itemShowLabel = typeof item.showLabel === 'function' ? item.showLabel(this.form.model) : item.showLabel
                             item.required = item.required === undefined ? item.required || this.form.required : item.required
-                            item.showLabel = item.showLabel === undefined ? item.showLabel || this.form.showLabel : item.showLabel
-                            item.required = item.showLabel ? false : item.required
+                            itemShowLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
+                            item.required = itemShowLabel ? false : item.required
 
                             let rules = item.rules || []
                             rules = item.required ? [{required: true, trigger: ['blur', 'change'], message: customPlaceholder(typeof item.label === 'function' ? item.label(this.form.model) : item.label, item.type)}].concat(rules as any) : rules
-                            rules = item.showLabel ? [] : rules
-                            const valDisabled = item.showLabel ? true : item.tempValueDisabled
+                            rules = itemShowLabel ? [] : rules
+                            const valDisabled = itemShowLabel ? true : item.tempValueDisabled
 
                             return (
                                 <el-col
@@ -180,7 +182,7 @@ export default defineComponent({
                                     <el-form-item
                                         key={item.key}
                                         prop={item.key}
-                                        class={[item.labelWrap ? 'label-wrap' : '', item.showLabel || this.form.showLabel ? 'show-label' : '']}
+                                        class={[item.labelWrap ? 'label-wrap' : '', itemShowLabel ? 'show-label' : '']}
                                         {...{
                                             ...item,
                                             label: typeof item.label === 'function' ? item.label(this.form.model) : item.label,
@@ -212,13 +214,11 @@ export default defineComponent({
                                                                 default: () => {
 
                                                                     const slots: any = {}
-
                                                                     let componentResult = <span>{dataTransformRod(getSpanValue(this.form.model[item.key], item))}</span>
 
                                                                     if (this.$slots[formItemSlot(item.key)]) {
-
                                                                         componentResult = (this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
-                                                                    } else if (item.showLabel || (this.form.showLabel && [true, undefined].includes(item.showLabel))) {
+                                                                    } else if (itemShowLabel || (formShowLabel && [true, undefined].includes(itemShowLabel))) {
                                                                         return componentResult
                                                                     } else if (['input', 'textarea'].includes(item.type)) {
                                                                         renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, slots, item)

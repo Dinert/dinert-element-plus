@@ -67,7 +67,7 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     label: string | ((model: D) => string);
     sort?: number;
     options?: RewriteFormItemPropsMap<O>[N];
-    showLabel?: boolean;
+    showLabel?: boolean | ((model: D) => boolean);
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;
@@ -89,7 +89,7 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     formItem: Partial<FormItemMap<D, FI>>;
     colLayout?: RewriteColProps;
     row?: RewriteRowProps;
-    showLabel?: boolean;
+    showLabel?: boolean | ((model: D) => boolean);
     required?: boolean;
     key?: any;
     packUp?: boolean;

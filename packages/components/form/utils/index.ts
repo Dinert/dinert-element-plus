@@ -74,9 +74,6 @@ export const getSpanValue = (value: any, item: any): any => {
     const type = item.type
     const options = item.options || {}
     const tempArr: string[] = []
-    if (item.showLabel) {
-        return value
-    }
 
 
     if (['input', 'input-autocomplete', 'input-number', 'textarea', 'datetime',
@@ -94,12 +91,17 @@ export const getSpanValue = (value: any, item: any): any => {
     } else if (['select', 'tree-select', 'select-v2', 'radio', 'radio-button', 'checkbox', 'checkbox-button'].includes(type)) {
         if (options && options.options && options.options.length) {
             let newVal = null
+            let optValue = ['select-v2'].includes(type) ? options.props && options.props.value : options.value
+            optValue = optValue || 'value'
+            let optLabel = ['select-v2'].includes(type) ? options.props && options.props.label : options.label
+            optLabel = optLabel || 'label'
+
             if (options.valueKey) {
                 newVal = value && value[options.valueKey]
             }
-            const selectItem = findTreeNode(options.options, options.value === 'object' ? options.valueKey : options.value || 'value', newVal || value)
+            const selectItem = findTreeNode(options.options, options.value === 'object' ? options.valueKey : optValue, newVal || value)
             selectItem.forEach(item => {
-                tempArr.push(item[options.label || 'label'])
+                tempArr.push(item[optLabel])
             })
             if (tempArr && tempArr.length) {
                 return tempArr.join(',')
