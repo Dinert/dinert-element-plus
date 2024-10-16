@@ -80,7 +80,7 @@
 | --------------------- | ----------------------------------------------------------------------------------- |
 | formItem_[key]        | formItem_是固定的，key里面的值取决于form中的formItem的key，自定义组件               |
 | formItem_after_[key]  | formItem_after_是固定的，key里面的值取决于form中的formItem的key，自定义组件后的内容 |
-| formItem_before_[key] | formItem_after_是固定的，key里面的值取决于form中的formItem的key，自定义组件前的内容 |
+| formItem_before_[key] | formItem_before_是固定的，key里面的值取决于form中的formItem的key，自定义组件前的内容 |
 | form_search           | 自定义查询栏                                                                        |
 | form_search_operations           | 自定义查询栏后面的信息                                                                        |
 

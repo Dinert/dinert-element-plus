@@ -45,17 +45,23 @@ export const getTooltipValue = (value: any, item: any): any => {
     } else if (['select', 'tree-select', 'select-v2'].includes(type)) {
         if (options && options.options && options.options.length) {
             let newVal = null
+
+            let optValue = ['select-v2'].includes(type) ? options.props && options.props.value : options.value
+            optValue = optValue || 'value'
+            let optLabel = ['select-v2'].includes(type) ? options.props && options.props.label : options.label
+            optLabel = optLabel || 'label'
+
             if (options.valueKey) {
                 newVal = value && value[options.valueKey]
             }
-            const selectItem = findTreeNode(options.options, options.value === 'object' ? options.valueKey : options.value || 'value', newVal || value)
+            const selectItem = findTreeNode(options.options, options.value === 'object' ? options.valueKey : optValue, newVal || value)
             selectItem.forEach(item => {
-                tempArr.push(item[options.label || 'label'])
+                tempArr.push(item[optLabel])
             })
             if (tempArr && tempArr.length) {
                 return tempArr.join(',')
             }
-            return tempArr.join(',')
+            return value
         }
     } else if (['cascader'].includes(type)) {
         if (options && options.options && options.options.length) {
