@@ -334,6 +334,10 @@ export default defineComponent({
                         {...this.table}
                         ref={el => {this.tableRef = el}}
                         row-key={this.table?.rowKey}
+                        v-slots={{
+                            empty: this.$slots['table-empty'] ? (() => this.$slots['table-empty']?.()) : null,
+                            append: this.$slots['table-append'] ? (() => this.$slots['table-append']?.()) : null
+                        }}
                     >
                         {
                             this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" {...this.table.rowIndex}></el-table-column>
