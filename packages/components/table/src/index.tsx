@@ -340,11 +340,12 @@ export default defineComponent({
                         }}
                     >
                         {
-                            this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" {...this.table.rowIndex}></el-table-column>
-                        }
-                        {
                             this.table?.rowSelection && <el-table-column width="60" align="center" type="selection" {...this.table.rowSelection}></el-table-column>
                         }
+                        {
+                            this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" {...this.table.rowIndex}></el-table-column>
+                        }
+
                         <DinertRecuveTableColumn table={this.table}
                             table-columns={this.tableColumns}
                             only-class={this.onlyClass}

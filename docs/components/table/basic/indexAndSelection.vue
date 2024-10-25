@@ -11,10 +11,10 @@ interface DataProps {
 
 const tablePage = ref<TablePageProps<DataProps>>({
     table: {
+        rowSelection: {},
         rowIndex: {
 
         },
-        rowSelection: {},
         pagination: {
         },
         tableColumns: [
@@ -26,7 +26,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
             {
                 prop: 'name',
                 label: '名称',
-                sort: 1
             },
             {
                 prop: 'address',
