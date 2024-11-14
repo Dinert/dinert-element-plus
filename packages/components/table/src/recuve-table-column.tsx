@@ -350,7 +350,7 @@ export default defineComponent({
                                             const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
 
                                             if (formatter) {
-                                                let htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index)
+                                                let htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index, this.table?.errData)
                                                 htmlValue = dataTransformRod(htmlValue, this.table?.errData)
                                                 return (
                                                     <>

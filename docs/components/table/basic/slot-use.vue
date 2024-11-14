@@ -29,8 +29,8 @@ const tablePage = ref<TablePageProps<DataProps>>({
                 prop: 'name2',
                 label: 'format名称',
                 // eslint-disable-next-line no-unused-vars
-                formatter(row, column, cellValue, index) {
-                    return '<span>false</span>'
+                formatter(row, column, cellValue, index, errData) {
+                    return index ? '<span>false</span>' : errData
                 },
             },
             {
