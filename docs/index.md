@@ -6,8 +6,8 @@ titleTemplate: ElementPlus组件库
 
 hero:
   name: DinertElementPlus
-  text: 基于ElementPlus二次封装的组件库
-  tagline: 开源、规范、可视化、可扩展
+  text: Web端业务组件库
+  tagline: 基于ElementPlus二次封装的组件库，开源、规范、可视化、可扩展
   actions:
     - theme: brand
       text: 开始👆
