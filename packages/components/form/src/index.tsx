@@ -328,7 +328,7 @@ export default defineComponent({
                                 <el-button type="primary" plain
                                     onClick={() => this.$emit('ResetFn')}
                                     {...this.form.resetButton}
-                                >{this.form.searchButton?.message || '重置'}</el-button>
+                                >{this.form.resetButton?.message || '重置'}</el-button>
                             </>
                         )
                     }
