@@ -1,7 +1,7 @@
 import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs, shallowRef} from 'vue'
 import type {HeaderListProps, RewriteTableProps, TablePageProps} from '@packages/components/table/types/index'
 import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
-import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode} from '@packages/components/table/hooks'
+import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode, isAllChecked} from '@packages/components/table/hooks'
 
 import DinertRecuveTableColumn from './recuve-table-column'
 import useWindowResize from '@packages/hooks/useWindowResize'
@@ -177,7 +177,7 @@ export default defineComponent({
 
         watch(tableColumns, () => {
             nextTick(() => {
-                isAllData.value = tableColumns.value.every(item => item.checked === true)
+                isAllData.value = isAllChecked(tableColumns.value)
             })
 
         }, {

@@ -106,3 +106,17 @@ export const treeProps = {
         return hide
     }
 }
+
+export const isAllChecked = tableColumns => {
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < tableColumns.length; i++) {
+        const item = tableColumns[i]
+        if (item.checked === false) {
+            return false
+        }
+        if (item.children && item.children.length) {
+            return isAllChecked(item.children)
+        }
+    }
+    return true
+}
