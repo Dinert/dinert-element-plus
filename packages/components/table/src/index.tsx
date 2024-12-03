@@ -1,7 +1,7 @@
 import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs, shallowRef} from 'vue'
 import type {HeaderListProps, RewriteTableProps, TablePageProps} from '@packages/components/table/types/index'
 import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
-import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode, isAllChecked} from '@packages/components/table/hooks'
+import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode, isAllChecked, allShow} from '@packages/components/table/hooks'
 
 import DinertRecuveTableColumn from './recuve-table-column'
 import useWindowResize from '@packages/hooks/useWindowResize'
@@ -255,6 +255,8 @@ export default defineComponent({
                     && <div class={'dinert-table-header-right'}>
                         <el-button-group>
                             <el-button type={this.isAllData ? 'primary' : 'default'}
+                                onClick={async () => {
+                                    allShow(this.selectTableRef, this.table?.tableColumns || [])}}
                             >全部显示
                             </el-button>
                             <el-popover teleported={false}
@@ -263,7 +265,7 @@ export default defineComponent({
                                         default: () => (
                                             <ul class="el-popover-classify">
                                                 <el-tree
-                                                    ref={this.selectTableRef}
+                                                    ref={el => (this.selectTableRef = el)}
                                                     draggable
                                                     data={this.tableColumns}
                                                     default-expand-all
