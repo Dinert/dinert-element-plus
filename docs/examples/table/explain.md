@@ -89,6 +89,7 @@
 | header-title         | 自定义表格头部操作栏的头部                                                           |
 | table-empty          | 自定义表格空的内容                                                                   |
 | table-append         | 插入至表格最后一行之后的内容                                                         |
+| table-body           | 替换表格                                                                             |
 
 ## Header 属性
 | 属性名  | 说明                                                                                | 类型                                                        | 默认值 |

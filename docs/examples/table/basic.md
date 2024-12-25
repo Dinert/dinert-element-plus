@@ -26,6 +26,12 @@ table/basic/multiple-header
 table/basic/slot-use
 :::
 
+## 插槽-自定义内容
+:::demo
+
+table/basic/slot-custom-table
+:::
+
 ## 头部操作栏
 :::demo
 

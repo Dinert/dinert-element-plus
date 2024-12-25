@@ -86,15 +86,15 @@ const reset = () => {
 }
 
 const checkedChange = () => {
-    console.log('fdsafa')
+    console.log('checkedChange')
 }
 
 const sizeChange = () => {
-    console.log('fdsafa')
+    console.log('sizeChange')
 }
 
 const currentChange = () => {
-    console.log('fdsafa')
+    console.log('currentChange')
 }
 </script>
 

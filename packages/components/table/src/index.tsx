@@ -1,4 +1,4 @@
-import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs, shallowRef} from 'vue'
+import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs, shallowRef, useSlots} from 'vue'
 import type {HeaderListProps, RewriteTableProps, TablePageProps} from '@packages/components/table/types/index'
 import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
 import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode, isAllChecked, allShow} from '@packages/components/table/hooks'
@@ -33,7 +33,7 @@ export default defineComponent({
         },
     },
     emits: ['SizeChange', 'CurrentChange', 'CheckedChange'],
-    setup(props, {emit}) {
+    setup(props, {emit, slots}) {
         const tableRef = ref<any>()
         const popoverValue = ref(false)
         const onlyClass = ref('table_' + getUuid())
@@ -46,7 +46,6 @@ export default defineComponent({
         const headerTitleRef = ref<HTMLElement | null>(null)
 
         const {table, header} = toRefs(props)
-
 
         const tableColumns = computed(() => {
             const result = table.value?.tableColumns || []
@@ -128,7 +127,7 @@ export default defineComponent({
         })
 
         const resizeTaleHeightFn = () => {
-            resizeTaleHeight(
+            !slots['table-body'] && resizeTaleHeight(
                 tableRef.value,
                 headerRef.value,
                 bodyRef.value,
@@ -329,37 +328,38 @@ export default defineComponent({
                 }
 
                 <div ref={el => {this.bodyRef = el}} class="dinert-table-body">
-
-                    <el-table
-                        height={'100%'}
-                        border={true}
-                        {...this.table}
-                        ref={el => {this.tableRef = el}}
-                        row-key={this.table?.rowKey}
-                        v-slots={{
-                            empty: this.$slots['table-empty'] ? (() => this.$slots['table-empty']?.()) : null,
-                            append: this.$slots['table-append'] ? (() => this.$slots['table-append']?.()) : null
-                        }}
-                    >
-                        {
-                            this.table?.rowSelection && <el-table-column width="60" align="center" type="selection" {...this.table.rowSelection}></el-table-column>
-                        }
-                        {
-                            this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" {...this.table.rowIndex}></el-table-column>
-                        }
-
-                        <DinertRecuveTableColumn table={this.table}
-                            table-columns={this.tableColumns}
-                            only-class={this.onlyClass}
-                            v-slots={slots}
-                            popover-value={this.popoverValue}
-                            defaultCheckedKeys={this.defaultCheckedKeys}
-                            onCheckedChange={(data: Node, checked: boolean, childChecked: boolean) => this.$emit('CheckedChange', data, checked, childChecked)}
-
+                    {this.$slots['table-body'] ? this.$slots['table-body']?.(this.table)
+                        : <el-table
+                            height={'100%'}
+                            border={true}
+                            {...this.table}
+                            ref={el => {this.tableRef = el}}
+                            row-key={this.table?.rowKey}
+                            v-slots={{
+                                empty: this.$slots['table-empty'] ? (() => this.$slots['table-empty']?.()) : null,
+                                append: this.$slots['table-append'] ? (() => this.$slots['table-append']?.()) : null
+                            }}
                         >
-                        </DinertRecuveTableColumn>
+                            {
+                                this.table?.rowSelection && <el-table-column width="60" align="center" type="selection" {...this.table.rowSelection}></el-table-column>
+                            }
+                            {
+                                this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" {...this.table.rowIndex}></el-table-column>
+                            }
 
-                    </el-table>
+                            <DinertRecuveTableColumn table={this.table}
+                                table-columns={this.tableColumns}
+                                only-class={this.onlyClass}
+                                v-slots={slots}
+                                popover-value={this.popoverValue}
+                                defaultCheckedKeys={this.defaultCheckedKeys}
+                                onCheckedChange={(data: Node, checked: boolean, childChecked: boolean) => this.$emit('CheckedChange', data, checked, childChecked)}
+
+                            >
+                            </DinertRecuveTableColumn>
+
+                        </el-table>
+                    }
                 </div>
 
                 {this.isFooter && this.table?.data && this.table?.data.length !== 0 && <div class="dinert-table-footer" ref={el => {this.footerRef = el}} >
