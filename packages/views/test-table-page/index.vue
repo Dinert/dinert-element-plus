@@ -80,6 +80,7 @@ const tablePage = new TablePage<TableData, TableData, FormItemData, TableData, T
                 label: '名称',
                 type: 'custom',
                 options: {
+
                 }
             },
             showLabel: {

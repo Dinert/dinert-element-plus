@@ -222,8 +222,9 @@ export default defineComponent({
                                                                         return componentResult
                                                                     } else if (['input', 'textarea'].includes(item.type)) {
                                                                         renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, slots, item)
-                                                                        componentResult = (<CustomInput form={this.form} formItem={item} v-slots={slots}
-                                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInput>)
+                                                                        componentResult = (<CustomInput form={this.form} formItem={item} v-slots={slots} onEnterSearch={() => {
+                                                                            this.$emit('SearchFn')}}
+                                                                        ref={el => this.setFormTypeRefs(item.key, el)}></CustomInput>)
                                                                     } else if (['input-number'].includes(item.type)) {
                                                                         renderSlot(['decrease-icon', 'increase-icon'], this, slots, item)
                                                                         componentResult = (<CustomInputNumber form={this.form} formItem={item} v-slots={slots}

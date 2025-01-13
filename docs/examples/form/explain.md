@@ -49,8 +49,9 @@
 | vif          | 是否渲染所有表单组件，优先formItem下的vif                                              | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing>  | 一     |
 | required     | 是否验证每个表单组件是否必填                                                           | boolean                                                                                        | 一     |
 | packUp       | 第一次加载是否默认展开超出的组件                                                       | boolean                                                                                        | true   |
-| searchButton | 自定义搜索按钮的属性继承自button，message为内容                                                       | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributes)                     | 一     |
-| resetButton  | 自定义重置按钮的属性继承自button，message为内容                                                       | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributes)                      | 一     |
+| enterSearch  | 是否开启回车搜索，仅支持input的组件                                                                       | boolean                                                                                        | true   |
+| searchButton | 自定义搜索按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributes)          | 一     |
+| resetButton  | 自定义重置按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributÏes)         | 一     |
 | ......       | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                                             | 一     |
 
 ## formItem 属性
@@ -60,9 +61,9 @@
 | show      | 是否显示该表单组件                                                                         | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing> | 一     |
 | vif       | 是否渲染该表单组件                                                                         | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing> | 一     |
 | label     | 表单组件的名称                                                                             | <dinert-api-typing type="enmu" details="'string' \| (model) => boolean"></dinert-api-typing>  | 一     |
-| sort      | 表单组件的列的排序，数值越小组件越靠前                | Number                                                                                        | 一     |
+| sort      | 表单组件的列的排序，数值越小组件越靠前                                                     | Number                                                                                        | 一     |
 | options   | 组件的参数，比如组件类型type是input，那options里面的内容就是Input的属性和方法              | Object                                                                                        | 一     |
-| showLabel | 是否直接显示当前表单组件的值                                                               | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing>                                                                                       | 一     |
+| showLabel | 是否直接显示当前表单组件的值                                                               | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing> | 一     |
 | colLayout | 当前表单组件列表布局                                                                       | <dinert-api-typing type="object" :details="colLayout"></dinert-api-typing>                    | \{  \} |
 | required  | 是否必填                                                                                   | Boolean                                                                                       | 一     |
 | ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#formitem-attributes) | 一                                                                                            | 一     |
@@ -76,11 +77,11 @@
 
 ## 插槽
 
-| 插槽名                | 说明                                                                                |
-| --------------------- | ----------------------------------------------------------------------------------- |
-| formItem_[key]        | formItem_是固定的，key里面的值取决于form中的formItem的key，自定义组件               |
-| formItem_after_[key]  | formItem_after_是固定的，key里面的值取决于form中的formItem的key，自定义组件后的内容 |
-| formItem_before_[key] | formItem_before_是固定的，key里面的值取决于form中的formItem的key，自定义组件前的内容 |
-| form_search           | 自定义查询栏                                                                        |
-| form_search_operations           | 自定义查询栏后面的信息                                                                        |
+| 插槽名                 | 说明                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| formItem_[key]         | formItem_是固定的，key里面的值取决于form中的formItem的key，自定义组件                |
+| formItem_after_[key]   | formItem_after_是固定的，key里面的值取决于form中的formItem的key，自定义组件后的内容  |
+| formItem_before_[key]  | formItem_before_是固定的，key里面的值取决于form中的formItem的key，自定义组件前的内容 |
+| form_search            | 自定义查询栏                                                                         |
+| form_search_operations | 自定义查询栏后面的信息                                                               |
 

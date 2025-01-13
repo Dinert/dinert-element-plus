@@ -1,4 +1,4 @@
-import {computed, defineComponent, ref} from 'vue'
+import {computed, defineComponent, ref, withModifiers} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
@@ -16,6 +16,7 @@ export default defineComponent({
             default: () => ({})
         },
     },
+    emits: ['EnterSearch'],
     setup(props) {
         const inputRef = ref(null)
 
@@ -38,6 +39,11 @@ export default defineComponent({
                 clearable
                 show-word-limit={this.options.showWordLimit === undefined ? true : this.options.showWordLimit}
                 onBlur={e => {this.form.model[this.formItem.key] = e.target.value.trim()}}
+                onKeyup={withModifiers(() => {
+                    if (this.form.enterSearch === undefined || this.form.enterSearch) {
+                        this.$emit('enterSearch')
+                    }
+                }, ['enter'])}
                 {...{...this.options}}
                 v-slots={this.$slots}
                 ref={el => {this.inputRef = el}}
