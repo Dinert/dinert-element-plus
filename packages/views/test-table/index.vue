@@ -7,6 +7,7 @@ import {tableColumns} from './tableColumns'
 
 const tablePage = new TablePage({
     table: {
+        autoHeight: true,
         pagination: {
         },
         tableColumns: tableColumns,

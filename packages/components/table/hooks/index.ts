@@ -49,8 +49,8 @@ export const nodeDragEnd = async (currentNode: Node, targetNode: Node, selectTab
 }
 
 export const resizeTaleHeight = (table: any, header: any, body: any, footer: any, tableProps: RewriteTableProps) => {
-    if (!tableProps.height) {
 
+    if (!tableProps.height && tableProps.autoHeight) {
         if (body && body.parentElement && body.parentElement.parentElement) {
             body.parentElement.parentElement.style.height = '100%'
         }

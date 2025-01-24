@@ -26,9 +26,10 @@ const activeName = ref('table-form')
 
 <style lang="scss" scoped>
 .home {
-    padding: 0 16px;
+    padding: 16px;
     height: 100%;
     box-sizing: border-box;
+    background-color: #f5f5f5;
 
     :deep() {
         .el-tabs {
@@ -40,9 +41,8 @@ const activeName = ref('table-form')
                 flex: 1;
                 height: 0;
 
-                #pane-table-form {
+                .el-tab-pane {
                     height: 100%;
-                    background-color: #f5f5f5;
 
                     .dinert-table-page {
                         height: 100%;
