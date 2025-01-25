@@ -24,7 +24,6 @@ const tablePage = ref<DinertTablePageProps<DataProps, DataProps, DataProps>>({
             {
                 prop: 'name',
                 label: '名称',
-                sort: 1
             },
             {
                 prop: 'address',
@@ -99,7 +98,9 @@ const currentChange = () => {
 </script>
 
 <template>
-    <dinert-table-page :table="tablePage.table" :form="tablePage.form"
+    <dinert-table-page
+        :table="tablePage.table"
+        :form="tablePage.form"
         class="near"
         :footer="tablePage.footer"
         @search-fn="search"
