@@ -31,7 +31,6 @@ const tablePage = new TablePage<DataProps>({
             {
                 prop: 'name',
                 label: '名称',
-                sort: 1
             },
             {
                 prop: 'address',

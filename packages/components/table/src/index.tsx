@@ -330,7 +330,6 @@ export default defineComponent({
                 <div ref={el => {this.bodyRef = el}} class="dinert-table-body">
                     {this.$slots['table-body'] ? this.$slots['table-body']?.(this.table)
                         : <el-table
-                            height={'100%'}
                             border={true}
                             {...this.table}
                             ref={el => {this.tableRef = el}}
