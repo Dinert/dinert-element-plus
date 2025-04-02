@@ -37,7 +37,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             }
         },
         name2: {
-            label: '排第二',
+            label: '排第一',
             type: 'input',
             sort: 8,
             options: {
@@ -45,7 +45,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             }
         },
         status: {
-            label: '排第三',
+            label: '排第二',
             sort: 9,
             type: 'select',
             options: {
