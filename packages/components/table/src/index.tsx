@@ -234,13 +234,14 @@ export default defineComponent({
                                 if (this.$slots['header_left_' + (item as any).key]) {
                                     return this.$slots['header_left_' + (item as any).key]?.(item)
                                 }
-
+                                const disabled = typeof item.disabled === 'function' ? item.disabled(item) : item.disabled
 
                                 if ((typeof item.show !== 'function' && [true, undefined].includes(item.show))
                                     || (typeof item.show === 'function' && [true, undefined].includes(item.show(item)))
                                 ) {
                                     return <el-button {...{
                                         ...item,
+                                        disabled,
                                         type: item.type || 'primary',
                                     }} onClick={() => item.click && item.click(item)}>{item.message}</el-button>
                                 }

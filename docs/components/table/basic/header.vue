@@ -16,6 +16,9 @@ const tablePage = ref<TablePageProps<DataProps>>({
         },
         tableColumns: [
             {
+                type: 'selection',
+            },
+            {
                 prop: 'date',
                 label: '时间'
             },
@@ -49,7 +52,11 @@ const tablePage = ref<TablePageProps<DataProps>>({
                 name: 'Tom',
                 address: '广州市区',
             },
-        ]
+        ],
+        onSelect(selection) {
+            selecTableDatas.value = selection
+
+        }
     },
     header: {
         'add': {
@@ -60,6 +67,9 @@ const tablePage = ref<TablePageProps<DataProps>>({
         },
         'upload': {
             message: '导入',
+            disabled() {
+                return selecTableDatas.value.length === 0
+            },
         },
         'download': {
             message: '导出',
@@ -73,6 +83,8 @@ const tablePage = ref<TablePageProps<DataProps>>({
     },
     footer: false
 })
+const selecTableDatas = ref<DataProps[]>([])
+
 
 </script>
 

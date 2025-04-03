@@ -64,12 +64,13 @@ export interface RewritePaginationProps extends PaginationPropsFn, Partial<Mutab
 
 }
 
-export interface HeaderListProps extends Partial<ButtonProps>{
+export interface HeaderListProps extends Omit<Partial<ButtonProps>, 'disabled'>{
     message?: string;
     click?: (item: HeaderListProps) => void;
     sort?: number;
     show?: boolean | ((item: HeaderListProps) => boolean);
     key?: string;
+    disabled?: boolean | ((item: HeaderListProps) => boolean);
 }
 
 
