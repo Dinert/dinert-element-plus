@@ -48,6 +48,10 @@ export default defineConfig({
                             text: '快速开始',
                             link: '/guide/quickstart'
                         },
+                        {
+                            text: '主题',
+                            link: '/guide/theme'
+                        }
                     ]
                 },
             ],

@@ -1,8 +1,10 @@
+/* stylelint-disable-next-line at-rule-no-unknown */
+@use "variables" as *;
 
 .tree-item {
     width: 100%;
 
-    .el-tooltip__trigger {
+    .#{$namespace}-tooltip__trigger {
         display: block;
         overflow: hidden;
         width: 100%;
@@ -12,7 +14,7 @@
     }
 }
 
-.el-popover-classify {
+.#{$namespace}-popover-classify {
     overflow-y: auto;
     margin: 0;
     padding: 0;
@@ -29,11 +31,11 @@
         line-height: 32px;
     }
 
-    & > .el-tree > .el-tree-node > .el-tree-node__content > .el-tree-node__expand-icon.is-leaf {
+    & > .#{$namespace}-tree > .#{$namespace}-tree-node > .#{$namespace}-tree-node__content > .#{$namespace}-tree-node__expand-icon.is-leaf {
         display: none;
     }
 
-    .el-tree-node__children {
+    .#{$namespace}-tree-node__children {
         overflow: unset;
     }
 }
@@ -53,7 +55,7 @@
         margin-bottom: 12px;
         text-align: right;
 
-        .el-popover-classify li .el-checkbox {
+        .#{$namespace}-popover-classify li .#{$namespace}-checkbox {
             width: 100%;
             line-height: 24px;
             height: 24px;
@@ -68,7 +70,7 @@
         flex: 1;
         height: 0;
 
-        .el-table {
+        .#{$namespace}-table {
             &--border {
                 &::after,
                 &::before {
@@ -76,16 +78,16 @@
                 }
             }
 
-            .el-table__border-left-patch {
+            .#{$namespace}-table__border-left-patch {
                 // display: none;
             }
 
-            .el-popper {
+            .#{$namespace}-popper {
                 max-width: 50%;
             }
 
-            .el-table__header {
-                // .el-table__cell {
+            .#{$namespace}-table__header {
+                // .#{$namespace}-table__cell {
                 //     &:last-child {
                 //         border-right: none;
                 //     }
@@ -93,7 +95,7 @@
                 //     border-right: none;
                 //     border-bottom: none;
                 // }
-                .el-table__cell {
+                .#{$namespace}-table__cell {
                     &.setting {
                         .setting-icon {
                             display: inline-block;
@@ -112,13 +114,13 @@
                 }
             }
 
-            .el-table__body-wrapper {
+            .#{$namespace}-table__body-wrapper {
                 td {
                     // border-right: none;
                     color: var(--zp-color-secondary-text-title);
 
                     .cell {
-                        &.el-tooltip > .cell-item {
+                        &.#{$namespace}-tooltip > .cell-item {
                             overflow: hidden;
                             text-overflow: ellipsis;
                             white-space: nowrap;
@@ -133,7 +135,7 @@
                 }
 
                 .operations {
-                    .el-dropdown {
+                    .#{$namespace}-dropdown {
                         vertical-align: -2px;
                     }
 
@@ -142,7 +144,7 @@
                         justify-content: center;
                         align-items: center;
 
-                        .el-button {
+                        .#{$namespace}-button {
                             margin-right: 8px;
                             margin-left: 0;
 
@@ -151,7 +153,7 @@
                             }
                         }
 
-                        .el-svg-icon {
+                        .#{$namespace}-svg-icon {
                             font-size: 14px;
                             color: var(--el-color-primary);
                             cursor: pointer;
@@ -186,7 +188,7 @@
         display: flex;
         margin-top: 16px;
 
-        .el-pagination {
+        .#{$namespace}-pagination {
             display: flex;
             flex-wrap: wrap;
         }

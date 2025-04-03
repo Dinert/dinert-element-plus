@@ -3,12 +3,14 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx' // 添加这一句
 import path from 'path'
 import dts from 'vite-plugin-dts'
+import copy from 'rollup-plugin-copy'
+
 
 export default defineConfig({
     build: {
         // 打包文件目录
         outDir: 'es',
-
+        assetsInlineLimit: 0,
         sourcemap: true, // 是否打包map文件
         // 压缩
         // minify: false,
@@ -16,6 +18,17 @@ export default defineConfig({
             // 忽略打包vue文件
             external: ['vue', 'element-plus', 'lodash'],
             input: ['./packages/index.ts'],
+            plugins: [
+                copy({
+                    targets: [
+                        {
+                            src: 'packages/assets/scss/*.scss',
+                            dest: ['es/packages/assets/scss']
+                        }
+                    ],
+                    hook: 'writeBundle' // 在打包完成后复制
+                })
+            ],
 
             output: [
                 {

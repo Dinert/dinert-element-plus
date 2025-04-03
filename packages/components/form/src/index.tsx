@@ -76,7 +76,7 @@ export default defineComponent({
         })
 
         const resizeForm = () => {
-            let elFormLeft = document.querySelectorAll(`.${formClass.value} .el-form-left > div`) as any
+            let elFormLeft = document.querySelectorAll(`.${formClass.value} .dinert-form-left > div`) as any
             if (elFormLeft[0]) {
                 isArrow.value = false
                 nextTick(() => {
@@ -134,7 +134,7 @@ export default defineComponent({
                 onSubmit={withModifiers(() => undefined, ['stop', 'prevent'])}
                 key={this.form.key}>
 
-                <el-row {...this.form.row} class="el-form-left">
+                <el-row {...this.form.row} class="dinert-form-left">
                     {/* eslint-disable-next-line array-callback-return, consistent-return */}
                     { this.formItemMap.map((item: CustomFormItemProps) => {
                         const style: any = {}

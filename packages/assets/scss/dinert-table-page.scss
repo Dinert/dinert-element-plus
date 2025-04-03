@@ -1,3 +1,6 @@
+/* stylelint-disable-next-line at-rule-no-unknown */
+@use "variables" as *;
+
 $input-width: 200px;
 
 .dinert-table-page {
@@ -6,19 +9,19 @@ $input-width: 200px;
     box-sizing: border-box;
 
     &.text-wrap {
-        .el-table__header .cell {
+        .#{$namespace}-table__header .cell {
             white-space: pre-wrap;
         }
 
-        .el-table__body {
-            .el-table__row {
+        .#{$namespace}-table__body {
+            .#{$namespace}-table__row {
                 td > .cell,
                 td > .cell > .cell-item,
-                td .cell.el-tooltip > .cell-item {
+                td .cell.#{$namespace}-tooltip > .cell-item {
                     white-space: pre-wrap;
                 }
 
-                .el-button > span {
+                .#{$namespace}-button > span {
                     text-align: left;
                 }
 
@@ -31,18 +34,18 @@ $input-width: 200px;
     }
 
     &.header-center {
-        .el-table__header {
-            .el-table__cell {
+        .#{$namespace}-table__header {
+            .#{$namespace}-table__cell {
                 text-align: center;
             }
         }
     }
 
     &.near {
-        .el-form-left {
+        .dinert-form-left {
             flex: unset;
 
-            .el-col {
+            .#{$namespace}-col {
                 margin-right: 16px;
                 width: auto;
                 max-width: unset;
@@ -51,19 +54,19 @@ $input-width: 200px;
         }
 
         .dinert-table-footer {
-            .el-pagination {
+            .#{$namespace}-pagination {
                 margin-left: auto;
             }
         }
     }
 
     &.maxWidthAuto {
-        .el-form .el-form-item .el-form-item__label {
+        .#{$namespace}-form .#{$namespace}-form-item .#{$namespace}-form-item__label {
             max-width: unset;
         }
     }
 
-    .el-form.dinert-form {
+    .#{$namespace}-form.dinert-form {
         padding: 20px 20px 0;
         max-height: 300px;
     }

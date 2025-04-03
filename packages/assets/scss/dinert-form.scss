@@ -1,4 +1,7 @@
-.dinert-form.el-form {
+/* stylelint-disable-next-line at-rule-no-unknown */
+@use "variables" as *;
+
+.#{$namespace}-form.dinert-form {
     display: flex;
     overflow: hidden;
     padding: 0;
@@ -13,8 +16,8 @@
     }
 
     &.near {
-        .el-form-left {
-            .el-col {
+        .dinert-form-left {
+            .#{$namespace}-col {
                 display: flex;
                 align-items: center;
                 margin-right: 10px;
@@ -24,7 +27,7 @@
             }
         }
 
-        .el-form-right {
+        .#{$namespace}-form-right {
             &.isArrow {
                 width: 230px;
                 flex: 0 0 230px;
@@ -33,10 +36,10 @@
     }
 
     &.dialog {
-        .el-form-left {
+        .dinert-form-left {
             flex: 1;
 
-            .el-col {
+            .#{$namespace}-col {
                 .label-text {
                     & > div {
                         width: 100%;
@@ -47,10 +50,10 @@
                     .label-text {
                         overflow: unset;
 
-                        .el-slider {
+                        .#{$namespace}-slider {
                             padding-left: 12px;
 
-                            .el-input-number {
+                            .#{$namespace}-input-number {
                                 width: auto;
                             }
                         }
@@ -60,52 +63,52 @@
         }
     }
 
-    .el-form-left {
-        .el-col {
+    .dinert-form-left {
+        .#{$namespace}-col {
             .label-text {
-                .el-radio.is-bordered,
-                .el-checkbox.is-bordered {
+                .#{$namespace}-radio.is-bordered,
+                .#{$namespace}-checkbox.is-bordered {
                     margin-right: 16px;
                 }
 
-                .el-date-editor {
+                .#{$namespace}-date-editor {
                     width: 210px;
                 }
 
-                .el-date-editor--daterange {
+                .#{$namespace}-date-editor--daterange {
                     width: 260px;
                 }
 
-                & > .el-input {
+                & > .#{$namespace}-input {
                     width: 210px;
                 }
 
-                & > .el-select {
+                & > .#{$namespace}-select {
                     width: 210px;
                 }
 
-                .el-date-editor--datetimerange {
+                .#{$namespace}-date-editor--datetimerange {
                     width: 400px;
                 }
             }
         }
     }
 
-    .el-form-right {
+    .#{$namespace}-form-right {
         display: flex;
         margin-left: 24px;
 
-        .el-form-right-operation {
+        .#{$namespace}-form-right-operation {
             padding: 0;
 
-            &.el-button.is-text {
+            &.#{$namespace}-button.is-text {
                 padding-right: 0;
                 background-color: unset;
             }
         }
     }
 
-    div.el-form-item {
+    div.#{$namespace}-form-item {
         position: relative;
         display: flex;
         margin-right: 0;
@@ -121,7 +124,7 @@
         }
 
         &.label-wrap {
-            .el-form-item__label {
+            .#{$namespace}-form-item__label {
                 height: auto;
 
                 .label-text {
@@ -133,46 +136,46 @@
         }
     }
 
-    .el-form-item__content {
+    .#{$namespace}-form-item__content {
         flex: 1;
         margin-left: 0;
 
-        .el-tooltip__trigger:not(.el-slider__button) {
+        .#{$namespace}-tooltip__trigger:not(.#{$namespace}-slider__button) {
             width: 100%;
         }
 
-        .el-input-number {
+        .#{$namespace}-input-number {
             width: 100%;
 
-            .el-input__inner {
+            .#{$namespace}-input__inner {
                 text-align: center;
             }
         }
 
-        .el-textarea {
-            .el-textarea__inner {
+        .#{$namespace}-textarea {
+            .#{$namespace}-textarea__inner {
                 height: 80px;
             }
         }
 
-        .el-date-editor {
+        .#{$namespace}-date-editor {
             width: 100%;
             box-sizing: border-box;
 
-            .el-input__wrapper {
+            .#{$namespace}-input__wrapper {
                 width: 100%;
                 box-sizing: border-box;
             }
         }
 
-        .el-input__inner {
+        .#{$namespace}-input__inner {
             overflow: hidden;
             text-align: left;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
-        .el-form-item__label {
+        .#{$namespace}-form-item__label {
             overflow: hidden;
             width: 80px;
             max-width: 80px;
@@ -180,7 +183,7 @@
             text-overflow: ellipsis;
             white-space: nowrap;
 
-            .el-tooltip {
+            .#{$namespace}-tooltip {
                 display: inline;
 
                 .label-text {

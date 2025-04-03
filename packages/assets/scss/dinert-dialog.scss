@@ -1,18 +1,21 @@
 
-.el-overlay {
+/* stylelint-disable-next-line at-rule-no-unknown */
+@use "variables" as *;
+
+.#{$namespace}-overlay {
     &.autoHeight {
-        .el-dialog {
+        .#{$namespace}-dialog {
             height: 80%;
         }
     }
 
     &.notPadding {
-        .el-dialog__body {
+        .#{$namespace}-dialog__body {
             padding: 0;
         }
     }
 
-    .el-dialog {
+    .#{$namespace}-dialog {
         top: 10%;
         display: flex;
         min-width: 310px;
@@ -83,7 +86,7 @@
             flex: 1;
             word-wrap: break-word;
 
-            & > .el-form {
+            & > .#{$namespace}-form {
                 overflow: unset;
             }
         }
@@ -95,11 +98,11 @@
             clear: both;
             padding: 12px 24px 16px;
 
-            .el-button {
+            .#{$namespace}-button {
                 margin: 0;
             }
 
-            .el-button + .el-button {
+            .#{$namespace}-button + .#{$namespace}-button {
                 margin-left: 12px;
             }
         }

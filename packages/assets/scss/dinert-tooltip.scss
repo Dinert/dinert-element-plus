@@ -1,5 +1,6 @@
-
-.dinert-tooltip.el-tooltip__trigger {
+/* stylelint-disable-next-line at-rule-no-unknown */
+@use "variables" as *;
+.dinert-tooltip.#{$namespace}-tooltip__trigger {
     display: block;
     height: 100%;
 
