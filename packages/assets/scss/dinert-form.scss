@@ -83,7 +83,7 @@
                     width: 210px;
                 }
 
-                & > .#{$namespace}-select {
+                & > .#{$namespace}-select, & > div > .#{$namespace}-cascader {
                     width: 210px;
                 }
 
