@@ -159,7 +159,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => 
 
         }
     } else {
-        _this.form.formItem[item.key].tempValueDisabled = false
+        _this.form.formItem[item.key].tempValueDisabled = true
     }
 
 }
