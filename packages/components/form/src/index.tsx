@@ -311,9 +311,9 @@ export default defineComponent({
                 </el-row>
                 {
                     this.search
-                && <el-row class={['el-form-right', this.isArrow ? 'isArrow' : '']}>
+                && <el-row class={['dinert-form-right', this.isArrow ? 'isArrow' : '']}>
                     {this.isArrow
-                    && <el-button class="el-form-right-operation" text type="primary"
+                    && <el-button class="dinert-form-right-operation" text type="primary"
                         onClick={this.unfold}
                     >
                         <el-icon>

@@ -27,7 +27,7 @@
             }
         }
 
-        .#{$namespace}-form-right {
+        .dinert-form-right {
             &.isArrow {
                 width: 230px;
                 flex: 0 0 230px;
@@ -94,11 +94,11 @@
         }
     }
 
-    .#{$namespace}-form-right {
+    .dinert-form-right {
         display: flex;
         margin-left: 24px;
 
-        .#{$namespace}-form-right-operation {
+        .dinert-form-right-operation {
             padding: 0;
 
             &.#{$namespace}-button.is-text {

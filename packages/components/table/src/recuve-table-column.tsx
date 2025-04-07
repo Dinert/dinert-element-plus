@@ -83,7 +83,7 @@ export default defineComponent({
                     v-slots={
                         {
                             default: () => (
-                                <ul class="el-popover-classify">
+                                <ul class="dinert-popover-classify">
                                     <li>
                                         <el-button class="allSelect" link
                                             type={'primary'} onClick={async () => allShow(selectTable.value, props.table?.tableColumns || [])}

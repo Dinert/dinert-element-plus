@@ -263,7 +263,7 @@ export default defineComponent({
                                 v-slots={
                                     {
                                         default: () => (
-                                            <ul class="el-popover-classify">
+                                            <ul class="dinert-popover-classify">
                                                 <el-tree
                                                     ref={el => (this.selectTableRef = el)}
                                                     draggable
