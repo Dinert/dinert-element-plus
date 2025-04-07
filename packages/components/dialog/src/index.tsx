@@ -83,7 +83,7 @@ export default defineComponent({
 
         return (
             <div>
-                <el-dialog el-dialog {...attrs} fullscreen={this.currentFullScreen}>
+                <el-dialog el-dialog {...attrs} fullscreen={this.currentFullScreen} modal-class="dinert-overlay">
                     {{
                         default: () => slots.default?.(),
                         header: () => {
