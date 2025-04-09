@@ -114,7 +114,7 @@
         }
     }
 
-    div.#{$namespace}-form-item {
+    div.#{$namespace}-form-item:not(.#{$namespace}-form-item--label-top) {
         position: relative;
         display: flex;
         margin-right: 0;
