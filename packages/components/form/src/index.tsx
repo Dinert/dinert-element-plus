@@ -190,6 +190,9 @@ export default defineComponent({
                                         }}
                                         v-slots={{
                                             label: () => {
+                                                if (this.$slots[formItemSlot(item.key, 'formItem_label_')]) {
+                                                    return (this.$slots[formItemSlot(item.key, 'formItem_label_')]?.({...item, model: this.form.model}))
+                                                }
                                                 return (
                                                     <dinert-tooltip
                                                         key={item.key}

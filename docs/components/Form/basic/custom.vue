@@ -11,6 +11,7 @@ interface ModelProps {
 interface FormItemProps {
     name: string;
     name1: string;
+    name2: string;
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
@@ -18,7 +19,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         name1: '1321312'
     },
     colLayout: {span: 24},
-    labelWidth: 60,
+    labelWidth: 'auto',
     formItem: {
         name: {
             label: '名称',
@@ -29,6 +30,13 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         },
         name1: {
             label: '名称1',
+            type: 'input',
+            options: {
+
+            }
+        },
+        name2: {
+            label: '名称2',
             type: 'input',
             options: {
 
@@ -64,6 +72,9 @@ const formItemFn = formItem => {
             </template>
             <template #formItem_before_name1="formItem">
                 <el-button type="primary">{{ formItem.label }}</el-button>
+            </template>
+            <template #formItem_label_name2>
+                插槽label
             </template>
         </dinert-form>
     </div>
