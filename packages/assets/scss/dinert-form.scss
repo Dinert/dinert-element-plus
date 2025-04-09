@@ -24,6 +24,12 @@
                 width: auto;
                 max-width: unset;
                 flex: unset;
+
+                .label-text {
+                    & > div > .#{$namespace}-cascader {
+                        width: 210px;
+                    }
+                }
             }
         }
 
@@ -83,7 +89,7 @@
                     width: 210px;
                 }
 
-                & > .#{$namespace}-select, & > div > .#{$namespace}-cascader {
+                & > .#{$namespace}-select {
                     width: 210px;
                 }
 
