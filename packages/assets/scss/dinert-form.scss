@@ -142,6 +142,18 @@
         }
     }
 
+    div.#{$namespace}-form-item.#{$namespace}-form-item--label-top {
+        margin-right: 0;
+
+        .#{$namespace}-form-item__label {
+            display: inline-flex;
+        }
+
+        .dinert-tooltip.#{$namespace}-tooltip__trigger .label-text {
+            white-space: normal;
+        }
+    }
+
     .#{$namespace}-form-item__content {
         flex: 1;
         margin-left: 0;
