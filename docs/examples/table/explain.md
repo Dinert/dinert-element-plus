@@ -41,7 +41,7 @@
 | ------------ | ---------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------ |
 | tableColumns | 表格头的数据配置项                                                                             | Array   | 一                                                           |
 | errData      | 表格中无数据时显示的数据                                                                       | String  | -                                                            |
-| autoHeight      | 是否自动计算表格的高度，实现自适应效果                                                                       | String  | -                                                            |
+| autoHeight   | 是否自动计算表格的高度，实现自适应效果                                                         | String  | -                                                            |
 | setting      | 是否显示表格右上的操作栏                                                                       | Boolean | true                                                         |
 | class        | 表格的类名                                                                                     | String  | 一                                                           |
 | pagination   | [详细请参阅element-plus的pagination](https://element-plus.org/en-US/component/pagination.html) | Object  | <dinert-api-typing type="object" :details="paginationData"/> |
@@ -91,6 +91,8 @@
 | table-empty          | 自定义表格空的内容                                                                   |
 | table-append         | 插入至表格最后一行之后的内容                                                         |
 | table-body           | 替换表格                                                                             |
+| table-footer-left    | 分页左边的插槽                                                                       |
+| table-footer-right   | 分页右边的插槽                                                                       |
 
 ## Header 属性
 | 属性名  | 说明                                                                                | 类型                                                        | 默认值 |

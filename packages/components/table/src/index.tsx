@@ -364,6 +364,7 @@ export default defineComponent({
                 </div>
 
                 {this.isFooter && this.table?.data && this.table?.data.length !== 0 && <div class="dinert-table-footer" ref={el => {this.footerRef = el}} >
+                    {this.$slots['table-footer-left'] ? (<div class="dinert-table-footer-left" >{this.$slots['table-footer-left']?.()}</div>) : null}
                     <el-pagination
                         model:current-page={1}
                         model:page-size={15}
@@ -375,8 +376,9 @@ export default defineComponent({
                         onSizeChange={(val: number) => this.$emit('SizeChange', val)}
                         onCurrentChange={(val: number) => this.$emit('CurrentChange', val)}
                     >
-
                     </el-pagination>
+                    {this.$slots['table-footer-right'] ? (<div class="dinert-table-footer-right" >{this.$slots['table-footer-right']?.()}</div>) : null}
+
                 </div>
                 }
             </section>
