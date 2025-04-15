@@ -1,4 +1,4 @@
-import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs, shallowRef, useSlots} from 'vue'
+import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs, shallowRef} from 'vue'
 import type {HeaderListProps, RewriteTableProps, TablePageProps} from '@packages/components/table/types/index'
 import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
 import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode, isAllChecked, allShow} from '@packages/components/table/hooks'

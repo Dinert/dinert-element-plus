@@ -49,7 +49,7 @@
 | vif          | 是否渲染所有表单组件，优先formItem下的vif                                              | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing>  | 一     |
 | required     | 是否验证每个表单组件是否必填                                                           | boolean                                                                                        | 一     |
 | packUp       | 第一次加载是否默认展开超出的组件                                                       | boolean                                                                                        | true   |
-| enterSearch  | 是否开启回车搜索，仅支持input的组件                                                                       | boolean                                                                                        | true   |
+| enterSearch  | 是否开启回车搜索，仅支持input的组件                                                    | boolean                                                                                        | true   |
 | searchButton | 自定义搜索按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributes)          | 一     |
 | resetButton  | 自定义重置按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributÏes)         | 一     |
 | ......       | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                                             | 一     |
@@ -80,6 +80,7 @@
 | 插槽名                 | 说明                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------ |
 | formItem_[key]         | formItem_是固定的，key里面的值取决于form中的formItem的key，自定义组件                |
+| formItem_label_[key]   | formItem_是固定的，key里面的值取决于form中的formItem的key，自定义组件的名称          |
 | formItem_after_[key]   | formItem_after_是固定的，key里面的值取决于form中的formItem的key，自定义组件后的内容  |
 | formItem_before_[key]  | formItem_before_是固定的，key里面的值取决于form中的formItem的key，自定义组件前的内容 |
 | form_search            | 自定义查询栏                                                                         |
