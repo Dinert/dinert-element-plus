@@ -34,6 +34,9 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             label: '不同样式',
             type: 'radio-button',
             options: {
+                onChange: value => {
+                    console.log(value)
+                },
                 options: [
                     {label: '显示', value: true},
                     {label: '隐藏', value: false},

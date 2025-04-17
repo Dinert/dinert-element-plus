@@ -31,7 +31,7 @@ export default defineComponent({
         const options = this.options.options || []
 
         return (
-            <el-radio-group v-model={this.form.model[this.formItem.key]}>
+            <el-radio-group v-model={this.form.model[this.formItem.key]} onChange={this.options?.onChange}>
                 {
                     options.map(item => {
                         if (this.formItem.type === 'radio-button') {
