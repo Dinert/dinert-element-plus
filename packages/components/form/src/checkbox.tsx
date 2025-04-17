@@ -28,7 +28,7 @@ export default defineComponent({
     render() {
         const options = this.options.options || []
         return (
-            <el-checkbox-group v-model={this.form.model[this.formItem.key]}>
+            <el-checkbox-group v-model={this.form.model[this.formItem.key]} onChange={this.options?.onChange}>
                 {
                     options.map(item => {
                         if (this.formItem.type === 'checkbox-button') {
