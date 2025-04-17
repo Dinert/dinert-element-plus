@@ -178,11 +178,14 @@ export const formItemSlot = (customName: any, name: string = 'formItem_') => {
 export const renderSlot = (arr: string[] = [], _this: any, slots, item: any): any => {
     for (const prop in _this.$slots) {
         const slotName = prop.split('formItem_').join('').split('_')[1]
+
         let slotFn: any = null
         if (!slotName) {
             return
         }
-        if (arr.includes(slotName)) {
+
+        if (arr.includes(slotName) && formItemSlot(item.key) + '_' + slotName === prop) {
+
             slotFn = _this.$slots[prop]?.(item)
             // eslint-disable-next-line consistent-return
             isSlotsValue(slotFn) && (slots[slotName] = () => slotFn)
