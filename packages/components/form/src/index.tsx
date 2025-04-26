@@ -210,7 +210,7 @@ export default defineComponent({
                                                         content={String(getTooltipValue(this.form.model[item.key], item))}
                                                         disabled={valDisabled}
                                                         item={item}
-                                                        onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key], this)}
+                                                        onLabelMouseEnter={(e: MouseEvent) => valueMouseEnter(e, item, this.form.model[item.key], this, itemShowLabel)}
                                                         v-slots={
                                                             {
                                                                 // eslint-disable-next-line max-statements

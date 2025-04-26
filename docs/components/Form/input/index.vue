@@ -32,7 +32,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         name4: {
             label: '名称22',
             type: 'input',
-            showLabel: true
+            showLabel: true,
         },
         name3: {
             label: '有限制字数的名称',
