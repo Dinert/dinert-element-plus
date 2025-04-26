@@ -8,6 +8,7 @@ export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
         = parseInt(labelEl.getPropertyValue('max-width')) - isRequried
             - parseInt(labelEl.getPropertyValue('padding-right'))
     const tooltipWidth = (e.target as any).previousElementSibling.offsetWidth
+    console.log('tooltipWidth', tooltipWidth)
     if (tooltipWidth >= labelWidth) {
         _this.form.formItem[item.key].labelDisabled = false
 
@@ -130,18 +131,20 @@ export const getSpanValue = (value: any, item: any): any => {
 export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => {
     const showCom = ['input', 'input-autocomplete', 'cascader', 'input-number', 'select', 'tree-select', 'select-v2']
 
-    if (!value || item.showLabel || !showCom.includes(item.type)) {
+    if (!value || (!showCom.includes(item.type) && item.showLabel !== true)) {
         _this.form.formItem[item.key].tempValueDisabled = true
-
         return
     }
     let el: HTMLElement | null = null
-    if (['input', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
-        el = (e.target as any).parentElement.querySelector('.el-input__inner') as HTMLElement
+    if (item.showLabel) {
+        el = e.target as any
+    } else if (['input', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
+        el = (e.target as any).parentElement.querySelector('.el-input__inner') || (e.target as any).parentElement.querySelector('.busy-input__inner') as HTMLElement
     } else if (['select', 'tree-select', 'select-v2'].includes(item.type)) {
-        el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') as HTMLElement
-        el = el || (e.target as any).parentElement.querySelector('.el-select__selection') as HTMLElement
+        el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') || (e.target as any).parentElement.querySelector('.busy-select__selected-item.el-select__placeholder') as HTMLElement
+        el = el || (e.target as any).parentElement.querySelector('.el-select__selection') || (e.target as any).parentElement.querySelector('.busy-select__selection') as HTMLElement
     }
+
 
     if (el) {
         const inputEl = window.getComputedStyle(el, null)
@@ -152,6 +155,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this) => 
         const tooltipEl = (e.target as any).previousElementSibling
         const tooltipWidth = tooltipEl.offsetWidth
 
+        console.log(tooltipWidth, textWidth)
         if (tooltipWidth >= textWidth) {
             _this.form.formItem[item.key].tempValueDisabled = false
         } else {

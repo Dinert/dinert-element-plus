@@ -7,6 +7,7 @@ interface ModelProps {
     name: string;
     name2: string;
     name3: string;
+    name4: string;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -16,7 +17,7 @@ interface FormItemProps {
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-
+        name4: '我是一段很长的文字我是一段很长的文字我是一段很长的文字我是一段很长的文字我是一段很长的文字我是一段很长的文字我是一段很长的文字我是一段很长的文字我是一段很长的文字我是一段很长的文字我是一段很长的文字我是一段很长的文字'
     },
     colLayout: {span: 24},
     labelWidth: 'auto',
@@ -27,6 +28,11 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             type: 'input',
             options: {
             }
+        },
+        name4: {
+            label: '名称22',
+            type: 'input',
+            showLabel: true
         },
         name3: {
             label: '有限制字数的名称',

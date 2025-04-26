@@ -160,7 +160,7 @@ export default defineComponent({
                             let rules = item.rules || []
                             rules = item.required ? [{required: true, trigger: ['blur', 'change'], message: customPlaceholder(typeof item.label === 'function' ? item.label(this.form.model) : item.label, item.type)}].concat(rules as any) : rules
                             rules = itemShowLabel ? [] : rules
-                            const valDisabled = itemShowLabel ? true : item.tempValueDisabled
+                            const valDisabled = item.itemValueDisabled !== undefined ? item.itemValueDisabled : item.tempValueDisabled
 
                             return (
                                 <el-col
@@ -198,7 +198,7 @@ export default defineComponent({
                                                         key={item.key}
                                                         content={typeof item.label === 'function' ? item.label(this.form.model) : item.label}
                                                         disabled={item.labelDisabled}
-                                                        onLabelMouseEnter={(e: MouseEvent) => labelMouseEnter(e, item, this)}
+                                                        onLabelMouseEnter={(e: MouseEvent) => {labelMouseEnter(e, item, this)}}
                                                     >
                                                     </dinert-tooltip>
                                                 )

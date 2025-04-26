@@ -74,6 +74,7 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     tempValueDisabled?: boolean;
     required?: boolean;
     colLayout?: RewriteColProps;
+    itemValueDisabled?: boolean;
 }
 
 type ToModelItem<D, FI> = D extends FI ? D : FI
