@@ -128,7 +128,7 @@ export const getSpanValue = (value: any, item: any): any => {
 }
 
 export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this, itemShowLabel: any) => {
-    const showCom = ['input', 'input-autocomplete', 'cascader', 'input-number', 'select', 'tree-select', 'select-v2']
+    const showCom = ['input', 'input-autocomplete', 'cascader', 'input-number', 'select', 'tree-select', 'select-v2', 'textarea']
 
     if (!value || (!showCom.includes(item.type) && itemShowLabel !== true)) {
         _this.form.formItem[item.key].tempValueDisabled = true

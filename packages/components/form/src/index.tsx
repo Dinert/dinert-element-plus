@@ -217,7 +217,9 @@ export default defineComponent({
                                                                 default: () => {
 
                                                                     const slots: any = {}
-                                                                    let componentResult = <span>{dataTransformRod(getSpanValue(this.form.model[item.key], item))}</span>
+                                                                    const errData = this.form.errData || '-'
+                                                                    const resultVal = dataTransformRod(getSpanValue(this.form.model[item.key], item), errData)
+                                                                    let componentResult = <span class={[resultVal === errData ? 'empty-value' : '']}>{resultVal}</span>
 
                                                                     if (this.$slots[formItemSlot(item.key)]) {
                                                                         componentResult = (this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model}))

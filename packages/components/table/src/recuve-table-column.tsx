@@ -355,8 +355,8 @@ export default defineComponent({
                                                 return (
                                                     <>
                                                         {isSlotValue
-                                                            ? <div class="cell-item">{ defaultSlot?.({...scope, prop: item.prop})}</div>
-                                                            : <div class="cell-item" v-dompurify-html={htmlValue}></div>}
+                                                            ? <div class={['cell-item']}>{ defaultSlot?.({...scope, prop: item.prop})}</div>
+                                                            : <div class={['cell-item', htmlValue === this.table?.errData ? 'empty-value' : '']} v-dompurify-html={htmlValue}></div>}
 
                                                         <dinert-recuve-table-column table={this.table}
                                                             key={item.prop}
@@ -372,7 +372,7 @@ export default defineComponent({
 
                                                 return (
                                                     <>
-                                                        <div class="cell-item">
+                                                        <div class={['cell-item', value === this.table?.errData ? 'empty-value' : '']}>
                                                             {this.moreRender(item, this, {
                                                                 value,
                                                                 scope,

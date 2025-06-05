@@ -93,6 +93,7 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     showLabel?: boolean | ((model: D) => boolean);
     required?: boolean;
     key?: any;
+    errData?: string;
     packUp?: boolean;
     searchButton?: Partial<ButtonProps & {message?: string}>;
     resetButton?: Partial<ButtonProps & {message?: string}>;
