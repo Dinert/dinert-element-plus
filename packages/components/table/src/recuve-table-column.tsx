@@ -294,7 +294,7 @@ export default defineComponent({
                     </>
                 )
             }
-            return <div class="cell-item-text">{ (isSlotValue && slotValue) || value}</div>
+            return <div class={['cell-item-text']}>{ (isSlotValue && slotValue) || value}</div>
         }
 
         return {
@@ -348,8 +348,8 @@ export default defineComponent({
 
                                             const slotValue = defaultSlot?.({...scope, prop: item.prop})
                                             const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
-
                                             if (formatter) {
+
                                                 let htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index, this.table?.errData)
                                                 htmlValue = dataTransformRod(htmlValue, this.table?.errData)
                                                 return (
@@ -372,7 +372,7 @@ export default defineComponent({
 
                                                 return (
                                                     <>
-                                                        <div class={['cell-item', value === this.table?.errData ? 'empty-value' : '']}>
+                                                        <div class={['cell-item', value === this.table?.errData || isSlotValue === this.table?.errData ? 'empty-value' : '']}>
                                                             {this.moreRender(item, this, {
                                                                 value,
                                                                 scope,
