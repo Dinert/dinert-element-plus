@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,b4 as n}from"./chunks/framework.CYuNx6_x.js";const m=JSON.parse('{"title":"快速开始","description":"","frontmatter":{},"headers":[],"relativePath":"guide/theme.md","filePath":"guide/theme.md"}'),e={name:"guide/theme.md"},p=n("",4),l=[p];function t(h,k,r,d,c,E){return a(),i("div",null,l)}const u=s(e,[["render",t]]);export{m as __pageData,u as default};
