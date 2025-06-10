@@ -8,7 +8,6 @@
     "docs:dev": "cd docs && yarn dev",
     "docs:build": "cd docs && yarn build",
     "docs:preview": "cd docs && yarn preview"
-
   },
   "keywords": [
     "@dinert/element-plus",
@@ -34,7 +33,7 @@
       "import": "./es/style.css"
     },
     "./variables": {
-        "import": "es/packages/assets/scss/variables.scss"
+      "import": "es/packages/assets/scss/variables.scss"
     },
     "./theme": {
       "import": "es/packages/assets/scss/index.scss"
@@ -56,7 +55,7 @@
     "@vitejs/plugin-vue-jsx": "^3.0.2",
     "@vue/runtime-core": "^3.3.8",
     "@vuepress/client": "^2.0.0-rc.0",
-    "element-plus": "^2.7.0",
+    "element-plus": "^2.10.1",
     "eslint": "^8.53.0",
     "eslint-plugin-vue": "^9.18.1",
     "husky": "^8.0.3",

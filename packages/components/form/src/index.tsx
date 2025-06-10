@@ -231,7 +231,7 @@ export default defineComponent({
                                                                             this.$emit('SearchFn')}}
                                                                         ref={el => this.setFormTypeRefs(item.key, el)}></CustomInput>)
                                                                     } else if (['input-number'].includes(item.type)) {
-                                                                        renderSlot(['decrease-icon', 'increase-icon'], this, slots, item)
+                                                                        renderSlot(['decrease-icon', 'increase-icon', 'prefix', 'suffix'], this, slots, item)
                                                                         componentResult = (<CustomInputNumber form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputNumber>)
                                                                     } else if (['input-autocomplete'].includes(item.type)) {

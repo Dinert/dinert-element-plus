@@ -8,5 +8,11 @@
 Form/input-number/index
 :::
 
+## 使用插槽
+:::demo
+
+Form/input-number/input-slot
+:::
+
 <!-- @include: ./explain.md -->
 
