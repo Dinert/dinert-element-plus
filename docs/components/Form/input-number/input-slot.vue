@@ -15,7 +15,9 @@ interface FormItemProps {
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
-    model: {},
+    model: {
+        name2: '值',
+    },
     colLayout: {span: 24},
     labelWidth: 'auto',
     formItem: {
@@ -23,6 +25,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             label: '名称',
             type: 'input-number',
             options: {
+                controlsPosition: 'right'
             }
         },
         name2: {
@@ -40,6 +43,11 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         <dinert-form :form="form" class="dialog"
             :search="false"
         >
+            <template #formItem_name2="formItem">
+                <span>
+                    {{ form.model[formItem.key] }}
+                </span>
+            </template>
             <template #formItem_name_prefix>
                 <el-icon><Refresh/></el-icon>
             </template>
