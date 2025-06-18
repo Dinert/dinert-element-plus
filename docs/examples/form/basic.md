@@ -56,5 +56,11 @@ Form/basic/custom
 Form/basic/vaildate
 :::
 
+## 表格验证
+:::demo
+
+Form/basic/vaildate-table
+:::
+
 <!-- @include: ./explain.md -->
 
