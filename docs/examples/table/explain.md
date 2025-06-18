@@ -95,12 +95,11 @@
 | table-footer-right   | 分页右边的插槽                                                                       |
 
 ## Header 属性
-| 属性名  | 说明                                                                                | 类型                                                        | 默认值 |
-| ------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------- | ------ |
-| message | 名称                                                                                | String                                                      | 一     |
-| click   | 点击事件                                                                            | Function                                                    | 一     |
-| show    | 是否显示                                                                            | <dinert-api-typing type="enmu" :details="HeaderListProps"/> |        | 一 |
-| sort    | 操作的排序，数值越小按钮越靠前                                                      | Number                                                      | 一     |
-| ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/button.html#attributes) | 一                                                          | 一     |
-
-
+| 属性名  | 说明                                                                                           | 类型                                                        | 默认值 |
+| ------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | ------ |
+| message | 名称                                                                                           | String                                                      | 一     |
+| click   | 点击事件                                                                                       | Function                                                    | 一     |
+| show    | 是否显示                                                                                       | <dinert-api-typing type="enmu" :details="HeaderListProps"/> |        | 一 |
+| sort    | 操作的排序，数值越小按钮越靠前                                                                 | Number                                                      | 一     |
+| tooltip | 鼠标移上去显示的内容[请参考](https://element-plus.org/zh-CN/component/tooltip.html#attributes) | Object                                                      | 一     |
+| ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/button.html#attributes)            | 一                                                          | 一     |

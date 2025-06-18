@@ -1,4 +1,4 @@
-import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps, ButtonProps, PopconfirmProps, ElMessageBoxOptions} from 'element-plus'
+import type {TableProps, TableColumnCtx, ElTable, ElPagination, PaginationProps, ButtonProps, PopconfirmProps, ElMessageBoxOptions, ElTooltipProps} from 'element-plus'
 
 export type Mutable<T> = {
     -readonly [K in keyof T]: T[K];
@@ -64,7 +64,12 @@ export interface RewritePaginationProps extends PaginationPropsFn, Partial<Mutab
 
 }
 
+export interface RewriteElTooltipProps extends Partial<Omit<ElTooltipProps, 'content'>>{
+    content?: string | ((scope: ScopeProps) => string);
+}
+
 export interface HeaderListProps extends Omit<Partial<ButtonProps>, 'disabled'>{
+    tooltip?: RewriteElTooltipProps;
     message?: string;
     click?: (item: HeaderListProps) => void;
     sort?: number;

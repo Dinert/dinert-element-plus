@@ -63,6 +63,11 @@ const tablePage = ref<TablePageProps<DataProps>>({
             message: '新增',
             click: item => {
                 console.log(item, '1321321')
+            },
+            tooltip: {
+                content: () => {
+                    return '新增'
+                }
             }
         },
         'upload': {
@@ -76,6 +81,9 @@ const tablePage = ref<TablePageProps<DataProps>>({
         },
         'delete': {
             message: '删除',
+            tooltip: {
+                content: '删除'
+            }
         },
         'custom': {
             message: '自定义内容',

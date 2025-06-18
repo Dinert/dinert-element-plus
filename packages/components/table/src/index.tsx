@@ -239,11 +239,17 @@ export default defineComponent({
                                 if ((typeof item.show !== 'function' && [true, undefined].includes(item.show))
                                     || (typeof item.show === 'function' && [true, undefined].includes(item.show(item)))
                                 ) {
-                                    return <el-button {...{
-                                        ...item,
-                                        disabled,
-                                        type: item.type || 'primary',
-                                    }} onClick={() => item.click && item.click(item)}>{item.message}</el-button>
+                                    const tooltip = item.tooltip || {} as any
+                                    const content = typeof tooltip.content === 'function' ? tooltip.content(item) : tooltip.content
+                                    return (<el-tooltip placement="top" disabled={!content} {...{
+                                        ...tooltip,
+                                        content
+                                    }}><el-button {...{
+                                            ...item,
+                                            disabled,
+                                            type: item.type || 'primary',
+                                        }} onClick={() => item.click && item.click(item)}>{item.message}</el-button>
+                                    </el-tooltip>)
                                 }
                                 return null
                             })
