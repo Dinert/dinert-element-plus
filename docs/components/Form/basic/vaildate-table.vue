@@ -132,7 +132,7 @@ const save = () => {
     })
 }
 const reset = () => {
-    form.value.model = {}
+    form.value.model = {name: {}}
     dinertFormRef.value?.clearValidate()
 }
 
