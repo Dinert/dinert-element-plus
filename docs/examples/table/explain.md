@@ -35,7 +35,7 @@
 | table     | [详细请参阅下面table属性](#table-属性)                                         | Object                                                 | 一     |
 
 
-## Table 属性
+##
 
 | 属性名       | 说明                                                                                           | 类型    | 默认值                                                       |
 | ------------ | ---------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------ |
@@ -44,6 +44,7 @@
 | autoHeight   | 是否自动计算表格的高度，实现自适应效果                                                         | String  | -                                                            |
 | setting      | 是否显示表格右上的操作栏                                                                       | Boolean | true                                                         |
 | class        | 表格的类名                                                                                     | String  | 一                                                           |
+| echoSelect   | 是否回显选中的行                                                                               | Boolean | false                                                        |
 | pagination   | [详细请参阅element-plus的pagination](https://element-plus.org/en-US/component/pagination.html) | Object  | <dinert-api-typing type="object" :details="paginationData"/> |
 | ......       | [更多配置，请参考](https://element-plus.org/en-US/component/table.html#table-attributes)       |
 
