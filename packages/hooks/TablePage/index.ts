@@ -56,7 +56,6 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
                 total: 0,
                 currentPage: 1,
                 pageSize: 10,
-                pageSizes: [10, 20, 30, 50, 100],
             },
         },
         form: {
@@ -176,7 +175,7 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
             this.oldParams = lodash.cloneDeep(this.params)
         }
 
-        if (!['size', 'current'].includes(options.name || '') || !this.table.value.rowKey) {
+        if (!['size', 'current'].includes(options.name || '') || !this.table.value.rowKey || !this.table.value.echoSelect) {
             this.selecTableDatas.value = []
         }
 

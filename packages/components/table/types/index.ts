@@ -57,6 +57,7 @@ export interface RewriteTableProps<T = any> extends TableProps<T>, TableFnProps 
     class?: string;
     pagination: RewritePaginationProps;
     autoHeight?: boolean;
+    echoSelect?: boolean;
 }
 
    type PaginationPropsFn = Partial<Pick<InstanceType<typeof ElPagination>, 'onChange' | 'onUpdate:current-page' |'onUpdate:page-size' | 'onSize-change' | 'onCurrent-change' | 'onPrev-click' | 'onNext-click'>>
