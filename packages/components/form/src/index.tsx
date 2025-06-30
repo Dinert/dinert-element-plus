@@ -144,6 +144,7 @@ export default defineComponent({
 
                         let show = typeof item.show === 'function' ? item.show(this.form.model) : item.show
                         show = show === undefined ? true : show
+                        const isCustomPlaceholder = item.options?.placeholder
                         item.options = {placeholder: customPlaceholder(typeof item.label === 'function' ? item.label(this.form.model) : item.label, item.type), ...item.options}
 
 
@@ -158,7 +159,7 @@ export default defineComponent({
                             item.required = itemShowLabel ? false : item.required
 
                             let rules = item.rules || []
-                            rules = item.required ? [{required: true, trigger: ['blur', 'change'], message: customPlaceholder(typeof item.label === 'function' ? item.label(this.form.model) : item.label, item.type)}].concat(rules as any) : rules
+                            rules = item.required ? [{required: true, trigger: ['blur', 'change'], message: isCustomPlaceholder || customPlaceholder(typeof item.label === 'function' ? item.label(this.form.model) : item.label, item.type)}].concat(rules as any) : rules
                             rules = itemShowLabel ? [] : rules
                             const valDisabled = item.itemValueDisabled !== undefined ? item.itemValueDisabled : item.tempValueDisabled
 
