@@ -151,7 +151,7 @@ export interface FormItemPropsSwitch <D, FI> extends CustomFormItemProps<D, FI> 
 }
 
 export interface FormItemPropsDate <D, FI> extends CustomFormItemProps<D, FI> {
-    type: 'date' | 'datetime' | 'week' |'month' | 'year' | 'years' | 'daterange' | 'datetimerange' |'monthrange';
+    type: 'date' | 'datetime' | 'week' |'month' | 'year' | 'years' | 'daterange' | 'datetimerange' |'monthrange' | 'dates';
     options?: RewriteDatePickerProps;
 }
 
