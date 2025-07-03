@@ -31,7 +31,7 @@ export type RewriteInputProps = Partial<InputProps & Pick<typeof ElInput, 'onInp
 
 export type RewriteTextareaProps = Partial<InputProps & Pick<typeof ElInput, 'onInput'| CommonFn>>
 
-export type RewriteSelectProps<O = any[]> = Partial<Omit<ExtractPropTypes<typeof SelectProps>, 'options'> &
+export type RewriteSelectProps<O = any[]> = Partial<Omit<ExtractPropTypes<SelectProps>, 'options'> &
 {options: O | SelectOptionProxy[], label: string, value: string }
 & Pick<typeof ElSelect, CommonFn | 'onVisible-change' | 'onRemove-tag'>
 >
@@ -49,7 +49,7 @@ export type RewriteRadioGroupProps<O = any[]> = Partial<RadioGroupProps & {optio
 
 export type RewriteCheckboxGroupProps<O = any[]> = Partial<CheckboxGroupProps & {options: O | CheckboxProps[], value: string} & Pick<typeof ElCheckbox, 'onChange'>>
 
-export type RewriteTreeSelectProps<O = any[]> = Partial<TreeProps& Omit<ExtractPropTypes<typeof SelectProps>, 'options'> &
+export type RewriteTreeSelectProps<O = any[]> = Partial<TreeProps& Omit<ExtractPropTypes<SelectProps>, 'options'> &
 {options: O | SelectOptionProxy[], label: string, value: string, data: O | SelectOptionProxy[]} &
 Pick<typeof ElTreeSelect, CommonFn> & Pick<typeof ElTree,
 'onCurrent-change'| 'onCheck' | 'onNode-click' | 'onCurrent-change' | 'onNode-expand' |'onCheck-change' | 'onNode-click' | 'onNode-contextmenu' | 'onNode-collapse' | 'onNode-drag-start'
