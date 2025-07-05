@@ -15,12 +15,12 @@ import {
     TimePickerDefaultProps,
     ElTimePicker,
     ElTimeSelect,
+    SelectProps
 } from 'element-plus'
 import {TreeOptionProps} from 'element-plus/es/components/tree-v2/src/types'
 
 // import {EpPropFinalized, EpProp} from 'element-plus/es/utils'
 
-import type {SelectProps} from 'element-plus/es/components/select/src/select'
 import {TreeProps} from 'element-plus/es/components/tree-v2/src/types'
 import {TimeSelectProps} from 'element-plus/es/components/time-select/src/time-select'
 
