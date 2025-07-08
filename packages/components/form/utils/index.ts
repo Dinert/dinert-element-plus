@@ -1,4 +1,5 @@
 import {isSlotsValue} from '@packages/utils/tools'
+import {isArray} from 'lodash'
 
 export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
     const el = (e.target as any).parentElement.parentElement
@@ -66,11 +67,14 @@ export const getTooltipValue = (value: any, item: any): any => {
     } else if (['cascader'].includes(type)) {
         if (options && options.options && options.options.length) {
             if (options.props?.emitPath === undefined || options.props?.emitPath === true) {
-                value = value && value[0]
+                if (isArray(value) && value.length) {
+                    value = value.join('/')
+
+                    return value
+                }
             }
 
-            const selectItem = findTreeNode(options.options, options.props?.value || 'value', value)[0]
-            return selectItem && selectItem[options.props?.label || 'label']
+            return value
         }
     }
     return null
@@ -139,6 +143,8 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this, ite
         el = e.target as any
     } else if (['input', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-input__inner') || (e.target as any).parentElement.querySelector('.busy-input__inner') as HTMLElement
+        console.log(_this.form, 'itemm')
+        console.log(el, 'eee')
     } else if (['select', 'tree-select', 'select-v2'].includes(item.type)) {
         el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') || (e.target as any).parentElement.querySelector('.busy-select__selected-item.el-select__placeholder') as HTMLElement
         el = el || (e.target as any).parentElement.querySelector('.el-select__selection') || (e.target as any).parentElement.querySelector('.busy-select__selection') as HTMLElement
@@ -154,6 +160,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this, ite
         const tooltipEl = (e.target as any).previousElementSibling
         const tooltipWidth = tooltipEl.offsetWidth
 
+        console.log(tooltipWidth, textWidth)
         if (tooltipWidth >= textWidth) {
             _this.form.formItem[item.key].tempValueDisabled = false
         } else {

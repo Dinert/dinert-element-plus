@@ -244,7 +244,7 @@ export default defineComponent({
                                                                         componentResult = (<CustomSelect form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelect>)
                                                                     } else if (['select-v2'].includes(item.type)) {
-                                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
+                                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label', 'default'], this, slots, item)
                                                                         componentResult = (<CustomSelectV2 form={this.form} formItem={item} v-slots={slots}
                                                                             ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectV2>)
                                                                     } else if (['switch'].includes(item.type)) {

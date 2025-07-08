@@ -13,6 +13,7 @@ interface FormItemProps {
     status1: string;
     status2: string;
     status3: string;
+    status4: string;
 }
 const options = [
     {
@@ -276,6 +277,17 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             type: 'cascader',
             options: {
                 options: options
+            }
+        },
+        status4: {
+            label: '显示最后一级',
+            type: 'cascader',
+            options: {
+                options: options,
+                showAllLevels: false,
+                props: {
+                    emitPath: false,
+                }
             }
         },
         status2: {
