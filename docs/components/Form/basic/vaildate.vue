@@ -13,6 +13,7 @@ interface FormItemProps {
     name: string;
     name1: string;
     name2: string;
+    name3: string;
     status: string;
 }
 
@@ -33,7 +34,6 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         name: {
             label: '必填',
             type: 'input',
-            required: true,
             showLabel: false,
 
             options: {
@@ -43,13 +43,22 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         name2: {
             label: '必填',
             type: 'select',
-            required: true,
             showLabel: false,
             options: {
                 options: [
                     {label: '显示当我的长度过长长长长长长', value: true},
                     {label: '隐藏', value: false},
                 ]
+            }
+        },
+        name3: {
+            label: '必填',
+            type: 'input',
+            showLabel: false,
+            required: false,
+            rules: [{required: true, message: '请输入', trigger: ['change', 'blur']}],
+            options: {
+
             }
         },
         status: {

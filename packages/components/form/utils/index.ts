@@ -160,7 +160,7 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this, ite
         const tooltipEl = (e.target as any).previousElementSibling
         const tooltipWidth = tooltipEl.offsetWidth
 
-        console.log(tooltipWidth, textWidth)
+        // console.log(tooltipWidth, textWidth)
         if (tooltipWidth >= textWidth) {
             _this.form.formItem[item.key].tempValueDisabled = false
         } else {
@@ -188,13 +188,13 @@ export const renderSlot = (arr: string[] = [], _this: any, slots, item: any): an
 
     for (const prop in _this.$slots) {
         const slotName = prop.split('_')
-        let slotFn: any = null
+        // const slotFn: any = null
 
         if (arr.includes(slotName[2]) && formItemSlot(item.key) + '_' + slotName[2] === prop) {
 
-            slotFn = _this.$slots[prop]?.(item)
+
             // eslint-disable-next-line consistent-return
-            isSlotsValue(slotFn) && (slots[slotName[2]] = () => slotFn)
+            (slots[slotName[2]] = args1 => _this.$slots[prop]?.({...item, args1}))
         }
     }
 }
