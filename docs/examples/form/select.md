@@ -5,13 +5,13 @@
 ## 基础用法
 :::demo
 
-Form/select/index
+form/select/index
 :::
 
 ## 使用插槽
 :::demo
 
-Form/select/select-slot
+form/select/select-slot
 :::
 
 <!-- @include: ./explain.md -->

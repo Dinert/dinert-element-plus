@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/slider/index
+form/slider/index
 :::
 
 <!-- @include: ./explain.md -->

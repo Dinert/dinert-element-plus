@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/date/index
+form/date/index
 :::
 
 <!-- @include: ./explain.md -->

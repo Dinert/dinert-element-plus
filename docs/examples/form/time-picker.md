@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/time-picker/index
+form/time-picker/index
 :::
 
 <!-- @include: ./explain.md -->

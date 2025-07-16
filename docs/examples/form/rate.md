@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/rate/index
+form/rate/index
 :::
 
 <!-- @include: ./explain.md -->

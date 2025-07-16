@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/switch/index
+form/switch/index
 :::
 
 <!-- @include: ./explain.md -->

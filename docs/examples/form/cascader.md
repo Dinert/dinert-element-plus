@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/cascader/index
+form/cascader/index
 :::
 
 <!-- @include: ./explain.md -->

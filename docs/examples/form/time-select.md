@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/time-select/index
+form/time-select/index
 :::
 
 <!-- @include: ./explain.md -->

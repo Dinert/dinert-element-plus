@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/radio/index
+form/radio/index
 :::
 
 <!-- @include: ./explain.md -->

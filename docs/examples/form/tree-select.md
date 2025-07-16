@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/tree-select/index
+form/tree-select/index
 :::
 
 <!-- @include: ./explain.md -->

@@ -5,7 +5,7 @@
 ## 基础用法
 :::demo
 
-Form/checkbox/index
+form/checkbox/index
 :::
 
 <!-- @include: ./explain.md -->
