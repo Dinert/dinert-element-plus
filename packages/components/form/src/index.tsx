@@ -157,6 +157,7 @@ export default defineComponent({
                             item.required = item.required === undefined ? item.required || this.form.required : item.required
                             itemShowLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
                             item.required = itemShowLabel ? false : item.required
+                            const colLayout = typeof item.colLayout === 'function' ? item.colLayout(this.form.model) : item.colLayout
 
                             let rules = item.rules || []
                             rules = item.required ? [{required: true, trigger: ['blur', 'change'], message: isCustomPlaceholder || customPlaceholder(typeof item.label === 'function' ? item.label(this.form.model) : item.label, item.type)}].concat(rules as any) : rules
@@ -176,7 +177,7 @@ export default defineComponent({
                                             // sm: 12, // ≥768px
                                             // xs: 24, // <768px
                                             ...this.form.colLayout,
-                                            ...item.colLayout
+                                            ...colLayout
                                         }
                                     }
                                 >

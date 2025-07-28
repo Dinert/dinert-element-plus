@@ -73,7 +73,7 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     valueDisabled?: boolean;
     tempValueDisabled?: boolean;
     required?: boolean;
-    colLayout?: RewriteColProps;
+    colLayout?: RewriteColProps | ((model: D) => (RewriteColProps));
     itemValueDisabled?: boolean;
 }
 
