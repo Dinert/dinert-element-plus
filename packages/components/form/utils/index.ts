@@ -1,5 +1,5 @@
-import {isSlotsValue} from '@packages/utils/tools'
-import {isArray} from 'lodash'
+
+import lodash from 'lodash'
 
 export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
     const el = (e.target as any).parentElement.parentElement
@@ -22,7 +22,7 @@ export const findTreeNode = (treeData: any, key: string, value: string) => {
     function filterResult(treeData: any) {
         treeData.forEach((item: any) => {
             if (item) {
-                if ((Array.isArray(value) && value.includes(item[key])) || value === item[key]) {
+                if ((lodash.isArray(value) && value.includes(item[key])) || value === item[key]) {
                     result.push(item)
                 }
                 if (item.children && item.children.length) {
@@ -67,7 +67,7 @@ export const getTooltipValue = (value: any, item: any): any => {
     } else if (['cascader'].includes(type)) {
         if (options && options.options && options.options.length) {
             if (options.props?.emitPath === undefined || options.props?.emitPath === true) {
-                if (isArray(value) && value.length) {
+                if (lodash.isArray(value) && value.length) {
                     value = value.join('/')
 
                     return value
