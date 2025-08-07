@@ -7,6 +7,7 @@ interface ModelProps {
     name: string;
     name2: string;
     name3: string;
+    disabled: boolean;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -45,12 +46,23 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             }
         },
         name3: {
-            label: '不同样式',
+            label: '按钮不同样式',
             type: 'radio',
             options: {
                 options: [
                     {label: '显示', value: true, border: true},
                     {label: '隐藏', value: false, border: true},
+                ]
+            }
+        },
+        disabled: {
+            label: '禁用',
+            type: 'radio',
+            options: {
+                disabled: true,
+                options: [
+                    {label: '显示', value: true},
+                    {label: '隐藏', value: false},
                 ]
             }
         }

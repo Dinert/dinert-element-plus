@@ -11,6 +11,7 @@ interface FormItemProps {
     name: string;
     name2: string;
     name3: string;
+    disabled: boolean;
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
@@ -41,12 +42,23 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             }
         },
         name3: {
-            label: '不同样式',
+            label: 'checkbox按钮',
             type: 'checkbox',
             options: {
                 options: [
                     {label: '显示', value: true, border: true},
                     {label: '隐藏', value: false, border: true},
+                ]
+            }
+        },
+        disabled: {
+            label: '禁用',
+            type: 'checkbox',
+            options: {
+                disabled: true,
+                options: [
+                    {label: '显示', value: true},
+                    {label: '隐藏', value: false},
                 ]
             }
         }
