@@ -4,8 +4,9 @@ import {ref} from 'vue'
 import TestTable from './packages/views/test-table/index.vue'
 import TestForm from './packages/views/test-form/index.vue'
 import TestTablePage from './packages/views/test-table-page/index.vue'
+import TestTsxTable from './packages/views/test-tsx-table/index'
 
-const activeName = ref('table-form')
+const activeName = ref('table-jsx')
 </script>
 
 <template>
@@ -19,6 +20,9 @@ const activeName = ref('table-form')
             </el-tab-pane>
             <el-tab-pane label="表单" name="form">
                 <test-form/>
+            </el-tab-pane>
+            <el-tab-pane label="表格jsx" name="table-jsx">
+                <test-tsx-table/>
             </el-tab-pane>
         </el-tabs>
     </div>

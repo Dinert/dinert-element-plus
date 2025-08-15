@@ -348,6 +348,7 @@ export default defineComponent({
 
                                             const slotValue = defaultSlot?.({...scope, prop: item.prop})
                                             const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
+
                                             if (formatter) {
 
                                                 let htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index, this.table?.errData)
@@ -355,7 +356,7 @@ export default defineComponent({
                                                 return (
                                                     <>
                                                         {isSlotValue
-                                                            ? <div class={['cell-item']}>{ defaultSlot?.({...scope, prop: item.prop})}</div>
+                                                            ? <div class={['cell-item']}>{ slotValue }</div>
                                                             : <div class={['cell-item', htmlValue === this.table?.errData ? 'empty-value' : '']} v-dompurify-html={htmlValue}></div>}
 
                                                         <dinert-recuve-table-column table={this.table}
