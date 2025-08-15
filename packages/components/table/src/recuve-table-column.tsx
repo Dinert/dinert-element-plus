@@ -398,7 +398,7 @@ export default defineComponent({
                                             const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
                                             if (headerSlot) {
                                                 return (
-                                                    <>  {<span>{isSlotValue ? headerSlot?.({...scope, data: item, prop: item.prop}) : scope.column.label}</span>}
+                                                    <>  {<span>{isSlotValue ? slotValue : scope.column.label}</span>}
                                                         {item.setting && this.table?.setting !== false && this.settingRender((this as RecuveTableColumnProps))}
                                                     </>
                                                 )
