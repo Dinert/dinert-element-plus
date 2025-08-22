@@ -14,6 +14,12 @@ form/basic/index
 form/basic/dialog
 :::
 
+## 不同布局的组件-函数
+:::demo
+
+form/basic/layout
+:::
+
 ## 显示值
 :::demo
 

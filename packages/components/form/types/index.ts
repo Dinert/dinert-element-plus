@@ -73,7 +73,7 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     valueDisabled?: boolean;
     tempValueDisabled?: boolean;
     required?: boolean;
-    colLayout?: RewriteColProps | ((model: D) => (RewriteColProps));
+    colLayout?: RewriteColProps | ((model: D, index?: number) => (RewriteColProps));
     itemValueDisabled?: boolean;
 }
 
@@ -88,7 +88,7 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     model: IsAny<FI, Partial<D>, Partial<MergeProp<D, ToString<FI>>>> ;
     vif?: boolean | ((model: D) => boolean);
     formItem: Partial<FormItemMap<D, FI>>;
-    colLayout?: RewriteColProps;
+    colLayout?: RewriteColProps | ((model: D, index: number) => (RewriteColProps));
     row?: RewriteRowProps;
     showLabel?: boolean | ((model: D) => boolean);
     required?: boolean;

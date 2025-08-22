@@ -136,7 +136,7 @@ export default defineComponent({
 
                 <el-row {...this.form.row} class="dinert-form-left">
                     {/* eslint-disable-next-line array-callback-return, consistent-return */}
-                    { this.formItemMap.map((item: CustomFormItemProps) => {
+                    { this.formItemMap.map((item: CustomFormItemProps, index: number) => {
                         const style: any = {}
                         let vif = typeof item.vif === 'function' ? item.vif(this.form.model) : item.vif
                         vif = vif === undefined ? typeof this.form.vif === 'function' ? this.form.vif(this.form.model) : vif : vif
@@ -157,7 +157,10 @@ export default defineComponent({
                             item.required = item.required === undefined ? item.required || this.form.required : item.required
                             itemShowLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
                             item.required = itemShowLabel ? false : item.required
-                            const colLayout = typeof item.colLayout === 'function' ? item.colLayout(this.form.model) : item.colLayout
+
+                            const formColLayout = typeof this.form.colLayout === 'function' ? this.form.colLayout(this.form.model, index) : this.form.showLabel
+                            let colLayout = typeof item.colLayout === 'function' ? item.colLayout(this.form.model, index) : item.colLayout
+                            colLayout = colLayout === undefined ? colLayout || formColLayout : colLayout as any
 
                             let rules = item.rules || []
                             rules = item.required ? [{required: true, trigger: ['blur', 'change'], message: isCustomPlaceholder || customPlaceholder(typeof item.label === 'function' ? item.label(this.form.model) : item.label, item.type)}].concat(rules as any) : rules
