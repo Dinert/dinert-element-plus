@@ -66,6 +66,7 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     vif?: boolean | ((model: D) => boolean);
     label: string | ((model: D) => string);
     sort?: number;
+    class?: string;
     options?: RewriteFormItemPropsMap<O>[N];
     showLabel?: boolean | ((model: D) => boolean);
     labelDisabled?: boolean;
