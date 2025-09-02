@@ -220,7 +220,7 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
 
     // 重置分页参数
     resetPagination() {
-        this.table.value.pagination = {...this.options.table.pagination}
+        this.table.value.pagination = {...this.firstOptions.table?.pagination}
     }
 
     // 重置表格请求参数
