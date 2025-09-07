@@ -1,4 +1,5 @@
 
+import {isSlotsValue} from '@packages/utils/tools'
 import lodash from 'lodash'
 
 export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
@@ -187,14 +188,18 @@ export const formItemSlot = (customName: any, name: string = 'formItem_') => {
 export const renderSlot = (arr: string[] = [], _this: any, slots, item: any): any => {
 
     for (const prop in _this.$slots) {
-        const slotName = prop.split('_')
-        // const slotFn: any = null
+        const slotName = prop.split('formItem_').join('').split('_')[1]
 
-        if (arr.includes(slotName[2]) && formItemSlot(item.key) + '_' + slotName[2] === prop) {
+        let slotFn: any = null
+        if (!slotName) {
+            return
+        }
 
+        if (arr.includes(slotName) && formItemSlot(item.key) + '_' + slotName === prop) {
 
+            slotFn = _this.$slots[prop]?.(item)
             // eslint-disable-next-line consistent-return
-            (slots[slotName[2]] = args1 => _this.$slots[prop]?.({...item, args1}))
+            isSlotsValue(slotFn) && (slots[slotName] = () => slotFn)
         }
     }
 }
