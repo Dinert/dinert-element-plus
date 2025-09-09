@@ -143,34 +143,15 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this, ite
     if (itemShowLabel) {
         el = e.target as any
     } else if (['input', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
-        el = (e.target as any).parentElement.querySelector('.el-input__inner') || (e.target as any).parentElement.querySelector('.busy-input__inner') as HTMLElement
-        console.log(_this.form, 'itemm')
-        console.log(el, 'eee')
+        el = (e.target as any).parentElement.querySelector('.el-input__inner')
     } else if (['select', 'tree-select', 'select-v2'].includes(item.type)) {
-        el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') || (e.target as any).parentElement.querySelector('.busy-select__selected-item.el-select__placeholder') as HTMLElement
-        el = el || (e.target as any).parentElement.querySelector('.el-select__selection') || (e.target as any).parentElement.querySelector('.busy-select__selection') as HTMLElement
+        el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder')
+        el = el || (e.target as any).parentElement.querySelector('.el-select__selection')
     }
 
 
-    if (el) {
-        const inputEl = window.getComputedStyle(el, null)
-        const textWidth
-                = el.offsetWidth
-                    - parseInt(inputEl.getPropertyValue('padding-right'))
-                    - parseInt(inputEl.getPropertyValue('padding-left'))
-        const tooltipEl = (e.target as any).previousElementSibling
-        const tooltipWidth = tooltipEl.offsetWidth
+    _this.form.formItem[item.key].tempValueDisabled = true
 
-        // console.log(tooltipWidth, textWidth)
-        if (tooltipWidth >= textWidth) {
-            _this.form.formItem[item.key].tempValueDisabled = false
-        } else {
-            _this.form.formItem[item.key].tempValueDisabled = true
-
-        }
-    } else {
-        _this.form.formItem[item.key].tempValueDisabled = true
-    }
 
 }
 
