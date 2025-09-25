@@ -325,9 +325,6 @@ export default defineComponent({
                         const propLowerCase = item.prop?.toLocaleLowerCase()
                         if (propLowerCase?.includes('time') || propLowerCase?.includes('date')) {
                             width = width ? width : 170
-                        } else if (propLowerCase?.includes('status') || propLowerCase?.includes('state')) {
-                            width = width ? width : 100
-                            align = item.align || 'center'
                         }
 
                         if (show && checked && custom) {
