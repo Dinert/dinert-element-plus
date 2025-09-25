@@ -1,5 +1,4 @@
 
-import {isSlotsValue} from '@packages/utils/tools'
 import lodash from 'lodash'
 
 export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
@@ -143,15 +142,34 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this, ite
     if (itemShowLabel) {
         el = e.target as any
     } else if (['input', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
-        el = (e.target as any).parentElement.querySelector('.el-input__inner')
+        el = (e.target as any).parentElement.querySelector('.el-input__inner') || (e.target as any).parentElement.querySelector('.busy-input__inner') as HTMLElement
+        console.log(_this.form, 'itemm')
+        console.log(el, 'eee')
     } else if (['select', 'tree-select', 'select-v2'].includes(item.type)) {
-        el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder')
-        el = el || (e.target as any).parentElement.querySelector('.el-select__selection')
+        el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') || (e.target as any).parentElement.querySelector('.busy-select__selected-item.el-select__placeholder') as HTMLElement
+        el = el || (e.target as any).parentElement.querySelector('.el-select__selection') || (e.target as any).parentElement.querySelector('.busy-select__selection') as HTMLElement
     }
 
 
-    _this.form.formItem[item.key].tempValueDisabled = true
+    if (el) {
+        const inputEl = window.getComputedStyle(el, null)
+        const textWidth
+                = el.offsetWidth
+                    - parseInt(inputEl.getPropertyValue('padding-right'))
+                    - parseInt(inputEl.getPropertyValue('padding-left'))
+        const tooltipEl = (e.target as any).previousElementSibling
+        const tooltipWidth = tooltipEl.offsetWidth
 
+        // console.log(tooltipWidth, textWidth)
+        if (tooltipWidth >= textWidth) {
+            _this.form.formItem[item.key].tempValueDisabled = false
+        } else {
+            _this.form.formItem[item.key].tempValueDisabled = true
+
+        }
+    } else {
+        _this.form.formItem[item.key].tempValueDisabled = true
+    }
 
 }
 
@@ -169,18 +187,14 @@ export const formItemSlot = (customName: any, name: string = 'formItem_') => {
 export const renderSlot = (arr: string[] = [], _this: any, slots, item: any): any => {
 
     for (const prop in _this.$slots) {
-        const slotName = prop.split('formItem_').join('').split('_')[1]
+        const slotName = prop.split('_')
+        // const slotFn: any = null
 
-        let slotFn: any = null
-        if (!slotName) {
-            return
-        }
+        if (arr.includes(slotName[2]) && formItemSlot(item.key) + '_' + slotName[2] === prop) {
 
-        if (arr.includes(slotName) && formItemSlot(item.key) + '_' + slotName === prop) {
 
-            slotFn = _this.$slots[prop]?.(item)
             // eslint-disable-next-line consistent-return
-            isSlotsValue(slotFn) && (slots[slotName] = () => slotFn)
+            (slots[slotName[2]] = args1 => _this.$slots[prop]?.({...item, args1}))
         }
     }
 }
