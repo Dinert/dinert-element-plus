@@ -23,8 +23,8 @@ interface FormItemProps {
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
     },
-    colLayout(model, index) {
-        if (index < 2) {
+    colLayout(model, item) {
+        if (item.index < 2) {
             return {
                 span: 12
             }

@@ -27,7 +27,7 @@
                 , 'checkbox'
                 , 'cascader'].join("' | '")
                 arr = "'" + arr + "'"
-    const colLayout = "{ xl: 'number', lg: 'number', md: 'number', sm: 'number', xs: 'number' }"
+    const colLayout = "{ xl: 'number', lg: 'number', md: 'number', sm: 'number', xs: 'number' } | ((model: D, item?: CustomFormItemProps) => (RewriteColProps))"
 </script>
 
 
@@ -43,7 +43,7 @@
 | 属性名       | 说明                                                                                   | 类型                                                                                           | 默认值 |
 | ------------ | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------ |
 | formItem     | 表单组件列表对象，[详细请参阅下面formItem属性](#formitem-属性)                         | <dinert-api-typing type="object" details="{[key: string]: FormItemProps}"></dinert-api-typing> | \{\}   |
-| colLayout    | 每个表单组件列表布局                                                                   | <dinert-api-typing type="object" :details="colLayout"/>                                        | 一     |
+| colLayout    | 每个表单组件列表布局                                                                   | <dinert-api-typing type="enum" :details="colLayout"/>                                        | 一     |
 | row          | 表单组件的row                                                                          | object                                                                                         | 一     |
 | showLabel    | 是否显示所有表单组件的值，优先formItem下的showLabel                                    | boolean                                                                                        | 一     |
 | vif          | 是否渲染所有表单组件，优先formItem下的vif                                              | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing>  | 一     |
@@ -64,7 +64,7 @@
 | sort      | 表单组件的列的排序，数值越小组件越靠前                                                     | Number                                                                                        | 一     |
 | options   | 组件的参数，比如组件类型type是input，那options里面的内容就是Input的属性和方法              | Object                                                                                        | 一     |
 | showLabel | 是否直接显示当前表单组件的值                                                               | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing> | 一     |
-| colLayout | 当前表单组件列表布局                                                                       | <dinert-api-typing type="object" :details="colLayout"></dinert-api-typing>                    | \{  \} |
+| colLayout | 当前表单组件列表布局                                                                       | <dinert-api-typing type="enum" :details="colLayout"></dinert-api-typing>                    | \{  \} |
 | required  | 是否必填                                                                                   | Boolean                                                                                       | 一     |
 | ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#formitem-attributes) | 一                                                                                            | 一     |
 

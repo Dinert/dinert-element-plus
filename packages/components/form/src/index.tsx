@@ -158,8 +158,8 @@ export default defineComponent({
                             itemShowLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
                             item.required = itemShowLabel ? false : item.required
 
-                            const formColLayout = typeof this.form.colLayout === 'function' ? this.form.colLayout(this.form.model, index) : this.form.showLabel
-                            let colLayout = typeof item.colLayout === 'function' ? item.colLayout(this.form.model, index) : item.colLayout
+                            const formColLayout = typeof this.form.colLayout === 'function' ? this.form.colLayout(this.form.model, {...item, index}) : this.form.showLabel
+                            let colLayout = typeof item.colLayout === 'function' ? item.colLayout(this.form.model, {...item, index}) : item.colLayout
                             colLayout = colLayout === undefined ? colLayout || formColLayout : colLayout as any
 
                             let rules = item.rules || []
