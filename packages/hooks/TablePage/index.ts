@@ -26,7 +26,7 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
     footer: Ref<DinertTablePageProps['footer']>
     header: Ref<DinertTablePageProps['header']>
 
-    selecTableDatas: Ref<T[]> = ref([])
+    selectTableDatas: Ref<T[]> = ref([])
     lastSelectDatas: Ref<T[]> = ref([])
 
     options: DinertTablePageProps<T, D, FI>
@@ -176,7 +176,7 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
         }
 
         if (!['size', 'current'].includes(options.name || '') || !this.table.value.rowKey || !this.table.value.echoSelect) {
-            this.selecTableDatas.value = []
+            this.selectTableDatas.value = []
         }
 
         return this.params
@@ -255,7 +255,7 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
     // 回显选中
     echoOperations() {
         const rowKey = this.table.value.rowKey as any
-        const keys = (this.selecTableDatas.value || []).map((item: any) => item[rowKey])
+        const keys = (this.selectTableDatas.value || []).map((item: any) => item[rowKey])
         if (this.tablePageRef.value) {
             (this.table.value.data || []).forEach((item: any) => {
                 if (keys.includes(item[rowKey])) {
@@ -291,15 +291,15 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
                 this.table.value.onSelect = (selection: T[]) => {
                     if (rowKey) {
                         this.table.value.data.forEach((item: any) => {
-                            for (let i = 0; i < this.selecTableDatas.value.length; i++) {
-                                if (item[rowKey] === (this.selecTableDatas.value[i]as any)[rowKey]) {
-                                    this.selecTableDatas.value.splice(i, 1)
+                            for (let i = 0; i < this.selectTableDatas.value.length; i++) {
+                                if (item[rowKey] === (this.selectTableDatas.value[i]as any)[rowKey]) {
+                                    this.selectTableDatas.value.splice(i, 1)
                                 }
                             }
                         })
-                        this.selecTableDatas.value = lodash.uniqBy(selection.concat(this.selecTableDatas.value), rowKey)
+                        this.selectTableDatas.value = lodash.uniqBy(selection.concat(this.selectTableDatas.value), rowKey)
                     } else {
-                        this.selecTableDatas.value = selection
+                        this.selectTableDatas.value = selection
                     }
                 }
             }
@@ -308,18 +308,18 @@ class TablePage<T, D = any, FI = any, P = object, R = any> {
                     if (rowKey) {
                         if (selection.length === 0) {
                             this.table.value.data.forEach((item: any) => {
-                                for (let i = 0; i < this.selecTableDatas.value.length; i++) {
-                                    if (item[rowKey] === (this.selecTableDatas.value[i] as any)[rowKey]) {
-                                        this.selecTableDatas.value.splice(i, 1)
+                                for (let i = 0; i < this.selectTableDatas.value.length; i++) {
+                                    if (item[rowKey] === (this.selectTableDatas.value[i] as any)[rowKey]) {
+                                        this.selectTableDatas.value.splice(i, 1)
                                     }
                                 }
                             })
                         } else {
-                            this.selecTableDatas.value = lodash.uniqBy(selection.concat(this.selecTableDatas.value), rowKey)
+                            this.selectTableDatas.value = lodash.uniqBy(selection.concat(this.selectTableDatas.value), rowKey)
                         }
 
                     } else {
-                        this.selecTableDatas.value = selection
+                        this.selectTableDatas.value = selection
                     }
                 }
             }

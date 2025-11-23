@@ -54,7 +54,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
             },
         ],
         onSelect(selection) {
-            selecTableDatas.value = selection
+            selectTableDatas.value = selection
 
         }
     },
@@ -73,7 +73,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
         'upload': {
             message: '导入',
             disabled() {
-                return selecTableDatas.value.length === 0
+                return selectTableDatas.value.length === 0
             },
         },
         'download': {
@@ -91,7 +91,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
     },
     footer: false
 })
-const selecTableDatas = ref<DataProps[]>([])
+const selectTableDatas = ref<DataProps[]>([])
 
 
 </script>
