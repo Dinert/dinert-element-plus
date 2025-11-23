@@ -142,12 +142,12 @@ export const valueMouseEnter = (e: MouseEvent, item: any, value: any, _this, ite
     if (itemShowLabel) {
         el = e.target as any
     } else if (['input', 'input-autocomplete', 'cascader', 'input-number'].includes(item.type)) {
-        el = (e.target as any).parentElement.querySelector('.el-input__inner') || (e.target as any).parentElement.querySelector('.busy-input__inner') as HTMLElement
+        el = (e.target as any).parentElement.querySelector('.el-input__inner')
         console.log(_this.form, 'itemm')
         console.log(el, 'eee')
     } else if (['select', 'tree-select', 'select-v2'].includes(item.type)) {
-        el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder') || (e.target as any).parentElement.querySelector('.busy-select__selected-item.el-select__placeholder') as HTMLElement
-        el = el || (e.target as any).parentElement.querySelector('.el-select__selection') || (e.target as any).parentElement.querySelector('.busy-select__selection') as HTMLElement
+        el = (e.target as any).parentElement.querySelector('.el-select__selected-item.el-select__placeholder')
+        el = el || (e.target as any).parentElement.querySelector('.el-select__selection')
     }
 
 
