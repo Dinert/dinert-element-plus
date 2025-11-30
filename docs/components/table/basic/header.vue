@@ -61,6 +61,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
     header: {
         'add': {
             message: '新增',
+            type: 'primary',
             click: item => {
                 console.log(item, '1321321')
             },
