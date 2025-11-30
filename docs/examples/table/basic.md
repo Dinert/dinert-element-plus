@@ -56,6 +56,12 @@ table/basic/pagination
 table/basic/header-operations
 :::
 
+## 树形数据
+:::demo
+
+table/basic/tree-data
+:::
+
 
 <!-- @include: ./explain.md -->
 

@@ -103,7 +103,8 @@
                     }
 
                     .cell {
-                        color: var(--zp-color-secondary-text-title);
+                        // color: var(--zp-color-secondary-text-title);
+                        // display: flex;
 
                         .setting-icon {
                             vertical-align: -1px;
@@ -117,9 +118,12 @@
             .#{$namespace}-table__body-wrapper {
                 td {
                     // border-right: none;
-                    color: var(--zp-color-secondary-text-title);
+                    // color: var(--zp-color-secondary-text-title);
 
                     .cell {
+                        display: flex;
+                        align-items: center;
+
                         &.#{$namespace}-tooltip > .cell-item {
                             overflow: hidden;
                             text-overflow: ellipsis;
