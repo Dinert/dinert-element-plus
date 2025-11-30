@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
+import {ref, shallowRef} from 'vue'
 
 import {TablePageProps} from '../../../../packages'
+import {Plus} from '@element-plus/icons-vue'
+
 
 interface DataProps {
     date: string;
@@ -65,6 +67,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
             click: item => {
                 console.log(item, '1321321')
             },
+            icon: shallowRef(Plus),
             tooltip: {
                 content: () => {
                     return '新增'

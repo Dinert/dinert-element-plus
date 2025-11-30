@@ -16,7 +16,8 @@ import {
     EditPen,
     CopyDocument,
     Expand,
-    CaretTop
+    CaretTop,
+    Plus
 } from '@element-plus/icons-vue'
 import {getModule} from '../../../utils/module'
 import {$message} from '../../../utils/message'
@@ -179,7 +180,7 @@ const copyCode = async () => {
                         <vue-live
                             v-if="editDialogVisible"
                             :code="decodeRawSource"
-                            :requires="{'@dinert/element-plus': {TablePage}}"
+                            :requires="{'@dinert/element-plus': {TablePage}, '@element-plus/icons-vue': {Plus}}"
                             @error="(e) => console.error('Error on first example', e)"
                         />
                     </div>
