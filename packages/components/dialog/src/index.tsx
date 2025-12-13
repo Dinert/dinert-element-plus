@@ -1,6 +1,7 @@
 import {defineComponent, watch, ref} from 'vue'
 import {getUuid} from '@packages/utils/tools'
 import lodash from 'lodash'
+import {Close} from '@element-plus/icons-vue'
 import type {RewriteDialogProps, GETWH} from '../types'
 import '@packages/assets/scss/dinert-dialog.scss'
 import '@packages/assets/fonts/iconfont.js'
@@ -34,9 +35,18 @@ export default defineComponent({
     props: {
         fullscreen: {
             type: Boolean,
+            default: false
+        },
+        showClose: {
+            type: Boolean,
+            default: true
+        },
+        viewStyle: {
+            type: [String, Object],
+            default: () => ({})
         }
     },
-    emits: ['update:fullscreen'],
+    emits: ['update:fullscreen', 'update:modelValue', 'ClickClose'],
     setup(props, ctx) {
 
         const uuid = 'dialog_' + getUuid()
@@ -53,6 +63,11 @@ export default defineComponent({
             ctx.emit('update:fullscreen', currentFullScreen.value)
         }
 
+        const clickClose = () => {
+            ctx.emit('update:modelValue', false)
+            ctx.emit('ClickClose')
+        }
+
         watch(() => props.fullscreen, newVal => {
             currentFullScreen.value = newVal
         }, {
@@ -64,7 +79,8 @@ export default defineComponent({
             uuid,
             defaultAttrs,
             fullToggle,
-            currentFullScreen
+            currentFullScreen,
+            clickClose
         }
     },
     render() {
@@ -78,26 +94,40 @@ export default defineComponent({
             style: {
                 ...(this.$attrs?.style as any),
                 height: this.currentFullScreen ? undefined : getWH(this.$attrs).height,
-            }
+            },
+            showClose: false
         }), this.defaultAttrs)
 
         return (
             <div>
                 <el-dialog el-dialog {...attrs} fullscreen={this.currentFullScreen} modal-class="dinert-overlay">
                     {{
-                        default: () => slots.default?.(),
+                        default: () => {
+                            return (
+                                <el-scrollbar class="el-dialog__body-content" height='100%' view-style={{ padding: '24px', ...(this.viewStyle as any) }}>
+                                    { slots.default?.() }
+                                </el-scrollbar>
+                            )
+                        },
                         header: () => {
                             return (
                                 <>
-                                    <span role="heading" class="el-dialog__title">
-                                        { slots.header?.() || attrs.title }
-                                    </span>
+                                    <div class="el-dialog__header-left">
+                                        <span role="heading" class="el-dialog__title">
+                                            { slots.header?.() || attrs.title }
+                                        </span>
+                                    </div>
 
-                                    <span class="full" onClick={this.fullToggle}>
-                                        <svg class="icon" aria-hidden="true">
-                                            <use xlink:href={this.currentFullScreen ? '#icon-tuichuquanping' : '#icon-quanping'}></use>
-                                        </svg>
-                                    </span>
+                                    <div class="el-dialog__header-right">
+                                        <span class="el-dialog__header-right-full" onClick={this.fullToggle}>
+                                            <svg class="icon" aria-hidden="true">
+                                                <use xlink:href={this.currentFullScreen ? '#icon-tuichuquanping' : '#icon-quanping'}></use>
+                                            </svg>
+                                        </span>
+                                        {
+                                            this.showClose ? <el-icon class="el-dialog__header-right-close" onClick={this.clickClose}><Close /></el-icon> : null
+                                        }
+                                    </div>
                                 </>
                             )
                         },

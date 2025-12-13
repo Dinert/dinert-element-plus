@@ -22,6 +22,43 @@ watch(fullscreen, newVal => {
                 <el-button type="primary">保存</el-button>
                 <el-button plain @click="modelValue = false">取消</el-button>
             </template>
+            <!-- 标题 -->
+            <div style="margin-top: 0;">
+
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+
+            </div>
+
         </dinert-dialog>
         <dinert-dialog v-model="modelValue2" v-model:fullscreen="fullscreen"/>
     </div>
