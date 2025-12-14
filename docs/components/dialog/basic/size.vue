@@ -13,7 +13,83 @@ const modelValue3 = ref(false)
         <el-button type="primary" @click="modelValue2 = true">medium</el-button>
         <el-button type="primary" @click="modelValue3 = true">small</el-button>
 
-        <dinert-dialog v-model="modelValue" size="large"/>
+        <dinert-dialog v-model="modelValue" size="large">
+            <div>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+                <h1>标题</h1>
+            </div>
+            <template #footer>
+                <el-button type="primary">保存</el-button>
+            </template>
+        </dinert-dialog>
         <dinert-dialog v-model="modelValue2" size="medium"/>
         <dinert-dialog v-model="modelValue3" size="small"/>
     </div>

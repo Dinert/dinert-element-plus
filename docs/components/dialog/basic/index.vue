@@ -23,7 +23,7 @@ watch(fullscreen, newVal => {
                 <el-button plain @click="modelValue = false">取消</el-button>
             </template>
             <!-- 标题 -->
-            <div style="margin-top: 0;">
+            <div>
 
                 <h1>弹窗标题</h1>
                 <h1>弹窗标题</h1>

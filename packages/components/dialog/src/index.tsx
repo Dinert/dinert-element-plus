@@ -1,10 +1,11 @@
-import {defineComponent, watch, ref} from 'vue'
+import {defineComponent, watch, ref, PropType} from 'vue'
 import {getUuid} from '@packages/utils/tools'
 import lodash from 'lodash'
 import {Close} from '@element-plus/icons-vue'
 import type {RewriteDialogProps, GETWH} from '../types'
 import '@packages/assets/scss/dinert-dialog.scss'
 import '@packages/assets/fonts/iconfont.js'
+import { ScrollbarProps } from 'element-plus'
 
 const getWH = (options: RewriteDialogProps): GETWH => {
     const result: GETWH = {
@@ -41,8 +42,8 @@ export default defineComponent({
             type: Boolean,
             default: true
         },
-        viewStyle: {
-            type: [String, Object],
+        scrollbar: {
+            type: Object as PropType<ScrollbarProps>,
             default: () => ({})
         }
     },
@@ -104,7 +105,7 @@ export default defineComponent({
                     {{
                         default: () => {
                             return (
-                                <el-scrollbar class="el-dialog__body-content" height='100%' view-style={{ padding: '24px', ...(this.viewStyle as any) }}>
+                                <el-scrollbar class="el-dialog__body-content" height='100%' view-style={{ padding: '24px', ...(this.viewStyle as any) }} {...this.scrollbar}>
                                     { slots.default?.() }
                                 </el-scrollbar>
                             )
