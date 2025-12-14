@@ -3,7 +3,7 @@
 @use "variables" as *;
 
 .dinert-overlay.#{$namespace}-overlay {
-    &.autoHeight {
+    &.fixed-height {
         .#{$namespace}-dialog {
             height: 80%;
         }

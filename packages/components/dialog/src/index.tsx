@@ -45,6 +45,10 @@ export default defineComponent({
         scrollbar: {
             type: Object as PropType<ScrollbarProps>,
             default: () => ({})
+        },
+        fixedHeight: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ['update:fullscreen', 'update:modelValue', 'ClickClose'],
@@ -87,10 +91,11 @@ export default defineComponent({
     render() {
         const slots = this.$slots
 
+        console.log(this.fixedHeight, 'this.fixedHeight')
         const attrs = lodash.defaultsDeep(lodash.cloneDeep({
             ...this.$attrs,
             class: this.$attrs.modalClass ? 'dialog_' + this.$attrs.modalClass : '',
-            modalClass: `${this.uuid} el-overlay dinert-dialog ${this.$attrs.modalClass || ''}`,
+            modalClass: `${this.uuid}  dinert-overlay ${this.$attrs.modalClass || ''} ${this.fixedHeight ? 'fixed-height' : ''}`,
             width: getWH(this.$attrs).width,
             style: {
                 ...(this.$attrs?.style as any),
@@ -101,21 +106,21 @@ export default defineComponent({
 
         return (
             <div>
-                <el-dialog el-dialog {...attrs} fullscreen={this.currentFullScreen} modal-class="dinert-overlay">
+                <el-dialog {...attrs} fullscreen={this.currentFullScreen}>
                     {{
                         default: () => {
                             return (
-                                <el-scrollbar class="el-dialog__body-content" height='100%' view-style={{ padding: '24px', ...(this.viewStyle as any) }} {...this.scrollbar}>
+                                <el-scrollbar class="el-dialog__body-content" height='100%'  view-style={{ padding: '24px'}} {...this.scrollbar}>
                                     { slots.default?.() }
                                 </el-scrollbar>
                             )
                         },
-                        header: () => {
+                        header: slots.header?.() ? () => slots.header?.() : () => {
                             return (
                                 <>
                                     <div class="el-dialog__header-left">
                                         <span role="heading" class="el-dialog__title">
-                                            { slots.header?.() || attrs.title }
+                                            { slots.title?.() || attrs.title }
                                         </span>
                                     </div>
 

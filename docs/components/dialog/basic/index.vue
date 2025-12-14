@@ -3,6 +3,7 @@ import {ref, watch} from 'vue'
 
 const modelValue = ref(false)
 const modelValue2 = ref(false)
+const modelValue3 = ref(false)
 
 const fullscreen = ref(true)
 
@@ -15,6 +16,9 @@ watch(fullscreen, newVal => {
     <div class="home">
         <el-button type="primary" @click="modelValue = true">打开弹窗</el-button>
         <el-button type="primary" @click="modelValue2 = true">全屏弹窗</el-button>
+        <el-button type="primary"
+            @click="modelValue3 = true"
+        >固定高度弹窗</el-button>
         <dinert-dialog v-model="modelValue">
             <!-- 内容 -->
 
@@ -61,6 +65,7 @@ watch(fullscreen, newVal => {
 
         </dinert-dialog>
         <dinert-dialog v-model="modelValue2" v-model:fullscreen="fullscreen"/>
+        <dinert-dialog v-model="modelValue3" fixed-height/>
     </div>
 </template>
 
