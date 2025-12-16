@@ -14,6 +14,7 @@ interface FormItemProps {
     name1: string;
     name2: string;
     name3: string;
+    name4: string;
     status: string;
 }
 
@@ -27,53 +28,66 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     colLayout: {span: 24},
     labelWidth: 60,
     required: true,
-    showLabel(model) {
-        return true
-    },
     formItem: {
         name: {
-            label: '必填',
+            label: '必填1',
             type: 'input',
-            showLabel: false,
-
+            required: false,
             options: {
 
             }
         },
         name2: {
-            label: '必填',
-            type: 'select',
-            showLabel: false,
+            label: '必填2',
+            type: 'input',
+            required() {
+                return false
+            },
             options: {
-                options: [
-                    {label: '显示当我的长度过长长长长长长', value: true},
-                    {label: '隐藏', value: false},
-                ]
             }
         },
         name3: {
-            label: '必填',
+            label: '必填3',
             type: 'input',
-            showLabel: false,
             required: false,
-            rules: [{required: true, message: '请输入', trigger: ['change', 'blur']}],
+            rules: [{required: true, message: '自定义必填的规则', trigger: 'blur'},
+                    {
+                        message: '长度必须大于0',
+                        validator(
+                            rule,
+                            value: any,
+                            callback: (error?: string | Error) => void
+                        ) {
+                            if (value.length <= 5) {
+                                callback(new Error('请输入大于4个字符'))
+                            } else {
+                                callback()
+                            }
+                        }
+                    }],
             options: {
-
             }
         },
         status: {
             label: '选择',
             type: 'select-v2',
-            showLabel(model) {
-                return model.name2
-            },
             options: {
+                placeholder: '当选择显示时名称4必填',
                 options: [
-                    {label: '显示当我的长度过长长长长长长', value: true},
+                    {label: '显示', value: true},
                     {label: '隐藏', value: false},
                 ]
             }
-        }
+        },
+        name4: {
+            label: '名称4',
+            type: 'input',
+            required(model) {
+                return !!model.status
+            },
+            options: {
+            }
+        },
     }
 })
 

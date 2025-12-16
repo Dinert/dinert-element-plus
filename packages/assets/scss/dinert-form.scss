@@ -25,7 +25,7 @@
                 max-width: unset;
                 flex: unset;
 
-                .label-text {
+                .el-form-item__content {
                     & > div > .#{$namespace}-cascader {
                         width: 210px;
                     }
@@ -46,7 +46,7 @@
             flex: 1;
 
             .#{$namespace}-col {
-                .label-text {
+                .el-form-item__content {
                     & > div {
                         width: 100%;
                     }
@@ -71,7 +71,7 @@
 
     .dinert-form-left {
         .#{$namespace}-col {
-            .label-text {
+            .el-form-item__content {
                 .#{$namespace}-radio.is-bordered,
                 .#{$namespace}-checkbox.is-bordered {
                     margin-right: 16px;
@@ -121,7 +121,7 @@
         margin-bottom: 18px;
         width: 100%;
 
-        &.show-label {
+        &.show-value {
 
             .#{$namespace}-form-item__content {
                 width: 0;
@@ -190,23 +190,6 @@
             text-align: left;
             text-overflow: ellipsis;
             white-space: nowrap;
-        }
-
-        .#{$namespace}-form-item__label {
-            overflow: hidden;
-            width: 80px;
-            max-width: 80px;
-            text-align: right;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-
-            .#{$namespace}-tooltip {
-                display: inline;
-
-                .label-text {
-                    display: inline;
-                }
-            }
         }
     }
 }

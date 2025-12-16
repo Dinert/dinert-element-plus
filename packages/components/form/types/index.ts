@@ -59,7 +59,7 @@ export interface RewriteFormItemPropsMap<O = any[]>{
 }
 
 
-export interface CustomFormItemProps<D = any, O = any[], N extends keyof RewriteFormItemPropsMap = any> extends Partial<Omit<FormItemProps, 'label'>> {
+export interface CustomFormItemProps<D = any, O = any[], N extends keyof RewriteFormItemPropsMap = any> extends Partial<Omit<FormItemProps, 'label' | 'required'>> {
     key?: any;
     type: N extends keyof RewriteFormItemPropsMap ? N : keyof RewriteFormItemPropsMap;
     show?: boolean | ((model: D) => boolean);
@@ -68,13 +68,16 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     sort?: number;
     class?: string;
     options?: RewriteFormItemPropsMap<O>[N];
-    showLabel?: boolean | ((model: D) => boolean);
+    showLabel?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => (boolean));
+    disabled?: boolean | ((model: D) => boolean);
+    showValue?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => (boolean));
+    showContent?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => (boolean));
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;
     tempValueDisabled?: boolean;
-    required?: boolean;
-    colLayout?: RewriteColProps | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index: number}) => (RewriteColProps));
+    required?: boolean | ((model: D) => boolean);
+    colLayout?: RewriteColProps | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => (RewriteColProps));
     itemValueDisabled?: boolean;
 }
 
@@ -85,14 +88,17 @@ type FormItemMap<D, FI> = {
     [P in keyof ToModelItem<D, FI>]: FI extends any ? FormItemPropsCommon<D, FI> : CustomFormItemProps<D, any[], ToModelItem<D, FI>[P] extends keyof RewriteFormItemPropsMap ? ToModelItem<D, FI>[P] : keyof RewriteFormItemPropsMap>;
 }
 
-export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormProps>, 'model'> {
+export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormProps>, 'model' | 'disabled'> {
     model: IsAny<FI, Partial<D>, Partial<MergeProp<D, ToString<FI>>>> ;
     vif?: boolean | ((model: D) => boolean);
     formItem: Partial<FormItemMap<D, FI>>;
-    colLayout?: RewriteColProps | ((model: D, item: CustomFormItemProps<D, any[]> & {index: number}) => (RewriteColProps));
+    colLayout?: RewriteColProps | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => (RewriteColProps));
     row?: RewriteRowProps;
-    showLabel?: boolean | ((model: D) => boolean);
-    required?: boolean;
+    showLabel?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => (boolean));
+    showValue?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => (boolean));
+    showContent?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => (boolean));
+    disabled?: boolean | ((model: D) => boolean);
+    required?: boolean | ((model: D) => boolean);
     key?: any;
     errData?: string;
     packUp?: boolean;

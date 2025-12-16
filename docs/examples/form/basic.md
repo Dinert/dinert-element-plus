@@ -8,17 +8,24 @@
 form/basic/index
 :::
 
-## 不同布局的组件
+<!-- ## 不同布局的组件
 :::demo
 
 form/basic/dialog
-:::
+::: -->
 
-## 不同布局的组件-函数
+## 不同布局的组件
 :::demo
 
 form/basic/layout
 :::
+
+## 禁用组件
+:::demo
+
+form/basic/disabled
+:::
+
 
 ## 显示值
 :::demo
@@ -29,20 +36,28 @@ form/basic/show-value
 ## 显示组件
 :::demo
 
-form/basic/linkage
+form/basic/show-component
 :::
 
-## 全局组件的显示
+## 显示组件内容
 :::demo
 
-form/basic/linkage-global
+form/basic/show-content
 :::
 
-## 禁用组件
+## 显示组件label
 :::demo
 
-form/basic/disabled
+form/basic/show-label
 :::
+
+
+## 验证
+:::demo
+
+form/basic/vaildate
+:::
+
 
 ## 组件排序
 :::demo
@@ -50,17 +65,14 @@ form/basic/disabled
 form/basic/sort
 :::
 
+
+
 ## 自定义组件
 :::demo
 
 form/basic/custom
 :::
 
-## 验证
-:::demo
-
-form/basic/vaildate
-:::
 
 ## 表格验证
 :::demo

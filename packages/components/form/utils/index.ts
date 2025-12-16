@@ -1,4 +1,5 @@
 
+
 import lodash from 'lodash'
 
 export const labelMouseEnter = (e: MouseEvent, item: any, _this: any) => {
@@ -80,54 +81,40 @@ export const getTooltipValue = (value: any, item: any): any => {
     return null
 }
 
+// eslint-disable-next-line max-statements
 export const getSpanValue = (value: any, item: any): any => {
     const type = item.type
     const options = item.options || {}
-    const tempArr: string[] = []
+    const optionsOptions = options.options || []
 
-
-    if (['input', 'input-autocomplete', 'input-number', 'textarea', 'datetime',
-        'date',
-        'dates',
-        'week',
-        'month',
-        'year',
-        'years',
-        'datetimerange',
-        'daterange',
-        'monthrange',
-        'yearrange',].includes(type)) {
-        return value
-    } else if (['select', 'tree-select', 'select-v2', 'radio', 'radio-button', 'checkbox', 'checkbox-button'].includes(type)) {
-        if (options && options.options && options.options.length) {
-            let newVal = null
-            let optValue = ['select-v2'].includes(type) ? options.props && options.props.value : options.value
-            optValue = optValue || 'value'
-            let optLabel = ['select-v2'].includes(type) ? options.props && options.props.label : options.label
-            optLabel = optLabel || 'label'
-
-            if (options.valueKey) {
-                newVal = value && value[options.valueKey]
-            }
-            const selectItem = findTreeNode(options.options, options.value === 'object' ? options.valueKey : optValue, newVal || value)
-            selectItem.forEach(item => {
-                tempArr.push(item[optLabel])
-            })
-            if (tempArr && tempArr.length) {
-                return tempArr.join(',')
-            }
-            return value
-        }
-    } else if (['cascader'].includes(type)) {
-        if (options && options.options && options.options.length) {
-            if (options.props?.emitPath === undefined || options.props?.emitPath === true) {
-                value = value && value[0]
-            }
-
-            const selectItem = findTreeNode(options.options, options.props?.value || 'value', value)[0]
-            return selectItem && selectItem[options.props?.label || 'label']
-        }
+    if (value === null || value === undefined) {
+        return null
     }
+
+    if (['switch'].includes(type)) {
+        return value ? item.options?.activeText || '启用' : item.options?.inactiveText || '禁用'
+    } else if (['select', 'select-v2'].includes(type)) {
+
+        if (optionsOptions && optionsOptions.length) {
+            if (item.options?.multiple) {
+                const labels = optionsOptions.filter((opt: any) => value.includes(opt[options.value || 'value'])).map((opt: any) => opt[options.label || 'label'])
+                return labels.join(',')
+            } else {
+                const selectItem = optionsOptions.find((opt: any) => opt[options.value || 'value'] === value)
+                return selectItem ? selectItem[options.label || 'label'] : value
+            }
+        }
+
+    } else if (['checkbox', 'checkbox-button'].includes(type)) {
+        const labels = optionsOptions.filter((opt: any) => value.includes(opt[options.value || 'value'])).map((opt: any) => opt[options.label || 'label'])
+        return labels.join(',')
+    } else if (['radio', 'radio-button'].includes(type)) {
+        const selectItem = optionsOptions.find((opt: any) => opt[options.value || 'value'] === value)
+        return selectItem ? selectItem[options.label || 'label'] : value
+    } else {
+        return value
+    }
+
     return null
 }
 

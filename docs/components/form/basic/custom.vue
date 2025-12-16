@@ -75,7 +75,13 @@ const formItemFn = formItem => {
                 <el-button type="primary">{{ formItem.label }}</el-button>
             </template>
             <template #formItem_label_name2>
-                插槽label
+                label
+            </template>
+            <template #formItem_label_before_name2>
+                头
+            </template>
+            <template #formItem_label_after_name2>
+                尾
             </template>
         </dinert-form>
     </div>

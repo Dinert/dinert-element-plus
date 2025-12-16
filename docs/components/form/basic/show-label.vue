@@ -4,28 +4,48 @@ import {RewriteFormProps} from '../../../../packages'
 
 // form里面的数据类型
 interface ModelProps {
-    name: string;
-    status: boolean;
+    name: boolean;
+    disabledSelect: number;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
 interface FormItemProps {
+    disabledSelect: number;
     name: string;
     name1: string;
     name2: string;
-    status: string;
-    status2: string;
+    name3: string;
+
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
     },
-    colLayout: {span: 24},
+    colLayout() {
+        return {span: 12}
+    },
     labelWidth: 60,
+    showLabel() {
+        return true
+    },
     formItem: {
+        disabledSelect: {
+            label: '组件',
+            type: 'select',
+            options: {
+                placeholder: '当我的选择有值，右边名称1的组件会隐藏',
+                options: [
+                    {label: '选项1', value: 1},
+                    {label: '选项2', value: 2},
+                ],
+            }
+        },
         name: {
             label: '名称',
             type: 'input',
+            showLabel(model) {
+                return !model.disabledSelect
+            },
             options: {
 
             }
@@ -35,43 +55,28 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             type: 'input',
             options: {
 
-            },
-            vif(model) {
-                return !!model.status
-            }
-        },
-        status: {
-            label: '状态',
-            type: 'select',
-            options: {
-                options: [
-                    {label: '显示名称', value: true},
-                    {label: '隐藏名称', value: false},
-                ]
             }
         },
         name2: {
             label: '名称2',
             type: 'input',
+
             options: {
 
-            },
-            show(model) {
-                return !!model.status2
             }
         },
-        status2: {
-            label: '状态',
-            type: 'select',
+        name3: {
+            label: '名称3',
+            type: 'input',
+            showLabel: false,
             options: {
-                options: [
-                    {label: '显示名称2', value: true},
-                    {label: '隐藏名称2', value: false},
-                ]
+
             }
-        }
+        },
+
     }
 })
+
 </script>
 
 <template>
