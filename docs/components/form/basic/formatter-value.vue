@@ -43,7 +43,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     showValue() {
         return true
     },
-    formatter(value) {
+    formatterValue(value) {
         return value + '拼接'
     },
     labelWidth: 'auto',
@@ -51,7 +51,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         input: {
             label: '输入框',
             type: 'input',
-            formatter(value) {
+            formatterValue(value) {
                 return value + '格式化后的值'
             },
             options: {

@@ -256,8 +256,8 @@ export default defineComponent({
                                                 let resultVal = dataTransformRod(getSpanValue(this.form.model[item.key], item), errData)
                                                 if(showValue) {
                                                     // 处理格式化内容
-                                                    const formFormatter = typeof this.form.formatter === 'function' ? this.form.formatter(this.form.model[item.key],this.form.model, {...item, index}) : this.form.formatter
-                                                    const itemFormatter = typeof item.formatter === 'function' ? item.formatter(this.form.model[item.key], this.form.model, {...item, index}) : item.formatter
+                                                    const formFormatter = typeof this.form.formatterValue === 'function' ? this.form.formatterValue(this.form.model[item.key],this.form.model, {...item, index}) : this.form.formatterValue
+                                                    const itemFormatter = typeof item.formatterValue === 'function' ? item.formatterValue(this.form.model[item.key], this.form.model, {...item, index}) : item.formatterValue
                                                     const formatter = itemFormatter === undefined ? itemFormatter || formFormatter : itemFormatter
                                                     if(formatter !== undefined) {
                                                         resultVal = dataTransformRod(formatter)
