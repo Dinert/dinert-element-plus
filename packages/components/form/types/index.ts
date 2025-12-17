@@ -72,6 +72,7 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     disabled?: boolean | ((model: D) => boolean);
     showValue?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => (boolean));
     showContent?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => (boolean));
+    formatter?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => (string));
     labelDisabled?: boolean;
     labelWrap?: boolean;
     valueDisabled?: boolean;
@@ -97,6 +98,7 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     showLabel?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => (boolean));
     showValue?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => (boolean));
     showContent?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => (boolean));
+    formatter?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => (string));
     disabled?: boolean | ((model: D) => boolean);
     required?: boolean | ((model: D) => boolean);
     key?: any;

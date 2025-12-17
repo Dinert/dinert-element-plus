@@ -247,11 +247,22 @@ export default defineComponent({
                                                     return null
                                                 }
 
+                                                // 处理格式化内容
+                                                const formFormatter = typeof this.form.formatter === 'function' ? this.form.formatter(this.form.model, {...item, index}) : this.form.formatter
+                                                const itemFormatter = typeof item.formatter === 'function' ? item.formatter(this.form.model, {...item, index}) : item.formatter
+                                                const formatter = itemFormatter === undefined ? itemFormatter || formFormatter : itemFormatter
+
 
                                                 const slots: any = {}
                                                 const errData = this.form.errData || dataTransformRod(null)
-                                                const resultVal = dataTransformRod(getSpanValue(this.form.model[item.key], item), errData)
+
+                                                let resultVal = dataTransformRod(getSpanValue(this.form.model[item.key], item), errData)
+                                                if(formatter !== undefined) {
+                                                    resultVal = dataTransformRod(formatter)
+                                                }
+
                                                 let componentResult = <span class={[resultVal === errData ? 'empty-value' : '']}>{resultVal}</span>
+
 
                                                 if (this.$slots[formItemSlot(item.key)]) {
                                                     componentResult = (this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
