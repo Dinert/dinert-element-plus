@@ -47,7 +47,11 @@ export default defineComponent({
         const {form} = toRefs(props)
         const packUp = ref(form.value.packUp === undefined)
         const isArrow = ref(false)
+        const isTooltip = ref(false)
+        const tooltipContent = ref('')
         const formRef = ref<InstanceType<typeof ElForm>>()
+        const tempRef = ref<any>(null)
+
         const formTypeRef = ref<any>({})
         const setFormTypeRefs = (type: string, el: any) => {
             formTypeRef.value[type] = el
@@ -112,6 +116,32 @@ export default defineComponent({
             emit('UnFold', packUp.value)
         }
 
+        const onFormItemMouseenter = (item: CustomFormItemProps, {resultVal}: {resultVal: any}) => {
+            tempRef.value = formTypeRef.value[item.key]
+            let customRef = tempRef.value
+
+            if(['input'].includes(item.type)) {
+               const inputRef = customRef.inputRef.ref
+                if(inputRef.scrollWidth > inputRef.clientWidth) {
+                    tooltipContent.value = resultVal
+                    isTooltip.value = true
+                }
+            }else if(['select'].includes(item.type)) {
+                console.log(resultVal, 'resultVal')
+                const selectRef = customRef.selectRef.$el.querySelector('.el-select__selected-item.el-select__placeholder')
+                if(selectRef.scrollWidth > selectRef.clientWidth) {
+                    tooltipContent.value = resultVal
+                    isTooltip.value = true
+                }
+            }
+
+        }
+        const onFormItemMouseleave = (item: CustomFormItemProps) => {
+            tempRef.value = null
+            isTooltip.value = false
+        }
+
+
 
         return {
             formItemMap,
@@ -120,9 +150,14 @@ export default defineComponent({
             formRef,
             packUp,
             isArrow,
+            isTooltip,
+            tempRef,
+            tooltipContent,
 
             setFormTypeRefs,
             unfold,
+            onFormItemMouseenter,
+            onFormItemMouseleave,
         }
     },
     render() {
@@ -134,8 +169,12 @@ export default defineComponent({
                 onSubmit={withModifiers(() => undefined, ['stop', 'prevent'])}
                 key={this.form.key}>
                 <el-tooltip
-                    content="手动控制"
+                    placement='top'
+                    content={this.tooltipContent}
                     virtual-triggering
+                    virtual-ref={this.tempRef}
+                    trigger='contextmenu'
+                    v-model:visible={this.isTooltip}
                 />
                 <el-row {...this.form.row} class="dinert-form-left">
                     {/* eslint-disable-next-line array-callback-return, consistent-return */}
@@ -163,7 +202,6 @@ export default defineComponent({
                         }
                         if (vif) {
 
-
                             // 处理是否显示直接显示组件的值
                             const formShowValue = typeof this.form.showValue === 'function' ? this.form.showValue(this.form.model, {...item, index}) : this.form.showValue
                             let itemShowValue = typeof item.showValue === 'function' ? item.showValue(this.form.model, {...item, index}) : item.showValue
@@ -187,6 +225,24 @@ export default defineComponent({
                             const formDisabled = typeof this.form.disabled === 'function' ? this.form.disabled(this.form.model) : this.form.disabled
                             const itemDisabled = typeof item?.disabled === 'function' ? item?.disabled(this.form.model) : item?.disabled
                             const disabled = itemDisabled === undefined ? itemDisabled || formDisabled : itemDisabled
+
+                            // 处理是否显示内容
+                            const formShowContent = typeof this.form.showContent === 'function' ? this.form.showContent(this.form.model, {...item, index}) : this.form.showContent
+                            let itemShowContent = typeof item.showContent === 'function' ? item.showContent(this.form.model, {...item, index}) : item.showContent
+                            const showContent = itemShowContent === undefined ? itemShowContent || formShowContent : itemShowContent
+
+                            // 处理显示值
+                            const errData = this.form.errData || dataTransformRod(null)
+                            let resultVal = getSpanValue(this.form.model[item.key], item)
+                            if(showValue) {
+                                // 处理格式化内容
+                                const formFormatter = typeof this.form.valueFormatter === 'function' ? this.form.valueFormatter(this.form.model[item.key],this.form.model, {...item, index}) : this.form.valueFormatter
+                                const itemFormatter = typeof item.valueFormatter === 'function' ? item.valueFormatter(this.form.model[item.key], this.form.model, {...item, index}) : item.valueFormatter
+                                const formatter = itemFormatter === undefined ? itemFormatter || formFormatter : itemFormatter
+                                if(formatter !== undefined) {
+                                    resultVal = formatter
+                                }
+                            }
 
                             return (
                                 <el-col
@@ -215,6 +271,12 @@ export default defineComponent({
                                             required: undefined,
                                             label: undefined
                                         }}
+                                        onMouseenter={() => {
+                                            this.onFormItemMouseenter(item, {resultVal})
+                                        }}
+                                        onMouseleave={() => {
+                                            this.onFormItemMouseleave(item)
+                                        }}
                                         v-slots={{
                                             label: () => {
 
@@ -222,6 +284,7 @@ export default defineComponent({
                                                 const formShowLabel = typeof this.form.showLabel === 'function' ? this.form.showLabel(this.form.model, {...item, index}) : this.form.showLabel
                                                 let itemShowLabel = typeof item.showLabel === 'function' ? item.showLabel(this.form.model, {...item, index}) : item.showLabel
                                                 const showLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
+
                                                 if(showLabel === false) {
                                                     return null
                                                 }
@@ -238,33 +301,16 @@ export default defineComponent({
                                                 return [formItemLabelBefore,labelComponent,formItemLabelAfter]
                                             },
                                             default: () => {
-
-                                                // 处理是否显示内容
-                                                const formShowContent = typeof this.form.showContent === 'function' ? this.form.showContent(this.form.model, {...item, index}) : this.form.showContent
-                                                let itemShowContent = typeof item.showContent === 'function' ? item.showContent(this.form.model, {...item, index}) : item.showContent
-                                                const showContent = itemShowContent === undefined ? itemShowContent || formShowContent : itemShowContent
                                                 if(showContent === false) {
                                                     return null
                                                 }
 
 
-
-
                                                 const slots: any = {}
-                                                const errData = this.form.errData || dataTransformRod(null)
 
-                                                let resultVal = dataTransformRod(getSpanValue(this.form.model[item.key], item), errData)
-                                                if(showValue) {
-                                                    // 处理格式化内容
-                                                    const formFormatter = typeof this.form.valueFormatter === 'function' ? this.form.valueFormatter(this.form.model[item.key],this.form.model, {...item, index}) : this.form.valueFormatter
-                                                    const itemFormatter = typeof item.valueFormatter === 'function' ? item.valueFormatter(this.form.model[item.key], this.form.model, {...item, index}) : item.valueFormatter
-                                                    const formatter = itemFormatter === undefined ? itemFormatter || formFormatter : itemFormatter
-                                                    if(formatter !== undefined) {
-                                                        resultVal = dataTransformRod(formatter)
-                                                    }
-                                                }
+                                                const trueResultVal = dataTransformRod(resultVal)
 
-                                                let componentResult = <span class={[resultVal === errData ? 'empty-value' : '']}>{resultVal}</span>
+                                                let componentResult = <span class={[trueResultVal === errData ? 'empty-value' : '']}>{trueResultVal}</span>
 
 
                                                 if (this.$slots[formItemSlot(item.key)]) {
