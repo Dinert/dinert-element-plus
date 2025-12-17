@@ -43,11 +43,17 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     showValue() {
         return true
     },
+    formatter(value) {
+        return value + '拼接'
+    },
     labelWidth: 'auto',
     formItem: {
         input: {
             label: '输入框',
             type: 'input',
+            formatter(value) {
+                return value + '格式化后的值'
+            },
             options: {
 
             }
@@ -135,16 +141,11 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
 
 <template>
     <div class="home">
-        <div style="display: flex;">
-            <dinert-form :form="form" class="dialog"
-                style="flex: 0 0 50%;"
-                :search="false"
-            />
-            <dinert-form :form="{...form, showValue: false}" class="dialog"
-                style="flex: 0 0 50%;"
-                :search="false"
-            />
-        </div>
+
+        <dinert-form :form="form" class="dialog"
+            :search="false"
+        />
+
 
     </div>
 </template>

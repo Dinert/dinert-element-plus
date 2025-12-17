@@ -33,6 +33,12 @@ form/basic/disabled
 form/basic/show-value
 :::
 
+## 格式化值
+:::demo
+
+form/basic/formatter-value
+:::
+
 ## 显示组件
 :::demo
 
