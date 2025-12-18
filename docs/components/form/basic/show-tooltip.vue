@@ -38,6 +38,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         select2: [1, 2],
         inputNumber: 100000000000,
         selectV2: 1,
+        selectV22: [1],
         treeSelect: [1, 2],
         switch: true,
         date: '2024-06-01 12:30:45',

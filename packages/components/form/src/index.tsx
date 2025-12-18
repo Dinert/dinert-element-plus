@@ -134,14 +134,14 @@ export default defineComponent({
                     coRef = customRef.$el.querySelector('.el-input__inner')
                 }else if(['select'].includes(item.type)) {
                     coRef = customRef.selectRef.$el.querySelector('.el-select__selected-item.el-select__placeholder')
-                    if(item.options?.multiple && resultVal?.length) {
-                        tooltipContent.value = resultVal
+                    if(item.options?.multiple && newVal) {
+                        tooltipContent.value = newVal
                         isTooltip.value = true
                     }
                 }else if(['select-v2'].includes(item.type)) {
                     coRef = customRef.selectV2Ref.$el.querySelector('.el-select__selected-item.el-select__placeholder')
-                    if(item.options?.multiple && resultVal?.length) {
-                        tooltipContent.value = resultVal
+                    if(item.options?.multiple && newVal) {
+                        tooltipContent.value = newVal
                         isTooltip.value = true
                     }
                 }else if(['datetime',
