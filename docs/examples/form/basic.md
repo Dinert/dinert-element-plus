@@ -33,6 +33,12 @@ form/basic/disabled
 form/basic/show-value
 :::
 
+## 显示提示信息
+:::demo
+
+form/basic/show-tooltip
+:::
+
 ## 格式化值
 :::demo
 

@@ -22,6 +22,7 @@ import {dataTransformRod, getUuid} from '@packages/utils/tools'
 import {ElForm} from 'element-plus'
 
 import {ArrowUp, ArrowDown} from '@element-plus/icons-vue'
+import lodash from 'lodash'
 
 
 import '@packages/assets/scss/dinert-form.scss'
@@ -116,22 +117,72 @@ export default defineComponent({
             emit('UnFold', packUp.value)
         }
 
-        const onFormItemMouseenter = (item: CustomFormItemProps, {resultVal}: {resultVal: any}) => {
+        const onFormItemMouseenter = (item: CustomFormItemProps, {resultVal, showValue, showContent}: {resultVal: any, showValue: any, showContent: any}) => {
             tempRef.value = formTypeRef.value[item.key]
             let customRef = tempRef.value
             let coRef = null as any
 
-            if(['input'].includes(item.type)) {
-               coRef = customRef.inputRef.ref
+            let newVal = lodash.isArray(resultVal) ? resultVal.join(',') : resultVal
+            newVal = typeof newVal === 'number' ? newVal + '' : newVal
 
-            }else if(['select'].includes(item.type)) {
-                coRef = customRef.selectRef.$el.querySelector('.el-select__selected-item.el-select__placeholder')
+            if(showValue || showContent || showContent === false) {
+
+            }else if(customRef){
+                if(['input'].includes(item.type)) {
+                    coRef = customRef.inputRef.ref
+                }else if(['input-number'].includes(item.type)) {
+                    coRef = customRef.$el.querySelector('.el-input__inner')
+                }else if(['select'].includes(item.type)) {
+                    coRef = customRef.selectRef.$el.querySelector('.el-select__selected-item.el-select__placeholder')
+                    if(item.options?.multiple && resultVal?.length) {
+                        tooltipContent.value = resultVal
+                        isTooltip.value = true
+                    }
+                }else if(['select-v2'].includes(item.type)) {
+                    coRef = customRef.selectV2Ref.$el.querySelector('.el-select__selected-item.el-select__placeholder')
+                    if(item.options?.multiple && resultVal?.length) {
+                        tooltipContent.value = resultVal
+                        isTooltip.value = true
+                    }
+                }else if(['datetime',
+                        'date',
+                        'dates',
+                        'week',
+                        'month',
+                        'year',
+                        'years',
+                        'datetimerange',
+                        'daterange',
+                        'monthrange',
+                        'yearrange'].includes(item.type)) {
+                    if(item.type.includes('range')) {
+                        coRef = customRef.$el?.querySelector('.el-range-input')
+                    }else {
+                        coRef = customRef.$el?.querySelector('.el-input__inner')
+                    }
+                }else if(['cascader'].includes(item.type)) {
+                    coRef = customRef.$el?.querySelector('.el-input__inner')
+                    const cascaderRef = customRef.cascaderRef
+                    const nodes = cascaderRef.cascaderPanelRef.checkedNodes
+
+                    if(nodes?.length) {
+                        newVal = nodes[0].text
+                        if(item.options?.props?.multiple) {
+                            newVal = nodes.map((item: any) => item.text).join(',')
+                            tooltipContent.value = newVal
+                            isTooltip.value = true
+                        }
+                    }
+
+                }
+
+                if(coRef?.scrollWidth > coRef?.clientWidth && newVal) {
+                    tooltipContent.value = newVal
+                    isTooltip.value = true
+                }
             }
 
-            if(coRef?.scrollWidth > coRef?.clientWidth) {
-                tooltipContent.value = resultVal
-                isTooltip.value = true
-            }
+
 
         }
         const onFormItemMouseleave = (item: CustomFormItemProps) => {
@@ -270,7 +321,7 @@ export default defineComponent({
                                             label: undefined
                                         }}
                                         onMouseenter={() => {
-                                            this.onFormItemMouseenter(item, {resultVal})
+                                            this.onFormItemMouseenter(item, {resultVal, showValue, showContent})
                                         }}
                                         onMouseleave={() => {
                                             this.onFormItemMouseleave(item)

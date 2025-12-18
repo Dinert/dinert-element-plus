@@ -61,20 +61,24 @@ export default defineComponent({
     render() {
 
         return (
-            <el-date-picker
-                v-model={this.form.model[this.formItem.key]}
-                prefixIcon={Calendar}
-                clearable
-                startPlaceholder={customPlaceholder(datePickerPlaceholder(typeof this.options.label === 'function' ? this.options.label(this.form.model) : this.options.label, this.options), 'input', '开始')}
-                endPlaceholder={customPlaceholder(datePickerPlaceholder(typeof this.options.label === 'function' ? this.options.label(this.form.model) : this.options.label, this.options), 'input', '结束')}
-                unlink-panels={true}
-                valueFormat={customValuFormat(this.options)}
-                format={this.options.type === 'week' ? 'YYYY第ww周' : this.options.format}
-                {...this.options}
-                v-slots={this.$slots}
-                ref={el => {this.dateRef = el}}
-            >
-            </el-date-picker>
+            <div>
+                <el-date-picker
+                    style='width: 100%;'
+                    v-model={this.form.model[this.formItem.key]}
+                    prefixIcon={Calendar}
+                    clearable
+                    startPlaceholder={customPlaceholder(datePickerPlaceholder(typeof this.options.label === 'function' ? this.options.label(this.form.model) : this.options.label, this.options), 'input', '开始')}
+                    endPlaceholder={customPlaceholder(datePickerPlaceholder(typeof this.options.label === 'function' ? this.options.label(this.form.model) : this.options.label, this.options), 'input', '结束')}
+                    unlink-panels={true}
+                    valueFormat={customValuFormat(this.options)}
+                    format={this.options.type === 'week' ? 'YYYY第ww周' : this.options.format}
+                    {...this.options}
+                    v-slots={this.$slots}
+                    ref={el => {this.dateRef = el}}
+                >
+                </el-date-picker>
+            </div>
+
         )
     }
 })
