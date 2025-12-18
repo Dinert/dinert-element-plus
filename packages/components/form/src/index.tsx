@@ -119,20 +119,18 @@ export default defineComponent({
         const onFormItemMouseenter = (item: CustomFormItemProps, {resultVal}: {resultVal: any}) => {
             tempRef.value = formTypeRef.value[item.key]
             let customRef = tempRef.value
+            let coRef = null as any
 
             if(['input'].includes(item.type)) {
-               const inputRef = customRef.inputRef.ref
-                if(inputRef.scrollWidth > inputRef.clientWidth) {
-                    tooltipContent.value = resultVal
-                    isTooltip.value = true
-                }
+               coRef = customRef.inputRef.ref
+
             }else if(['select'].includes(item.type)) {
-                console.log(resultVal, 'resultVal')
-                const selectRef = customRef.selectRef.$el.querySelector('.el-select__selected-item.el-select__placeholder')
-                if(selectRef.scrollWidth > selectRef.clientWidth) {
-                    tooltipContent.value = resultVal
-                    isTooltip.value = true
-                }
+                coRef = customRef.selectRef.$el.querySelector('.el-select__selected-item.el-select__placeholder')
+            }
+
+            if(coRef?.scrollWidth > coRef?.clientWidth) {
+                tooltipContent.value = resultVal
+                isTooltip.value = true
             }
 
         }
