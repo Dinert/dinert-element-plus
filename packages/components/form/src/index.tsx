@@ -125,7 +125,17 @@ export default defineComponent({
             let newVal = lodash.isArray(resultVal) ? resultVal.join(',') : resultVal
             newVal = typeof newVal === 'number' ? newVal + '' : newVal
 
-            if(showValue || showContent || showContent === false) {
+
+
+            if(typeof tempRef.value?.querySelector === 'function' && tempRef.value?.querySelector('.slot-tooltip')) {
+                coRef = tempRef.value?.querySelector('.slot-tooltip')
+
+                if(coRef?.scrollHeight > coRef?.clientHeight && newVal) {
+                    tooltipContent.value = newVal
+                    isTooltip.value = true
+                }
+
+            }else if(showValue || showContent || showContent === false) {
                 coRef = tempRef.value
 
                 if(coRef?.scrollHeight > coRef?.clientHeight && newVal) {
@@ -381,7 +391,10 @@ export default defineComponent({
 
 
                                                 if (this.$slots[formItemSlot(item.key)]) {
-                                                    componentResult = (this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model}))
+                                                    componentResult = (<div ref={el => this.setFormTypeRefs(item.key, el)}
+                                                    style={componentResultStyle}
+                                                    class={['el-form-item__content-slot', trueResultVal === errData ? 'empty-value' : '']}>
+                                                        {this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model})}</div>)
                                                 } else if (showValue) {
                                                     return componentResult
                                                 } else if (['input', 'textarea'].includes(item.type)) {

@@ -70,6 +70,13 @@
                         -webkit-line-clamp: var(--limit-line, 3); /* 显示 3 行 */
                         overflow: hidden;
                     }
+
+                    .slot-tooltip {
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: var(--limit-line, 3); /* 显示 3 行 */
+                        overflow: hidden;
+                    }
                 }
 
                 &.slider {

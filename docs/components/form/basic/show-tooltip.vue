@@ -19,7 +19,7 @@ interface ModelProps {
     checkbox: number[];
     cascader: string;
     cascader2: string[];
-
+    custom: string;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -47,7 +47,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         checkbox: [1, 2],
         cascader: 'controllability',
         cascader2: ['controllability'],
-
+        custom: '自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值',
     },
     colLayout: {span: 24},
     showValue() {
@@ -681,6 +681,13 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                 ]
             }
         },
+        custom: {
+            label: '自定义组件',
+            type: 'custom',
+            options: {
+
+            }
+        }
 
 
     }
@@ -697,7 +704,13 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             <dinert-form :form="form" class="dialog"
                 style="flex: 0 0 48%; margin-left: 20px;"
                 :search="false"
-            />
+            >
+                <template #formItem_custom>
+                    <div class="slot-tooltip">
+                        {{ form.model.custom }}
+                    </div>
+                </template>
+            </dinert-form>
 
         </div>
 
