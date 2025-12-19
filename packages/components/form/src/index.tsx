@@ -128,7 +128,7 @@ export default defineComponent({
             const slot = slots[formItemSlot(item.key)]
 
 
-            const slotTooltipDom = tempRef.value?.querySelector('.slot-tooltip')
+            const slotTooltipDom = typeof tempRef.value?.querySelector === 'function' && tempRef.value?.querySelector('.slot-tooltip')
 
             if(slot && slotTooltipDom) {
                 coRef = slotTooltipDom

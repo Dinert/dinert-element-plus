@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from 'vue'
 import {RewriteFormProps} from '../../../../packages'
-import {multiply} from 'lodash'
+
 
 // form里面的数据类型
 interface ModelProps {
@@ -128,11 +128,14 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             type: 'datetimerange',
             options: {
             },
-            colLayout: {span: 18},
         },
         cascader: {
             label: '级联选择器',
             type: 'cascader',
+            limitLine: 1,
+            valueFormatter() {
+                return '我是级联选择器的值valueFormattervalueFormattervalueFormattervalueFormatter'
+            },
             options: {
                 options: [
                     {
