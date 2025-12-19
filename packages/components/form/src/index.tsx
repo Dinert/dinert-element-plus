@@ -44,7 +44,7 @@ export default defineComponent({
         }
     },
     emits: ['UnFold', 'SearchFn', 'ResetFn'],
-    setup(props, {emit}) {
+    setup(props, {emit,slots}) {
         const {form} = toRefs(props)
         const packUp = ref(form.value.packUp === undefined)
         const isArrow = ref(false)
@@ -125,9 +125,10 @@ export default defineComponent({
             let newVal = lodash.isArray(resultVal) ? resultVal.join(',') : resultVal
             newVal = typeof newVal === 'number' ? newVal + '' : newVal
 
+            const slot = slots[formItemSlot(item.key)]
 
 
-            if(typeof tempRef.value?.querySelector === 'function' && tempRef.value?.querySelector('.slot-tooltip')) {
+            if(slot && tempRef.value?.querySelector('.slot-tooltip')) {
                 coRef = tempRef.value?.querySelector('.slot-tooltip')
 
                 if(coRef?.scrollHeight > coRef?.clientHeight && newVal) {
@@ -143,7 +144,7 @@ export default defineComponent({
                     isTooltip.value = true
                 }
 
-            }else if(customRef){
+            }else if(customRef && !slot){
                 if(['input'].includes(item.type)) {
                     coRef = customRef.inputRef.ref
                 }else if(['input-number'].includes(item.type)) {
