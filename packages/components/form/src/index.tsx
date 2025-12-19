@@ -128,11 +128,13 @@ export default defineComponent({
             const slot = slots[formItemSlot(item.key)]
 
 
-            if(slot && tempRef.value?.querySelector('.slot-tooltip')) {
-                coRef = tempRef.value?.querySelector('.slot-tooltip')
+            const slotTooltipDom = tempRef.value?.querySelector('.slot-tooltip')
+
+            if(slot && slotTooltipDom) {
+                coRef = slotTooltipDom
 
                 if(coRef?.scrollHeight > coRef?.clientHeight && newVal) {
-                    tooltipContent.value = newVal
+                    tooltipContent.value = slotTooltipDom.innerText
                     isTooltip.value = true
                 }
 
