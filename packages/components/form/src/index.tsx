@@ -126,6 +126,12 @@ export default defineComponent({
             newVal = typeof newVal === 'number' ? newVal + '' : newVal
 
             if(showValue || showContent || showContent === false) {
+                coRef = tempRef.value
+
+                if(coRef?.scrollHeight > coRef?.clientHeight && newVal) {
+                    tooltipContent.value = newVal
+                    isTooltip.value = true
+                }
 
             }else if(customRef){
                 if(['input'].includes(item.type)) {
@@ -180,8 +186,8 @@ export default defineComponent({
                     tooltipContent.value = newVal
                     isTooltip.value = true
                 }
-            }
 
+            }
 
 
         }
@@ -291,6 +297,7 @@ export default defineComponent({
                                 if(formatter !== undefined) {
                                     resultVal = formatter
                                 }
+
                             }
 
                             return (
@@ -354,12 +361,23 @@ export default defineComponent({
                                                     return null
                                                 }
 
+                                                let limitLine = 3 as any
+                                                let componentResultStyle = {} as any
+                                                if(showValue) {
+                                                // 处理显示值的行数
+                                                    const formLimitLine = typeof this.form.limitLine === 'function' ? this.form.limitLine(this.form.model[item.key],this.form.model, {...item, index}) : this.form.limitLine
+                                                    const itemLimitLine = typeof item.limitLine === 'function' ? item.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : item.limitLine
+                                                    limitLine = itemLimitLine === undefined ? itemLimitLine || formLimitLine : itemLimitLine
+                                                    componentResultStyle = {'--limit-line': limitLine}
+                                                }
+
+
 
                                                 const slots: any = {}
 
                                                 const trueResultVal = dataTransformRod(resultVal)
 
-                                                let componentResult = <span class={[trueResultVal === errData ? 'empty-value' : '']}>{trueResultVal}</span>
+                                                let componentResult = <div ref={el => this.setFormTypeRefs(item.key, el)} style={componentResultStyle} class={['el-form-item__content-text', trueResultVal === errData ? 'empty-value' : '']}>{trueResultVal}</div>
 
 
                                                 if (this.$slots[formItemSlot(item.key)]) {

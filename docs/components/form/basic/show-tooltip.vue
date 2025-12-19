@@ -33,7 +33,7 @@ interface FormItemProps {
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-        input: 'input值1132132131111111111input值1132132131111111111',
+        input: '我是一段很长的中文我是一段很长的中文我是一段很长的中文我是一段很长的中文我是一段很长的中文我是一段很长的中文我是一段很长的中文我是一段很长的中文我是一段很长的中文我是一段很长的中文',
         select: 1,
         select2: [1, 2],
         inputNumber: 100000000000,
@@ -73,6 +73,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         select: {
             label: '下拉框',
             type: 'select',
+            limitLine: 1,
             options: {
                 options: [
                     {label: '启用启用启用启用启用启用启用启用启用启用', value: 1},
@@ -83,12 +84,13 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         select2: {
             label: '下拉框多选',
             type: 'select',
+            limitLine: 2,
             options: {
                 multiple: true,
                 options: [
-                    {label: '选项111111111111321321312321321321', value: 1},
-                    {label: '选项21321312321321321321', value: 2},
-                    {label: '选项332132132321321321321321', value: 3},
+                    {label: '我是选项我是选项我是选项我是选项我是选项1', value: 1},
+                    {label: '我是选项我是选项我是选项我是选项我是选项21', value: 2},
+                    {label: '我是选项我是选项我是选项我是选项我是选项我是选项321', value: 3},
                 ]
             }
         },
@@ -692,10 +694,10 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                 style="flex: 0 0 50%;"
                 :search="false"
             />
-            <!-- <dinert-form :form="form" class="dialog"
-                style="flex: 0 0 50%;"
+            <dinert-form :form="form" class="dialog"
+                style="flex: 0 0 48%; margin-left: 20px;"
                 :search="false"
-            /> -->
+            />
 
         </div>
 

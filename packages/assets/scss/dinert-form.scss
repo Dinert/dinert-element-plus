@@ -46,9 +46,29 @@
             flex: 1;
 
             .#{$namespace}-col {
+                .el-form-item {
+                    &.show-value {
+                        .el-form-item__label {
+                            line-height: 24px;
+                            height: 24px;
+                        }
+
+                        .el-form-item__content {
+                            line-height: 24px;
+                        }
+                    }
+                }
+
                 .el-form-item__content {
                     & > div {
                         width: 100%;
+                    }
+
+                    .el-form-item__content-text {
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: var(--limit-line, 3); /* 显示 3 行 */
+                        overflow: hidden;
                     }
                 }
 
