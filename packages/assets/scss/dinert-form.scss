@@ -64,6 +64,10 @@
                         width: 100%;
                     }
 
+                    .el-form-item__content-slot {
+                        width: unset;
+                    }
+
                     .el-form-item__content-text {
                         display: -webkit-box;
                         -webkit-box-orient: vertical;

@@ -64,7 +64,7 @@ const formItemFn = formItem => {
 
             <template #formItem_name1="formItem">
                 <el-input v-model="formItem.model[formItem.key]" v-bind="formItem.options"
-                    style="margin: 0 22px;width: 50%;"
+                    style=" margin: 0 16px;width: 220px;"
                     clearable
                 />
             </template>
