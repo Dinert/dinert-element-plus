@@ -30,8 +30,8 @@ export default defineComponent({
             default: true
         },
         header: {
-            type: [Object, Boolean] as PropType<HeaderListProps | boolean>,
-            default: true
+            type: Object as PropType<HeaderListProps>,
+            default: () => ({})
         },
         tableSlot: {
             type: Boolean,

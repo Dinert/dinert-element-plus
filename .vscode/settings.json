@@ -1,23 +1,48 @@
 {
-    "editor.formatOnSave": false,
-    "eslint.validate": [
-      "javascript",
-      "vue",
-      "html",
-      "typescript",
-    ],
-    "editor.detectIndentation": false,
-    "files.trimTrailingWhitespace": true,
-    "stylelint.validate": [
-      "css",
-      "scss",
-      "sass",
-      "vue",
-      "html"
-    ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit",
-        "source.fixAll.stylelint": "explicit"
-    },
+  /* ===============================
+   * 基础编辑器行为
+   * =============================== */
+  "editor.detectIndentation": false,
+  "files.trimTrailingWhitespace": true,
+
+  /* ===============================
+   * 不使用 VS Code formatter
+   * =============================== */
+  "editor.formatOnSave": false,
+
+  /* ===============================
+   * ESLint / Stylelint 作为唯一修复来源
+   * =============================== */
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+
+  /* ===============================
+   * ESLint 校验范围
+   * =============================== */
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html"
+  ],
+
+  /* ===============================
+   * Stylelint 校验范围
+   * =============================== */
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "sass",
+    "vue",
+    "html"
+  ],
+
+  /* ===============================
+   * Vue – Official（Volar）
+   * =============================== */
   "vue.codeActions.enabled": false
-  }
+}

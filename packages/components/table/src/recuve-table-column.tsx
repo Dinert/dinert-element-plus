@@ -1,4 +1,4 @@
-import {defineComponent, watch, ref, nextTick, computed} from 'vue'
+import {defineComponent, watch, ref, nextTick, computed, PropType} from 'vue'
 
 import {getPropByPath, dataTransformRod} from '@packages/utils/tools'
 import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@packages/components/table/hooks'
@@ -15,7 +15,6 @@ import type {
     OperationsProps
 } from '@packages/components/table/types/index'
 
-import type {PropType} from 'vue'
 
 import type {ElSelect} from 'element-plus'
 
@@ -69,13 +68,13 @@ export default defineComponent({
     setup(props, {emit}) {
         const selectTable = ref<InstanceType<typeof ElSelect>>()
 
-        watch(() => props.table?.key, () => {
-            nextTick(() => {
-                selectTable.value && treeNode(selectTable.value, props.table?.tableColumns)
-            })
-        }, {
-            immediate: true
-        })
+        // watch(() => props.table?.key, () => {
+        //     nextTick(() => {
+        //         selectTable.value && treeNode(selectTable.value, props.table?.tableColumns)
+        //     })
+        // }, {
+        //     immediate: true
+        // })
         const settingRender = (props: RecuveTableColumnProps) => {
             return (
                 <el-popover
@@ -298,7 +297,7 @@ export default defineComponent({
         }
 
         return {
-            settingRender,
+            // settingRender,
             moreRender
         }
     },
@@ -306,6 +305,7 @@ export default defineComponent({
         const solts = this.$slots
         const defaultSlot = solts.default
         const headerSlot = solts.header
+
         return (
             <>
                 {
@@ -315,13 +315,22 @@ export default defineComponent({
                         show = show === undefined || show === true
                         const checked = item.checked === undefined || item.checked === true
                         const custom = !['index', 'selection', 'expand'].includes((item.type as string))
-                        const fixed = item.prop === 'operations' && item.fixed === undefined ? 'right' : item.fixed
-                        const showOverflowTooltip = item.showOverflowTooltip === undefined && item.prop !== 'operations' ? true : item.showOverflowTooltip
-                        const className = `${item.prop || ''} ${item.className || ''} ${item.setting ? 'setting' : ''}`
-                        let align = item.prop === 'operations' && item.align === undefined ? 'center' : item.align
-                        let width = item.prop === 'operations' && item.width === undefined ? 200 : item.width
-                        const formatter = item.formatter && typeof item.formatter === 'function'
+
+
+                        // 处理对齐方式
+                        const align = item.prop === 'operations' && item.align === undefined ? 'center' : item.align
+
+                        // 处理item
                         const noChildItem = filterColumn(item)
+
+                        // 处理打点展示
+                        const showOverflowTooltip = item.showOverflowTooltip === undefined && item.prop !== 'operations' ? true : item.showOverflowTooltip
+
+                        // 固定操作列在右侧
+                        const fixed = item.prop === 'operations' && item.fixed === undefined ? 'right' : item.fixed
+
+                        // 固定宽度
+                        let width = item.prop === 'operations' && item.width === undefined ? 200 : item.width
                         const propLowerCase = item.prop?.toLocaleLowerCase()
                         if (propLowerCase?.includes('time') || propLowerCase?.includes('date')) {
                             width = width ? width : 170
@@ -330,14 +339,15 @@ export default defineComponent({
                         if (show && checked && custom) {
                             return (
                                 <el-table-column
-                                    {...noChildItem}
+                                    {...{
+                                        ...noChildItem,
+                                        fixed,
+                                        showOverflowTooltip,
+                                        width,
+                                        className: `${item.prop || ''} ${item.className || ''} ${item.setting ? 'setting' : ''}`,
+                                        align
+                                    }}
                                     key={item.prop}
-                                    fixed={fixed}
-                                    show-overflow-tooltip={showOverflowTooltip}
-                                    className={className}
-                                    width={width}
-                                    minWidth={item.minWidth}
-                                    align={align}
                                     v-slots= {{
                                         default: (scope: any) => {
                                             const deepValue = getPropByPath(scope.row, item.prop || '')
@@ -346,6 +356,8 @@ export default defineComponent({
                                             const slotValue = defaultSlot?.({...scope, prop: item.prop})
                                             const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
 
+                                            // 处理formatter
+                                            const formatter = item.formatter && typeof item.formatter === 'function'
                                             if (formatter) {
 
                                                 let htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index, this.table?.errData)
@@ -396,14 +408,14 @@ export default defineComponent({
                                             if (headerSlot) {
                                                 return (
                                                     <>  {<span>{isSlotValue ? slotValue : scope.column.label}</span>}
-                                                        {item.setting && this.table?.setting !== false && this.settingRender((this as RecuveTableColumnProps))}
+                                                        {/* {item.setting && this.table?.setting !== false && this.settingRender((this as RecuveTableColumnProps))} */}
                                                     </>
                                                 )
                                             } else {
                                                 return (
                                                     <>
                                                         <span>{scope.column.label}</span>
-                                                        {item.setting && this.table?.setting !== false && this.settingRender(this as RecuveTableColumnProps)}
+                                                        {/* {item.setting && this.table?.setting !== false && this.settingRender(this as RecuveTableColumnProps)} */}
                                                     </>
                                                 )
                                             }

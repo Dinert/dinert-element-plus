@@ -81,7 +81,7 @@ export interface HeaderListProps extends Omit<Partial<ButtonProps>, 'disabled'>{
 
 
 export interface TablePageProps<T = any>{
-    header?: boolean | {[key: string]: HeaderListProps};
+    header?: {[key: string]: HeaderListProps};
     table: RewriteTableProps<T>;
     footer?: boolean;
     tableSlot?: boolean;

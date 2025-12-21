@@ -120,6 +120,12 @@
                     // border-right: none;
                     // color: var(--zp-color-secondary-text-title);
 
+                    &.is-center {
+                        .cell {
+                            justify-content: center;
+                        }
+                    }
+
                     .cell {
                         display: flex;
                         align-items: center;
