@@ -94,7 +94,7 @@ export default defineComponent({
                                     {
                                         default: () => (
                                             <ul class="dinert-popover-classify">
-                                                <DinertTableColumnControl tableColumns={this.tableColumns}></DinertTableColumnControl>
+                                                <DinertTableColumnControl table={this.table} tableColumns={this.tableColumns}></DinertTableColumnControl>
                                             </ul>
                                         ),
                                         reference: () => (

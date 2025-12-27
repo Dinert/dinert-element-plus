@@ -8,6 +8,15 @@
 table/basic/index
 :::
 
+
+## 自定义内容和插槽
+:::demo
+
+table/basic/slot-formatter
+:::
+
+
+<!--
 ## 序号和选择
 :::demo
 
@@ -61,7 +70,7 @@ table/basic/header-operations
 
 table/basic/tree-data
 :::
-
+ -->
 
 <!-- @include: ./explain.md -->
 

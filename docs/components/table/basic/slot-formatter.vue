@@ -11,24 +11,28 @@ interface DataProps {
 
 const tablePage = ref<TablePageProps<DataProps>>({
     table: {
-        rowExpand: {},
-        rowIndex: {},
-        rowSelection: {},
         pagination: {
         },
         tableColumns: [
-
             {
                 prop: 'date',
-                label: '时间'
+                label: '时间',
             },
             {
                 prop: 'name',
                 label: '名称',
             },
             {
+                prop: 'name2',
+                label: 'format名称',
+                // eslint-disable-next-line no-unused-vars
+                formatter(row, column, cellValue, index, errData) {
+                    return index ? '<span>false</span>' : errData
+                },
+            },
+            {
                 prop: 'address',
-                label: '地址'
+                label: '地址',
             },
         ],
         data: [
@@ -57,11 +61,23 @@ const tablePage = ref<TablePageProps<DataProps>>({
     footer: false
 })
 
-
 </script>
 
 <template>
     <dinert-table :table="tablePage.table"
         :footer="tablePage.footer"
-    />
+    >
+        <template #column_name>
+            自定义的名字
+        </template>
+        <template #column_header_name>
+            自定义的头部名称
+        </template>
+
+        <template #default>
+            <div>
+                11
+            </div>
+        </template>
+    </dinert-table>
 </template>

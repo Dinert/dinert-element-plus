@@ -3,7 +3,7 @@ import {defineComponent, watch, ref, nextTick, computed, PropType} from 'vue'
 import {getPropByPath, dataTransformRod} from '@packages/utils/tools'
 import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@packages/components/table/hooks'
 import {Setting, ArrowDown} from '@element-plus/icons-vue'
-import {ElMessageBox, type TableColumnCtx} from 'element-plus'
+import {ElMessageBox, type TableColumnCtx, type ElSelect} from 'element-plus'
 import {buildVueDompurifyHTMLDirective} from 'vue-dompurify-html'
 
 
@@ -15,25 +15,6 @@ import type {
     OperationsProps
 } from '@packages/components/table/types/index'
 
-
-import type {ElSelect} from 'element-plus'
-
-
-const filterColumn = (column: any) => {
-    const obj: any = {}
-    for (const prop in column) {
-        if (prop !== 'children') {
-            obj[prop] = column[prop]
-        }
-    }
-    return obj
-}
-
-const mapWidth: Record<string, any> = {
-    index: 60,
-    selection: 40,
-    expand: 40
-}
 
 const DompurifyHtml = buildVueDompurifyHTMLDirective({})
 
@@ -311,17 +292,12 @@ export default defineComponent({
                 {
                     // eslint-disable-next-line array-callback-return, consistent-return
                     this.tableColumns && this.tableColumns.map(item => {
-                        let show = typeof item.show === 'function' ? item.show(item) : item.show
-                        show = show === undefined || show === true
-                        const checked = item.checked === undefined || item.checked === true
-                        const custom = !['index', 'selection', 'expand'].includes((item.type as string))
-
 
                         // 处理对齐方式
                         const align = item.prop === 'operations' && item.align === undefined ? 'center' : item.align
 
                         // 处理item
-                        const noChildItem = filterColumn(item)
+                        const {children, ...noChildItem} = item
 
                         // 处理打点展示
                         const showOverflowTooltip = item.showOverflowTooltip === undefined && item.prop !== 'operations' ? true : item.showOverflowTooltip
@@ -330,118 +306,95 @@ export default defineComponent({
                         const fixed = item.prop === 'operations' && item.fixed === undefined ? 'right' : item.fixed
 
                         // 固定宽度
-                        let width = item.prop === 'operations' && item.width === undefined ? 200 : item.width
-                        const propLowerCase = item.prop?.toLocaleLowerCase()
-                        if (propLowerCase?.includes('time') || propLowerCase?.includes('date')) {
-                            width = width ? width : 170
-                        }
+                        const width = item.prop === 'operations' && item.width === undefined ? 200 : item.width
 
-                        if (show && checked && custom) {
-                            return (
-                                <el-table-column
-                                    {...{
-                                        ...noChildItem,
-                                        fixed,
-                                        showOverflowTooltip,
-                                        width,
-                                        className: `${item.prop || ''} ${item.className || ''} ${item.setting ? 'setting' : ''}`,
-                                        align
-                                    }}
-                                    key={item.prop}
-                                    v-slots= {{
-                                        default: (scope: any) => {
-                                            const deepValue = getPropByPath(scope.row, item.prop || '')
-                                            const value = dataTransformRod(deepValue, this.table?.errData)
-
-                                            const slotValue = defaultSlot?.({...scope, prop: item.prop})
-                                            const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
-
-                                            // 处理formatter
-                                            const formatter = item.formatter && typeof item.formatter === 'function'
-                                            if (formatter) {
-
-                                                let htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index, this.table?.errData)
-                                                htmlValue = dataTransformRod(htmlValue, this.table?.errData)
-                                                return (
-                                                    <>
-                                                        {isSlotValue
-                                                            ? <div class={['cell-item']}>{ slotValue }</div>
-                                                            : <div class={['cell-item', htmlValue === this.table?.errData ? 'empty-value' : '']} v-dompurify-html={htmlValue}></div>}
-
-                                                        <dinert-recuve-table-column table={this.table}
-                                                            key={item.prop}
-                                                            tableColumns={item.children}
-                                                            popover-value={this.popoverValue}
-                                                            only-class={this.onlyClass}
-                                                            v-slots={solts}
-                                                        >
-                                                        </dinert-recuve-table-column>
-                                                    </>
-                                                )
-                                            } else {
-
-                                                return (
-                                                    <>
-                                                        <div class={['cell-item', value === this.table?.errData || isSlotValue === this.table?.errData ? 'empty-value' : '']}>
-                                                            {this.moreRender(item, this, {
-                                                                value,
-                                                                scope,
-                                                                isSlotValue,
-                                                                slotValue
-                                                            })}
-                                                        </div>
-                                                        <dinert-recuve-table-column table={this.table}
-                                                            key={item.prop}
-                                                            tableColumns={item.children}
-                                                            popover-value={this.popoverValue}
-                                                            only-class={this.onlyClass}
-                                                            v-slots={solts}
-                                                        >
-                                                        </dinert-recuve-table-column>
-                                                    </>
-                                                )
-                                            }
-                                        },
-                                        header: (scope: any) => {
-                                            const slotValue = headerSlot?.({...scope, data: item, prop: item.prop})
-                                            const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
-                                            if (headerSlot) {
-                                                return (
-                                                    <>  {<span>{isSlotValue ? slotValue : scope.column.label}</span>}
-                                                        {/* {item.setting && this.table?.setting !== false && this.settingRender((this as RecuveTableColumnProps))} */}
-                                                    </>
-                                                )
-                                            } else {
-                                                return (
-                                                    <>
-                                                        <span>{scope.column.label}</span>
-                                                        {/* {item.setting && this.table?.setting !== false && this.settingRender(this as RecuveTableColumnProps)} */}
-                                                    </>
-                                                )
-                                            }
-                                        }
-                                    }}
-                                >
-
-
-                                </el-table-column>
-                            )
-                        } else if (show && checked) {
-                            const align = item.align === undefined ? 'center' : 'left'
-                            const width = item.width === undefined ? mapWidth[item.type || ''] || 60 : item.width
-
-                            return (<el-table-column
-                                {...item}
+                        return (
+                            <el-table-column
+                                {...{
+                                    ...noChildItem,
+                                    fixed,
+                                    showOverflowTooltip,
+                                    width,
+                                    className: `${item.prop || ''} ${item.className || ''} ${item.setting ? 'setting' : ''}`,
+                                    align
+                                }}
                                 key={item.prop}
-                                fixed={fixed}
-                                align={align}
-                                reserve-selection={item.reserveSelection}
-                                width={width}
-                                v-slots={this.$slots}
-                            >
-                            </el-table-column>)
-                        }
+                                v-slots= {{
+                                    default: (scope: any) => {
 
+                                        let result: any = []
+
+                                        const deepValue = getPropByPath(scope.row, item.prop || '')
+
+                                        let value = dataTransformRod(deepValue, this.table?.errData)
+
+                                        const slotValue = defaultSlot?.({...scope, prop: item.prop})
+
+                                        const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
+
+                                        // 处理formatter
+                                        const formatter = item.formatter && typeof item.formatter === 'function'
+                                        let htmlValue = ''
+                                        if (formatter) {
+                                            htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index, this.table?.errData)
+                                            value = dataTransformRod(htmlValue, this.table?.errData)
+
+                                            result = [(
+                                                (<div class={['cell-item', value === this.table?.errData ? 'empty-value' : '']} v-dompurify-html={value}>
+                                                    {value}
+                                                </div>
+                                                )
+                                            )]
+                                        }
+
+                                        if (isSlotValue) {
+                                            value = slotValue
+                                        }
+
+                                        if (!formatter) {
+                                            result = [(
+                                                (<div class={['cell-item', value === this.table?.errData ? 'empty-value' : '']}>
+                                                    {value}
+                                                </div>
+                                                )
+                                            )]
+                                        }
+
+
+                                        result.push(
+                                            (<dinert-recuve-table-column table={this.table}
+                                                key={item.prop}
+                                                tableColumns={item.children}
+                                                popover-value={this.popoverValue}
+                                                only-class={this.onlyClass}
+                                                v-slots={solts}
+                                            >
+                                            </dinert-recuve-table-column>)
+                                        )
+                                        return result
+                                    },
+                                    header: (scope: any) => {
+                                        const slotValue = headerSlot?.({...scope, data: item, prop: item.prop})
+                                        const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
+                                        if (headerSlot) {
+                                            return (
+                                                <>  {<span>{isSlotValue ? slotValue : scope.column.label}</span>}
+                                                    {/* {item.setting && this.table?.setting !== false && this.settingRender((this as RecuveTableColumnProps))} */}
+                                                </>
+                                            )
+                                        } else {
+                                            return (
+                                                <>
+                                                    <span>{scope.column.label}</span>
+                                                    {/* {item.setting && this.table?.setting !== false && this.settingRender(this as RecuveTableColumnProps)} */}
+                                                </>
+                                            )
+                                        }
+                                    }
+                                }}
+                            >
+                            </el-table-column>
+                        )
                     })
                 }
 

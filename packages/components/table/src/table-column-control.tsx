@@ -1,13 +1,16 @@
-import {PropType, computed, defineComponent, nextTick, ref} from 'vue'
+import {PropType, computed, defineComponent, ref} from 'vue'
 
-import type {HeaderListProps, RewriteTableColumnCtx, RewriteTableProps} from '@packages/components/table/types/index'
-import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
-import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode, isAllChecked, allShow} from '@packages/components/table/hooks'
+import type {RewriteTableColumnCtx, RewriteTableProps} from '@packages/components/table/types/index'
+import {getTreeNode} from '@packages/utils/tools'
+import {allowDrop, nodeDragEnd, treeProps} from '@packages/components/table/hooks'
+import type Node from 'element-plus/es/components/tree/src/model/node'
 
 export default defineComponent({
     name: 'dinert-table-column-control',
     props: {
-
+        table: {
+            type: Object as PropType<RewriteTableProps>,
+        },
         tableColumns: {
             type: Array as PropType<RewriteTableColumnCtx[]>,
             default: () => ([])
@@ -23,7 +26,7 @@ export default defineComponent({
 
         const checkTree = (data: Node, checked: boolean, childChecked: boolean) => {
             data.checked = childChecked || checked
-            // ctx.emit('CheckedChange', data, checked, childChecked)
+            ctx.emit('CheckedChange', data, checked, childChecked)
         }
 
         return {
@@ -38,7 +41,7 @@ export default defineComponent({
             <el-tree
                 ref={el => (this.selectTableRef = el)}
                 draggable
-                data={this.tableColumns}
+                data={this.table?.tableColumns}
                 default-expand-all
                 default-checked-keys={this.defaultCheckedKeys}
                 show-checkbox

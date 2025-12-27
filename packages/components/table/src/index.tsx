@@ -14,6 +14,28 @@ import type Node from 'element-plus/es/components/tree/src/model/node'
 import '@packages/assets/scss/dinert-table.scss'
 import lodash from 'lodash'
 
+function processColumn(columns) {
+
+    columns = columns.filter(item => {
+        const checked = item.checked === undefined || item.checked === true
+
+        let show = typeof item.show === 'function' ? item.show(item) : item.show
+        show = show === undefined || show === true
+
+        return checked && show
+    })
+
+    columns.sort((a, b) => (a.sort || Infinity) - (b.sort || Infinity))
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < columns.length; i++) {
+        const item = columns[i]
+        if (item.children && item.children.length) {
+            processColumn([...item.children])
+        }
+    }
+    return columns
+}
+
 export default defineComponent({
     name: 'dinert-table',
     props: {
@@ -47,19 +69,8 @@ export default defineComponent({
         const {table, header} = toRefs(props)
 
         const tableColumns = computed(() => {
-            const result = table.value?.tableColumns || []
-
-            function sortRecuve(columns) {
-                columns.sort((a, b) => (a.sort || Infinity) - (b.sort || Infinity))
-                // eslint-disable-next-line @typescript-eslint/prefer-for-of
-                for (let i = 0; i < columns.length; i++) {
-                    const item = columns[i]
-                    if (item.children && item.children.length) {
-                        sortRecuve(item.children)
-                    }
-                }
-            }
-            sortRecuve(result)
+            let result = table.value?.tableColumns || []
+            result = processColumn([...result])
             return result
         })
 
@@ -132,6 +143,7 @@ export default defineComponent({
             default: (scope: any) => this.$slots[scope.prop && columnProp(scope.prop)]?.(scope),
             header: (scope: any) => this.$slots[scope.prop && headerProp(scope.prop)]?.(scope)
         }
+        console.log(slots, 'slots')
 
 
         const isHeader = !lodash.isEmpty(this.header)
@@ -160,10 +172,9 @@ export default defineComponent({
                                 append: this.$slots['table-append'] ? (() => this.$slots['table-append']?.()) : null
                             }}
                         >
-                            {
-                                this.table?.rowSelection && <el-table-column align="center" type="selection" {...this.table.rowSelection}></el-table-column>
-                            }
+                            {this.table?.rowSelection && <el-table-column align="center" type="selection" {...this.table.rowSelection}></el-table-column>}
                             {this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" {...this.table.rowIndex}></el-table-column>}
+                            {this.table?.rowExpand && <el-table-column align="center" type="expand" {...this.table.rowExpand}></el-table-column>}
 
                             <DinertRecuveTableColumn table={this.table}
                                 table-columns={this.tableColumns}
@@ -171,7 +182,6 @@ export default defineComponent({
                                 v-slots={slots}
                                 popover-value={this.popoverValue}
                                 onCheckedChange={(data: Node, checked: boolean, childChecked: boolean) => this.$emit('CheckedChange', data, checked, childChecked)}
-
                             >
                             </DinertRecuveTableColumn>
 
