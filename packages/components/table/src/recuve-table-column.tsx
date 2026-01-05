@@ -1,13 +1,12 @@
 import {defineComponent, watch, ref, nextTick, computed, PropType} from 'vue'
 
 import {getPropByPath, dataTransformRod} from '@packages/utils/tools'
-import {treeNode, allowDrop, checkTree, nodeDragEnd, allShow, treeProps} from '@packages/components/table/hooks'
-import {Setting, ArrowDown} from '@element-plus/icons-vue'
+
+import {ArrowDown} from '@element-plus/icons-vue'
 import {ElMessageBox, type TableColumnCtx, type ElSelect} from 'element-plus'
 import {buildVueDompurifyHTMLDirective} from 'vue-dompurify-html'
+import DinertSettingControl from './table-setting-control'
 
-
-import type Node from 'element-plus/es/components/tree/src/model/node'
 import type {
     RecuveTableColumnProps,
     RewriteTableProps,
@@ -56,69 +55,7 @@ export default defineComponent({
         // }, {
         //     immediate: true
         // })
-        const settingRender = (props: RecuveTableColumnProps) => {
-            return (
-                <el-popover
-                    value={props.popoverValue}
-                    v-slots={
-                        {
-                            default: () => (
-                                <ul class="dinert-popover-classify">
-                                    <li>
-                                        <el-button class="allSelect" link
-                                            type={'primary'} onClick={async () => allShow(selectTable.value, props.table?.tableColumns || [])}
-                                        >全选</el-button>
-                                    </li>
-                                    <el-tree
-                                        ref={selectTable}
-                                        draggable
-                                        data={props.table?.tableColumns}
-                                        default-expand-all
-                                        defaultCheckedKeys={props.defaultCheckedKeys}
-                                        show-checkbox
-                                        node-key={'prop'}
-                                        props={treeProps}
-                                        allowDrop={allowDrop}
-                                        onCheckChange={async (data: Node, checked: boolean, childChecked: boolean) => {
-                                            // eslint-disable-next-line @typescript-eslint/await-thenable
-                                            await checkTree(data, checked, childChecked)
-                                            emit('CheckedChange', data, checked, childChecked)
-                                        }}
-                                        onNodeDragEnd={(currentNode: Node, targetNode: Node) => nodeDragEnd(currentNode, targetNode, (selectTable.value as any))}
-                                        v-slots={
-                                            {
-                                                default: ({data}: {data: Node}) => (
-                                                    <div class="text-dot tree-item">
-                                                        <el-tooltip content={data.label}
-                                                            placement={'top'}
-                                                            disabled={data.label && data.label.length < 8}
-                                                            v-slots={
-                                                                {
-                                                                    default: () => (<span>{ data.label }</span>)
-                                                                }
-                                                            }
-                                                        >
-                                                        </el-tooltip>
-                                                    </div>
-                                                )
-                                            }
-                                        }
-                                    >
 
-                                    </el-tree>
-                                </ul>
-                            ),
-                            reference: () => (
-                                <el-icon class="setting-icon">
-                                    <Setting/>
-                                </el-icon>
-                            )
-
-                        }
-                    }
-                >
-                </el-popover>)
-        }
 
         const moreRender = (column: RewriteTableColumnCtx, _this: any, {
             value,
@@ -360,9 +297,9 @@ export default defineComponent({
                                             )]
                                         }
 
-
                                         result.push(
-                                            (<dinert-recuve-table-column table={this.table}
+                                            (<dinert-recuve-table-column
+                                                table={this.table}
                                                 key={item.prop}
                                                 tableColumns={item.children}
                                                 popover-value={this.popoverValue}
@@ -371,25 +308,24 @@ export default defineComponent({
                                             >
                                             </dinert-recuve-table-column>)
                                         )
+
+
                                         return result
                                     },
                                     header: (scope: any) => {
                                         const slotValue = headerSlot?.({...scope, data: item, prop: item.prop})
                                         const isSlotValue = slotValue && slotValue[0] && slotValue[0].children
-                                        if (headerSlot) {
-                                            return (
-                                                <>  {<span>{isSlotValue ? slotValue : scope.column.label}</span>}
-                                                    {/* {item.setting && this.table?.setting !== false && this.settingRender((this as RecuveTableColumnProps))} */}
-                                                </>
-                                            )
+                                        const setting = item.setting && this.table?.setting !== false
+                                        const result: any = []
+                                        if (isSlotValue) {
+                                            result.push(<span>{isSlotValue ? slotValue : scope.column.label}</span>)
                                         } else {
-                                            return (
-                                                <>
-                                                    <span>{scope.column.label}</span>
-                                                    {/* {item.setting && this.table?.setting !== false && this.settingRender(this as RecuveTableColumnProps)} */}
-                                                </>
-                                            )
+                                            result.push(<span>{scope.column.label}</span>)
                                         }
+                                        if (setting) {
+                                            result.push(<DinertSettingControl table={this.table} />)
+                                        }
+                                        return result
                                     }
                                 }}
                             >

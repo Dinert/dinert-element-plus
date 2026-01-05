@@ -15,6 +15,12 @@ table/basic/index
 table/basic/slot-formatter
 :::
 
+## 控制栏
+:::demo
+
+table/basic/header-control
+:::
+
 
 <!--
 ## 序号和选择
@@ -41,11 +47,7 @@ table/basic/slot-use
 table/basic/slot-custom-table
 :::
 
-## 头部操作栏
-:::demo
 
-table/basic/header
-:::
 
 ## 显示操作栏
 :::demo

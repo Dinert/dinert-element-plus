@@ -2,6 +2,8 @@ import {computed, defineComponent, PropType, ref} from 'vue'
 import type {HeaderListProps, RewriteTableColumnCtx, RewriteTableProps} from '@packages/components/table/types/index'
 import {ArrowDown} from '@element-plus/icons-vue'
 import DinertTableColumnControl from './table-column-control'
+import {allShow} from '@packages/components/table/hooks'
+
 
 export default defineComponent({
     name: 'dinert-table-header',
@@ -24,7 +26,7 @@ export default defineComponent({
 
     setup(props) {
 
-        const selectTableRef = ref<any>()
+        const selectTableRef = ref<InstanceType<typeof DinertTableColumnControl>>()
 
 
         const headerList = computed<HeaderListProps[]>(() => {
@@ -82,23 +84,27 @@ export default defineComponent({
                     </div>
                 }
                 {
-                    <div class={'dinert-table-header-right'}>
+
+                    (this.table?.setting && <div class={'dinert-table-header-right'}>
                         <el-button-group>
                             <el-button type={this.isAllData ? 'primary' : 'default'}
-                                // onClick={async () => {
-                                //     allShow(this.selectTableRef, this.table?.tableColumns || [])}}
+                                onClick={async () => {
+                                    allShow(this.selectTableRef?.selectTableRef, this.table?.tableColumns || [])}}
                             >全部显示
                             </el-button>
-                            <el-popover teleported={false}
+                            <el-popover teleported={true}
                                 v-slots={
                                     {
                                         default: () => (
                                             <ul class="dinert-popover-classify">
-                                                <DinertTableColumnControl table={this.table} tableColumns={this.tableColumns}></DinertTableColumnControl>
+                                                <DinertTableColumnControl
+                                                    ref={el => (this.selectTableRef = el)}
+                                                    table={this.table}
+                                                ></DinertTableColumnControl>
                                             </ul>
                                         ),
                                         reference: () => (
-                                            <el-button type={!this.isAllData ? 'primary' : ''}>
+                                            <el-button type={this.isAllData ? 'default' : 'primary'}>
                                                 分类显示<el-icon><ArrowDown/></el-icon>
                                             </el-button>
                                         )
@@ -108,7 +114,7 @@ export default defineComponent({
                             >
                             </el-popover>
                         </el-button-group>
-                    </div>
+                    </div>)
                 }
             </header>
         )

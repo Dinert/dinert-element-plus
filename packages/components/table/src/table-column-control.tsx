@@ -1,6 +1,6 @@
 import {PropType, computed, defineComponent, ref} from 'vue'
 
-import type {RewriteTableColumnCtx, RewriteTableProps} from '@packages/components/table/types/index'
+import type {RewriteTableProps} from '@packages/components/table/types/index'
 import {getTreeNode} from '@packages/utils/tools'
 import {allowDrop, nodeDragEnd, treeProps} from '@packages/components/table/hooks'
 import type Node from 'element-plus/es/components/tree/src/model/node'
@@ -10,10 +10,6 @@ export default defineComponent({
     props: {
         table: {
             type: Object as PropType<RewriteTableProps>,
-        },
-        tableColumns: {
-            type: Array as PropType<RewriteTableColumnCtx[]>,
-            default: () => ([])
         }
     },
     emits: ['CheckedChange'],
@@ -21,7 +17,7 @@ export default defineComponent({
         const selectTableRef = ref(null)
 
         const defaultCheckedKeys = computed(() => {
-            return getTreeNode(props.tableColumns, 'checked', [true, undefined], 'prop')
+            return getTreeNode(props.table?.tableColumns || [], 'checked', [true, undefined], 'prop')
         })
 
         const checkTree = (data: Node, checked: boolean, childChecked: boolean) => {

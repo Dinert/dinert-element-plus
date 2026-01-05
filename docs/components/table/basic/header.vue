@@ -18,9 +18,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
         },
         tableColumns: [
             {
-                type: 'selection',
-            },
-            {
                 prop: 'date',
                 label: '时间'
             },
@@ -55,10 +52,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
                 address: '广州市区',
             },
         ],
-        onSelect(selection) {
-            selectTableDatas.value = selection
-
-        }
     },
     header: {
         'add': {

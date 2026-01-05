@@ -66,7 +66,7 @@ export default defineComponent({
         const bodyRef = ref<HTMLElement | null>(null)
         const footerRef = ref<HTMLElement | null>(null)
 
-        const {table, header} = toRefs(props)
+        const {table} = toRefs(props)
 
         const tableColumns = computed(() => {
             let result = table.value?.tableColumns || []
@@ -111,11 +111,12 @@ export default defineComponent({
 
         watch(tableColumns, () => {
             nextTick(() => {
-                isAllData.value = isAllChecked(tableColumns.value)
+                isAllData.value = isAllChecked(table.value?.tableColumns || [])
             })
 
         }, {
             deep: true,
+            immediate: true
         })
 
 
@@ -143,10 +144,8 @@ export default defineComponent({
             default: (scope: any) => this.$slots[scope.prop && columnProp(scope.prop)]?.(scope),
             header: (scope: any) => this.$slots[scope.prop && headerProp(scope.prop)]?.(scope)
         }
-        console.log(slots, 'slots')
 
-
-        const isHeader = !lodash.isEmpty(this.header)
+        const isHeader = !lodash.isEmpty(this.header) || this.table?.setting
 
         return (
             <section class={'dinert-table'}>
