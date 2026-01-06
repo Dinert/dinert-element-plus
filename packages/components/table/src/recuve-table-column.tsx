@@ -259,6 +259,7 @@ export default defineComponent({
                                 v-slots= {{
                                     default: (scope: any) => {
 
+
                                         let result: any = []
 
                                         const deepValue = getPropByPath(scope.row, item.prop || '')
@@ -308,6 +309,10 @@ export default defineComponent({
                                             >
                                             </dinert-recuve-table-column>)
                                         )
+
+                                        if (['selection', 'index', 'expand'].includes(item.type || '')) {
+                                            result = null
+                                        }
 
 
                                         return result
