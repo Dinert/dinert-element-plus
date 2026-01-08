@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {ref, shallowRef} from 'vue'
 
-import {TablePageProps} from '../../../../packages'
+import {TablePageProps} from '../../../../../packages'
 import {Plus} from '@element-plus/icons-vue'
 
 

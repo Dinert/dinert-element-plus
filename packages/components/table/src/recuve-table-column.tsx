@@ -298,19 +298,22 @@ export default defineComponent({
                                             )]
                                         }
 
-                                        result.push(
-                                            (<dinert-recuve-table-column
-                                                table={this.table}
-                                                key={item.prop}
-                                                tableColumns={item.children}
-                                                popover-value={this.popoverValue}
-                                                only-class={this.onlyClass}
-                                                v-slots={solts}
-                                            >
-                                            </dinert-recuve-table-column>)
-                                        )
+                                        if (item.children && item.children.length) {
+                                            result.push(
+                                                (<><dinert-recuve-table-column
+                                                    table={this.table}
+                                                    key={item.prop}
+                                                    tableColumns={item.children}
+                                                    popover-value={this.popoverValue}
+                                                    only-class={this.onlyClass}
+                                                    v-slots={solts}
+                                                >
+                                                </dinert-recuve-table-column></>)
+                                            )
+                                        }
 
-                                        if (['selection', 'index', 'expand'].includes(item.type || '')) {
+
+                                        if (['selection', 'index', 'expand'].includes(item.type || '') && !isSlotValue) {
                                             result = null
                                         }
 

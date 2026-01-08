@@ -14,13 +14,10 @@ interface DataProps {
 
 const tablePage = ref<TablePageProps<DataProps>>({
     table: {
+        setting: true,
         pagination: {
         },
         tableColumns: [
-            {
-                type: 'index',
-                label: '序号'
-            },
             {
                 prop: 'date',
                 label: '时间'
@@ -53,7 +50,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
                             {
                                 prop: 'zip',
                                 label: 'Zip',
-                                sort: 1,
                             },
                         ]
                     }

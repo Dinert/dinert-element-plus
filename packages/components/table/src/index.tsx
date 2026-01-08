@@ -1,12 +1,11 @@
 import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs, shallowRef} from 'vue'
 import type {HeaderListProps, RewriteTableProps, TablePageProps} from '@packages/components/table/types/index'
 import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
-import {resizeTaleHeight, allowDrop, nodeDragEnd, treeProps, treeNode, isAllChecked, allShow} from '@packages/components/table/hooks'
+import {resizeTaleHeight, allowDrop, nodeDragEnd, isAllChecked, allShow} from '@packages/components/table/hooks'
 
 import DinertRecuveTableColumn from './recuve-table-column'
 import DinertTableHeader from './table-header'
 import useWindowResize from '@packages/hooks/useWindowResize'
-import {ArrowDown, Plus, Delete, Download, Upload, Check, Close, ArrowUp} from '@element-plus/icons-vue'
 
 import type {PropType} from 'vue'
 import type Node from 'element-plus/es/components/tree/src/model/node'
@@ -14,25 +13,27 @@ import type Node from 'element-plus/es/components/tree/src/model/node'
 import '@packages/assets/scss/dinert-table.scss'
 import lodash from 'lodash'
 
+
 function processColumn(columns) {
+    columns = columns
+        .filter(item => {
+            const checked = item.checked === undefined || item.checked === true
 
-    columns = columns.filter(item => {
-        const checked = item.checked === undefined || item.checked === true
+            let show = typeof item.show === 'function' ? item.show(item) : item.show
+            show = show === undefined || show === true
 
-        let show = typeof item.show === 'function' ? item.show(item) : item.show
-        show = show === undefined || show === true
+            return checked && show
+        })
+        .sort((a, b) => (a.sort || Infinity) - (b.sort || Infinity))
 
-        return checked && show
-    })
-
-    columns.sort((a, b) => (a.sort || Infinity) - (b.sort || Infinity))
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < columns.length; i++) {
         const item = columns[i]
         if (item.children && item.children.length) {
-            processColumn([...item.children])
+            item.children = processColumn(item.children)
         }
     }
+
     return columns
 }
 
@@ -70,7 +71,8 @@ export default defineComponent({
 
         const tableColumns = computed(() => {
             let result = table.value?.tableColumns || []
-            result = processColumn([...result])
+            const tempColumns = lodash.cloneDeep(result)
+            result = processColumn(tempColumns)
             return result
         })
 

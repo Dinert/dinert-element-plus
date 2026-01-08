@@ -18,8 +18,16 @@ table/basic/slot-formatter
 ## 控制栏
 :::demo
 
-table/basic/header-control
+table/basic/header-control/index
 :::
+
+
+## 多级表头
+:::demo
+
+table/basic/multiple-header
+:::
+
 
 
 <!--
@@ -27,12 +35,6 @@ table/basic/header-control
 :::demo
 
 table/basic/indexAndSelection
-:::
-
-## 多级表头
-:::demo
-
-table/basic/multiple-header
 :::
 
 ## 插槽
