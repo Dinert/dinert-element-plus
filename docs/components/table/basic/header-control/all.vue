@@ -2,7 +2,6 @@
 import {ref, shallowRef} from 'vue'
 
 import {TablePageProps} from '../../../../../packages'
-import {Plus} from '@element-plus/icons-vue'
 
 
 interface DataProps {
@@ -39,11 +38,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
             },
             {
                 'prop': 'address',
-                'label': '地址'
-            },
-            {
-                'prop': 'operations',
-                'label': '操作',
+                'label': '地址',
                 setting: true
             }
         ],

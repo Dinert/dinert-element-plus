@@ -39,10 +39,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
             {
                 'prop': 'address',
                 'label': '地址'
-            },
-            {
-                'prop': 'operations',
-                'label': '操作'
             }
         ],
         data: [

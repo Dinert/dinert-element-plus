@@ -6,6 +6,7 @@ import {ArrowDown} from '@element-plus/icons-vue'
 import {ElMessageBox, type TableColumnCtx, type ElSelect} from 'element-plus'
 import {buildVueDompurifyHTMLDirective} from 'vue-dompurify-html'
 import DinertSettingControl from './table-setting-control'
+import DinertTableColumnOperations from './table-column-operations'
 
 import type {
     RecuveTableColumnProps,
@@ -214,9 +215,14 @@ export default defineComponent({
             return <div class={['cell-item-text']}>{ (isSlotValue && slotValue) || value}</div>
         }
 
+        const cellItemClass = (value: any, errData: any) => {
+            return ['cell-item', value === errData ? 'empty-value' : '']
+        }
+
         return {
             // settingRender,
-            moreRender
+            moreRender,
+            cellItemClass,
         }
     },
     render() {
@@ -273,30 +279,52 @@ export default defineComponent({
                                         // 处理formatter
                                         const formatter = item.formatter && typeof item.formatter === 'function'
                                         let htmlValue = ''
-                                        if (formatter) {
+
+
+                                        if (isSlotValue) {
+                                            value = slotValue
+                                            result = [(
+                                                (<div class={this.cellItemClass(value, this.table?.errData)}>
+                                                    {value}
+                                                </div>
+                                                )
+                                            )]
+                                        } else if (formatter) {
                                             htmlValue = item.formatter && item.formatter(scope, (item as TableColumnCtx<any>), deepValue, scope.$index, this.table?.errData)
                                             value = dataTransformRod(htmlValue, this.table?.errData)
 
                                             result = [(
-                                                (<div class={['cell-item', value === this.table?.errData ? 'empty-value' : '']} v-dompurify-html={value}>
-                                                    {value}
-                                                </div>
+                                                (<div class={this.cellItemClass(value, this.table?.errData)} v-dompurify-html={value}></div>
                                                 )
                                             )]
-                                        }
+                                        } else {
 
-                                        if (isSlotValue) {
-                                            value = slotValue
-                                        }
 
-                                        if (!formatter) {
                                             result = [(
-                                                (<div class={['cell-item', value === this.table?.errData ? 'empty-value' : '']}>
+                                                (<div class={this.cellItemClass(value, this.table?.errData)}>
                                                     {value}
                                                 </div>
                                                 )
                                             )]
+
+                                            if (item.prop === 'operations') {
+                                                result = (
+                                                    <DinertTableColumnOperations
+                                                        operations={item.operations}
+                                                        column={item}
+                                                        scope={scope}
+                                                    >
+                                                    </DinertTableColumnOperations>
+                                                )
+                                            }
+
+
+                                            if (['selection', 'index', 'expand'].includes(item.type || '')) {
+                                                result = null
+                                            }
+
                                         }
+
 
                                         if (item.children && item.children.length) {
                                             result.push(
@@ -311,12 +339,6 @@ export default defineComponent({
                                                 </dinert-recuve-table-column></>)
                                             )
                                         }
-
-
-                                        if (['selection', 'index', 'expand'].includes(item.type || '') && !isSlotValue) {
-                                            result = null
-                                        }
-
 
                                         return result
                                     },

@@ -1,101 +1,126 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
+import {ref, shallowRef} from 'vue'
+
 import {TablePageProps} from '../../../../packages'
+import {Plus} from '@element-plus/icons-vue'
+
 
 interface DataProps {
     date: string;
     name: string;
     address: string;
+    state: string;
+    city: string;
 }
 
 
 const tablePage = ref<TablePageProps<DataProps>>({
     table: {
-        pagination: {
-        },
+        pagination: {},
         tableColumns: [
             {
-                prop: 'date',
-                label: '时间',
-                show() {
-                    return true
-                }
+                'prop': 'date',
+                'label': '日期'
             },
             {
-                prop: 'name',
-                label: '名称',
-                checked: false
-
+                'prop': 'name',
+                'label': '姓名'
             },
             {
-                prop: 'address',
-                label: '地址',
-                children: [
-                    {
-                        prop: 'address1',
-                        label: '地址1',
-                        checked: false
-                    },
-                    {
-                        prop: 'address2',
-                        label: '地址2',
-                    }
-                ]
+                'prop': 'state',
+                'label': '州'
+            },
+            {
+                'prop': 'city',
+                'label': '城市'
+            },
+            {
+                'prop': 'address',
+                'label': '地址'
             },
             {
                 prop: 'operations',
                 label: '操作',
-                setting: true,
                 operations: {
+                    add: {
+                        message: '',
+                        icon: shallowRef(Plus),
+                        clickCb(e) {
+                            console.log(e, 'eee')
+                        },
+                    },
                     edit: {
                         message: '编辑',
-                        click: (scope, column, item) => {
+                        type: 'success',
+                        clickCb: (scope, column, item) => {
                             console.log(item, 'itemmmmmmmmmmmmmmm')
                         }
                     },
-                    delete: {
-                        message: '删除弹窗',
-                        second: 'messageBox',
-                        click: (scope, column, item) => {
-                            console.log(item, 'itemmmmmmmmmmmmmmm')
-                        }
-                    },
-                    second2: {
-                        message: scope => '二次确认',
-                        second: true,
+                    update: {
+                        message: '更新',
                         type: 'warning',
-                        click: (scope, column, item) => {
-                            console.log(item, 'itemmmmmmmmmmmmmmm')
-                        },
-                        confirm: {
-                            // title: '二次确认框'
-                        }
-                    }
+
+                    },
+                    // delete: {
+                    //     message: '删除',
+                    //     type: 'danger'
+                    // }
+                    // delete: {
+                    //     message: '删除1',
+                    //     messageBox: {
+                    //         message: '要删除这条数据吗？'
+                    //     },
+                    //     click: (scope, column, item) => {
+                    //         console.log(item, 'itemmmmmmmmmmmmmmm')
+                    //     }
+                    // },
+                    // second2: {
+                    //     message: scope => '二次确认',
+                    //     second: true,
+                    //     type: 'warning',
+                    //     click: (scope, column, item) => {
+                    //         console.log(item, 'itemmmmmmmmmmmmmmm')
+                    //     },
+                    //     confirm: {
+                    //         // title: '二次确认框'
+                    //     }
+                    // }
                 }
             },
         ],
         data: [
             {
-                date: '2016-05-03',
-                name: 'Tom',
-                address: '广州市区',
+                'date': '2016-05-03',
+                'name': 'Tom',
+                'state': 'California',
+                'city': 'Los Angeles',
+                'address': 'No. 189, Grove St, Los Angeles'
             },
             {
-                date: '2016-05-02',
-                name: 'Tom',
-                address: '广州市区',
+                'date': '2016-05-02',
+                'name': 'Tom',
+                'state': 'California',
+                'city': 'Los Angeles',
+                'address': 'No. 189, Grove St, Los Angeles'
             },
             {
-                date: '2016-05-04',
-                name: 'Tom',
-                address: '广州市区',
+                'date': '2016-05-04',
+                'name': 'Tom',
+                'state': 'California',
+                'city': 'Los Angeles',
+                'address': 'No. 189, Grove St, Los Angeles'
             },
             {
-                date: '2016-05-01',
-                name: 'Tom',
-                address: '广州市区',
-            },
-        ]
+                'date': '2016-05-01',
+                'name': 'Tom',
+                'state': 'California',
+                'city': 'Los Angeles',
+                'address': 'No. 189, Grove St, Los Angeles'
+            }
+        ],
+    },
+    header: {
+
     },
     footer: false
 })
@@ -106,12 +131,6 @@ const tablePage = ref<TablePageProps<DataProps>>({
 <template>
     <dinert-table :table="tablePage.table"
         :footer="tablePage.footer"
-    >
-        <template #column_name>
-            自定义的名字
-        </template>
-        <template #column_header_name>
-            自定义的头部名称
-        </template>
-    </dinert-table>
+        :header="tablePage.header"
+    />
 </template>

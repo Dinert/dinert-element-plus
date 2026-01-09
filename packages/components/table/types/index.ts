@@ -16,7 +16,7 @@ export interface ScopeProps<T = any> {
 export interface OperationsProps<T = any> extends Partial<ButtonProps>{
     message?: string | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void);
     show?: boolean | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => boolean);
-    click?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void;
+    clickCb?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void;
     sort?: number;
     confirm?: Partial<PopconfirmProps>;
     key?: string;

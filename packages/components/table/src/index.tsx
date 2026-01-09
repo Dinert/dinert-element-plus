@@ -1,7 +1,7 @@
-import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs, shallowRef} from 'vue'
-import type {HeaderListProps, RewriteTableProps, TablePageProps} from '@packages/components/table/types/index'
-import {getUuid, columnProp, getTreeNode, headerProp} from '@packages/utils/tools'
-import {resizeTaleHeight, allowDrop, nodeDragEnd, isAllChecked, allShow} from '@packages/components/table/hooks'
+import {defineComponent, ref, computed, nextTick, watch, onMounted, toRefs} from 'vue'
+import type {HeaderListProps, RewriteTableProps} from '@packages/components/table/types/index'
+import {getUuid, columnProp, headerProp} from '@packages/utils/tools'
+import {resizeTaleHeight, nodeDragEnd, isAllChecked} from '@packages/components/table/hooks'
 
 import DinertRecuveTableColumn from './recuve-table-column'
 import DinertTableHeader from './table-header'

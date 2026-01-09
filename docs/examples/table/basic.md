@@ -28,6 +28,12 @@ table/basic/header-control/index
 table/basic/multiple-header
 :::
 
+## 显示操作栏
+:::demo
+
+table/basic/show-operations
+:::
+
 
 
 <!--
@@ -51,11 +57,7 @@ table/basic/slot-custom-table
 
 
 
-## 显示操作栏
-:::demo
 
-table/basic/show-operations
-:::
 
 ## 分页
 :::demo
