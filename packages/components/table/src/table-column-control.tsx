@@ -13,7 +13,7 @@ export default defineComponent({
             type: Object as PropType<RewriteTableProps>,
         }
     },
-    emits: ['CheckedChange'],
+    emits: ['CheckedChange', 'TooltipMouseEnter', 'TooltipMouseLeave'],
     setup(props, ctx) {
         const selectTableRef = ref(null)
 
@@ -71,17 +71,11 @@ export default defineComponent({
                 v-slots={
                     {
                         default: ({data}: {data: Node}) => (
-                            <div class="text-dot tree-item">
-                                <el-tooltip content={data.label}
-                                    placement={'top'}
-                                    disabled={data.label && data.label.length < 8}
-                                    v-slots={
-                                        {
-                                            default: () => (<span>{ data.label }</span>)
-                                        }
-                                    }
-                                >
-                                </el-tooltip>
+                            <div class="text-dot tree-item"
+                                onMouseenter={e => this.$emit('TooltipMouseEnter', e, data.label)}
+                                onMouseleave={e => this.$emit('TooltipMouseLeave', e, '')}
+                            >
+                                <span>{ data.label }</span>
                             </div>
                         )
                     }

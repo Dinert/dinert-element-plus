@@ -4,11 +4,8 @@
 .tree-item {
     width: 100%;
 
-    .#{$namespace}-tooltip__trigger {
-        display: block;
+    &.text-dot {
         overflow: hidden;
-        width: 100%;
-        text-align: left;
         text-overflow: ellipsis;
         white-space: nowrap;
     }

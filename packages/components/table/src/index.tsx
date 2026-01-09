@@ -66,6 +66,9 @@ export default defineComponent({
         const headerRef = ref<HTMLElement | null>(null)
         const bodyRef = ref<HTMLElement | null>(null)
         const footerRef = ref<HTMLElement | null>(null)
+        const isTooltip = ref(false)
+        const tooltipContent = ref('')
+        const tempRef = ref<any>(null)
 
         const {table} = toRefs(props)
 
@@ -132,6 +135,10 @@ export default defineComponent({
             onlyClass,
             isAllData,
             isFooter: props.footer,
+            tooltipContent,
+            isTooltip,
+            tempRef,
+
 
             tableRef,
             headerRef,
@@ -151,9 +158,34 @@ export default defineComponent({
 
         return (
             <section class={'dinert-table'}>
+                <el-tooltip
+                    placement="top"
+                    content={this.tooltipContent}
+                    virtual-triggering
+                    virtual-ref={this.tempRef}
+                    trigger="contextmenu"
+                    v-model:visible={this.isTooltip}
+                />
                 {this.$slots['header-title'] && <header class={'dinert-table-headerTitle'} >{this.$slots['header-title']?.()}</header>}
                 {
-                    isHeader && <DinertTableHeader table={this.table} header={this.header} tableColumns={this.tableColumns} isAllData={this.isAllData}></DinertTableHeader>
+                    isHeader && <DinertTableHeader
+                        onCheckedChange={(data, checked, childChecked) => this.$emit('CheckedChange', data, checked, childChecked)}
+                        onTooltipMouseEnter={(e, label) => {
+                            this.tempRef = e.target
+                            if (this.tempRef?.scrollWidth > this.tempRef?.clientWidth) {
+                                this.tooltipContent = label
+                                this.isTooltip = true
+                            }
+                        }}
+                        onTooltipMouseLeave={() => {
+                            this.tempRef = null
+                            this.isTooltip = false
+                            this.tooltipContent = ''
+                        }}
+                        table={this.table}
+                        header={this.header}
+                        tableColumns={this.tableColumns}
+                        isAllData={this.isAllData}></DinertTableHeader>
                 }
 
                 {

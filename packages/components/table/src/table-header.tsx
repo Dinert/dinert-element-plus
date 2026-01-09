@@ -23,12 +23,11 @@ export default defineComponent({
             default: () => ([])
         }
     },
-    emits: ['CheckedChange'],
+    emits: ['CheckedChange', 'TooltipMouseEnter', 'TooltipMouseLeave'],
 
     setup(props) {
 
         const selectTableRef = ref<InstanceType<typeof DinertTableColumnControl>>()
-
 
         const headerList = computed<HeaderListProps[]>(() => {
 
@@ -51,7 +50,8 @@ export default defineComponent({
 
         return {
             headerList,
-            selectTableRef
+            selectTableRef,
+
         }
     },
     render() {
@@ -87,6 +87,7 @@ export default defineComponent({
                 {
 
                     (this.table?.setting && <div class={'dinert-table-header-right'}>
+
                         <el-button-group>
                             <el-button type={this.isAllData ? 'primary' : 'default'}
                                 onClick={async () => {
@@ -99,6 +100,9 @@ export default defineComponent({
                                         default: () => (
                                             <ul class="dinert-popover-classify">
                                                 <DinertTableColumnControl
+                                                    onCheckedChange={(data, checked, childChecked) => this.$emit('CheckedChange', data, checked, childChecked)}
+                                                    onTooltipMouseEnter={(e, label) => this.$emit('TooltipMouseEnter', e, label)}
+                                                    onTooltipMouseLeave={(e, label) => this.$emit('TooltipMouseLeave', e, label)}
                                                     ref={el => (this.selectTableRef = el)}
                                                     table={this.table}
                                                 ></DinertTableColumnControl>

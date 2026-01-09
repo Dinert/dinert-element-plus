@@ -45,7 +45,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
                             },
                             {
                                 prop: 'address',
-                                label: '住址',
+                                label: '住址很长的住址',
                             },
                             {
                                 prop: 'zip',
