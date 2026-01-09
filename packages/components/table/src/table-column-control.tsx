@@ -5,6 +5,7 @@ import {getTreeNode} from '@packages/utils/tools'
 import {allowDrop, nodeDragEnd, treeProps} from '@packages/components/table/hooks'
 import type Node from 'element-plus/es/components/tree/src/model/node'
 
+
 export default defineComponent({
     name: 'dinert-table-column-control',
     props: {
@@ -20,8 +21,22 @@ export default defineComponent({
             return getTreeNode(props.table?.tableColumns || [], 'checked', [true, undefined], 'prop')
         })
 
-        const checkTree = (data: Node, checked: boolean, childChecked: boolean) => {
+        const uncheckChildren = (node: any) => {
+            if (!node.children || node.children.length === 0) {
+                return
+            }
+
+            node.children.forEach(child => {
+                child.checked = false
+                uncheckChildren(child) // 递归处理更深层的 children
+            })
+        }
+
+        const checkTree = (data: any, checked: boolean, childChecked: boolean) => {
             data.checked = childChecked || checked
+            if (!data.checked) {
+                uncheckChildren(data)
+            }
             ctx.emit('CheckedChange', data, checked, childChecked)
         }
 

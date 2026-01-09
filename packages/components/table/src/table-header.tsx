@@ -23,6 +23,7 @@ export default defineComponent({
             default: () => ([])
         }
     },
+    emits: ['CheckedChange'],
 
     setup(props) {
 
