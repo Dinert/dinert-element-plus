@@ -4,6 +4,7 @@ import type {
 } from '@packages/components/table/types/index'
 import {ElMessageBox} from 'element-plus'
 import lodash from 'lodash'
+import {ArrowDown} from '@element-plus/icons-vue'
 
 export default defineComponent({
     name: 'TableColumnOperations',
@@ -29,14 +30,17 @@ export default defineComponent({
             const result: any = []
             Object.keys((props.operations)).forEach(key => {
                 const tempObj = props.operations[key]
-                // if ((typeof tempObj.show !== 'function' && [true, undefined].includes(tempObj.show))
-                //     || (typeof tempObj.show === 'function' && [true, undefined].includes(tempObj.show(scope, column, tempObj)))
-                // ) {
-                result.push({
-                    key: key,
-                    ...tempObj,
-                })
-                // }
+                const show = lodash.isFunction(tempObj.show) ? tempObj.show(props.scope, props.column, tempObj) : tempObj.show === undefined ? true : tempObj.show
+                const message = lodash.isFunction(tempObj.message) ? tempObj.message(props.scope, props.column, tempObj) : tempObj.message
+                if (show) {
+                    result.push({
+                        key: key,
+                        ...tempObj,
+                        message
+                    })
+
+                }
+
             })
 
             result.sort((a: any, b: any) => {
@@ -60,7 +64,11 @@ export default defineComponent({
             return list
         })
 
-        const buttonClick = (e: any, item: any) => {
+        const isShowDropdown = computed(() => {
+            return seniorFunctions.value.length && operations.value.length > maxOperations
+        })
+
+        const buttonClick = (item: OperationsProps, e: any = null) => {
 
             if (lodash.isObject(item.messageBox)) {
                 ElMessageBox({
@@ -74,10 +82,10 @@ export default defineComponent({
                     },
                     ...item.messageBox
                 }).then(() => {
-                    lodash.isFunction(item.clickCb) && item.clickCb(props.scope, props.column, item)
+                    lodash.isFunction(item.clickCb) && item.clickCb(props.scope, props.column, item, e)
                 }).catch(() => null)
             } else {
-                lodash.isFunction(item.clickCb) && item.clickCb(props.scope, props.column, item)
+                lodash.isFunction(item.clickCb) && item.clickCb(props.scope, props.column, item, e)
 
             }
         }
@@ -85,6 +93,8 @@ export default defineComponent({
         return {
             defaultFunctions,
             seniorFunctions,
+            isShowDropdown,
+
             buttonClick
         }
     },
@@ -94,7 +104,6 @@ export default defineComponent({
             <>
                 {
                     this.defaultFunctions.map(item => {
-                        const message = typeof item.message === 'function' ? item.message(this.scope, this.column, item) : item.message
 
                         const buttonCom = (<el-button {...{
                             ...item,
@@ -104,12 +113,35 @@ export default defineComponent({
 
                         onClick={(e: any) => this.buttonClick(e, item)}
                         key={(item).key}>
-                            {message}
+                            {item.message}
                         </el-button>)
 
                         return buttonCom
 
                     })
+                }
+
+                {this.isShowDropdown
+                    ? <el-dropdown teleported={true}
+                        onCommand={item => this.buttonClick(item)}
+                        v-slots= {{
+                            default: () => {
+                                return (
+                                    <el-button type="primary" link text>
+                                            更多<el-icon><ArrowDown /></el-icon>
+                                    </el-button>
+                                )
+                            },
+                            dropdown: () => {
+                                return (
+                                    <el-dropdown-menu>
+                                        {this.seniorFunctions.map(item => {return (<el-dropdown-item command={item}>{item.message}</el-dropdown-item>)})}
+                                    </el-dropdown-menu>
+                                )
+                            }
+                        }}>
+
+                    </el-dropdown> : null
                 }
             </>
         )
