@@ -32,11 +32,16 @@ export default defineComponent({
                 const tempObj = props.operations[key]
                 const show = lodash.isFunction(tempObj.show) ? tempObj.show(props.scope, props.column, tempObj) : tempObj.show === undefined ? true : tempObj.show
                 const message = lodash.isFunction(tempObj.message) ? tempObj.message(props.scope, props.column, tempObj) : tempObj.message
+                const type = tempObj.key === 'delete' ? 'danger' : tempObj.type || 'primary'
+                const link = tempObj.link === undefined ? true : tempObj.link
+
                 if (show) {
                     result.push({
                         key: key,
                         ...tempObj,
-                        message
+                        message,
+                        type,
+                        link
                     })
 
                 }
@@ -104,26 +109,19 @@ export default defineComponent({
             <>
                 {
                     this.defaultFunctions.map(item => {
-
-                        const buttonCom = (<el-button {...{
-                            ...item,
-                            type: item.key === 'delete' ? 'danger' : item.type || 'primary',
-                            link: item.link === undefined ? true : item.link
-                        }}
-
-                        onClick={(e: any) => this.buttonClick(e, item)}
-                        key={(item).key}>
+                        return (<el-button
+                            {...{
+                                ...item
+                            }}
+                            onClick={(e: any) => this.buttonClick(e, item)}
+                            key={(item).key}>
                             {item.message}
                         </el-button>)
-
-                        return buttonCom
-
                     })
                 }
 
                 {this.isShowDropdown
                     ? <el-dropdown teleported={true}
-                        onCommand={item => this.buttonClick(item)}
                         v-slots= {{
                             default: () => {
                                 return (
@@ -135,7 +133,15 @@ export default defineComponent({
                             dropdown: () => {
                                 return (
                                     <el-dropdown-menu>
-                                        {this.seniorFunctions.map(item => {return (<el-dropdown-item command={item}>{item.message}</el-dropdown-item>)})}
+                                        {this.seniorFunctions.map(item => {return (<el-dropdown-item command={item}>
+                                            <el-button
+                                                onClick={(e: any) => this.buttonClick(e, item)}
+                                                {...{
+                                                    text: true,
+                                                    ...item
+                                                }}
+                                            >{item.message}</el-button>
+                                        </el-dropdown-item>)})}
                                     </el-dropdown-menu>
                                 )
                             }

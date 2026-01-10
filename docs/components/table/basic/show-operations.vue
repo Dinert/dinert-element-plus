@@ -60,6 +60,9 @@ const tablePage = ref<TablePageProps<DataProps>>({
                         message() {
                             return '更新'
                         },
+                        show(scope, column, item) {
+                            return scope.$index === 1
+                        },
                         type: 'warning',
 
                     },
