@@ -37,5 +37,10 @@ const {table, form} = tablePage
             32132
         </template>
 
+        <template #table-left>
+            <div>
+                1321
+            </div>
+        </template>
     </dinert-table>
 </template>

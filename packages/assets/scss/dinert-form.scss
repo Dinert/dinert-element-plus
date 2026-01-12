@@ -1,7 +1,7 @@
 /* stylelint-disable-next-line at-rule-no-unknown */
 @use "variables" as *;
 
-.#{$namespace}-form.dinert-form {
+.el-form.dinert-form {
     display: flex;
     overflow: hidden;
     padding: 0;
@@ -17,7 +17,7 @@
 
     &.near {
         .dinert-form-left {
-            .#{$namespace}-col {
+            .el-col {
                 display: flex;
                 align-items: center;
                 margin-right: 10px;
@@ -26,7 +26,7 @@
                 flex: unset;
 
                 .el-form-item__content {
-                    & > div > .#{$namespace}-cascader {
+                    & > div > .el-cascader {
                         width: 210px;
                     }
                 }
@@ -45,7 +45,7 @@
         .dinert-form-left {
             flex: 1;
 
-            .#{$namespace}-col {
+            .el-col {
                 .el-form-item {
                     &.show-value {
                         .el-form-item__label {
@@ -87,10 +87,10 @@
                     .label-text {
                         overflow: unset;
 
-                        .#{$namespace}-slider {
+                        .el-slider {
                             padding-left: 12px;
 
-                            .#{$namespace}-input-number {
+                            .el-input-number {
                                 width: auto;
                             }
                         }
@@ -101,30 +101,30 @@
     }
 
     .dinert-form-left {
-        .#{$namespace}-col {
+        .el-col {
             .el-form-item__content {
-                .#{$namespace}-radio.is-bordered,
-                .#{$namespace}-checkbox.is-bordered {
+                .el-radio.is-bordered,
+                .el-checkbox.is-bordered {
                     margin-right: 16px;
                 }
 
-                .#{$namespace}-date-editor {
+                .el-date-editor {
                     width: 210px;
                 }
 
-                .#{$namespace}-date-editor--daterange {
+                .el-date-editor--daterange {
                     width: 260px;
                 }
 
-                & > .#{$namespace}-input {
+                & > .el-input {
                     width: 210px;
                 }
 
-                & > .#{$namespace}-select {
+                & > .el-select {
                     width: 210px;
                 }
 
-                .#{$namespace}-date-editor--datetimerange {
+                .el-date-editor--datetimerange {
                     width: 400px;
                 }
             }
@@ -138,14 +138,14 @@
         .dinert-form-right-operation {
             padding: 0;
 
-            &.#{$namespace}-button.is-text {
+            &.el-button.is-text {
                 padding-right: 0;
                 background-color: unset;
             }
         }
     }
 
-    div.#{$namespace}-form-item:not(.#{$namespace}-form-item--label-top) {
+    div.el-form-item:not(.el-form-item--label-top) {
         position: relative;
         display: flex;
         margin-right: 0;
@@ -153,14 +153,13 @@
         width: 100%;
 
         &.show-value {
-
-            .#{$namespace}-form-item__content {
+            .el-form-item__content {
                 width: 0;
             }
         }
 
         &.label-wrap {
-            .#{$namespace}-form-item__label {
+            .el-form-item__label {
                 height: auto;
 
                 .label-text {
@@ -172,51 +171,51 @@
         }
     }
 
-    div.#{$namespace}-form-item.#{$namespace}-form-item--label-top {
+    div.el-form-item.el-form-item--label-top {
         margin-right: 0;
 
-        .#{$namespace}-form-item__label {
+        .el-form-item__label {
             display: inline-flex;
         }
 
-        .dinert-tooltip.#{$namespace}-tooltip__trigger .label-text {
+        .dinert-tooltip.el-tooltip__trigger .label-text {
             white-space: normal;
         }
     }
 
-    .#{$namespace}-form-item__content {
+    .el-form-item__content {
         flex: 1;
         margin-left: 0;
 
-        .#{$namespace}-tooltip__trigger:not(.#{$namespace}-slider__button) {
+        .el-tooltip__trigger:not(.el-slider__button) {
             width: 100%;
         }
 
-        .#{$namespace}-input-number {
+        .el-input-number {
             width: 100%;
 
-            .#{$namespace}-input__inner {
+            .el-input__inner {
                 text-align: center;
             }
         }
 
-        .#{$namespace}-textarea {
-            .#{$namespace}-textarea__inner {
+        .el-textarea {
+            .el-textarea__inner {
                 height: 80px;
             }
         }
 
-        .#{$namespace}-date-editor {
+        .el-date-editor {
             width: 100%;
             box-sizing: border-box;
 
-            .#{$namespace}-input__wrapper {
+            .el-input__wrapper {
                 width: 100%;
                 box-sizing: border-box;
             }
         }
 
-        .#{$namespace}-input__inner {
+        .el-input__inner {
             overflow: hidden;
             text-align: left;
             text-overflow: ellipsis;

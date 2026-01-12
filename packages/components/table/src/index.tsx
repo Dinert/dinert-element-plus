@@ -91,7 +91,7 @@ export default defineComponent({
         }
 
         onMounted(() => {
-            setTimeout(() => {
+            !slots['table-body'] && setTimeout(() => {
                 resizeTaleHeightFn()
             })
         })
@@ -193,8 +193,10 @@ export default defineComponent({
                 }
 
                 <div ref={el => {this.bodyRef = el}} class="dinert-table-body">
+                    {this.$slots['table-left'] ? this.$slots['table-left']?.(this.table) : null}
+
                     {this.$slots['table-body'] ? this.$slots['table-body']?.(this.table)
-                        : <el-table
+                        : <div class={'dinert-table-body-content'}><el-table
                             height={'100%'}
                             border={true}
                             {...this.table}
@@ -218,8 +220,11 @@ export default defineComponent({
                             >
                             </DinertRecuveTableColumn>
 
-                        </el-table>
+                        </el-table></div>
                     }
+
+                    {this.$slots['table-right'] ? this.$slots['table-right']?.(this.table) : null}
+
                 </div>
 
                 {this.isFooter && this.table?.data && this.table?.data.length !== 0 && <div class="dinert-table-footer" ref={el => {this.footerRef = el}} >

@@ -1,5 +1,3 @@
-/* stylelint-disable-next-line at-rule-no-unknown */
-@use "variables" as *;
 
 $input-width: 200px;
 
@@ -9,19 +7,19 @@ $input-width: 200px;
     box-sizing: border-box;
 
     &.text-wrap {
-        .#{$namespace}-table__header .cell {
+        .el-table__header .cell {
             white-space: pre-wrap;
         }
 
-        .#{$namespace}-table__body {
-            .#{$namespace}-table__row {
+        .el-table__body {
+            .el-table__row {
                 td > .cell,
                 td > .cell > .cell-item,
-                td .cell.#{$namespace}-tooltip > .cell-item {
+                td .cell.el-tooltip > .cell-item {
                     white-space: pre-wrap;
                 }
 
-                .#{$namespace}-button > span {
+                .el-button > span {
                     text-align: left;
                 }
 
@@ -34,8 +32,8 @@ $input-width: 200px;
     }
 
     &.header-center {
-        .#{$namespace}-table__header {
-            .#{$namespace}-table__cell {
+        .el-table__header {
+            .el-table__cell {
                 text-align: center;
             }
         }
@@ -45,7 +43,7 @@ $input-width: 200px;
         .dinert-form-left {
             flex: unset;
 
-            .#{$namespace}-col {
+            .el-col {
                 margin-right: 16px;
                 width: auto;
                 max-width: unset;
@@ -54,19 +52,19 @@ $input-width: 200px;
         }
 
         .dinert-table-footer {
-            .#{$namespace}-pagination {
+            .el-pagination {
                 margin-left: auto;
             }
         }
     }
 
     &.maxWidthAuto {
-        .#{$namespace}-form .#{$namespace}-form-item .#{$namespace}-form-item__label {
+        .el-form .el-form-item .el-form-item__label {
             max-width: unset;
         }
     }
 
-    .#{$namespace}-form.dinert-form {
+    .el-form.dinert-form {
         padding: 20px 20px 0;
         max-height: 300px;
     }

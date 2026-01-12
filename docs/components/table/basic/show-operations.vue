@@ -279,7 +279,11 @@ const tablePage3 = ref<TablePageProps<DataProps>>({
         <dinert-table :table="tablePage3.table"
             :footer="tablePage3.footer"
             :header="tablePage3.header"
-        />
+        >
+            <!-- <template #table-left>
+                <div>自定义左侧</div>
+            </template> -->
+        </dinert-table>
     </div>
 
 </template>

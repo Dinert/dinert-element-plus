@@ -1,5 +1,4 @@
 /* stylelint-disable-next-line at-rule-no-unknown */
-@use "variables" as *;
 
 .tree-item {
     width: 100%;
@@ -28,11 +27,11 @@
         line-height: 32px;
     }
 
-    & > .#{$namespace}-tree > .#{$namespace}-tree-node > .#{$namespace}-tree-node__content > .#{$namespace}-tree-node__expand-icon.is-leaf {
+    & > .el-tree > .el-tree-node > .el-tree-node__content > .el-tree-node__expand-icon.is-leaf {
         display: none;
     }
 
-    .#{$namespace}-tree-node__children {
+    .el-tree-node__children {
         overflow: unset;
     }
 }
@@ -52,7 +51,7 @@
         margin-bottom: 12px;
         text-align: right;
 
-        .dinert-popover-classify li .#{$namespace}-checkbox {
+        .dinert-popover-classify li .el-checkbox {
             width: 100%;
             line-height: 24px;
             height: 24px;
@@ -64,124 +63,131 @@
     }
 
     .dinert-table-body {
-        flex: 1;
+        display: flex;
         height: 0;
+        flex: 1;
 
-        .#{$namespace}-table {
-            &--border {
-                &::after,
-                &::before {
+        .dinert-table-body-content {
+            width: 0;
+            height: 100%;
+            flex: 1;
+
+            .el-table {
+                &--border {
+                    &::after,
+                    &::before {
+                        // display: none;
+                    }
+                }
+
+                .el-table__border-left-patch {
                     // display: none;
                 }
-            }
 
-            .#{$namespace}-table__border-left-patch {
-                // display: none;
-            }
+                .el-popper {
+                    max-width: 50%;
+                }
 
-            .#{$namespace}-popper {
-                max-width: 50%;
-            }
+                .el-table__header {
+                    // .el-table__cell {
+                    //     &:last-child {
+                    //         border-right: none;
+                    //     }
 
-            .#{$namespace}-table__header {
-                // .#{$namespace}-table__cell {
-                //     &:last-child {
-                //         border-right: none;
-                //     }
-
-                //     border-right: none;
-                //     border-bottom: none;
-                // }
-                .#{$namespace}-table__cell {
-                    &.setting {
-                        .setting-icon {
-                            display: inline-block;
+                    //     border-right: none;
+                    //     border-bottom: none;
+                    // }
+                    .el-table__cell {
+                        &.setting {
+                            .setting-icon {
+                                display: inline-block;
+                            }
                         }
-                    }
 
-                    .cell {
-                        // color: var(--zp-color-secondary-text-title);
-                        // display: flex;
+                        .cell {
+                            // color: var(--zp-color-secondary-text-title);
+                            // display: flex;
 
-                        .setting-icon {
-                            vertical-align: -1px;
-                            margin-left: 4px;
-                            cursor: pointer;
+                            .setting-icon {
+                                vertical-align: -1px;
+                                margin-left: 4px;
+                                cursor: pointer;
+                            }
                         }
                     }
                 }
-            }
 
-            .#{$namespace}-table__body-wrapper {
-                td {
-                    // border-right: none;
-                    // color: var(--zp-color-secondary-text-title);
+                .el-table__body-wrapper {
+                    td {
+                        // border-right: none;
+                        // color: var(--zp-color-secondary-text-title);
 
-                    &.is-center {
-                        .cell {
-                            justify-content: center;
+                        &.is-center {
+                            .cell {
+                                justify-content: center;
+                            }
                         }
-                    }
 
-                    .cell {
-                        display: flex;
-                        align-items: center;
+                        .cell {
+                            display: flex;
+                            align-items: center;
 
-                        &.#{$namespace}-tooltip > .cell-item {
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-
-                            .cell-item-text {
+                            &.el-tooltip > .cell-item {
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                                 white-space: nowrap;
+
+                                .cell-item-text {
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                }
                             }
                         }
                     }
-                }
 
-                .operations {
-                    .#{$namespace}-dropdown {
-                        vertical-align: -2px;
-                    }
-
-                    .cell {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-
-                        .#{$namespace}-button {
-                            margin-left: 0;
-
-                            &:focus-visible {
-                                outline: none;
-                            }
-                        }
-
-                        .#{$namespace}-svg-icon {
-                            font-size: 14px;
-                            color: var(--el-color-primary);
-                            cursor: pointer;
-                            flex: 1;
-
-                            &.delete {
-                                color: var(--el-color-danger);
-                            }
-                        }
-
-                        .svg-icon {
-                            width: 16px;
-                            height: 16px;
+                    .operations {
+                        .el-dropdown {
                             vertical-align: -2px;
-                            flex: 1;
-                            color: var(--el-color-primary);
-                            cursor: pointer;
-                            fill: var(--el-color-primary);
+                        }
 
-                            &.f-14 {
-                                width: 14px;
-                                height: 14px;
+                        .cell {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            .el-button {
+                                margin-left: 0;
+
+                                &:focus-visible {
+                                    outline: none;
+                                }
+                            }
+
+                            .el-svg-icon {
+                                font-size: 14px;
+                                color: var(--el-color-primary);
+                                cursor: pointer;
+                                flex: 1;
+
+                                &.delete {
+                                    color: var(--el-color-danger);
+                                }
+                            }
+
+                            .svg-icon {
+                                width: 16px;
+                                height: 16px;
+                                vertical-align: -2px;
+                                flex: 1;
+                                color: var(--el-color-primary);
+                                cursor: pointer;
+                                fill: var(--el-color-primary);
+
+                                &.f-14 {
+                                    width: 14px;
+                                    height: 14px;
+                                }
                             }
                         }
                     }
@@ -194,7 +200,7 @@
         display: flex;
         margin-top: 16px;
 
-        .#{$namespace}-pagination {
+        .el-pagination {
             display: flex;
             flex-wrap: wrap;
         }

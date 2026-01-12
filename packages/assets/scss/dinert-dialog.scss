@@ -1,15 +1,12 @@
 
-/* stylelint-disable-next-line at-rule-no-unknown */
-@use "variables" as *;
-
-.dinert-overlay.#{$namespace}-overlay {
+.dinert-overlay.el-overlay {
     &.fixed-height {
-        .#{$namespace}-dialog {
+        .el-dialog {
             height: 80%;
         }
     }
 
-    .#{$namespace}-dialog {
+    .el-dialog {
         top: 10%;
         display: flex;
         min-width: 310px;
@@ -83,11 +80,11 @@
             word-wrap: break-word;
             height: 0;
 
-            & > .#{$namespace}-form {
+            & > .el-form {
                 overflow: unset;
             }
 
-            .#{$namespace}-scrollbar {
+            .el-scrollbar {
                 display: flex;
                 flex-direction: column;
             }
@@ -100,11 +97,11 @@
             clear: both;
             padding: 12px 24px 16px;
 
-            .#{$namespace}-button {
+            .el-button {
                 margin: 0;
             }
 
-            .#{$namespace}-button + .#{$namespace}-button {
+            .el-button + .el-button {
                 margin-left: 12px;
             }
         }
