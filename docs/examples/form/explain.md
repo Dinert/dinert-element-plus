@@ -1,5 +1,4 @@
 
-
 <style>
 
     .el-form.dinert-form{
@@ -27,27 +26,35 @@
                 , 'checkbox'
                 , 'cascader'].join("' | '")
                 arr = "'" + arr + "'"
-    const colLayout = "{ xl: 'number', lg: 'number', md: 'number', sm: 'number', xs: 'number' } | ((model: D, item?: CustomFormItemProps) => (RewriteColProps))"
+    const colLayout = "RewriteColProps | ((model: D, item: FormItemProps<D>) => (RewriteColProps))"
+    const commonEnum = "boolean | ((model: D, item: FormItemProps<D>) => (boolean))"
+    const commonEnumString = "string | ((model: D, item: FormItemProps<D>) => (string))"
+    const commonEnumNumber = "number | ((model: D, item: FormItemProps<D>) => (number))"
 </script>
 
-
 ## 属性
+
 | 属性名 | 说明                                             | 类型    | 默认值 |
 | ------ | ------------------------------------------------ | ------- | ------ |
 | search | 是否显示右侧的查询和重置按钮                     | Boolean | true   |
 | class  | 值为near时在查询栏中使用，值为dialog在弹窗中使用 | String  | 一     |
 | form   | [详细请参阅下面form属性](#form-属性)             | Object  | 一     |
 
-
 ## form 属性
+
 | 属性名       | 说明                                                                                   | 类型                                                                                           | 默认值 |
 | ------------ | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------ |
 | formItem     | 表单组件列表对象，[详细请参阅下面formItem属性](#formitem-属性)                         | <dinert-api-typing type="object" details="{[key: string]: FormItemProps}"></dinert-api-typing> | \{\}   |
 | colLayout    | 每个表单组件列表布局                                                                   | <dinert-api-typing type="enum" :details="colLayout"/>                                        | 一     |
 | row          | 表单组件的row                                                                          | object                                                                                         | 一     |
-| showLabel    | 是否显示所有表单组件的值，优先formItem下的showLabel                                    | boolean                                                                                        | 一     |
-| vif          | 是否渲染所有表单组件，优先formItem下的vif                                              | <dinert-api-typing type="enmu" details="'boolean' \| (model) => boolean"></dinert-api-typing>  | 一     |
-| required     | 是否验证每个表单组件是否必填                                                           | boolean                                                                                        | 一     |
+| showLabel    | 是否渲染所有表单组件的label，优先formItem下的showLabel                                    | <dinert-api-typing type="enmu" :details="commonEnum"/> | 一     |
+| showValue    | 是否渲染所有表单组件的value，优先formItem下的showValue                                    | <dinert-api-typing type="enmu" :details="commonEnum"/> | 一     |
+| showContent    | 是否渲染所有表单组件的content，优先formItem下的showContent                              | <dinert-api-typing type="enmu" :details="commonEnum"/> | 一     |
+| vif             | 是否渲染所有表单组件，优先formItem下的vif                                              | <dinert-api-typing type="enmu" :details="commonEnum"/> | 一     |
+| required     | 是否验证每个表单组件是否必填，优先formItem下的required  | <dinert-api-typing type="enmu" :details="commonEnum"/> | 一     |
+| disabled     | 是否禁用所有表单组件，优先formItem下的disabled  | <dinert-api-typing type="enmu" :details="commonEnum"/> | 一     |
+| valueFormatter  | 格式化所有表单组件的值，优先formItem下的valueFormatter, showValue为true时生效  | <dinert-api-typing type="enmu" :details="commonEnumString"/> | 一     |
+| limitLine     | 打点展示文字，优先formItem下的limitLine, showValue为true时生效  | <dinert-api-typing type="enmu" :details="commonEnumNumber"/> | 一     |
 | packUp       | 第一次加载是否默认展开超出的组件                                                       | boolean                                                                                        | true   |
 | enterSearch  | 是否开启回车搜索，仅支持input的组件                                                    | boolean                                                                                        | true   |
 | searchButton | 自定义搜索按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributes)          | 一     |
@@ -55,6 +62,7 @@
 | ......       | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                                             | 一     |
 
 ## formItem 属性
+
 | 属性名    | 说明                                                                                       | 类型                                                                                          | 默认值 |
 | --------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | ------ |
 | type      | 表单组件类型                                                                               | <dinert-api-typing type="enmu" :details="arr"></dinert-api-typing>                            | 一     |
@@ -69,6 +77,7 @@
 | ......    | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#formitem-attributes) | 一                                                                                            | 一     |
 
 ## 事件
+
 | 事件名    | 说明           | 类型                                                                   |
 | --------- | -------------- | ---------------------------------------------------------------------- |
 | search-fn | 点击查询时触发 | <dinert-api-typing type="Function" details="(value: number) => void"/> |
@@ -85,4 +94,3 @@
 | formItem_before_[key]  | formItem_before_是固定的，key里面的值取决于form中的formItem的key，自定义组件前的内容 |
 | form_search            | 自定义查询栏                                                                         |
 | form_search_operations | 自定义查询栏后面的信息                                                               |
-

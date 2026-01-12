@@ -43,6 +43,12 @@ table/basic/pagination
 :::
 
 
+## 树形数据
+:::demo
+
+table/basic/tree-data
+:::
+
 
 
 <!--
@@ -73,11 +79,6 @@ table/basic/slot-custom-table
 table/basic/header-operations
 :::
 
-## 树形数据
-:::demo
-
-table/basic/tree-data
-:::
  -->
 
 <!-- @include: ./explain.md -->

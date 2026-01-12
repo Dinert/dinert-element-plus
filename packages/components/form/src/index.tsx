@@ -17,7 +17,7 @@ import CustomTimePicker from './time-picker'
 import CustomTimeSelect from './time-select'
 
 import useWindowResize from '@packages/hooks/useWindowResize'
-import {labelMouseEnter, valueMouseEnter, getTooltipValue, getSpanValue, formItemSlot, customPlaceholder, renderSlot} from '@packages/components/form/utils'
+import {getSpanValue, formItemSlot, customPlaceholder, renderSlot} from '@packages/components/form/utils'
 
 import {dataTransformRod, getUuid} from '@packages/utils/tools'
 import {ElForm} from 'element-plus'
@@ -74,9 +74,9 @@ export default defineComponent({
                 })
             })
 
-            result = result.filter((item: any) => {
-                const formVif = typeof item.vif === 'function' ? item.vif(form.value.model) : item.vif
-                const itemVif = typeof item?.vif === 'function' ? item?.vif(form.value.model) : item?.vif
+            result = result.filter((item: any, index: number) => {
+                const formVif = typeof item.vif === 'function' ? item.vif(form.value.model, {...item, index}) : item.vif
+                const itemVif = typeof item?.vif === 'function' ? item?.vif(form.value.model, {...item, index}) : item?.vif
                 let vif = itemVif === undefined ? itemVif || formVif : itemVif
                 vif = vif === undefined ? true : vif
                 return vif
@@ -215,7 +215,8 @@ export default defineComponent({
 
 
         }
-        const onFormItemMouseleave = (item: CustomFormItemProps) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const onFormItemMouseleave = (_item: CustomFormItemProps) => {
             tempRef.value = null
             isTooltip.value = false
         }
@@ -280,12 +281,12 @@ export default defineComponent({
                         const showValue = itemShowValue === undefined ? itemShowValue || formShowValue : itemShowValue
 
                         // 处理是否必填
-                        const formRequired = typeof this.form.required === 'function' ? this.form.required(this.form.model) : this.form.required
-                        const itemRequired = typeof item.required === 'function' ? item.required(this.form.model) : item.required
+                        const formRequired = typeof this.form.required === 'function' ? this.form.required(this.form.model, {...item, index}) : this.form.required
+                        const itemRequired = typeof item.required === 'function' ? item.required(this.form.model, {...item, index}) : item.required
                         const required = itemRequired === undefined ? itemRequired || formRequired : itemRequired
 
                         // 处理colLayout
-                        const formColLayout = typeof this.form.colLayout === 'function' ? this.form.colLayout(this.form.model, {...item, index}) : this.form.showLabel
+                        const formColLayout = typeof this.form.colLayout === 'function' ? this.form.colLayout(this.form.model, {...item, index}) : this.form.colLayout
                         const itemColLayout = typeof item.colLayout === 'function' ? item.colLayout(this.form.model, {...item, index}) : item.colLayout
                         const colLayout = itemColLayout === undefined ? itemColLayout || formColLayout : itemColLayout as any
 
@@ -294,8 +295,8 @@ export default defineComponent({
                         rules = showValue ? [] : rules
 
                         // 处理disabled
-                        const formDisabled = typeof this.form.disabled === 'function' ? this.form.disabled(this.form.model) : this.form.disabled
-                        const itemDisabled = typeof item?.disabled === 'function' ? item?.disabled(this.form.model) : item?.disabled
+                        const formDisabled = typeof this.form.disabled === 'function' ? this.form.disabled(this.form.model, {...item, index}) : this.form.disabled
+                        const itemDisabled = typeof item?.disabled === 'function' ? item?.disabled(this.form.model, {...item, index}) : item?.disabled
                         const disabled = itemDisabled === undefined ? itemDisabled || formDisabled : itemDisabled
 
                         // 处理是否显示内容

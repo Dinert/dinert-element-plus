@@ -15,7 +15,7 @@ interface DataProps {
 const tablePage = ref<TablePageProps<DataProps>>({
     table: {
         rowKey: 'id',
-        setting: false,
+
         pagination: {
         },
 
@@ -85,7 +85,7 @@ const tablePage = ref<TablePageProps<DataProps>>({
 const tablePage2 = ref<TablePageProps<DataProps>>({
     table: {
         rowKey: 'id',
-        setting: false,
+
         pagination: {
         },
         lazy: true,
