@@ -36,6 +36,15 @@ table/basic/show-operations
 
 
 
+## 分页
+:::demo
+
+table/basic/pagination
+:::
+
+
+
+
 <!--
 ## 序号和选择
 :::demo
@@ -57,13 +66,6 @@ table/basic/slot-custom-table
 
 
 
-
-
-## 分页
-:::demo
-
-table/basic/pagination
-:::
 
 ## 不显示头部操作栏
 :::demo
