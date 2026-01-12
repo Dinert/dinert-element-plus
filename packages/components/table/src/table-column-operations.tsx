@@ -91,16 +91,33 @@ export default defineComponent({
                 }).catch(() => null)
             } else {
                 lodash.isFunction(item.clickCb) && item.clickCb(props.scope, props.column, item, e)
-
             }
         }
+
+        let popButtonEl = null as any
+
+        const popConfirmClick = (e: any = null) => {
+            popButtonEl = e
+        }
+
+        const popConConfirmClick = (item: any) => {
+            item.clickCb && item.clickCb(props.scope, props.column, item, popButtonEl)
+        }
+
+        const renderButton = (item: any) => (
+            <el-button {...item} key={item.key} onClick={(e: any) => (lodash.isObject(item.popConfirm) ? popConfirmClick(e) : buttonClick(item, e))}>
+                {item.message}
+            </el-button>
+        )
 
         return {
             defaultFunctions,
             seniorFunctions,
             isShowDropdown,
+            renderButton,
 
-            buttonClick
+            buttonClick,
+            popConConfirmClick
         }
     },
 
@@ -109,14 +126,23 @@ export default defineComponent({
             <>
                 {
                     this.defaultFunctions.map(item => {
-                        return (<el-button
-                            {...{
-                                ...item
-                            }}
-                            onClick={(e: any) => this.buttonClick(e, item)}
-                            key={(item).key}>
-                            {item.message}
-                        </el-button>)
+                        if (lodash.isObject(item.popConfirm)) {
+                            const popConfirm = {
+                                title: `是否${item.message}该条数据？`,
+                                ...item.popConfirm
+                            }
+
+                            return (<el-popconfirm {...{...popConfirm}}
+                                onConfirm={ () => this.popConConfirmClick(item)}>
+                                {{
+                                    reference: () => {
+                                        return this.renderButton(item)
+                                    }
+                                }}
+                            </el-popconfirm>)
+                        }
+
+                        return this.renderButton(item)
                     })
                 }
 
@@ -135,7 +161,7 @@ export default defineComponent({
                                     <el-dropdown-menu>
                                         {this.seniorFunctions.map(item => {return (<el-dropdown-item command={item}>
                                             <el-button
-                                                onClick={(e: any) => this.buttonClick(e, item)}
+                                                onClick={(e: any) => this.buttonClick(item, e)}
                                                 {...{
                                                     text: true,
                                                     ...item

@@ -20,6 +20,7 @@ interface ModelProps {
     cascader: string;
     cascader2: string[];
     custom: string;
+    showAll: string;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -48,6 +49,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         cascader: 'controllability',
         cascader2: ['controllability'],
         custom: '自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值',
+        showAll: '自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值自定义组件值'
     },
     colLayout: {span: 24},
     showValue() {
@@ -687,6 +689,15 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         custom: {
             label: '自定义组件',
             type: 'custom',
+            options: {
+
+            }
+        },
+        showAll: {
+            label: '显示全部内容',
+            type: 'input',
+            showValue: true,
+            limitLine: 0,
             options: {
 
             }

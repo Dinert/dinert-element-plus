@@ -1,18 +1,18 @@
-import {defineComponent, watch, ref, nextTick, computed, PropType} from 'vue'
+import {defineComponent, ref, PropType} from 'vue'
 
 import {getPropByPath, dataTransformRod} from '@packages/utils/tools'
 
-import {ArrowDown} from '@element-plus/icons-vue'
-import {ElMessageBox, type TableColumnCtx, type ElSelect} from 'element-plus'
+
+import {type TableColumnCtx, type ElSelect} from 'element-plus'
 import {buildVueDompurifyHTMLDirective} from 'vue-dompurify-html'
 import DinertSettingControl from './table-setting-control'
 import DinertTableColumnOperations from './table-column-operations'
 
 import type {
-    RecuveTableColumnProps,
+
     RewriteTableProps,
     RewriteTableColumnCtx,
-    OperationsProps
+
 } from '@packages/components/table/types/index'
 
 
@@ -47,7 +47,6 @@ export default defineComponent({
     },
     emits: ['CheckedChange'],
     setup(props, {emit}) {
-        const selectTable = ref<InstanceType<typeof ElSelect>>()
 
         // watch(() => props.table?.key, () => {
         //     nextTick(() => {
@@ -57,171 +56,10 @@ export default defineComponent({
         //     immediate: true
         // })
 
-
-        const moreRender = (column: RewriteTableColumnCtx, _this: any, {
-            value,
-            scope,
-            isSlotValue,
-            slotValue
-        }: any) => {
-            const itemOperations = column.operations || {}
-            const operations = computed<OperationsProps[]>(() => {
-                const result: any = []
-                Object.keys((itemOperations)).forEach(key => {
-                    const tempObj = itemOperations[key]
-                    if ((typeof tempObj.show !== 'function' && [true, undefined].includes(tempObj.show))
-                        || (typeof tempObj.show === 'function' && [true, undefined].includes(tempObj.show(scope, column, tempObj)))
-                    ) {
-                        result.push({
-                            key: key,
-                            ...tempObj,
-                        })
-                    }
-                })
-
-                result.sort((a: any, b: any) => {
-                    return (a.sort || Infinity) - (b.sort || Infinity)
-                })
-                return result
-            })
-            let maxOperations = column.maxOperations || 3
-            const operationsLen = operations.value.length
-            maxOperations = operationsLen > maxOperations ? maxOperations - 1 : maxOperations
-
-            const defaultFunctions = computed(() => {
-                const list = operations.value.slice(0, maxOperations)
-                return list
-            })
-
-            const seniorFunctions = computed(() => {
-                const list = operations.value.slice(maxOperations, operations.value.length)
-                return list
-            })
-
-
-            if (operations.value && operations.value.length) {
-                return (
-                    <>
-                        {defaultFunctions.value.map(item2 => {
-                            const message = typeof item2.message === 'function' ? item2.message(scope, column, item2) : item2.message
-
-                            const buttonCom = (<el-button {...{
-                                ...item2,
-                                type: item2.key === 'delete' ? 'danger' : item2.type || 'primary',
-                                link: item2.link === undefined ? true : item2.link
-                            }}
-
-                            onClick={() => {
-                                if (item2.second === 'messageBox' || item2.key === 'delete') {
-                                    return ElMessageBox({
-                                        title: '警告',
-                                        message: `是否${message}该条数据？`,
-                                        type: 'warning',
-                                        showCancelButton: true,
-                                        cancelButtonText: '取消',
-                                        beforeClose(action, instance, done) {
-                                            done()
-                                        },
-                                        ...item2.messageBox
-                                    }).then(() => {
-                                        return item2.click && item2.click(scope, column, item2)
-                                    }).catch(() => null)
-                                }
-                                return item2.click && item2.click(scope, column, item2)
-                            }}
-                            key={(item2 as any).key}>
-                                {message}
-                            </el-button>)
-
-                            if (item2.second === 'messageBox') {
-                                return buttonCom
-                            }
-
-                            if (item2.key === 'delete' || item2.second) {
-                                return (
-                                    <el-popconfirm title={`是否${message}该数据？`} {...{...item2.confirm}}
-                                        onConfirm={() => item2.click && item2.click(scope, column, item2)}>
-                                        {{
-                                            reference: () => {
-                                                return (<el-button {...{
-                                                    ...item2,
-                                                    type: item2.key === 'delete' ? 'danger' : item2.type || 'primary',
-                                                    link: item2.link === undefined ? true : item2.link
-                                                }}
-                                                key={(item2 as any).key}>
-                                                    {message}
-                                                </el-button>)
-                                            }
-                                        }}
-                                    </el-popconfirm>
-
-                                )
-                            }
-                            return buttonCom
-
-                        })}
-
-                        {(seniorFunctions.value.length && operations.value.length > maxOperations
-                        && <el-dropdown teleported={true}
-                            onCommand={item => {
-                                if (item.key === 'delete' || item.second) {
-                                    return ElMessageBox({
-                                        title: '警告',
-                                        message: `是否${item.message}该条数据？`,
-                                        type: 'warning',
-                                        showCancelButton: true,
-                                        cancelButtonText: '取消',
-                                        beforeClose(action, instance, done) {
-                                            done()
-                                        },
-                                        ...item.messageBox
-                                    }).then(() => {
-                                        return item.click && item.click(scope, column, item)
-                                    }).catch(() => null)
-                                }
-                                return item.click && item.click(scope, column, item)
-                            }}
-                            v-slots= {{
-                                default: () => {
-                                    return (
-                                        <el-button type="primary" link text>
-                                            更多<el-icon><ArrowDown /></el-icon>
-                                        </el-button>
-                                    )
-                                },
-                                dropdown: () => {
-
-                                    return (
-                                        <el-dropdown-menu>
-                                            {
-                                                seniorFunctions.value.map(item => {
-                                                    const message = typeof item.message === 'function' ? item.message(scope, column, item) : item.message
-                                                    return (
-                                                        <el-dropdown-item command={item}>{message}</el-dropdown-item>
-                                                    )
-                                                })
-                                            }
-                                        </el-dropdown-menu>
-                                    )
-                                }
-                            }}>
-
-                        </el-dropdown>) || null
-
-                        }
-                    </>
-                )
-            }
-            return <div class={['cell-item-text']}>{ (isSlotValue && slotValue) || value}</div>
-        }
-
         const cellItemClass = (value: any, errData: any) => {
             return ['cell-item', value === errData ? 'empty-value' : '']
         }
-
         return {
-            // settingRender,
-            moreRender,
             cellItemClass,
         }
     },

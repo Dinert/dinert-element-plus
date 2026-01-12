@@ -13,14 +13,19 @@ export interface ScopeProps<T = any> {
     _self: any;
 }
 
+export interface PopconfirmPropsRewrite<T> extends Partial<PopconfirmProps>{
+ clickCb?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>, e?: any) => void;
+ onCancel?: (e: any) => void;
+ onConfirm?: (e: any) => void;
+}
+
 export interface OperationsProps<T = any> extends Partial<ButtonProps>{
     message?: string | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void);
     show?: boolean | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => boolean);
     clickCb?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>, e?: any) => void;
     sort?: number;
-    confirm?: Partial<PopconfirmProps>;
+    popConfirm?: Partial<PopconfirmPropsRewrite<T>>;
     key?: string;
-    second?: boolean | 'messageBox';
     messageBox?: Partial<ElMessageBoxOptions>;
 }
 
