@@ -35,16 +35,18 @@
 | table     | [详细请参阅下面table属性](#table-属性)                                         | Object                                                 | 一     |
 
 
-##
+## Table 属性
 
 | 属性名       | 说明                                                                                           | 类型    | 默认值                                                       |
 | ------------ | ---------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------ |
 | tableColumns | 表格头的数据配置项                                                                             | Array   | 一                                                           |
 | errData      | 表格中无数据时显示的数据                                                                       | String  | -                                                            |
-| autoHeight   | 是否自动计算表格的高度，实现自适应效果                                                         | String  | -                                                            |
 | setting      | 是否显示表格右上的操作栏                                                                       | Boolean | true                                                         |
 | class        | 表格的类名                                                                                     | String  | 一                                                           |
 | echoSelect   | 是否回显选中的行                                                                               | Boolean | false                                                        |
+| rowIndex     | 表格的行索引                                                                               | Object | false                                                        |
+| rowSelection | 表格的行选择配置项                                                                               | Object | false                                                        |
+| rowExpand    | 表格的行展开配置项                                                                               | Object | false                                                        |
 | pagination   | [详细请参阅element-plus的pagination](https://element-plus.org/en-US/component/pagination.html) | Object  | <dinert-api-typing type="object" :details="paginationData"/> |
 | ......       | [更多配置，请参考](https://element-plus.org/en-US/component/table.html#table-attributes)       |
 
