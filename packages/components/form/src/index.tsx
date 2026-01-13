@@ -75,8 +75,8 @@ export default defineComponent({
             })
 
             result = result.filter((item: any, index: number) => {
-                const formVif = typeof item.vif === 'function' ? item.vif(form.value.model, {...item, index}) : item.vif
-                const itemVif = typeof item?.vif === 'function' ? item?.vif(form.value.model, {...item, index}) : item?.vif
+                const formVif = lodash.isFunction(item.vif) ? item.vif(form.value.model, {...item, index}) : item.vif
+                const itemVif = lodash.isFunction(item?.vif) ? item?.vif(form.value.model, {...item, index}) : item?.vif
                 let vif = itemVif === undefined ? itemVif || formVif : itemVif
                 vif = vif === undefined ? true : vif
                 return vif
@@ -129,6 +129,7 @@ export default defineComponent({
 
         // eslint-disable-next-line max-statements
         const onFormItemMouseenter = (item: CustomFormItemProps, {resultVal, showValue, showContent}: {resultVal: any, showValue: any, showContent: any}) => {
+
             tempRef.value = formTypeRef.value[item.key]
             const customRef = tempRef.value
             let coRef = null as any
@@ -139,7 +140,7 @@ export default defineComponent({
             const slot = slots[formItemSlot(item.key)]
 
 
-            const slotTooltipDom = typeof tempRef.value?.querySelector === 'function' && tempRef.value?.querySelector('.slot-tooltip')
+            const slotTooltipDom = lodash.isFunction(tempRef.value?.querySelector) && tempRef.value?.querySelector('.slot-tooltip')
 
             if (slot && slotTooltipDom) {
                 coRef = slotTooltipDom
@@ -207,6 +208,8 @@ export default defineComponent({
                 }
 
                 if (coRef?.scrollWidth > coRef?.clientWidth && newVal) {
+                    console.log('coRef', coRef, newVal)
+
                     tooltipContent.value = newVal
                     isTooltip.value = true
                 }
@@ -247,14 +250,17 @@ export default defineComponent({
                 class={[this.formClass, this.packUp ? '' : 'packUp', 'dinert-form']}
                 onSubmit={withModifiers(() => undefined, ['stop', 'prevent'])}
                 key={this.form.key}>
+
+                {JSON.stringify(this.isTooltip)}
                 <el-tooltip
                     placement="top"
                     content={this.tooltipContent}
                     virtual-triggering
                     virtual-ref={this.tempRef}
                     trigger="contextmenu"
-                    v-model:visible={this.isTooltip}
+                    visible={this.isTooltip}
                 />
+
                 <el-row {...this.form.row} class="dinert-form-left">
 
                     { this.formItemMap.map((item: CustomFormItemProps, index: number) => {
@@ -262,12 +268,12 @@ export default defineComponent({
 
 
                         // 处理show
-                        let show = typeof item.show === 'function' ? item.show(this.form.model) : item.show
+                        let show = lodash.isFunction(item.show) ? item.show(this.form.model) : item.show
                         show = show === undefined ? true : show
 
 
                         const isCustomPlaceholder = item.options?.placeholder
-                        const itemLabel = typeof item.label === 'function' ? item.label(this.form.model) : item.label
+                        const itemLabel = lodash.isFunction(item.label) ? item.label(this.form.model) : item.label
                         const placeholder = isCustomPlaceholder || customPlaceholder(itemLabel, item.type)
 
 
@@ -276,18 +282,18 @@ export default defineComponent({
                         }
 
                         // 处理是否显示直接显示组件的值
-                        const formShowValue = typeof this.form.showValue === 'function' ? this.form.showValue(this.form.model, {...item, index}) : this.form.showValue
-                        const itemShowValue = typeof item.showValue === 'function' ? item.showValue(this.form.model, {...item, index}) : item.showValue
+                        const formShowValue = lodash.isFunction(this.form.showValue) ? this.form.showValue(this.form.model, {...item, index}) : this.form.showValue
+                        const itemShowValue = lodash.isFunction(item.showValue) ? item.showValue(this.form.model, {...item, index}) : item.showValue
                         const showValue = itemShowValue === undefined ? itemShowValue || formShowValue : itemShowValue
 
                         // 处理是否必填
-                        const formRequired = typeof this.form.required === 'function' ? this.form.required(this.form.model, {...item, index}) : this.form.required
-                        const itemRequired = typeof item.required === 'function' ? item.required(this.form.model, {...item, index}) : item.required
+                        const formRequired = lodash.isFunction(this.form.required) ? this.form.required(this.form.model, {...item, index}) : this.form.required
+                        const itemRequired = lodash.isFunction(item.required) ? item.required(this.form.model, {...item, index}) : item.required
                         const required = itemRequired === undefined ? itemRequired || formRequired : itemRequired
 
                         // 处理colLayout
-                        const formColLayout = typeof this.form.colLayout === 'function' ? this.form.colLayout(this.form.model, {...item, index}) : this.form.colLayout
-                        const itemColLayout = typeof item.colLayout === 'function' ? item.colLayout(this.form.model, {...item, index}) : item.colLayout
+                        const formColLayout = lodash.isFunction(this.form.colLayout) ? this.form.colLayout(this.form.model, {...item, index}) : this.form.colLayout
+                        const itemColLayout = lodash.isFunction(item.colLayout) ? item.colLayout(this.form.model, {...item, index}) : item.colLayout
                         const colLayout = itemColLayout === undefined ? itemColLayout || formColLayout : itemColLayout as any
 
                         let rules = item.rules || []
@@ -295,13 +301,13 @@ export default defineComponent({
                         rules = showValue ? [] : rules
 
                         // 处理disabled
-                        const formDisabled = typeof this.form.disabled === 'function' ? this.form.disabled(this.form.model, {...item, index}) : this.form.disabled
-                        const itemDisabled = typeof item?.disabled === 'function' ? item?.disabled(this.form.model, {...item, index}) : item?.disabled
+                        const formDisabled = lodash.isFunction(this.form.disabled) ? this.form.disabled(this.form.model, {...item, index}) : this.form.disabled
+                        const itemDisabled = lodash.isFunction(item?.disabled) ? item?.disabled(this.form.model, {...item, index}) : item?.disabled
                         const disabled = itemDisabled === undefined ? itemDisabled || formDisabled : itemDisabled
 
                         // 处理是否显示内容
-                        const formShowContent = typeof this.form.showContent === 'function' ? this.form.showContent(this.form.model, {...item, index}) : this.form.showContent
-                        const itemShowContent = typeof item.showContent === 'function' ? item.showContent(this.form.model, {...item, index}) : item.showContent
+                        const formShowContent = lodash.isFunction(this.form.showContent) ? this.form.showContent(this.form.model, {...item, index}) : this.form.showContent
+                        const itemShowContent = lodash.isFunction(item.showContent) ? item.showContent(this.form.model, {...item, index}) : item.showContent
                         const showContent = itemShowContent === undefined ? itemShowContent || formShowContent : itemShowContent
 
                         // 处理显示值
@@ -309,8 +315,8 @@ export default defineComponent({
                         let resultVal = getSpanValue(this.form.model[item.key], item)
                         if (showValue) {
                             // 处理格式化内容
-                            const formFormatter = typeof this.form.valueFormatter === 'function' ? this.form.valueFormatter(this.form.model[item.key], this.form.model, {...item, index}) : this.form.valueFormatter
-                            const itemFormatter = typeof item.valueFormatter === 'function' ? item.valueFormatter(this.form.model[item.key], this.form.model, {...item, index}) : item.valueFormatter
+                            const formFormatter = lodash.isFunction(this.form.valueFormatter) ? this.form.valueFormatter(this.form.model[item.key], this.form.model, {...item, index}) : this.form.valueFormatter
+                            const itemFormatter = lodash.isFunction(item.valueFormatter) ? item.valueFormatter(this.form.model[item.key], this.form.model, {...item, index}) : item.valueFormatter
                             const formatter = itemFormatter === undefined ? itemFormatter || formFormatter : itemFormatter
                             if (formatter !== undefined) {
                                 resultVal = formatter
@@ -355,8 +361,8 @@ export default defineComponent({
                                         label: () => {
 
                                             // 处理是否显示label
-                                            const formShowLabel = typeof this.form.showLabel === 'function' ? this.form.showLabel(this.form.model, {...item, index}) : this.form.showLabel
-                                            const itemShowLabel = typeof item.showLabel === 'function' ? item.showLabel(this.form.model, {...item, index}) : item.showLabel
+                                            const formShowLabel = lodash.isFunction(this.form.showLabel) ? this.form.showLabel(this.form.model, {...item, index}) : this.form.showLabel
+                                            const itemShowLabel = lodash.isFunction(item.showLabel) ? item.showLabel(this.form.model, {...item, index}) : item.showLabel
                                             const showLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
 
                                             if (showLabel === false) {
@@ -384,8 +390,8 @@ export default defineComponent({
                                             let componentResultStyle = {} as any
                                             if (showValue) {
                                                 // 处理显示值的行数
-                                                const formLimitLine = typeof this.form.limitLine === 'function' ? this.form.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : this.form.limitLine
-                                                const itemLimitLine = typeof item.limitLine === 'function' ? item.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : item.limitLine
+                                                const formLimitLine = lodash.isFunction(this.form.limitLine) ? this.form.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : this.form.limitLine
+                                                const itemLimitLine = lodash.isFunction(item.limitLine) ? item.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : item.limitLine
                                                 limitLine = itemLimitLine === undefined ? itemLimitLine || formLimitLine : itemLimitLine
                                                 componentResultStyle = {'--limit-line': limitLine}
                                             }
@@ -395,7 +401,9 @@ export default defineComponent({
 
                                             const trueResultVal = dataTransformRod(resultVal)
 
-                                            let componentResult = <div ref={el => this.setFormTypeRefs(item.key, el)} style={componentResultStyle} class={['el-form-item__content-text', trueResultVal === errData ? 'empty-value' : '']}>{trueResultVal}</div>
+                                            let componentResult = <div
+                                                ref={el => this.setFormTypeRefs(item.key, el)} style={componentResultStyle}
+                                                class={['el-form-item__content-text', trueResultVal === errData ? 'empty-value' : '']}>{trueResultVal}</div>
 
 
                                             if (this.$slots[formItemSlot(item.key)]) {
@@ -417,7 +425,11 @@ export default defineComponent({
                                                         }
 
                                                     }}
-                                                    v-slots={slots} onEnterSearch={() => {this.$emit('SearchFn')}}
+                                                    v-slots={slots} onEnterSearch={() => {
+
+                                                        this.$emit('SearchFn')
+
+                                                    }}
                                                     ref={el => this.setFormTypeRefs(item.key, el)}></CustomInput>)
                                             } else if (['input-number'].includes(item.type)) {
                                                 renderSlot(['decrease-icon', 'increase-icon', 'prefix', 'suffix'], this, slots, item)
@@ -611,7 +623,6 @@ export default defineComponent({
 
                                             const beforeComponent = this.$slots[formItemSlot('before_' + item.key)]?.({...item, model: this.form.model})
                                             const afterComponent = this.$slots[formItemSlot('after_' + item.key)]?.({...item, model: this.form.model})
-
 
                                             return [beforeComponent, componentResult, afterComponent]
                                         }
