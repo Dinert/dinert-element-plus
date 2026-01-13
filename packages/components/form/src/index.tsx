@@ -1,5 +1,5 @@
 /* eslint-disable max-statements */
-import {defineComponent, ref, computed, nextTick, toRefs, onBeforeUpdate, withModifiers} from 'vue'
+import {defineComponent, ref, computed, nextTick, toRefs, onBeforeUpdate, withModifiers, PropType} from 'vue'
 import CustomInput from './input'
 import CustomInputNumber from './input-number'
 import CustomInputAutocomplete from './input-autocomplete'
@@ -28,7 +28,6 @@ import lodash from 'lodash'
 
 import '@packages/assets/scss/dinert-form.scss'
 
-import type {PropType} from 'vue'
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 
 // 展开还是收起状态
@@ -250,8 +249,6 @@ export default defineComponent({
                 class={[this.formClass, this.packUp ? '' : 'packUp', 'dinert-form']}
                 onSubmit={withModifiers(() => undefined, ['stop', 'prevent'])}
                 key={this.form.key}>
-
-                {JSON.stringify(this.isTooltip)}
                 <el-tooltip
                     placement="top"
                     content={this.tooltipContent}
