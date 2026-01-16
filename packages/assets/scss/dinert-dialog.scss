@@ -3,6 +3,16 @@
     &.fixed-height {
         .el-dialog {
             height: 80%;
+            max-height: 80%;
+
+            &__body {
+                display: flex;
+                overflow-y: auto;
+                flex-direction: column;
+                flex: 1;
+                word-wrap: break-word;
+                height: 0;
+            }
         }
     }
 
@@ -10,7 +20,7 @@
         top: 10%;
         display: flex;
         min-width: 310px;
-        max-height: 80%;
+        height: 80%;
         border-radius: 4px;
         flex-direction: column;
 
@@ -73,12 +83,7 @@
         }
 
         &__body {
-            display: flex;
-            overflow-y: auto;
-            flex-direction: column;
-            flex: 1;
-            word-wrap: break-word;
-            height: 0;
+            height: calc(100% - 54px);
 
             & > .el-form {
                 overflow: unset;

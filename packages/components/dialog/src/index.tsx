@@ -5,7 +5,7 @@ import {Close} from '@element-plus/icons-vue'
 import type {RewriteDialogProps, GETWH} from '../types'
 import '@packages/assets/scss/dinert-dialog.scss'
 import '@packages/assets/fonts/iconfont.js'
-import { ScrollbarProps } from 'element-plus'
+import {ScrollbarProps} from 'element-plus'
 
 const getWH = (options: RewriteDialogProps): GETWH => {
     const result: GETWH = {
@@ -91,7 +91,6 @@ export default defineComponent({
     render() {
         const slots = this.$slots
 
-        console.log(this.fixedHeight, 'this.fixedHeight')
         const attrs = lodash.defaultsDeep(lodash.cloneDeep({
             ...this.$attrs,
             class: this.$attrs.modalClass ? 'dialog_' + this.$attrs.modalClass : '',
@@ -110,7 +109,9 @@ export default defineComponent({
                     {{
                         default: () => {
                             return (
-                                <el-scrollbar class="el-dialog__body-content" height='100%'  view-style={{ padding: '24px'}} {...this.scrollbar}>
+                                <el-scrollbar class="el-dialog__body-content"
+                                    height="100%"
+                                    view-style={{padding: '24px'}} {...this.scrollbar}>
                                     { slots.default?.() }
                                 </el-scrollbar>
                             )
