@@ -164,7 +164,7 @@ export default defineComponent({
                     virtual-triggering
                     virtual-ref={this.tempRef}
                     trigger="contextmenu"
-                    v-model:visible={this.isTooltip}
+                    visible={this.isTooltip}
                 />
                 {this.$slots['header-title'] && <header class={'dinert-table-headerTitle'} >{this.$slots['header-title']?.()}</header>}
                 {
@@ -181,6 +181,11 @@ export default defineComponent({
                             this.tempRef = null
                             this.isTooltip = false
                             this.tooltipContent = ''
+                        }}
+                        onHeaderTooltipMouseEnter={(e, label) => {
+                            this.tempRef = e.target
+                            this.tooltipContent = label
+                            this.isTooltip = true
                         }}
                         table={this.table}
                         header={this.header}

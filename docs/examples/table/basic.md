@@ -28,10 +28,18 @@ table/basic/header-control/index
 table/basic/multiple-header
 :::
 
-## 显示操作栏
+## 头部操作栏
 :::demo
 
-table/basic/show-operations
+table/basic/header-operations
+:::
+
+
+
+## 列表操作栏
+:::demo
+
+table/basic/show-column-operations
 :::
 
 

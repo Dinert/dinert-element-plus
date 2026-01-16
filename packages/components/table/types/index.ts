@@ -14,7 +14,6 @@ export interface ScopeProps<T = any> {
 }
 
 export interface PopconfirmPropsRewrite<T> extends Partial<PopconfirmProps>{
- clickCb?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>, e?: any) => void;
  onCancel?: (e: any) => void;
  onConfirm?: (e: any) => void;
 }
@@ -22,7 +21,7 @@ export interface PopconfirmPropsRewrite<T> extends Partial<PopconfirmProps>{
 export interface OperationsProps<T = any> extends Partial<ButtonProps>{
     message?: string | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => void);
     show?: boolean | ((scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>) => boolean);
-    clickCb?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>, e?: any) => void;
+    clickCb?: (scope: ScopeProps<T>, column: RewriteTableColumnCtx<T>, item: OperationsProps<T>, e: PointerEvent) => void;
     sort?: number;
     popConfirm?: Partial<PopconfirmPropsRewrite<T>>;
     key?: string;
@@ -41,14 +40,6 @@ export interface RewriteTableColumnCtx<T=any> extends Omit<Partial<TableColumnCt
     children?: Array<RewriteTableColumnCtx<T>>;
 }
 
-
-export interface RecuveTableColumnProps<T = any>{
-    onlyClass?: string;
-    popoverValue?: boolean;
-    table: RewriteTableProps;
-    children?: Array<RewriteTableColumnCtx<T>>;
-    defaultCheckedKeys?: any[];
-}
 
 type TableFnProps = Partial<Pick<InstanceType<typeof ElTable>, 'onSelect' | 'onExpand-change' | 'onCurrent-change' | 'onSelect-all' | 'onSelection-change' | 'onCell-mouse-enter' | 'onCell-mouse-leave' | 'onCell-contextmenu' | 'onCell-click' | 'onCell-dblclick' | 'onRow-click' | 'onRow-contextmenu' | 'onRow-dblclick' | 'onHeader-click' | 'onHeader-contextmenu' | 'onSort-change' | 'onFilter-change' | 'onHeader-dragend'>>
 
@@ -75,14 +66,19 @@ export interface RewriteElTooltipProps extends Partial<Omit<ElTooltipProps, 'con
     content?: string | ((scope: ScopeProps) => string);
 }
 
+interface HeaderListPropsTooltip extends Partial<Omit<ElTooltipProps, 'content'>> {
+content?: string | ((item: HeaderListProps) => string);
+}
+
 export interface HeaderListProps extends Omit<Partial<ButtonProps>, 'disabled'>{
-    tooltip?: RewriteElTooltipProps;
-    message?: string;
-    click?: (item: HeaderListProps) => void;
+    tooltip?: HeaderListPropsTooltip| ((item: HeaderListProps) => HeaderListPropsTooltip | any);
+    message?: string | ((item: HeaderListProps) => string);
+    clickCb?: (item: HeaderListProps, e: PointerEvent) => void;
     sort?: number;
     show?: boolean | ((item: HeaderListProps) => boolean);
     key?: string;
     disabled?: boolean | ((item: HeaderListProps) => boolean);
+    messageBox?: Partial<ElMessageBoxOptions>;
 }
 
 

@@ -1,9 +1,10 @@
 import {computed, defineComponent, PropType, ref} from 'vue'
-import type {HeaderListProps, RewriteTableColumnCtx, RewriteTableProps} from '@packages/components/table/types/index'
+import type {HeaderListProps, OperationsProps, RewriteTableColumnCtx, RewriteTableProps} from '@packages/components/table/types/index'
 import {ArrowDown} from '@element-plus/icons-vue'
 import DinertTableColumnControl from './table-column-control'
 import {allShow} from '@packages/components/table/hooks'
-
+import lodash from 'lodash'
+import {ElMessageBox} from 'element-plus'
 
 export default defineComponent({
     name: 'dinert-table-header',
@@ -23,9 +24,9 @@ export default defineComponent({
             default: () => ([])
         }
     },
-    emits: ['CheckedChange', 'TooltipMouseEnter', 'TooltipMouseLeave'],
+    emits: ['CheckedChange', 'TooltipMouseEnter', 'TooltipMouseLeave', 'HeaderTooltipMouseEnter'],
 
-    setup(props) {
+    setup(props, ctx) {
 
         const selectTableRef = ref<InstanceType<typeof DinertTableColumnControl>>()
 
@@ -48,9 +49,51 @@ export default defineComponent({
             return result
         })
 
+        const buttonClick = (item: HeaderListProps, e: any = null) => {
+
+            if (lodash.isObject(item.messageBox)) {
+                ElMessageBox({
+                    title: '警告',
+                    message: `是否${item.message}该条数据？`,
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: '取消',
+                    beforeClose(action, instance, done) {
+                        done()
+                    },
+                    ...item.messageBox
+                }).then(() => {
+                    lodash.isFunction(item.clickCb) && item.clickCb(item, e)
+                }).catch(() => null)
+            } else {
+                lodash.isFunction(item.clickCb) && item.clickCb(item, e)
+            }
+        }
+
+        const tooltipMouseEnter = (e: PointerEvent, item: HeaderListProps) => {
+
+            const tooltipProps = lodash.isFunction(item.tooltip) ? item.tooltip(item) : item.tooltip
+
+            if (lodash.isObject(tooltipProps)) {
+                const message = lodash.isFunction(tooltipProps.content) ? tooltipProps.content(item as any) : tooltipProps.content
+                ctx.emit('HeaderTooltipMouseEnter', e, message)
+            }
+
+
+        }
+
+        const tooltipMouseLeave = (e: PointerEvent, item: HeaderListProps) => {
+
+            ctx.emit('TooltipMouseLeave', e, item)
+        }
+
+
         return {
             headerList,
             selectTableRef,
+            buttonClick,
+            tooltipMouseEnter,
+            tooltipMouseLeave
 
         }
     },
@@ -67,17 +110,25 @@ export default defineComponent({
                                     return this.$slots['header_left_' + (item as any).key]?.(item)
                                 }
 
-                                const itemDisabled = typeof item.disabled === 'function' ? item.disabled(item) : item.disabled
-                                const itemShow = typeof item.show === 'function' ? item.show(item) : item.show
+                                const itemDisabled = lodash.isFunction(item.disabled) ? item.disabled(item) : item.disabled
+                                const itemShow = lodash.isFunction(item.show) ? item.show(item) : item.show
+                                const message = lodash.isFunction(item.message) ? item.message(item) : item.message
 
                                 if (itemShow || itemShow === undefined)
                                 {
                                     // const tooltip = item.tooltip || {} as any
                                     // const content = typeof tooltip.content === 'function' ? tooltip.content(item) : tooltip.content
-                                    return (<el-button {...{
-                                        ...item,
-                                        disabled: itemDisabled,
-                                    }} onClick={() => typeof item.click === 'function' && item.click(item)}>{item.message}</el-button>)
+                                    return (<el-button
+                                        {...{
+                                            ...item,
+                                            disabled: itemDisabled,
+                                        }}
+                                        onClick={(e: any) => this.buttonClick(item, e)}
+                                        onMouseenter={e => this.tooltipMouseEnter(e, item)}
+                                        onMouseleave={e => this.tooltipMouseLeave(e, item)}
+                                    >
+                                        {message}
+                                    </el-button>)
                                 }
                                 return null
                             })
