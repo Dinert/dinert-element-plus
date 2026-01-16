@@ -74,7 +74,7 @@ export default defineComponent({
 
             const tooltipProps = lodash.isFunction(item.tooltip) ? item.tooltip(item) : item.tooltip
 
-            if (lodash.isObject(tooltipProps)) {
+            if (lodash.isObject(tooltipProps) as any) {
                 const message = lodash.isFunction(tooltipProps.content) ? tooltipProps.content(item as any) : tooltipProps.content
                 ctx.emit('HeaderTooltipMouseEnter', e, message)
             }

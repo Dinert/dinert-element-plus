@@ -67,7 +67,7 @@ export interface RewriteElTooltipProps extends Partial<Omit<ElTooltipProps, 'con
 }
 
 interface HeaderListPropsTooltip extends Partial<Omit<ElTooltipProps, 'content'>> {
-content?: string | ((item: HeaderListProps) => string);
+  content?: string | ((item: HeaderListProps) => string);
 }
 
 export interface HeaderListProps extends Omit<Partial<ButtonProps>, 'disabled'>{
