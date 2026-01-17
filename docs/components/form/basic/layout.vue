@@ -23,6 +23,10 @@ interface FormItemProps {
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
     },
+    row: {
+        gutter: 40
+    },
+    labelWidth: 60,
     colLayout(model, item) {
         if (item.index < 2) {
             return {
@@ -33,7 +37,6 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             span: 24
         }
     },
-    labelWidth: 60,
     formItem: {
         name: {
             label: '名称',

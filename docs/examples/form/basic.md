@@ -8,11 +8,6 @@
 form/basic/index
 :::
 
-<!-- ## 不同布局的组件
-:::demo
-
-form/basic/dialog
-::: -->
 
 ## 不同布局的组件
 :::demo

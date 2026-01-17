@@ -91,9 +91,9 @@
 | 属性名  | 说明                                                                                           | 类型                                                        | 默认值 |
 | ------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | ------ |
 | message | 名称                                                                                           | String                                                      | 一     |
-| click   | 点击事件                                                                                       | Function                                                    | 一     |
+| clickCb   | 点击事件回调，在点击操作按钮时或二次确认的时候回调     | <dinert-api-typing type="enmu" :details="clickCb"/>                                                        | 一     |
 | show    | 是否显示                                                                                       | <dinert-api-typing type="enmu" :details="HeaderListProps"/> |        | 一 |
-| sort    | 操作的排序，数值越小按钮越靠前                                                                 | Number                                                      | 一     |
+| sort    | 每个的排序，数值越小按钮越靠前                                                                 | Number                                                      | 一     |
 | tooltip | 鼠标移上去显示的内容[请参考](https://element-plus.org/zh-CN/component/tooltip.html#attributes) | <dinert-api-typing type="enmu" :details="headerListPropsTooltip"/> | 一     |
 | ......  | [更多配置，请参考](https://element-plus.org/zh-CN/component/button.html#attributes)            | 一                                                          | 一     |
 

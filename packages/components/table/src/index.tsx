@@ -212,9 +212,14 @@ export default defineComponent({
                                 append: this.$slots['table-append'] ? (() => this.$slots['table-append']?.()) : null
                             }}
                         >
-                            {this.table?.rowSelection && <el-table-column align="center" type="selection" {...this.table.rowSelection}></el-table-column>}
-                            {this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" {...this.table.rowIndex}></el-table-column>}
-                            {this.table?.rowExpand && <el-table-column align="center" type="expand" {...this.table.rowExpand}></el-table-column>}
+                            {this.table?.rowSelection && <el-table-column align="center" type="selection" {...this.table.rowSelection}
+                                v-slots={{default: (scope: any) => this.$slots.column_selection?.(scope)}}
+                            ></el-table-column>}
+                            {this.table?.rowIndex && <el-table-column width="60" align="center" type="index" label="序号" {...this.table.rowIndex}
+                                v-slots={{default: (scope: any) => this.$slots.column_index?.(scope)}}></el-table-column>}
+                            {this.table?.rowExpand && <el-table-column align="center" type="expand" {...this.table.rowExpand}
+                                v-slots={{default: (scope: any) => this.$slots.column_expand?.(scope)}}
+                            ></el-table-column>}
 
                             <DinertRecuveTableColumn table={this.table}
                                 table-columns={this.tableColumns}
