@@ -207,8 +207,6 @@ export default defineComponent({
                 }
 
                 if (coRef?.scrollWidth > coRef?.clientWidth && newVal) {
-                    console.log('coRef', coRef, newVal)
-
                     tooltipContent.value = newVal
                     isTooltip.value = true
                 }
@@ -337,295 +335,297 @@ export default defineComponent({
                                         ...colLayout
                                     }
                                 }
-                            >
-                                <el-form-item
-                                    key={item.key}
-                                    prop={item.key}
-                                    class={[item.labelWrap ? 'label-wrap' : '', showValue ? 'show-value' : '']}
-                                    {...{
-                                        ...item,
-                                        rules: rules,
-                                        required: undefined,
-                                        label: undefined
-                                    }}
-                                    onMouseenter={() => {
-                                        this.onFormItemMouseenter(item, {resultVal, showValue, showContent})
-                                    }}
-                                    onMouseleave={() => {
-                                        this.onFormItemMouseleave(item)
-                                    }}
-                                    v-slots={{
-                                        label: () => {
+                            >{
+                                    this.$slots['col_' + item.key] ? this.$slots['col_' + item.key]?.({...item, model: this.form.model})
+                                        : <el-form-item
+                                            key={item.key}
+                                            prop={item.key}
+                                            class={[item.labelWrap ? 'label-wrap' : '', showValue ? 'show-value' : '']}
+                                            {...{
+                                                ...item,
+                                                rules: rules,
+                                                required: undefined,
+                                                label: undefined
+                                            }}
+                                            onMouseenter={() => {
+                                                this.onFormItemMouseenter(item, {resultVal, showValue, showContent})
+                                            }}
+                                            onMouseleave={() => {
+                                                this.onFormItemMouseleave(item)
+                                            }}
+                                            v-slots={{
+                                                label: () => {
 
-                                            // 处理是否显示label
-                                            const formShowLabel = lodash.isFunction(this.form.showLabel) ? this.form.showLabel(this.form.model, {...item, index}) : this.form.showLabel
-                                            const itemShowLabel = lodash.isFunction(item.showLabel) ? item.showLabel(this.form.model, {...item, index}) : item.showLabel
-                                            const showLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
+                                                    // 处理是否显示label
+                                                    const formShowLabel = lodash.isFunction(this.form.showLabel) ? this.form.showLabel(this.form.model, {...item, index}) : this.form.showLabel
+                                                    const itemShowLabel = lodash.isFunction(item.showLabel) ? item.showLabel(this.form.model, {...item, index}) : item.showLabel
+                                                    const showLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
 
-                                            if (showLabel === false) {
-                                                return null
-                                            }
-
-                                            let labelComponent = null as any
-                                            if (this.$slots[formItemSlot(item.key, 'formItem_label_')]) {
-                                                labelComponent = this.$slots[formItemSlot(item.key, 'formItem_label_')]?.({...item, model: this.form.model})
-                                            } else {
-                                                labelComponent = itemLabel
-                                            }
-                                            const formItemLabelBefore = this.$slots[formItemSlot(item.key, 'formItem_label_before_')]?.({...item, model: this.form.model})
-                                            const formItemLabelAfter = this.$slots[formItemSlot(item.key, 'formItem_label_after_')]?.({...item, model: this.form.model})
-
-                                            return [formItemLabelBefore, labelComponent, formItemLabelAfter]
-                                        },
-                                        // eslint-disable-next-line max-statements
-                                        default: () => {
-                                            if (showContent === false) {
-                                                return null
-                                            }
-
-                                            let limitLine = 3 as any
-                                            let componentResultStyle = {} as any
-                                            if (showValue) {
-                                                // 处理显示值的行数
-                                                const formLimitLine = lodash.isFunction(this.form.limitLine) ? this.form.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : this.form.limitLine
-                                                const itemLimitLine = lodash.isFunction(item.limitLine) ? item.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : item.limitLine
-                                                limitLine = itemLimitLine === undefined ? itemLimitLine || formLimitLine : itemLimitLine
-                                                componentResultStyle = {'--limit-line': limitLine}
-                                            }
-
-
-                                            const slots: any = {}
-
-                                            const trueResultVal = dataTransformRod(resultVal)
-
-                                            let componentResult = <div
-                                                ref={el => this.setFormTypeRefs(item.key, el)} style={componentResultStyle}
-                                                class={['el-form-item__content-text', trueResultVal === errData ? 'empty-value' : '']}>{trueResultVal}</div>
-
-
-                                            if (this.$slots[formItemSlot(item.key)]) {
-                                                componentResult = (<div ref={el => this.setFormTypeRefs(item.key, el)}
-                                                    style={componentResultStyle}
-                                                    class={['el-form-item__content-slot', trueResultVal === errData ? 'empty-value' : '']}>
-                                                    {this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model})}</div>)
-                                            } else if (showValue) {
-                                                return componentResult
-                                            } else if (['input', 'textarea'].includes(item.type)) {
-                                                renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, slots, item)
-                                                componentResult = (<CustomInput form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-
-                                                    }}
-                                                    v-slots={slots} onEnterSearch={() => {
-
-                                                        this.$emit('SearchFn')
-
-                                                    }}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomInput>)
-                                            } else if (['input-number'].includes(item.type)) {
-                                                renderSlot(['decrease-icon', 'increase-icon', 'prefix', 'suffix'], this, slots, item)
-                                                componentResult = (<CustomInputNumber form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
+                                                    if (showLabel === false) {
+                                                        return null
                                                     }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputNumber>)
-                                            } else if (['input-autocomplete'].includes(item.type)) {
-                                                renderSlot(['prefix', 'suffix', 'prepend', 'append', 'loading'], this, slots, item)
-                                                componentResult = (<CustomInputAutocomplete form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputAutocomplete>)
-                                            } else if (['select'].includes(item.type)) {
-                                                renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
-                                                componentResult = (<CustomSelect form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelect>)
-                                            } else if (['select-v2'].includes(item.type)) {
-                                                renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label', 'default'], this, slots, item)
-                                                componentResult = (<CustomSelectV2 form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectV2>)
-                                            } else if (['switch'].includes(item.type)) {
-                                                renderSlot(['active-action', 'inactive-action'], this, slots, item)
-                                                componentResult = (<CustomSwitch form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomSwitch>)
-                                            } else if ([
-                                                'datetime',
-                                                'date',
-                                                'dates',
-                                                'week',
-                                                'month',
-                                                'year',
-                                                'years',
-                                                'datetimerange',
-                                                'daterange',
-                                                'monthrange',
-                                                'yearrange',
-                                            ].includes(item.type)) {
-                                                renderSlot(['range-separator', 'prev-month', 'next-month', 'prev-year', 'next-year'], this, slots, item)
-                                                componentResult = (<CustomDate form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomDate>)
-                                            } else if (['radio', 'radio-button'].includes(item.type)) {
-                                                componentResult = (<CustomRadio form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomRadio>)
-                                            } else if (['tree-select'].includes(item.type)) {
-                                                renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
-                                                componentResult = (<CustomSelectTree form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectTree>)
-                                            } else if (['rate'].includes(item.type)) {
-                                                componentResult = (<CustomRate form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomRate>)
-                                            } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
-                                                componentResult = (<CustomCheckbox form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}
-                                                    ref={el => this.setFormTypeRefs(item.key, el)}></CustomCheckbox>)
-                                            } else if (['cascader'].includes(item.type)) {
-                                                renderSlot(['empty'], this, slots, item)
-                                                componentResult = (<CustomCascader ref={el => this.setFormTypeRefs(item.key, el)}
-                                                    form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}></CustomCascader>)
-                                            } else if (['slider'].includes(item.type)) {
-                                                componentResult = (<CustomSlider ref={el => this.setFormTypeRefs(item.key, el)}
-                                                    form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}></CustomSlider>)
-                                            } else if (['time-picker'].includes(item.type)) {
-                                                componentResult = (<CustomTimePicker ref={el => this.setFormTypeRefs(item.key, el)}
-                                                    form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}></CustomTimePicker>)
-                                            } else if (['time-select'].includes(item.type)) {
-                                                componentResult = (<CustomTimeSelect ref={el => this.setFormTypeRefs(item.key, el)}
-                                                    form={this.form}
-                                                    formItem={{
-                                                        ...item,
-                                                        options: {
-                                                            ...item.options,
-                                                            disabled,
-                                                            placeholder
-                                                        }
-                                                    }
-                                                    } v-slots={slots}></CustomTimeSelect>)
-                                            }
 
-                                            const beforeComponent = this.$slots[formItemSlot('before_' + item.key)]?.({...item, model: this.form.model})
-                                            const afterComponent = this.$slots[formItemSlot('after_' + item.key)]?.({...item, model: this.form.model})
+                                                    let labelComponent = null as any
+                                                    if (this.$slots[formItemSlot(item.key, 'formItem_label_')]) {
+                                                        labelComponent = this.$slots[formItemSlot(item.key, 'formItem_label_')]?.({...item, model: this.form.model})
+                                                    } else {
+                                                        labelComponent = itemLabel
+                                                    }
+                                                    const formItemLabelBefore = this.$slots[formItemSlot(item.key, 'formItem_label_before_')]?.({...item, model: this.form.model})
+                                                    const formItemLabelAfter = this.$slots[formItemSlot(item.key, 'formItem_label_after_')]?.({...item, model: this.form.model})
 
-                                            return [beforeComponent, componentResult, afterComponent]
-                                        }
-                                    }}
-                                >
-                                </el-form-item>
+                                                    return [formItemLabelBefore, labelComponent, formItemLabelAfter]
+                                                },
+                                                // eslint-disable-next-line max-statements
+                                                default: () => {
+                                                    if (showContent === false) {
+                                                        return null
+                                                    }
+
+                                                    let limitLine = 3 as any
+                                                    let componentResultStyle = {} as any
+                                                    if (showValue) {
+                                                        // 处理显示值的行数
+                                                        const formLimitLine = lodash.isFunction(this.form.limitLine) ? this.form.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : this.form.limitLine
+                                                        const itemLimitLine = lodash.isFunction(item.limitLine) ? item.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : item.limitLine
+                                                        limitLine = itemLimitLine === undefined ? itemLimitLine || formLimitLine : itemLimitLine
+                                                        componentResultStyle = {'--limit-line': limitLine}
+                                                    }
+
+
+                                                    const slots: any = {}
+
+                                                    const trueResultVal = dataTransformRod(resultVal)
+
+                                                    let componentResult = <div
+                                                        ref={el => this.setFormTypeRefs(item.key, el)} style={componentResultStyle}
+                                                        class={['el-form-item__content-text', trueResultVal === errData ? 'empty-value' : '']}>{trueResultVal}</div>
+
+
+                                                    if (this.$slots[formItemSlot(item.key)]) {
+                                                        componentResult = (<div ref={el => this.setFormTypeRefs(item.key, el)}
+                                                            style={componentResultStyle}
+                                                            class={['el-form-item__content-slot', trueResultVal === errData ? 'empty-value' : '']}>
+                                                            {this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model})}</div>)
+                                                    } else if (showValue) {
+                                                        return componentResult
+                                                    } else if (['input', 'textarea'].includes(item.type)) {
+                                                        renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, slots, item)
+                                                        componentResult = (<CustomInput form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+
+                                                            }}
+                                                            v-slots={slots} onEnterSearch={() => {
+
+                                                                this.$emit('SearchFn')
+
+                                                            }}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInput>)
+                                                    } else if (['input-number'].includes(item.type)) {
+                                                        renderSlot(['decrease-icon', 'increase-icon', 'prefix', 'suffix'], this, slots, item)
+                                                        componentResult = (<CustomInputNumber form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputNumber>)
+                                                    } else if (['input-autocomplete'].includes(item.type)) {
+                                                        renderSlot(['prefix', 'suffix', 'prepend', 'append', 'loading'], this, slots, item)
+                                                        componentResult = (<CustomInputAutocomplete form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputAutocomplete>)
+                                                    } else if (['select'].includes(item.type)) {
+                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
+                                                        componentResult = (<CustomSelect form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelect>)
+                                                    } else if (['select-v2'].includes(item.type)) {
+                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label', 'default'], this, slots, item)
+                                                        componentResult = (<CustomSelectV2 form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectV2>)
+                                                    } else if (['switch'].includes(item.type)) {
+                                                        renderSlot(['active-action', 'inactive-action'], this, slots, item)
+                                                        componentResult = (<CustomSwitch form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSwitch>)
+                                                    } else if ([
+                                                        'datetime',
+                                                        'date',
+                                                        'dates',
+                                                        'week',
+                                                        'month',
+                                                        'year',
+                                                        'years',
+                                                        'datetimerange',
+                                                        'daterange',
+                                                        'monthrange',
+                                                        'yearrange',
+                                                    ].includes(item.type)) {
+                                                        renderSlot(['range-separator', 'prev-month', 'next-month', 'prev-year', 'next-year'], this, slots, item)
+                                                        componentResult = (<CustomDate form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomDate>)
+                                                    } else if (['radio', 'radio-button'].includes(item.type)) {
+                                                        componentResult = (<CustomRadio form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomRadio>)
+                                                    } else if (['tree-select'].includes(item.type)) {
+                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
+                                                        componentResult = (<CustomSelectTree form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectTree>)
+                                                    } else if (['rate'].includes(item.type)) {
+                                                        componentResult = (<CustomRate form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomRate>)
+                                                    } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
+                                                        componentResult = (<CustomCheckbox form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}
+                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomCheckbox>)
+                                                    } else if (['cascader'].includes(item.type)) {
+                                                        renderSlot(['empty'], this, slots, item)
+                                                        componentResult = (<CustomCascader ref={el => this.setFormTypeRefs(item.key, el)}
+                                                            form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}></CustomCascader>)
+                                                    } else if (['slider'].includes(item.type)) {
+                                                        componentResult = (<CustomSlider ref={el => this.setFormTypeRefs(item.key, el)}
+                                                            form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}></CustomSlider>)
+                                                    } else if (['time-picker'].includes(item.type)) {
+                                                        componentResult = (<CustomTimePicker ref={el => this.setFormTypeRefs(item.key, el)}
+                                                            form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}></CustomTimePicker>)
+                                                    } else if (['time-select'].includes(item.type)) {
+                                                        componentResult = (<CustomTimeSelect ref={el => this.setFormTypeRefs(item.key, el)}
+                                                            form={this.form}
+                                                            formItem={{
+                                                                ...item,
+                                                                options: {
+                                                                    ...item.options,
+                                                                    disabled,
+                                                                    placeholder
+                                                                }
+                                                            }
+                                                            } v-slots={slots}></CustomTimeSelect>)
+                                                    }
+
+                                                    const beforeComponent = this.$slots[formItemSlot('before_' + item.key)]?.({...item, model: this.form.model})
+                                                    const afterComponent = this.$slots[formItemSlot('after_' + item.key)]?.({...item, model: this.form.model})
+
+                                                    return [beforeComponent, componentResult, afterComponent]
+                                                }
+                                            }}
+                                        >
+                                        </el-form-item>
+                                }
                             </el-col>
                         )
 

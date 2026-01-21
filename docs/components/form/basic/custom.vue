@@ -12,6 +12,7 @@ interface FormItemProps {
     name: string;
     name1: string;
     name2: string;
+    col: string;
 }
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
@@ -36,13 +37,22 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
 
             }
         },
+        col: {
+            label: '布局',
+            type: 'input',
+            options: {
+
+            }
+        },
         name2: {
             label: '名称2',
             type: 'input',
             options: {
 
             }
-        }
+        },
+
+
     }
 })
 
@@ -82,6 +92,12 @@ const formItemFn = formItem => {
             </template>
             <template #formItem_label_after_name2>
                 尾
+            </template>
+
+            <template #col_col>
+                <div style="margin-bottom: 16px;">
+                    自定义的内容
+                </div>
             </template>
         </dinert-form>
     </div>

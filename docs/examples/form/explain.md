@@ -94,6 +94,7 @@
 | 插槽名                 | 说明                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------ |
 | formItem_[key]         | key里面的值取决于form中的formItem的key，自定义组件                |
+| col_[key]         | key里面的值取决于form中的formItem的key，自定义组件的行               |
 | formItem_label_[key]   | key里面的值取决于form中的formItem的key，自定义组件的名称          |
 | formItem_label_before_[key] | key里面的值取决于form中的formItem的key，自定义组件的名称的前缀          |
 | formItem_label_after_[key] | key里面的值取决于form中的formItem的key，自定义组件的名称的后缀          |
