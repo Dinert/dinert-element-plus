@@ -65,7 +65,28 @@ watch(fullscreen, newVal => {
 
         </dinert-dialog>
         <dinert-dialog v-model="modelValue2" v-model:fullscreen="fullscreen"/>
-        <dinert-dialog v-model="modelValue3" fixed-height/>
+        <dinert-dialog v-model="modelValue3" fixed-height>
+            <div>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+                <h1>弹窗标题</h1>
+
+                <h1>弹窗标题</h1>
+            </div>
+        </dinert-dialog>
     </div>
 </template>
 

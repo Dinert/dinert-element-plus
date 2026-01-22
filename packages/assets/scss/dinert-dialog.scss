@@ -16,6 +16,22 @@
         }
     }
 
+    &.auto-height {
+        .el-dialog {
+            height: unset;
+            max-height: 80%;
+
+            &__body {
+                display: flex;
+                overflow-y: auto;
+                flex-direction: column;
+                flex: 1;
+                word-wrap: break-word;
+                height: 0;
+            }
+        }
+    }
+
     .el-dialog {
         top: 10%;
         display: flex;
@@ -29,6 +45,7 @@
 
         &.is-fullscreen {
             top: unset;
+            height: 100%;
             max-height: unset;
         }
 
@@ -83,7 +100,7 @@
         }
 
         &__body {
-            height: calc(100% - 54px);
+            height: calc(100% - 114px);
 
             & > .el-form {
                 overflow: unset;

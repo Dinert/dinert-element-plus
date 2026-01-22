@@ -386,8 +386,10 @@ export default defineComponent({
                                                     let componentResultStyle = {} as any
                                                     if (showValue) {
                                                         // 处理显示值的行数
-                                                        const formLimitLine = lodash.isFunction(this.form.limitLine) ? this.form.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : this.form.limitLine
-                                                        const itemLimitLine = lodash.isFunction(item.limitLine) ? item.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : item.limitLine
+                                                        const formLimitLine = lodash.isFunction(this.form.limitLine)
+                                                            ? this.form.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : this.form.limitLine
+                                                        const itemLimitLine = lodash.isFunction(item.limitLine)
+                                                            ? item.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : item.limitLine
                                                         limitLine = itemLimitLine === undefined ? itemLimitLine || formLimitLine : itemLimitLine
                                                         componentResultStyle = {'--limit-line': limitLine}
                                                     }

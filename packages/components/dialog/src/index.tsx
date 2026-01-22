@@ -49,6 +49,10 @@ export default defineComponent({
         fixedHeight: {
             type: Boolean,
             default: false
+        },
+        autoHeight: {
+            type: Boolean,
+            default: false
         }
     },
     emits: ['update:fullscreen', 'update:modelValue', 'ClickClose'],
@@ -94,7 +98,7 @@ export default defineComponent({
         const attrs = lodash.defaultsDeep(lodash.cloneDeep({
             ...this.$attrs,
             class: this.$attrs.modalClass ? 'dialog_' + this.$attrs.modalClass : '',
-            modalClass: `${this.uuid}  dinert-overlay ${this.$attrs.modalClass || ''} ${this.fixedHeight ? 'fixed-height' : ''}`,
+            modalClass: `${this.uuid}  dinert-overlay ${this.$attrs.modalClass || ''} ${this.fixedHeight ? 'fixed-height' : ''} ${this.autoHeight ? 'auto-height' : ''}`,
             width: getWH(this.$attrs).width,
             style: {
                 ...(this.$attrs?.style as any),
