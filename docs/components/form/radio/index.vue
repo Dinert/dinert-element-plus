@@ -58,8 +58,8 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         disabled: {
             label: '禁用',
             type: 'radio',
+            disabled: true,
             options: {
-                disabled: true,
                 options: [
                     {label: '显示', value: true},
                     {label: '隐藏', value: false},
