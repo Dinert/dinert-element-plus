@@ -70,6 +70,7 @@ export default defineComponent({
                 result.push({
                     ...value,
                     key: key,
+                    refreshKey: key
                 })
             })
 
@@ -258,7 +259,7 @@ export default defineComponent({
 
                 <el-row {...this.form.row} class="dinert-form-left">
 
-                    { this.formItemMap.map((item: CustomFormItemProps, index: number) => {
+                    { this.$slots.form_default ? this.$slots.form_default(this.form, this.formItemMap) : this.formItemMap.map((item: CustomFormItemProps, index: number) => {
                         const style: any = {}
 
 
@@ -323,7 +324,7 @@ export default defineComponent({
                             <el-col
                                 style= {style}
                                 class={[item.type, item.key]}
-                                key={item.key}
+                                key={item.refreshKey}
                                 {
                                     ...{
                                         // xl: 3, // ≥1920px
@@ -338,7 +339,7 @@ export default defineComponent({
                             >{
                                     this.$slots['col_' + item.key] ? this.$slots['col_' + item.key]?.({...item, model: this.form.model})
                                         : <el-form-item
-                                            key={item.key}
+                                            key={item.refreshKey}
                                             prop={item.key}
                                             class={[item.labelWrap ? 'label-wrap' : '', showValue ? 'show-value' : '']}
                                             {...{
@@ -634,6 +635,7 @@ export default defineComponent({
 
                     })
                     }
+
                 </el-row>
                 {
                     this.search
@@ -661,6 +663,8 @@ export default defineComponent({
                     }
                 </el-row>
                 }
+
+
                 {
                     this.$slots.form_search_operations
         && <el-row class={'el-form-right-after'}>

@@ -61,6 +61,7 @@ export interface RewriteFormItemPropsMap<O = any[]>{
 
 export interface CustomFormItemProps<D = any, O = any[], N extends keyof RewriteFormItemPropsMap = any> extends Partial<Omit<FormItemProps, 'label' | 'required'>> {
     key?: any;
+    refreshKey?: any;
     type?: N extends keyof RewriteFormItemPropsMap ? N : keyof RewriteFormItemPropsMap;
     show?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => boolean);
     vif?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => boolean);
