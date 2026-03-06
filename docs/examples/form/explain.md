@@ -58,6 +58,7 @@
 | enterSearch  | 是否开启回车搜索，仅支持input的组件                                                    | boolean                                                                                        | true   |
 | searchButton | 自定义搜索按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributes)          | 一     |
 | resetButton  | 自定义重置按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributÏes)         | 一     |
+| isElForm  | 是否有ElForm组件，为false时，直接渲染FormItem组件，去除掉父级的ElForm组件 | boolean                                                                                        | true   |
 | ......       | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                                             | 一     |
 
 ## formItem 属性
@@ -93,8 +94,8 @@
 
 | 插槽名                 | 说明                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------ |
-| formItem_[key]         | key里面的值取决于form中的formItem的key，自定义组件                |
-| col_[key]         | key里面的值取决于form中的formItem的key，自定义组件的行               |
+| formItem_[key]         | key里面的值取决于form中的formItem的key，自定义组件，覆盖当前组件               |
+| col_[key]         | key里面的值取决于form中的formItem的key，自定义组件，覆盖el-form-item组件               |
 | formItem_label_[key]   | key里面的值取决于form中的formItem的key，自定义组件的名称          |
 | formItem_label_before_[key] | key里面的值取决于form中的formItem的key，自定义组件的名称的前缀          |
 | formItem_label_after_[key] | key里面的值取决于form中的formItem的key，自定义组件的名称的后缀          |
@@ -102,3 +103,4 @@
 | formItem_before_[key]  | key里面的值取决于form中的formItem的key，自定义组件前的内容 |
 | form_search            | 自定义查询栏                                                                         |
 | form_search_operations | 自定义查询栏后面的信息                                                               |
+| form_default | 自定义表单的默认内容                                                                         |

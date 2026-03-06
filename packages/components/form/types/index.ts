@@ -107,6 +107,7 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     searchButton?: Partial<ButtonProps & {message?: string}>;
     resetButton?: Partial<ButtonProps & {message?: string}>;
     enterSearch?: boolean; // 是否开启回车搜索
+    isElForm?: boolean; // 是否有ElForm组件
 }
 
 export interface DinertFormProps<D = any, FI = any>{
