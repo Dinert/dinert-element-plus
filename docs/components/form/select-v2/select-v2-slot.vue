@@ -46,7 +46,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         >
             <template #formItem_status_default="formItem">
                 <div>
-                    <span>{{ formItem.args1.item.label }} {{ formItem.args1.item.value }}</span>
+                    <span>{{ formItem.item.label }} {{ formItem.item.value }} </span>
                 </div>
             </template>
         </dinert-form>

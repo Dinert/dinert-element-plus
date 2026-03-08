@@ -462,7 +462,8 @@ export default defineComponent({
                                             slotKeys.forEach(key => {
                                                 const fullSlotName = formItemSlot(item.key) + '_' + key
                                                 if (this.$slots[fullSlotName]) {
-                                                    slots[key] = (args: any) => this.$slots[fullSlotName]!({...item, ...args})
+                                                    console.log(fullSlotName, key, 'this.$slots[fullSlotName]')
+                                                    slots[key] = (args: any) => this.$slots[fullSlotName]?.({...item, ...args})
                                                 }
                                             })
                                             componentResult = Comp ? <Comp
