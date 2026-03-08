@@ -166,8 +166,19 @@ export const customPlaceholder = (customName: any, type: string = 'input', name:
     return name + ((customName) || '')
 }
 
-export const formItemSlot = (customName: any, name: string = 'formItem_') => {
-    return name + (customName || '')
+export const formItemSlot = (
+    key: string,
+    prefix = 'formItem_'
+) => {
+    if (!key) {
+        return prefix
+    }
+
+    const name = key
+        .replace(/\[\d+\]/g, '')
+        .replace(/\./g, '_')
+
+    return prefix + name
 }
 
 

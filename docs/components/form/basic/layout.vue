@@ -37,10 +37,12 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
             span: 24
         }
     },
+
     formItem: {
         name: {
             label: '名称',
             type: 'input',
+
             options: {
 
             }

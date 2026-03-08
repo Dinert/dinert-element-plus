@@ -2,7 +2,7 @@
 import {PropType, computed, defineComponent, onBeforeUpdate, ref, toRefs} from 'vue'
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import lodash from 'lodash'
-import {getSpanValue, formItemSlot, customPlaceholder, renderSlot} from '@packages/components/form/utils'
+import {getSpanValue, formItemSlot, customPlaceholder} from '@packages/components/form/utils'
 import {dataTransformRod} from '@packages/utils/tools'
 import CustomInput from './input'
 import CustomInputNumber from './input-number'
@@ -20,6 +20,78 @@ import CustomSlider from './slider'
 import CustomTimePicker from './time-picker'
 import CustomTimeSelect from './time-select'
 
+
+const COMPONENT_MAP: Record<string, any> = {
+    input: CustomInput,
+    textarea: CustomInput,
+    'input-number': CustomInputNumber,
+    'input-autocomplete': CustomInputAutocomplete,
+    select: CustomSelect,
+    'select-v2': CustomSelectV2,
+    switch: CustomSwitch,
+    date: CustomDate,
+    datetime: CustomDate,
+    dates: CustomDate,
+    week: CustomDate,
+    month: CustomDate,
+    year: CustomDate,
+    years: CustomDate,
+    datetimerange: CustomDate,
+    daterange: CustomDate,
+    monthrange: CustomDate,
+    yearrange: CustomDate,
+    radio: CustomRadio,
+    'radio-button': CustomRadio,
+    'tree-select': CustomSelectTree,
+    rate: CustomRate,
+    checkbox: CustomCheckbox,
+    'checkbox-button': CustomCheckbox,
+    cascader: CustomCascader,
+    slider: CustomSlider,
+    'time-picker': CustomTimePicker,
+    'time-select': CustomTimeSelect
+}
+
+const SLOT_MAP: Record<string, string[]> = {
+    'input': ['prefix', 'suffix', 'prepend', 'append'],
+    'input-number': ['decrease-icon', 'increase-icon', 'prefix', 'suffix'],
+    'input-autocomplete': ['prefix', 'suffix', 'prepend', 'append', 'loading'],
+    'select': ['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'],
+    'select-v2': ['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label', 'default'],
+    'switch': ['active-action', 'inactive-action'],
+    'date': ['range-separator', 'prev-month', 'next-month', 'prev-year', 'next-year'],
+    'cascader': ['empty'],
+    // 其他组件继续补充
+}
+
+function parseSchema(model: any, schema: any, parentPath = '') {
+    return Object.keys(schema).flatMap(key => {
+        const item = schema[key]
+        const path = parentPath ? `${parentPath}.${key}` : key
+
+        if (item.type === 'array') {
+            const list = lodash.get(model, path) || []
+            return list.flatMap((row: any, index: number) => ({
+                ...item,
+                key: `${path}[${index}]`,
+                prop: `${path}[${index}]`,
+                children: item.children ? parseSchema(model, item.children, `${path}[${index}]`) : []
+            }))
+        }
+
+        if (item.children) {
+            return [{
+                ...item,
+                key: path,
+                prop: path,
+                children: parseSchema(model, item.children, path)
+            }]
+        }
+
+        return [{...item, key: path, prop: path, refreshKey: path}]
+    })
+}
+
 // 展开还是收起状态
 export default defineComponent({
     name: 'dinert-form-item',
@@ -31,7 +103,6 @@ export default defineComponent({
 
     },
     setup(props, {emit, slots}) {
-        const {form} = toRefs(props)
 
         const tempRef = ref<any>(null)
         const isTooltip = ref(false)
@@ -140,36 +211,33 @@ export default defineComponent({
             isTooltip.value = false
         }
 
-        const formItemMap = computed(() => {
-            let result: any = []
-            Object.keys(form.value.formItem).forEach(key => {
-                const value = form.value.formItem[key] as Partial<CustomFormItemProps>
-                result.push({
-                    ...value,
-                    key: key,
-                    refreshKey: key
-                })
-            })
+        const schemaTree = computed(() => {
+            const tree = parseSchema(props.form.model, props.form.formItem)
 
-            result = result.filter((item: any, index: number) => {
-                const formVif = lodash.isFunction(item.vif) ? item.vif(form.value.model, {...item, index}) : item.vif
-                const itemVif = lodash.isFunction(item?.vif) ? item?.vif(form.value.model, {...item, index}) : item?.vif
-                let vif = itemVif === undefined ? itemVif || formVif : itemVif
-                vif = vif === undefined ? true : vif
-                return vif
-            })
+            const processTree = (list: any[]): any[] => {
+                return list.filter((item, index) => {
+                    const formVif = lodash.isFunction(props.form.vif) ? props.form.vif(props.form.model, {...item, index}) : props.form.vif
+                    const itemVif = lodash.isFunction(item.vif) ? item.vif(props.form.model, {...item, index}) : item.vif
+                    return itemVif ?? formVif ?? true
+                }).map(item => {
+                    const tempObj = {
+                        ...item,
+                    }
+                    if (item.children?.length) {
+                        tempObj.children = processTree(item.children)
+                    } else {
+                        delete item.children
+                    }
+                    return tempObj
+                }).sort((a, b) => (a.sort ?? Infinity) - (b.sort ?? Infinity))
+            }
 
-
-            result.sort((a: any, b: any) => {
-                return (a.sort || Infinity) - (b.sort || Infinity)
-            })
-
+            const result = processTree(tree)
             return result
         })
 
-
         return {
-            formItemMap,
+            schemaTree,
             formTypeRef,
             tempRef,
             setFormTypeRefs,
@@ -180,9 +248,210 @@ export default defineComponent({
             onFormItemMouseleave,
         }
     },
+    methods: {
+        renderNode(item: any, index: number) {
+            if (item.children?.length) {
+                return (<el-col key={item.key}><el-row {...item.row}>{item.children.map((child: any, i: number) => this.renderNode(child, i))}</el-row></el-col>)
+            }
+            return this.renderField(item, index)
+        },
+
+        renderField(item: any, index: number) {
+            const style: any = {}
+
+
+            // 处理show
+            let show = lodash.isFunction(item.show) ? item.show(this.form.model) : item.show
+            show = show === undefined ? true : show
+
+
+            const isCustomPlaceholder = item.options?.placeholder
+            const itemLabel = lodash.isFunction(item.label) ? item.label(this.form.model) : item.label
+            const placeholder = isCustomPlaceholder || customPlaceholder(itemLabel, item.type)
+
+
+            if (!show) {
+                style.display = 'none'
+            }
+
+            // 处理是否显示直接显示组件的值
+            const formShowValue = lodash.isFunction(this.form.showValue) ? this.form.showValue(this.form.model, {...item, index}) : this.form.showValue
+            const itemShowValue = lodash.isFunction(item.showValue) ? item.showValue(this.form.model, {...item, index}) : item.showValue
+            const showValue = itemShowValue === undefined ? itemShowValue || formShowValue : itemShowValue
+
+            // 处理是否必填
+            const formRequired = lodash.isFunction(this.form.required) ? this.form.required(this.form.model, {...item, index}) : this.form.required
+            const itemRequired = lodash.isFunction(item.required) ? item.required(this.form.model, {...item, index}) : item.required
+            const required = itemRequired === undefined ? itemRequired || formRequired : itemRequired
+
+            // 处理colLayout
+            const formColLayout = lodash.isFunction(this.form.colLayout) ? this.form.colLayout(this.form.model, {...item, index}) : this.form.colLayout
+            const itemColLayout = lodash.isFunction(item.colLayout) ? item.colLayout(this.form.model, {...item, index}) : item.colLayout
+            const colLayout = itemColLayout === undefined ? itemColLayout || formColLayout : itemColLayout
+
+            let rules = item.rules || []
+            rules = required ? [{required: true, trigger: ['blur', 'change'], message: placeholder}].concat(rules) : rules
+            rules = showValue ? [] : rules
+
+            // 处理disabled
+            const formDisabled = lodash.isFunction(this.form.disabled) ? this.form.disabled(this.form.model, {...item, index}) : this.form.disabled
+            const itemDisabled = lodash.isFunction(item?.disabled) ? item?.disabled(this.form.model, {...item, index}) : item?.disabled
+            const disabled = itemDisabled === undefined ? itemDisabled || formDisabled : itemDisabled
+
+            // 处理是否显示内容
+            const formShowContent = lodash.isFunction(this.form.showContent) ? this.form.showContent(this.form.model, {...item, index}) : this.form.showContent
+            const itemShowContent = lodash.isFunction(item.showContent) ? item.showContent(this.form.model, {...item, index}) : item.showContent
+            const showContent = itemShowContent === undefined ? itemShowContent || formShowContent : itemShowContent
+
+            // 处理显示值
+            const errData = this.form.errData || dataTransformRod(null)
+            const getValue = lodash.get(this.form.model, item.key)
+            let resultVal = getSpanValue(getValue, item)
+            if (showValue) {
+            // 处理格式化内容
+                const formFormatter = lodash.isFunction(this.form.valueFormatter) ? this.form.valueFormatter(getValue, this.form.model, {...item, index}) : this.form.valueFormatter
+                const itemFormatter = lodash.isFunction(item.valueFormatter) ? item.valueFormatter(getValue, this.form.model, {...item, index}) : item.valueFormatter
+                const formatter = itemFormatter === undefined ? itemFormatter || formFormatter : itemFormatter
+                if (formatter !== undefined) {
+                    resultVal = formatter
+                }
+
+            }
+
+            return (
+                <el-col
+                    style= {style}
+                    class={[item.type, item.key]}
+                    key={item.refreshKey}
+                    {
+                        ...{
+                        // xl: 3, // ≥1920px
+                        // lg: 4, // ≥1200px
+                        // md: 8, // ≥992px
+                        // sm: 12, // ≥768px
+                        // xs: 24, // <768px
+                            ...this.form.colLayout,
+                            ...colLayout
+                        }
+                    }
+                >{
+                        this.$slots[formItemSlot(item.key, 'col_')] ? this.$slots[formItemSlot(item.key, 'col_')]?.({...item, model: this.form.model})
+                            : <el-form-item
+                                key={item.refreshKey}
+                                prop={item.key}
+                                class={[item.labelWrap ? 'label-wrap' : '', showValue ? 'show-value' : '']}
+                                {...{
+                                    ...item,
+                                    rules: rules,
+                                    required: undefined,
+                                    label: undefined
+                                }}
+                                onMouseenter={() => {
+                                    this.onFormItemMouseenter(item, {resultVal, showValue, showContent})
+                                }}
+                                onMouseleave={() => {
+                                    this.onFormItemMouseleave(item)
+                                }}
+                                v-slots={{
+                                    label: () => {
+
+                                        // 处理是否显示label
+                                        const formShowLabel = lodash.isFunction(this.form.showLabel) ? this.form.showLabel(this.form.model, {...item, index}) : this.form.showLabel
+                                        const itemShowLabel = lodash.isFunction(item.showLabel) ? item.showLabel(this.form.model, {...item, index}) : item.showLabel
+                                        const showLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
+
+                                        if (showLabel === false) {
+                                            return null
+                                        }
+
+                                        let labelComponent = null as any
+                                        if (this.$slots[formItemSlot(item.key, 'formItem_label_')]) {
+                                            labelComponent = this.$slots[formItemSlot(item.key, 'formItem_label_')]?.({...item, model: this.form.model})
+                                        } else {
+                                            labelComponent = itemLabel
+                                        }
+                                        const formItemLabelBefore = this.$slots[formItemSlot(item.key, 'formItem_label_before_')]?.({...item, model: this.form.model})
+                                        const formItemLabelAfter = this.$slots[formItemSlot(item.key, 'formItem_label_after_')]?.({...item, model: this.form.model})
+
+                                        return [formItemLabelBefore, labelComponent, formItemLabelAfter]
+                                    },
+                                    // eslint-disable-next-line max-statements
+                                    default: () => {
+                                        if (showContent === false) {
+                                            return null
+                                        }
+
+                                        let limitLine = 3 as any
+                                        let componentResultStyle = {} as any
+                                        if (showValue) {
+                                        // 处理显示值的行数
+                                            const formLimitLine = lodash.isFunction(this.form.limitLine)
+                                                ? this.form.limitLine(getValue, this.form.model, {...item, index}) : this.form.limitLine
+                                            const itemLimitLine = lodash.isFunction(item.limitLine)
+                                                ? item.limitLine(getValue, this.form.model, {...item, index}) : item.limitLine
+                                            limitLine = itemLimitLine === undefined ? itemLimitLine || formLimitLine : itemLimitLine
+                                            componentResultStyle = {'--limit-line': limitLine}
+                                        }
+
+
+                                        const trueResultVal = dataTransformRod(resultVal)
+                                        const Comp = COMPONENT_MAP[item.type]
+                                        let componentResult = <div
+                                            ref={el => this.setFormTypeRefs(item.key, el)} style={componentResultStyle}
+                                            class={['el-form-item__content-text', trueResultVal === errData ? 'empty-value' : '']}>{trueResultVal}</div>
+
+                                        if (this.$slots[formItemSlot(item.key)]) {
+                                            componentResult = (<div ref={el => this.setFormTypeRefs(item.key, el)}
+                                                style={componentResultStyle}
+                                                class={['el-form-item__content-slot', trueResultVal === errData ? 'empty-value' : '']}>
+                                                {this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model})}</div>)
+                                        } else if (showValue) {
+                                            return componentResult
+                                        } else {
+                                            const slots: Record<string, any> = {}
+                                            const slotKeys = SLOT_MAP[item.type] || []
+                                            slotKeys.forEach(key => {
+                                                const fullSlotName = formItemSlot(item.key) + '_' + key
+                                                if (this.$slots[fullSlotName]) {
+                                                    slots[key] = (args: any) => this.$slots[fullSlotName]!({...item, ...args})
+                                                }
+                                            })
+                                            componentResult = Comp ? <Comp
+                                                form={this.form}
+                                                formItem={{
+                                                    ...item,
+                                                    options: {
+                                                        ...item.options,
+                                                        disabled,
+                                                        placeholder
+                                                    }
+
+                                                }}
+                                                v-slots={slots}
+                                                onEnterSearch={() => {
+                                                    this.$emit('SearchFn')
+                                                }}
+                                                ref={el => this.setFormTypeRefs(item.key, el)}
+                                            /> : <div>{resultVal}</div>
+                                        }
+
+                                        const beforeComponent = this.$slots[formItemSlot('before_' + item.key)]?.({...item, model: this.form.model})
+                                        const afterComponent = this.$slots[formItemSlot('after_' + item.key)]?.({...item, model: this.form.model})
+
+                                        return [beforeComponent, componentResult, afterComponent]
+                                    }
+                                }}
+                            >
+                            </el-form-item>
+                    }
+                </el-col>
+            )
+        },
+    },
+
     render() {
         return (
-            <>
+            <el-row {...this.form.row} class="dinert-form-left">
                 <el-tooltip
                     placement="top"
                     content={this.tooltipContent}
@@ -193,383 +462,11 @@ export default defineComponent({
                 />
 
                 {
-                    this.formItemMap.map((item: CustomFormItemProps, index: number) => {
-                        const style: any = {}
-
-
-                        // 处理show
-                        let show = lodash.isFunction(item.show) ? item.show(this.form.model) : item.show
-                        show = show === undefined ? true : show
-
-
-                        const isCustomPlaceholder = item.options?.placeholder
-                        const itemLabel = lodash.isFunction(item.label) ? item.label(this.form.model) : item.label
-                        const placeholder = isCustomPlaceholder || customPlaceholder(itemLabel, item.type)
-
-
-                        if (!show) {
-                            style.display = 'none'
-                        }
-
-                        // 处理是否显示直接显示组件的值
-                        const formShowValue = lodash.isFunction(this.form.showValue) ? this.form.showValue(this.form.model, {...item, index}) : this.form.showValue
-                        const itemShowValue = lodash.isFunction(item.showValue) ? item.showValue(this.form.model, {...item, index}) : item.showValue
-                        const showValue = itemShowValue === undefined ? itemShowValue || formShowValue : itemShowValue
-
-                        // 处理是否必填
-                        const formRequired = lodash.isFunction(this.form.required) ? this.form.required(this.form.model, {...item, index}) : this.form.required
-                        const itemRequired = lodash.isFunction(item.required) ? item.required(this.form.model, {...item, index}) : item.required
-                        const required = itemRequired === undefined ? itemRequired || formRequired : itemRequired
-
-                        // 处理colLayout
-                        const formColLayout = lodash.isFunction(this.form.colLayout) ? this.form.colLayout(this.form.model, {...item, index}) : this.form.colLayout
-                        const itemColLayout = lodash.isFunction(item.colLayout) ? item.colLayout(this.form.model, {...item, index}) : item.colLayout
-                        const colLayout = itemColLayout === undefined ? itemColLayout || formColLayout : itemColLayout
-
-                        let rules = item.rules || []
-                        rules = required ? [{required: true, trigger: ['blur', 'change'], message: placeholder}].concat(rules as any) : rules
-                        rules = showValue ? [] : rules
-
-                        // 处理disabled
-                        const formDisabled = lodash.isFunction(this.form.disabled) ? this.form.disabled(this.form.model, {...item, index}) : this.form.disabled
-                        const itemDisabled = lodash.isFunction(item?.disabled) ? item?.disabled(this.form.model, {...item, index}) : item?.disabled
-                        const disabled = itemDisabled === undefined ? itemDisabled || formDisabled : itemDisabled
-
-                        // 处理是否显示内容
-                        const formShowContent = lodash.isFunction(this.form.showContent) ? this.form.showContent(this.form.model, {...item, index}) : this.form.showContent
-                        const itemShowContent = lodash.isFunction(item.showContent) ? item.showContent(this.form.model, {...item, index}) : item.showContent
-                        const showContent = itemShowContent === undefined ? itemShowContent || formShowContent : itemShowContent
-
-                        // 处理显示值
-                        const errData = this.form.errData || dataTransformRod(null)
-                        let resultVal = getSpanValue(this.form.model[item.key], item)
-                        if (showValue) {
-                            // 处理格式化内容
-                            const formFormatter = lodash.isFunction(this.form.valueFormatter) ? this.form.valueFormatter(this.form.model[item.key], this.form.model, {...item, index}) : this.form.valueFormatter
-                            const itemFormatter = lodash.isFunction(item.valueFormatter) ? item.valueFormatter(this.form.model[item.key], this.form.model, {...item, index}) : item.valueFormatter
-                            const formatter = itemFormatter === undefined ? itemFormatter || formFormatter : itemFormatter
-                            if (formatter !== undefined) {
-                                resultVal = formatter
-                            }
-
-                        }
-
-                        return (
-                            <el-col
-                                style= {style}
-                                class={[item.type, item.key]}
-                                key={item.refreshKey}
-                                {
-                                    ...{
-                                        // xl: 3, // ≥1920px
-                                        // lg: 4, // ≥1200px
-                                        // md: 8, // ≥992px
-                                        // sm: 12, // ≥768px
-                                        // xs: 24, // <768px
-                                        ...this.form.colLayout,
-                                        ...colLayout
-                                    }
-                                }
-                            >{
-                                    this.$slots['col_' + item.key] ? this.$slots['col_' + item.key]?.({...item, model: this.form.model})
-                                        : <el-form-item
-                                            key={item.refreshKey}
-                                            prop={item.key}
-                                            class={[item.labelWrap ? 'label-wrap' : '', showValue ? 'show-value' : '']}
-                                            {...{
-                                                ...item,
-                                                rules: rules,
-                                                required: undefined,
-                                                label: undefined
-                                            }}
-                                            onMouseenter={() => {
-                                                this.onFormItemMouseenter(item, {resultVal, showValue, showContent})
-                                            }}
-                                            onMouseleave={() => {
-                                                this.onFormItemMouseleave(item)
-                                            }}
-                                            v-slots={{
-                                                label: () => {
-
-                                                    // 处理是否显示label
-                                                    const formShowLabel = lodash.isFunction(this.form.showLabel) ? this.form.showLabel(this.form.model, {...item, index}) : this.form.showLabel
-                                                    const itemShowLabel = lodash.isFunction(item.showLabel) ? item.showLabel(this.form.model, {...item, index}) : item.showLabel
-                                                    const showLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
-
-                                                    if (showLabel === false) {
-                                                        return null
-                                                    }
-
-                                                    let labelComponent = null as any
-                                                    if (this.$slots[formItemSlot(item.key, 'formItem_label_')]) {
-                                                        labelComponent = this.$slots[formItemSlot(item.key, 'formItem_label_')]?.({...item, model: this.form.model})
-                                                    } else {
-                                                        labelComponent = itemLabel
-                                                    }
-                                                    const formItemLabelBefore = this.$slots[formItemSlot(item.key, 'formItem_label_before_')]?.({...item, model: this.form.model})
-                                                    const formItemLabelAfter = this.$slots[formItemSlot(item.key, 'formItem_label_after_')]?.({...item, model: this.form.model})
-
-                                                    return [formItemLabelBefore, labelComponent, formItemLabelAfter]
-                                                },
-                                                // eslint-disable-next-line max-statements
-                                                default: () => {
-                                                    if (showContent === false) {
-                                                        return null
-                                                    }
-
-                                                    let limitLine = 3 as any
-                                                    let componentResultStyle = {} as any
-                                                    if (showValue) {
-                                                        // 处理显示值的行数
-                                                        const formLimitLine = lodash.isFunction(this.form.limitLine)
-                                                            ? this.form.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : this.form.limitLine
-                                                        const itemLimitLine = lodash.isFunction(item.limitLine)
-                                                            ? item.limitLine(this.form.model[item.key], this.form.model, {...item, index}) : item.limitLine
-                                                        limitLine = itemLimitLine === undefined ? itemLimitLine || formLimitLine : itemLimitLine
-                                                        componentResultStyle = {'--limit-line': limitLine}
-                                                    }
-
-
-                                                    const slots: any = {}
-
-                                                    const trueResultVal = dataTransformRod(resultVal)
-
-                                                    let componentResult = <div
-                                                        ref={el => this.setFormTypeRefs(item.key, el)} style={componentResultStyle}
-                                                        class={['el-form-item__content-text', trueResultVal === errData ? 'empty-value' : '']}>{trueResultVal}</div>
-
-
-                                                    if (this.$slots[formItemSlot(item.key)]) {
-                                                        componentResult = (<div ref={el => this.setFormTypeRefs(item.key, el)}
-                                                            style={componentResultStyle}
-                                                            class={['el-form-item__content-slot', trueResultVal === errData ? 'empty-value' : '']}>
-                                                            {this.$slots[formItemSlot(item.key)]?.({...item, model: this.form.model})}</div>)
-                                                    } else if (showValue) {
-                                                        return componentResult
-                                                    } else if (['input', 'textarea'].includes(item.type)) {
-                                                        renderSlot(['prefix', 'suffix', 'prepend', 'append'], this, slots, item)
-                                                        componentResult = (<CustomInput form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-
-                                                            }}
-                                                            v-slots={slots} onEnterSearch={() => {
-
-                                                                this.$emit('SearchFn')
-
-                                                            }}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInput>)
-                                                    } else if (['input-number'].includes(item.type)) {
-                                                        renderSlot(['decrease-icon', 'increase-icon', 'prefix', 'suffix'], this, slots, item)
-                                                        componentResult = (<CustomInputNumber form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputNumber>)
-                                                    } else if (['input-autocomplete'].includes(item.type)) {
-                                                        renderSlot(['prefix', 'suffix', 'prepend', 'append', 'loading'], this, slots, item)
-                                                        componentResult = (<CustomInputAutocomplete form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomInputAutocomplete>)
-                                                    } else if (['select'].includes(item.type)) {
-                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
-                                                        componentResult = (<CustomSelect form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelect>)
-                                                    } else if (['select-v2'].includes(item.type)) {
-                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label', 'default'], this, slots, item)
-                                                        componentResult = (<CustomSelectV2 form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectV2>)
-                                                    } else if (['switch'].includes(item.type)) {
-                                                        renderSlot(['active-action', 'inactive-action'], this, slots, item)
-                                                        componentResult = (<CustomSwitch form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSwitch>)
-                                                    } else if ([
-                                                        'datetime',
-                                                        'date',
-                                                        'dates',
-                                                        'week',
-                                                        'month',
-                                                        'year',
-                                                        'years',
-                                                        'datetimerange',
-                                                        'daterange',
-                                                        'monthrange',
-                                                        'yearrange',
-                                                    ].includes(item.type)) {
-                                                        renderSlot(['range-separator', 'prev-month', 'next-month', 'prev-year', 'next-year'], this, slots, item)
-                                                        componentResult = (<CustomDate form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomDate>)
-                                                    } else if (['radio', 'radio-button'].includes(item.type)) {
-                                                        componentResult = (<CustomRadio form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomRadio>)
-                                                    } else if (['tree-select'].includes(item.type)) {
-                                                        renderSlot(['header', 'footer', 'prefix', 'empty', 'tag', 'loading', 'label'], this, slots, item)
-                                                        componentResult = (<CustomSelectTree form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomSelectTree>)
-                                                    } else if (['rate'].includes(item.type)) {
-                                                        componentResult = (<CustomRate form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomRate>)
-                                                    } else if (['checkbox', 'checkbox-button'].includes(item.type)) {
-                                                        componentResult = (<CustomCheckbox form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}
-                                                            ref={el => this.setFormTypeRefs(item.key, el)}></CustomCheckbox>)
-                                                    } else if (['cascader'].includes(item.type)) {
-                                                        renderSlot(['empty'], this, slots, item)
-                                                        componentResult = (<CustomCascader ref={el => this.setFormTypeRefs(item.key, el)}
-                                                            form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}></CustomCascader>)
-                                                    } else if (['slider'].includes(item.type)) {
-                                                        componentResult = (<CustomSlider ref={el => this.setFormTypeRefs(item.key, el)}
-                                                            form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}></CustomSlider>)
-                                                    } else if (['time-picker'].includes(item.type)) {
-                                                        componentResult = (<CustomTimePicker ref={el => this.setFormTypeRefs(item.key, el)}
-                                                            form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}></CustomTimePicker>)
-                                                    } else if (['time-select'].includes(item.type)) {
-                                                        componentResult = (<CustomTimeSelect ref={el => this.setFormTypeRefs(item.key, el)}
-                                                            form={this.form}
-                                                            formItem={{
-                                                                ...item,
-                                                                options: {
-                                                                    ...item.options,
-                                                                    disabled,
-                                                                    placeholder
-                                                                }
-                                                            }
-                                                            } v-slots={slots}></CustomTimeSelect>)
-                                                    }
-
-                                                    const beforeComponent = this.$slots[formItemSlot('before_' + item.key)]?.({...item, model: this.form.model})
-                                                    const afterComponent = this.$slots[formItemSlot('after_' + item.key)]?.({...item, model: this.form.model})
-
-                                                    return [beforeComponent, componentResult, afterComponent]
-                                                }
-                                            }}
-                                        >
-                                        </el-form-item>
-                                }
-                            </el-col>
-                        )
-
-
+                    this.schemaTree.map((item: CustomFormItemProps, index: number) => {
+                        return (this.renderNode(item, index))
                     })
                 }
-            </>
+            </el-row>
         )
     }
 })

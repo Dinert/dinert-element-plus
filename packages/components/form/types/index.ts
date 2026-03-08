@@ -107,12 +107,18 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     searchButton?: Partial<ButtonProps & {message?: string}>;
     resetButton?: Partial<ButtonProps & {message?: string}>;
     enterSearch?: boolean; // 是否开启回车搜索
-    isElForm?: boolean; // 是否有ElForm组件
+
 }
 
 export interface DinertFormProps<D = any, FI = any>{
     form: RewriteFormProps<D, FI>;
     search?: boolean;
+}
+
+
+export interface FormItemPropsArray <D, FI> extends CustomFormItemProps<D, FI> {
+    type: 'array';
+    children?: Partial<FormItemMap<D, FI>>;
 }
 
 
@@ -206,7 +212,7 @@ export type FormItemPropsCommon<D, FI> = FormItemPropsInput<D, FI>
 | FormItemPropsSwitch<D, FI> | FormItemPropsDate<D, FI>
  | FormItemPropsRadio<D, FI> | FormItemPropsCheckbox<D, FI> | FormItemPropsTreeSelect<D, FI>
  | FormItemPropsRate<D, FI> | FormItemPropsSelectV2<D, FI> | FormItemPropsSlider<D, FI>
- | FormItemPropsTimePicker<D, FI> | FormItemPropsTimeSelect<D, FI>
+ | FormItemPropsTimePicker<D, FI> | FormItemPropsTimeSelect<D, FI> | FormItemPropsArray<D, FI>
 
 
 // interface AAA extends BaseProps{

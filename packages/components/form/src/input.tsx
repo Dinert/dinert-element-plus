@@ -2,6 +2,7 @@ import {computed, defineComponent, ref} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
+import lodash from 'lodash'
 
 
 export default defineComponent({
@@ -16,8 +17,8 @@ export default defineComponent({
             default: () => ({})
         },
     },
-    emits: ['EnterSearch'],
-    setup(props) {
+    emits: ['EnterSearch', 'update:modelValue'],
+    setup(props, {emit}) {
         const inputRef = ref(null)
 
 
@@ -27,29 +28,48 @@ export default defineComponent({
             return options
         })
 
+        const modelValue = computed({
+            get: () => lodash.get(props.form.model, props.formItem.key),
+            set: val => {
+                lodash.set(props.form.model, props.formItem.key, val)
+                emit('update:modelValue', val)
+            }
+        })
+
+
         return {
             options,
-            inputRef
+            inputRef,
+            modelValue
+
         }
     },
     render() {
-        return (
-            <el-input
-                v-model={this.form.model[this.formItem.key]}
-                clearable
-                show-word-limit={this.options.showWordLimit === undefined ? true : this.options.showWordLimit}
-                onBlur={e => {this.form.model[this.formItem.key] = e.target.value.trim()}}
-                onKeydown={(event: KeyboardEvent) => {
-                    if ((this.form.enterSearch === undefined || this.form.enterSearch) && event.key === 'Enter') {
-                        this.$emit('EnterSearch')
-                    }
-                }}
 
-                {...{...this.options}}
-                v-slots={this.$slots}
-                ref={el => {this.inputRef = el}}
-            >
-            </el-input>
+        return (
+            <div>
+                <el-input
+                    modelValue={this.modelValue}
+                    onUpdate:modelValue={(val: any) => {this.modelValue = val}}
+                    clearable
+                    show-word-limit={this.options.showWordLimit ?? true}
+                    onBlur={e => {
+                        const val = e.target.value.trim()
+                        this.modelValue = val
+                    }}
+                    onKeydown={(event: KeyboardEvent) => {
+                        if ((this.form.enterSearch === undefined || this.form.enterSearch) && event.key === 'Enter') {
+                            this.$emit('EnterSearch')
+                        }
+                    }}
+
+                    {...this.options}
+                    v-slots={this.$slots}
+                    ref={el => {this.inputRef = el}}
+                >
+                </el-input>
+            </div>
+
         )
     }
 })

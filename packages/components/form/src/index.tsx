@@ -88,14 +88,6 @@ export default defineComponent({
     },
     render() {
 
-        if (this.form.isElForm === false) {
-            return <FormItem
-                form={this.form}
-                ref={el => {this.formItemRef = el}}
-                v-slots={this.$slots}
-            ></FormItem>
-        }
-
         return (
             <el-form inline={true}
                 {...{...this.form, disabled: undefined}}
@@ -104,11 +96,9 @@ export default defineComponent({
                 onSubmit={withModifiers(() => undefined, ['stop', 'prevent'])}
                 key={this.form.key}>
 
-                <el-row {...this.form.row} class="dinert-form-left">
 
-                    { this.$slots.form_default ? this.$slots.form_default(this.form) : <FormItem v-slots={this.$slots} form={this.form} ref={el => {this.formItemRef = el}}></FormItem>}
+                { this.$slots.form_default ? this.$slots.form_default(this.form) : <FormItem v-slots={this.$slots} form={this.form} ref={el => {this.formItemRef = el}}></FormItem>}
 
-                </el-row>
                 {
                     this.search
                 && <el-row class={['dinert-form-right', this.isArrow ? 'isArrow' : '']}>

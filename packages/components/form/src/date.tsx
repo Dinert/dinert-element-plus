@@ -5,6 +5,7 @@ import {customPlaceholder} from '../utils'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
+import lodash from 'lodash'
 
 
 const datePickerPlaceholder = (_label: string, item: any) => {
@@ -43,7 +44,8 @@ export default defineComponent({
             default: () => ({})
         },
     },
-    setup(props) {
+    emits: ['update:modelValue'],
+    setup(props, {emit}) {
         const dateRef = ref(null)
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['date']>(() => {
             const options = props.formItem.options || {}
@@ -52,10 +54,19 @@ export default defineComponent({
             return options
         })
 
+        const modelValue = computed({
+            get: () => lodash.get(props.form.model, props.formItem.key),
+            set: val => {
+                lodash.set(props.form.model, props.formItem.key, val)
+                emit('update:modelValue', val)
+            }
+        })
+
 
         return {
             options,
-            dateRef
+            dateRef,
+            modelValue
         }
     },
     render() {
@@ -63,8 +74,10 @@ export default defineComponent({
         return (
             <div>
                 <el-date-picker
-                    style='width: 100%;'
-                    v-model={this.form.model[this.formItem.key]}
+                    modelValue={this.modelValue}
+                    onUpdate:modelValue={(val: any) => {this.modelValue = val}}
+                    style="width: 100%;"
+
                     prefixIcon={Calendar}
                     clearable
                     startPlaceholder={customPlaceholder(datePickerPlaceholder(typeof this.options.label === 'function' ? this.options.label(this.form.model) : this.options.label, this.options), 'input', '开始')}

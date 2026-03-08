@@ -48,6 +48,4 @@ app.use(Dinert)
 
 - [点击链接加入群聊【dinert-element-plus交流群】：698069400](https://qm.qq.com/q/EPvdDeeVjM)
 
-1. 增加Table的layout布局
-2. 把form的tooltip分离出来
-3. 优化table的代码
+

@@ -58,7 +58,6 @@
 | enterSearch  | 是否开启回车搜索，仅支持input的组件                                                    | boolean                                                                                        | true   |
 | searchButton | 自定义搜索按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributes)          | 一     |
 | resetButton  | 自定义重置按钮的属性继承自button，message为内容                                        | [ButtonProps](https://element-plus.org/en-US/component/button.html#button-attributÏes)         | 一     |
-| isElForm  | 是否有ElForm组件，为false时，直接渲染FormItem组件，去除掉父级的ElForm组件 | boolean                                                                                        | true   |
 | ......       | [更多配置，请参考](https://element-plus.org/zh-CN/component/form.html#form-attributes) | 一                                                                                             | 一     |
 
 ## formItem 属性

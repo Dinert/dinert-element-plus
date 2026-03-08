@@ -2,6 +2,7 @@ import {computed, defineComponent, ref} from 'vue'
 
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import type {PropType} from 'vue'
+import lodash from 'lodash'
 
 export default defineComponent({
     name: 'dinert-cascader',
@@ -15,7 +16,8 @@ export default defineComponent({
             default: () => ({})
         },
     },
-    setup(props) {
+    emits: ['update:modelValue'],
+    setup(props, {emit}) {
 
         const cascaderRef = ref(null)
         const options = computed<CustomFormItemProps[keyof CustomFormItemProps]['cascader']>(() => {
@@ -30,17 +32,26 @@ export default defineComponent({
             }
             return options
         })
+        const modelValue = computed({
+            get: () => lodash.get(props.form.model, props.formItem.key),
+            set: val => {
+                lodash.set(props.form.model, props.formItem.key, val)
+                emit('update:modelValue', val)
+            }
+        })
 
         return {
             options,
-            cascaderRef
+            cascaderRef,
+            modelValue
         }
     },
     render() {
         return (
             <div>
                 <el-cascader
-                    v-model={this.form.model[this.formItem.key]}
+                    modelValue={this.modelValue}
+                    onUpdate:modelValue={(val: any) => {this.modelValue = val}}
                     clearable
                     {...{
                         ...this.options,
