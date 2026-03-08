@@ -64,32 +64,67 @@ const SLOT_MAP: Record<string, string[]> = {
     // 其他组件继续补充
 }
 
-function parseSchema(model: any, schema: any, parentPath = '') {
-    return Object.keys(schema).flatMap(key => {
+function parseSchema(model: any, schema: any, parentPath = '', currentData = {}) {
+    const result: any[] = []
+
+    Object.keys(schema).forEach(key => {
         const item = schema[key]
         const path = parentPath ? `${parentPath}.${key}` : key
 
+        // 数组
         if (item.type === 'array') {
             const list = lodash.get(model, path) || []
-            return list.flatMap((row: any, index: number) => ({
-                ...item,
-                key: `${path}[${index}]`,
-                prop: `${path}[${index}]`,
-                children: item.children ? parseSchema(model, item.children, `${path}[${index}]`) : []
-            }))
+
+            list.forEach((row: any, index: number) => {
+                const currentPath = `${path}[${index}]`
+
+                result.push({
+                    ...item,
+                    currentData: {index, ...row},
+
+                    // key 使用 id 保证稳定
+                    key: row?.id ? `${path}-${row.id}` : `${path}-${index}`,
+
+                    // prop 必须和 model 一致
+                    prop: currentPath,
+
+                    children: item.children
+                        ? parseSchema(
+                            model,
+                            item.children,
+                            currentPath,
+                            {index, ...row}
+                        )
+                        : []
+                })
+            })
+
+            return
         }
 
+        // children
         if (item.children) {
-            return [{
+            result.push({
                 ...item,
+                currentData,
                 key: path,
                 prop: path,
-                children: parseSchema(model, item.children, path)
-            }]
+                children: parseSchema(model, item.children, path, currentData)
+            })
+            return
         }
 
-        return [{...item, key: path, prop: path, refreshKey: path}]
+        // 普通字段
+        result.push({
+            ...item,
+            currentData,
+            key: path,
+            prop: path,
+            refreshKey: path
+        })
     })
+
+    return result
 }
 
 // 展开还是收起状态
@@ -214,26 +249,40 @@ export default defineComponent({
         const schemaTree = computed(() => {
             const tree = parseSchema(props.form.model, props.form.formItem)
 
-            const processTree = (list: any[]): any[] => {
-                return list.filter((item, index) => {
-                    const formVif = lodash.isFunction(props.form.vif) ? props.form.vif(props.form.model, {...item, index}) : props.form.vif
-                    const itemVif = lodash.isFunction(item.vif) ? item.vif(props.form.model, {...item, index}) : item.vif
-                    return itemVif ?? formVif ?? true
-                }).map(item => {
-                    const tempObj = {
-                        ...item,
-                    }
+            const walk = (list: any[]) => {
+                const result: any[] = []
+
+                for (let i = 0; i < list.length; i++) {
+                    const item = list[i]
+
+                    const ctx = {...item, index: i}
+
+                    const formVif = lodash.isFunction(props.form.vif)
+                        ? props.form.vif(props.form.model, ctx)
+                        : props.form.vif
+
+                    const itemVif = lodash.isFunction(item.vif)
+                        ? item.vif(props.form.model, ctx)
+                        : item.vif
+
+                    if ((itemVif ?? formVif ?? true) === false) {continue}
+
+                    const node = {...item}
+
                     if (item.children?.length) {
-                        tempObj.children = processTree(item.children)
-                    } else {
-                        delete item.children
+                        node.children = walk(item.children)
                     }
-                    return tempObj
-                }).sort((a, b) => (a.sort ?? Infinity) - (b.sort ?? Infinity))
+
+                    result.push(node)
+                }
+
+                // 最后统一排序
+                result.sort((a, b) => (a.sort ?? Infinity) - (b.sort ?? Infinity))
+
+                return result
             }
 
-            const result = processTree(tree)
-            return result
+            return walk(tree)
         })
 
         return {
@@ -338,7 +387,7 @@ export default defineComponent({
                         this.$slots[formItemSlot(item.key, 'col_')] ? this.$slots[formItemSlot(item.key, 'col_')]?.({...item, model: this.form.model})
                             : <el-form-item
                                 key={item.refreshKey}
-                                prop={item.key}
+                                prop={item.prop}
                                 class={[item.labelWrap ? 'label-wrap' : '', showValue ? 'show-value' : '']}
                                 {...{
                                     ...item,

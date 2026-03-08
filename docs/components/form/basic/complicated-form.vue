@@ -8,6 +8,7 @@ interface ModelProps {
     list?: ModelProps[]
     select: string;
     custom: string;
+    add: boolean;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -24,7 +25,7 @@ const dinertFormRef = ref<InstanceType<typeof DinertForm>>()
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-        list: [{}, {}]
+        list: [{id: 1}, {id: 2}]
     },
     colLayout: {span: 24},
     labelWidth: 'auto',
@@ -41,7 +42,6 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                 name: {
                     label: '名称',
                     type: 'input',
-                    required: true,
                     options: {
 
                     }
@@ -49,7 +49,6 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                 select: {
                     label: '状态',
                     type: 'select',
-                    required: true,
                     options: {
                         options: [{
                             label: '选项1',
@@ -61,6 +60,13 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                     }
                 }
 
+            }
+        },
+        add: {
+            label: '添加',
+            type: 'button',
+            options: {
+                type: 'primary',
             }
         }
 
@@ -78,11 +84,21 @@ const save = () => {
 }
 const reset = () => {
     form.value.model = {
-        list: [{}, {}]
+        list: [{id: 1}, {id: 2}]
     }
-    nextTick(() => {
+    setTimeout(() => {
         dinertFormRef.value?.formRef?.clearValidate()
     })
+}
+
+const add = () => {
+    console.log('aaa')
+    form.value.model.list?.push({
+        id: form.value.model.list[form.value.model.list.length - 1].id + 1
+    })
+}
+const remove = (index: number) => {
+    form.value.model.list?.splice(index, 1)
 }
 
 
@@ -95,10 +111,16 @@ const reset = () => {
             class="dialog"
             :search="false"
         >
-            <template #col_list_custom>
-                <div>
-                    1
+            <template #col_list_custom="formItem">
+                <div style="display: flex; justify-content: space-between;align-items: center;">
+                    <span>
+                        列表{{ formItem.currentData.index + 1 }}
+                    </span>
+                    <el-button type="danger" @click="remove(formItem.currentData.index)">删除</el-button>
                 </div>
+            </template>
+            <template #col_add>
+                <el-button type="primary" @click="add">添加</el-button>
             </template>
         </dinert-form>
         <el-col style=" margin-bottom: 12px;text-align: center;">
