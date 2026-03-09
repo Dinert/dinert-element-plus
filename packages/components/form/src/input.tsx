@@ -47,29 +47,26 @@ export default defineComponent({
     render() {
 
         return (
-            <div>
-                <el-input
-                    modelValue={this.modelValue}
-                    onUpdate:modelValue={(val: any) => {this.modelValue = val}}
-                    clearable
-                    show-word-limit={this.options.showWordLimit ?? true}
-                    onBlur={e => {
-                        const val = e.target.value.trim()
-                        this.modelValue = val
-                    }}
-                    onKeydown={(event: KeyboardEvent) => {
-                        if ((this.form.enterSearch === undefined || this.form.enterSearch) && event.key === 'Enter') {
-                            this.$emit('EnterSearch')
-                        }
-                    }}
+            <el-input
+                modelValue={this.modelValue}
+                onUpdate:modelValue={(val: any) => {this.modelValue = val}}
+                clearable
+                show-word-limit={this.options.showWordLimit ?? true}
+                onBlur={e => {
+                    const val = e.target.value.trim()
+                    this.modelValue = val
+                }}
+                onKeydown={(event: KeyboardEvent) => {
+                    if ((this.form.enterSearch === undefined || this.form.enterSearch) && event.key === 'Enter') {
+                        this.$emit('EnterSearch')
+                    }
+                }}
 
-                    {...this.options}
-                    v-slots={this.$slots}
-                    ref={el => {this.inputRef = el}}
-                >
-                </el-input>
-            </div>
-
+                {...this.options}
+                v-slots={this.$slots}
+                ref={el => {this.inputRef = el}}
+            >
+            </el-input>
         )
     }
 })

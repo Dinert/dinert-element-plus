@@ -1,8 +1,8 @@
 /* eslint-disable max-statements */
-import {PropType, computed, defineComponent, onBeforeUpdate, ref, toRefs} from 'vue'
+import {PropType, computed, defineComponent, onBeforeUpdate, ref} from 'vue'
 import type {RewriteFormProps, CustomFormItemProps} from '@packages/components/form/types'
 import lodash from 'lodash'
-import {getSpanValue, formItemSlot, customPlaceholder} from '@packages/components/form/utils'
+import {getSpanValue, formItemSlot, customPlaceholder, resolveProp} from '@packages/components/form/utils'
 import {dataTransformRod} from '@packages/utils/tools'
 import CustomInput from './input'
 import CustomInputNumber from './input-number'
@@ -285,6 +285,7 @@ export default defineComponent({
             return walk(tree)
         })
 
+
         return {
             schemaTree,
             formTypeRef,
@@ -308,14 +309,15 @@ export default defineComponent({
         renderField(item: any, index: number) {
             const style: any = {}
 
+            const ctx = {...item, index}
+
 
             // 处理show
-            let show = lodash.isFunction(item.show) ? item.show(this.form.model) : item.show
-            show = show === undefined ? true : show
+            const show = resolveProp(item.show, this.form.model, ctx) ?? true
 
 
             const isCustomPlaceholder = item.options?.placeholder
-            const itemLabel = lodash.isFunction(item.label) ? item.label(this.form.model) : item.label
+            const itemLabel = resolveProp(item.label, this.form.model, ctx)
             const placeholder = isCustomPlaceholder || customPlaceholder(itemLabel, item.type)
 
 
@@ -324,18 +326,18 @@ export default defineComponent({
             }
 
             // 处理是否显示直接显示组件的值
-            const formShowValue = lodash.isFunction(this.form.showValue) ? this.form.showValue(this.form.model, {...item, index}) : this.form.showValue
-            const itemShowValue = lodash.isFunction(item.showValue) ? item.showValue(this.form.model, {...item, index}) : item.showValue
+            const formShowValue = resolveProp(this.form.showValue, this.form.model, ctx)
+            const itemShowValue = resolveProp(item.showValue, this.form.model, ctx)
             const showValue = itemShowValue === undefined ? itemShowValue || formShowValue : itemShowValue
 
             // 处理是否必填
-            const formRequired = lodash.isFunction(this.form.required) ? this.form.required(this.form.model, {...item, index}) : this.form.required
-            const itemRequired = lodash.isFunction(item.required) ? item.required(this.form.model, {...item, index}) : item.required
+            const formRequired = resolveProp(this.form.required, this.form.model, ctx)
+            const itemRequired = resolveProp(item.required, this.form.model, ctx)
             const required = itemRequired === undefined ? itemRequired || formRequired : itemRequired
 
             // 处理colLayout
-            const formColLayout = lodash.isFunction(this.form.colLayout) ? this.form.colLayout(this.form.model, {...item, index}) : this.form.colLayout
-            const itemColLayout = lodash.isFunction(item.colLayout) ? item.colLayout(this.form.model, {...item, index}) : item.colLayout
+            const formColLayout = resolveProp(this.form.colLayout, this.form.model, ctx)
+            const itemColLayout = resolveProp(item.colLayout, this.form.model, ctx)
             const colLayout = itemColLayout === undefined ? itemColLayout || formColLayout : itemColLayout
 
             let rules = item.rules || []
@@ -343,13 +345,13 @@ export default defineComponent({
             rules = showValue ? [] : rules
 
             // 处理disabled
-            const formDisabled = lodash.isFunction(this.form.disabled) ? this.form.disabled(this.form.model, {...item, index}) : this.form.disabled
-            const itemDisabled = lodash.isFunction(item?.disabled) ? item?.disabled(this.form.model, {...item, index}) : item?.disabled
+            const formDisabled = resolveProp(this.form.disabled, this.form.model, ctx)
+            const itemDisabled = resolveProp(item?.disabled, this.form.model, ctx)
             const disabled = itemDisabled === undefined ? itemDisabled || formDisabled : itemDisabled
 
             // 处理是否显示内容
-            const formShowContent = lodash.isFunction(this.form.showContent) ? this.form.showContent(this.form.model, {...item, index}) : this.form.showContent
-            const itemShowContent = lodash.isFunction(item.showContent) ? item.showContent(this.form.model, {...item, index}) : item.showContent
+            const formShowContent = resolveProp(this.form.showContent, this.form.model, ctx)
+            const itemShowContent = resolveProp(item.showContent, this.form.model, ctx)
             const showContent = itemShowContent === undefined ? itemShowContent || formShowContent : itemShowContent
 
             // 处理显示值
@@ -405,8 +407,8 @@ export default defineComponent({
                                     label: () => {
 
                                         // 处理是否显示label
-                                        const formShowLabel = lodash.isFunction(this.form.showLabel) ? this.form.showLabel(this.form.model, {...item, index}) : this.form.showLabel
-                                        const itemShowLabel = lodash.isFunction(item.showLabel) ? item.showLabel(this.form.model, {...item, index}) : item.showLabel
+                                        const formShowLabel = resolveProp(this.form.showLabel, this.form.model, ctx)
+                                        const itemShowLabel = resolveProp(item.showLabel, this.form.model, ctx)
                                         const showLabel = itemShowLabel === undefined ? itemShowLabel || formShowLabel : itemShowLabel
 
                                         if (showLabel === false) {
@@ -415,12 +417,12 @@ export default defineComponent({
 
                                         let labelComponent = null as any
                                         if (this.$slots[formItemSlot(item.key, 'formItem_label_')]) {
-                                            labelComponent = this.$slots[formItemSlot(item.key, 'formItem_label_')]?.({...item, model: this.form.model})
+                                            labelComponent = this.$slots[formItemSlot(item.key, 'formItem_label_')]?.({...ctx, model: this.form.model})
                                         } else {
                                             labelComponent = itemLabel
                                         }
-                                        const formItemLabelBefore = this.$slots[formItemSlot(item.key, 'formItem_label_before_')]?.({...item, model: this.form.model})
-                                        const formItemLabelAfter = this.$slots[formItemSlot(item.key, 'formItem_label_after_')]?.({...item, model: this.form.model})
+                                        const formItemLabelBefore = this.$slots[formItemSlot(item.key, 'formItem_label_before_')]?.({...ctx, model: this.form.model})
+                                        const formItemLabelAfter = this.$slots[formItemSlot(item.key, 'formItem_label_after_')]?.({...ctx, model: this.form.model})
 
                                         return [formItemLabelBefore, labelComponent, formItemLabelAfter]
                                     },
@@ -434,10 +436,8 @@ export default defineComponent({
                                         let componentResultStyle = {} as any
                                         if (showValue) {
                                         // 处理显示值的行数
-                                            const formLimitLine = lodash.isFunction(this.form.limitLine)
-                                                ? this.form.limitLine(getValue, this.form.model, {...item, index}) : this.form.limitLine
-                                            const itemLimitLine = lodash.isFunction(item.limitLine)
-                                                ? item.limitLine(getValue, this.form.model, {...item, index}) : item.limitLine
+                                            const formLimitLine = lodash.isFunction(this.form.limitLine) ? this.form.limitLine(getValue, this.form.model, ctx) : this.form.limitLine
+                                            const itemLimitLine = lodash.isFunction(item.limitLine) ? item.limitLine(getValue, this.form.model, ctx) : item.limitLine
                                             limitLine = itemLimitLine === undefined ? itemLimitLine || formLimitLine : itemLimitLine
                                             componentResultStyle = {'--limit-line': limitLine}
                                         }
@@ -462,7 +462,6 @@ export default defineComponent({
                                             slotKeys.forEach(key => {
                                                 const fullSlotName = formItemSlot(item.key) + '_' + key
                                                 if (this.$slots[fullSlotName]) {
-                                                    console.log(fullSlotName, key, 'this.$slots[fullSlotName]')
                                                     slots[key] = (args: any) => this.$slots[fullSlotName]?.({...item, ...args})
                                                 }
                                             })
@@ -510,7 +509,6 @@ export default defineComponent({
                     trigger="contextmenu"
                     visible={this.isTooltip}
                 />
-
                 {
                     this.schemaTree.map((item: CustomFormItemProps, index: number) => {
                         return (this.renderNode(item, index))

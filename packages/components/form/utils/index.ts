@@ -196,3 +196,7 @@ export const renderSlot = (arr: string[] = [], _this: any, slots, item: any): an
         }
     }
 }
+
+export const resolveProp = (prop, model, ctx) => {
+    return lodash.isFunction(prop) ? prop(model, ctx) : prop
+}
