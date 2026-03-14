@@ -78,7 +78,7 @@ export interface CustomFormItemProps<D = any, O = any[], N extends keyof Rewrite
     limitLine?: number | ((value: any, model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => (number));
     required?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => boolean);
     colLayout?: RewriteColProps | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => (RewriteColProps));
-    itemValueDisabled?: boolean;
+    isTooltip?: boolean | ((model: D, item?: CustomFormItemProps<D, any[], N> & {index?: number}) => boolean);
 }
 
 type ToModelItem<D, FI> = D extends FI ? D : FI
@@ -101,6 +101,7 @@ export interface RewriteFormProps<D = any, FI = any> extends Omit<Partial<FormPr
     limitLine?: number | ((value: any, model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => (number));
     disabled?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => boolean);
     required?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => boolean);
+    isTooltip?: boolean | ((model: D, item: CustomFormItemProps<D, any[]> & {index?: number}) => boolean);
     key?: any;
     errData?: string;
     packUp?: boolean;

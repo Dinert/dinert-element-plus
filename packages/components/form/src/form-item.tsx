@@ -210,6 +210,7 @@ export default defineComponent({
                     'daterange',
                     'monthrange',
                     'yearrange'].includes(item.type)) {
+
                     if (item.type.includes('range')) {
                         coRef = customRef.$el?.querySelector('.el-range-input')
                     } else {
@@ -306,7 +307,7 @@ export default defineComponent({
             return this.renderField(item, index)
         },
 
-        renderField(item: any, index: number) {
+        renderField(item: CustomFormItemProps, index: number) {
             const style: any = {}
 
             const ctx = {...item, index}
@@ -354,6 +355,12 @@ export default defineComponent({
             const itemShowContent = resolveProp(item.showContent, this.form.model, ctx)
             const showContent = itemShowContent === undefined ? itemShowContent || formShowContent : itemShowContent
 
+            // 处理是否显示直接显示组件的值
+            const formIsTooltip = resolveProp(this.form.isTooltip, this.form.model, ctx)
+            const itemIsTooltip = resolveProp(item.isTooltip, this.form.model, ctx)
+            let isTooltip = itemIsTooltip === undefined ? itemIsTooltip || formIsTooltip : itemIsTooltip
+            isTooltip = isTooltip === undefined ? true : isTooltip
+
             // 处理显示值
             const errData = this.form.errData || dataTransformRod(null)
             const getValue = lodash.get(this.form.model, item.key)
@@ -398,10 +405,10 @@ export default defineComponent({
                                     label: undefined
                                 }}
                                 onMouseenter={() => {
-                                    this.onFormItemMouseenter(item, {resultVal, showValue, showContent})
+                                    isTooltip && this.onFormItemMouseenter(item, {resultVal, showValue, showContent})
                                 }}
                                 onMouseleave={() => {
-                                    this.onFormItemMouseleave(item)
+                                    isTooltip && this.onFormItemMouseleave(item)
                                 }}
                                 v-slots={{
                                     label: () => {
