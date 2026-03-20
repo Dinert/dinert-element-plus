@@ -2,14 +2,19 @@
 
 </script>
 
-# 弹窗
+# 抽屉
 
 
 ## 基础用法
 :::demo
 
-tooltip/basic/index
+drawer/basic/index
 :::
 
+## 不同尺寸
+:::demo
+
+drawer/basic/size
+:::
 
 <!-- @include: ./explain.md -->

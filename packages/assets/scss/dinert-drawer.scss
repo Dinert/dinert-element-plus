@@ -1,0 +1,69 @@
+
+.dinert-drawer-overlay.el-overlay {
+    &.is-border {
+        .el-drawer__header {
+            border-bottom: 1px solid var(--el-border-color-light);
+        }
+
+        .el-drawer__footer {
+            border-top: 1px solid var(--el-border-color-light);
+        }
+    }
+
+    .el-drawer {
+        --el-drawer-padding-primary: 0;
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0;
+            padding: 16px 24px;
+            height: 54px;
+            box-sizing: border-box;
+            color: var(--el-text-color-primary);
+
+            &-right {
+                display: flex;
+                align-items: center;
+
+                &-close {
+                    margin-left: 12px;
+                    font-size: 18px;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: var(--el-color-primary);
+                    }
+                }
+            }
+        }
+
+        &__body {
+            & > .el-form {
+                overflow: unset;
+            }
+
+            .el-scrollbar {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        &__footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clear: both;
+            padding: 12px 24px 16px;
+
+            .el-button {
+                margin: 0;
+            }
+
+            .el-button + .el-button {
+                margin-left: 12px;
+            }
+        }
+    }
+}

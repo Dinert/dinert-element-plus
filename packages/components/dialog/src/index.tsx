@@ -1,24 +1,24 @@
 import {defineComponent, watch, ref, PropType} from 'vue'
 import {getUuid} from '@packages/utils/tools'
-import lodash from 'lodash'
 import {Close} from '@element-plus/icons-vue'
 import type {RewriteDialogProps, GETWH} from '../types'
 import '@packages/assets/scss/dinert-dialog.scss'
 import '@packages/assets/fonts/iconfont.js'
 import {ScrollbarProps} from 'element-plus'
 
-const getWH = (options: RewriteDialogProps): GETWH => {
+const getWH = (size: string): GETWH => {
     const result: GETWH = {
         width: '65%',
         height: 'auto'
     }
-    if (options.size === 'large') {
+    const options = {} as any
+    if (size === 'large') {
         result.width = 940
         result.height = 706
-    } else if (options.size === 'small') {
+    } else if (size === 'small') {
         result.width = 482
         result.height = 362
-    } else if (options.size === 'medium') {
+    } else if (size === 'medium') {
         result.width = 720
         result.height = 440
     }
@@ -34,6 +34,10 @@ const getWH = (options: RewriteDialogProps): GETWH => {
 export default defineComponent({
     name: 'dinert-dialog',
     props: {
+        modelValue: {
+            type: Boolean,
+            default: false
+        },
         fullscreen: {
             type: Boolean,
             default: false
@@ -53,18 +57,41 @@ export default defineComponent({
         autoHeight: {
             type: Boolean,
             default: false
-        }
+        },
+        closeOnClickModal: {
+            type: Boolean,
+            default: false
+        },
+        title: {
+            type: String,
+            default: '弹窗标题'
+        },
+        modalClass: {
+            type: String,
+            default: ''
+        },
+        closeOnPressEscape: {
+            type: Boolean,
+            default: true
+        },
+        appendToBody: {
+            type: Boolean,
+            default: true
+        },
+        size: {
+            type: String,
+            default: ''
+        },
+        style: {
+            type: Object as PropType<any>,
+            default: () => ({})
+        },
     },
     emits: ['update:fullscreen', 'update:modelValue', 'ClickClose'],
     setup(props, ctx) {
 
         const uuid = 'dialog_' + getUuid()
-        const defaultAttrs = {
-            title: '弹窗标题',
-            closeOnClickModal: false,
-            closeOnPressEscape: true,
-            appendToBody: true,
-        }
+
         const currentFullScreen = ref(false)
 
         const fullToggle = () => {
@@ -86,7 +113,7 @@ export default defineComponent({
 
         return {
             uuid,
-            defaultAttrs,
+
             fullToggle,
             currentFullScreen,
             clickClose
@@ -95,21 +122,22 @@ export default defineComponent({
     render() {
         const slots = this.$slots
 
-        const attrs = lodash.defaultsDeep(lodash.cloneDeep({
-            ...this.$attrs,
-            class: this.$attrs.modalClass ? 'dialog_' + this.$attrs.modalClass : '',
-            modalClass: `${this.uuid}  dinert-overlay ${this.$attrs.modalClass || ''} ${this.fixedHeight ? 'fixed-height' : ''} ${this.autoHeight ? 'auto-height' : ''}`,
-            width: getWH(this.$attrs).width,
-            style: {
-                ...(this.$attrs?.style as any),
-                height: this.currentFullScreen ? undefined : getWH(this.$attrs).height,
-            },
-            showClose: false
-        }), this.defaultAttrs)
 
         return (
             <div>
-                <el-dialog {...attrs} fullscreen={this.currentFullScreen}>
+                <el-dialog
+                    modelValue={this.modelValue}
+                    width={getWH(this.size).width}
+                    style={{
+                        ...(this.style),
+                        height: this.currentFullScreen ? undefined : getWH(this.size).height,
+                    }}
+                    {...this.$attrs}
+                    showClose={false}
+                    modalClass={`${this.uuid}  dinert-overlay ${this.modalClass || ''} ${this.fixedHeight ? 'fixed-height' : ''} ${this.autoHeight ? 'auto-height' : ''}`}
+                    fullscreen={this.currentFullScreen}
+                    onUpdate:modelValue={(val: boolean) => this.$emit('update:modelValue', val)}
+                >
                     {{
                         default: () => {
                             return (
@@ -125,7 +153,7 @@ export default defineComponent({
                                 <>
                                     <div class="el-dialog__header-left">
                                         <span role="heading" class="el-dialog__title">
-                                            { slots.title?.() || attrs.title }
+                                            { slots.title?.() || this.title }
                                         </span>
                                     </div>
 

@@ -1,4 +1,4 @@
-import _Tooltip from './src'
+import _Drawer from './src'
 
 import type {App, Plugin} from 'vue'
 type SFCWithInstall<T> = T & Plugin
@@ -10,5 +10,5 @@ const withInstall = <T>(comp: T) => {
     }
     return comp as SFCWithInstall<T>
 }
-export const DinertTooltip = withInstall(_Tooltip)
-export default DinertTooltip
+export const DinertDrawer = withInstall(_Drawer)
+export default DinertDrawer

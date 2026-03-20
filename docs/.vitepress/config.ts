@@ -188,22 +188,23 @@ export default defineConfig({
                                 },
                             ]
                         },
-                        // {
-                        //     text: 'Tooltip（动态超出宽度打点）',
-                        //     target: '/examples/tooltip/basic',
-                        //     collapsed: true,
-                        //     base: '/examples/tooltip/',
-                        //     items: [
-                        //         {
-                        //             text: '基础用法',
-                        //             link: 'basic',
-                        //         },
-                        //         {
-                        //             text: '属性',
-                        //             link: 'explain',
-                        //         },
-                        //     ]
-                        // }
+                        {
+                            text: 'Drawer（抽屉）',
+                            target: '/examples/drawer/basic',
+                            collapsed: true,
+                            base: '/examples/drawer/',
+                            items: [
+                                {
+                                    text: '基础用法',
+                                    link: 'basic',
+                                },
+                                {
+                                    text: '属性',
+                                    link: 'explain',
+                                },
+                            ]
+                        },
+
                     ]
 
                 }
