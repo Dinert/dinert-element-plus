@@ -120,6 +120,7 @@ export interface DinertFormProps<D = any, FI = any>{
 export interface FormItemPropsArray <D, FI> extends CustomFormItemProps<D, FI> {
     type: 'array';
     children?: Partial<FormItemMap<D, FI>>;
+    rowKey?: string;
 }
 
 

@@ -74,6 +74,7 @@ function parseSchema(model: any, schema: any, parentPath = '', currentData = {})
         // 数组
         if (item.type === 'array') {
             const list = lodash.get(model, path) || []
+            console.log(item, 'itemmmmmmmm')
 
             list.forEach((row: any, index: number) => {
                 const currentPath = `${path}[${index}]`
@@ -83,7 +84,7 @@ function parseSchema(model: any, schema: any, parentPath = '', currentData = {})
                     currentData: {index, ...row},
 
                     // key 使用 id 保证稳定
-                    key: row?.id ? `${path}-${row.id}` : `${path}-${index}`,
+                    key: row[item.rowKey || 'id'] ? `${path}-${row[item.rowKey || 'id']}` : `${path}-${index}`,
 
                     // prop 必须和 model 一致
                     prop: currentPath,

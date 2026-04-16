@@ -9,6 +9,7 @@ interface ModelProps {
     select: string;
     custom: string;
     add: boolean;
+    id: number;
 }
 
 // formItem的类型，如果formItem的类型不传就使用ModelProps的类型
@@ -25,7 +26,7 @@ const dinertFormRef = ref<InstanceType<typeof DinertForm>>()
 
 const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
     model: {
-        list: [{id: 1}, {id: 2}]
+        list: [{id: 1, key: '3', name: '1321312'}, {id: 2, key: '4'}]
     },
     colLayout: {span: 24},
     labelWidth: 'auto',
@@ -34,6 +35,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
         list: {
             type: 'array',
             label: '列表',
+            rowKey: 'key',
             children: {
                 custom: {
                     label: '自定义内容',
@@ -44,7 +46,7 @@ const form = ref<RewriteFormProps<ModelProps, FormItemProps>>({
                     type: 'input',
                     options: {
 
-                    }
+                    },
                 },
                 select: {
                     label: '状态',
@@ -84,7 +86,7 @@ const save = () => {
 }
 const reset = () => {
     form.value.model = {
-        list: [{id: 1}, {id: 2}]
+        list: [{id: 1, key: '3'}, {id: 2, key: '4'}]
     }
     setTimeout(() => {
         dinertFormRef.value?.formRef?.clearValidate()
