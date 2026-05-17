@@ -73,6 +73,7 @@
                         -webkit-box-orient: vertical;
                         -webkit-line-clamp: var(--limit-line, 3); /* 显示 3 行 */
                         overflow: hidden;
+                        word-break: break-all;
                     }
 
                     .slot-tooltip {
@@ -80,6 +81,7 @@
                         -webkit-box-orient: vertical;
                         -webkit-line-clamp: var(--limit-line, 3); /* 显示 3 行 */
                         overflow: hidden;
+                        word-break: break-all;
                     }
                 }
 
