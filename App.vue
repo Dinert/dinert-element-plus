@@ -6,7 +6,7 @@ import TestForm from './packages/views/test-form/index.vue'
 import TestTablePage from './packages/views/test-table-page/index.vue'
 import TestTsxTable from './packages/views/test-tsx-table/index'
 
-const activeName = ref('table-jsx')
+const activeName = ref('table')
 </script>
 
 <template>

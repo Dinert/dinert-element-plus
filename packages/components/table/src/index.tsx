@@ -102,17 +102,13 @@ export default defineComponent({
         }, 100)
 
 
-        // watch(() => props.table?.key, () => {
-        //     console.log('aaa')
-        //     nextTick(async () => {
-        //         await treeNode(selectTableRef.value, tableColumns.value)
-        //         setTimeout(() => {
-        //             resizeTaleHeightFn()
-        //         })
-        //     })
-        // }, {
-        //     immediate: true
-        // })
+        watch(() => props.table?.data, () => {
+            nextTick(() => {
+                resizeTaleHeightFn()
+            })
+        }, {
+            immediate: true
+        })
 
         watch(tableColumns, () => {
             nextTick(() => {

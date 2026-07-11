@@ -11,7 +11,7 @@ const tablePage = new TablePage({
         pagination: {
         },
         tableColumns: tableColumns,
-        data: tableData
+        data: []
     },
     form: {
         model: {},
@@ -20,6 +20,10 @@ const tablePage = new TablePage({
 })
 
 const {table, form} = tablePage
+
+setTimeout(() => {
+    table.value.data = tableData
+}, 2000)
 
 </script>
 
