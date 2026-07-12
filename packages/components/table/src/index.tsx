@@ -102,13 +102,13 @@ export default defineComponent({
         }, 100)
 
 
-        watch(() => props.table?.data, () => {
-            nextTick(() => {
-                resizeTaleHeightFn()
-            })
-        }, {
-            immediate: true
-        })
+        // watch(() => props.table?.data, () => {
+        //     nextTick(() => {
+        //         resizeTaleHeightFn()
+        //     })
+        // }, {
+        //     immediate: true
+        // })
 
         watch(tableColumns, () => {
             nextTick(() => {
