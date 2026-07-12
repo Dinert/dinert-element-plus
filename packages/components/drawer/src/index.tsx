@@ -1,6 +1,5 @@
-import {defineComponent, watch, ref, PropType} from 'vue'
+import {defineComponent, PropType} from 'vue'
 import {getUuid} from '@packages/utils/tools'
-import type {RewriteDrawerProps, GETWHDrawer} from '../types'
 import '@packages/assets/scss/dinert-drawer.scss'
 import '@packages/assets/fonts/iconfont.js'
 import {ScrollbarProps} from 'element-plus'
@@ -100,5 +99,5 @@ export default defineComponent({
             </div>
         )
     }
-}) as RewriteDrawerProps
+})
 

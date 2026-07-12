@@ -1,7 +1,7 @@
 import {defineComponent, watch, ref, PropType} from 'vue'
 import {getUuid} from '@packages/utils/tools'
 import {Close} from '@element-plus/icons-vue'
-import type {RewriteDialogProps, GETWH} from '../types'
+import type {GETWH} from '../types'
 import '@packages/assets/scss/dinert-dialog.scss'
 import '@packages/assets/fonts/iconfont.js'
 import {ScrollbarProps} from 'element-plus'
@@ -176,5 +176,5 @@ export default defineComponent({
             </div>
         )
     }
-}) as RewriteDialogProps
+})
 
