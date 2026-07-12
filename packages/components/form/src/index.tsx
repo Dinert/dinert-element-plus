@@ -97,7 +97,10 @@ export default defineComponent({
                 key={this.form.key}>
 
 
-                { this.$slots.form_default ? this.$slots.form_default(this.form) : <FormItem v-slots={this.$slots} form={this.form} ref={el => {this.formItemRef = el}}></FormItem>}
+                { this.$slots.form_default
+                    ? this.$slots.form_default(this.form)
+                    : <FormItem onEnterSearch={() => this.$emit('SearchFn')} v-slots={this.$slots} form={this.form} ref={el => {this.formItemRef = el}}></FormItem>
+                }
 
                 {
                     this.search

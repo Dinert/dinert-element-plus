@@ -74,6 +74,7 @@ export default defineComponent({
                     onSearchFn={() => this.$emit('SearchFn')}
                     onResetFn={() => this.$emit('ResetFn')}
                     onUnFold={this.onUnFold}
+                    onEnterSearch={() => this.$emit('SearchFn')}
                     ref={el => {this.formRef = el}}></DinertForm>
                 }
                 <DinertTable

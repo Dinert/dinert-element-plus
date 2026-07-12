@@ -74,7 +74,6 @@ function parseSchema(model: any, schema: any, parentPath = '', currentData = {})
         // 数组
         if (item.type === 'array') {
             const list = lodash.get(model, path) || []
-            console.log(item, 'itemmmmmmmm')
 
             list.forEach((row: any, index: number) => {
                 const currentPath = `${path}[${index}]`
@@ -136,8 +135,8 @@ export default defineComponent({
             type: Object as PropType<RewriteFormProps>,
             default: () => ({})
         },
-
     },
+    emits: ['EnterSearch'],
     setup(props, {emit, slots}) {
 
         const tempRef = ref<any>(null)
@@ -486,7 +485,7 @@ export default defineComponent({
                                                 }}
                                                 v-slots={slots}
                                                 onEnterSearch={() => {
-                                                    this.$emit('SearchFn')
+                                                    this.$emit('EnterSearch')
                                                 }}
                                                 ref={el => this.setFormTypeRefs(item.key, el)}
                                             /> : <div>{resultVal}</div>
